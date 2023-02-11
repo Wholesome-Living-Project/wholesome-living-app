@@ -1,27 +1,30 @@
 {
-  "name": "wholesome-living-app",
-  "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
-  "scripts": {
-    "start": "set NODE_OPTIONS=--openssl-legacy-provider && expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
-  },
-  "dependencies": {
-    "expo": "~47.0.12",
-    "expo-status-bar": "~1.4.2",
-    "react": "18.1.0",
-    "react-dom": "18.1.0",
-    "react-native": "0.70.5",
-    "react-native-web": "~0.18.9",
-    "@expo/webpack-config": "^0.17.2"
-  },
+  "name": "wholesome-living",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@types/react": "~18.0.14",
-    "@types/react-native": "~0.70.6",
-    "typescript": "^4.6.3"
+    "@types/react": "^18.0.17",
+    "@types/react-native": "^0.69.5",
+    "eslint": "^8.21.0",
+    "turbo": "^1.4.2",
+    "typescript": "^4.7.4"
   },
-  "private": true
+  "scripts": {
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && cd apps/expo && expo start",
+    "web": "set NODE_OPTIONS=--openssl-legacy-provider && cd apps/next && yarn next"
+  },
+  "resolutions": {
+    "metro": "^0.73.1",
+    "metro-resolver": "^0.73.1"
+  },
+  "nohoist": [
+    "**/expo-router",
+    "**/expo-router/**"
+  ],
+  "engines": {
+    "node": "^16.0.0"
+  }
 }
