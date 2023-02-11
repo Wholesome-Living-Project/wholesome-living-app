@@ -8,7 +8,10 @@
   "devDependencies": {
     "@types/react": "^18.0.17",
     "@types/react-native": "^0.69.5",
-    "eslint": "^8.21.0",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "eslint": "^8.34.0",
+    "prettier": "^2.8.4",
     "turbo": "^1.4.2",
     "typescript": "^4.7.4"
   },
@@ -19,6 +22,9 @@
   "resolutions": {
     "metro": "^0.73.1",
     "metro-resolver": "^0.73.1"
+  },
+  "eslintConfig": {
+    "extends": "universe/native"
   },
   "nohoist": [
     "**/expo-router",

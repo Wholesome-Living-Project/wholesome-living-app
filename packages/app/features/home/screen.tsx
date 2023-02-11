@@ -1,7 +1,7 @@
 import { Text, useSx, View, H1, P, Row, A } from 'dripsy'
 import { TextLink } from 'solito/link'
 import { MotiLink } from 'solito/moti'
-import styled from "styled-components/native";
+import styled from 'styled-components/native'
 
 const StyledView = styled.View`
   background: blue;
@@ -13,15 +13,12 @@ export function HomeScreen() {
   const sx = useSx()
 
   return (
-    <View
-      sx={{ flex: 1, justifyContent: 'center', alignItems: 'center', p: 16 }}
-    >
+    <View sx={{ flex: 1, justifyContent: 'center', alignItems: 'center', p: 16 }}>
       <H1 sx={{ fontWeight: '800' }}>Welcome to Solito.</H1>
       <View sx={{ maxWidth: 600 }}>
         <P sx={{ textAlign: 'center' }}>
-          Here is a basic starter to show you how you can navigate from one
-          screen to another. This screen uses the same code on Next.js and React
-          Native.
+          Here is a basic starter to show you how you can navigate from one screen to another. This
+          screen uses the same code on Next.js and React Native.
         </P>
         <P sx={{ textAlign: 'center' }}>
           Solito is made by{' '}
@@ -32,8 +29,7 @@ export function HomeScreen() {
               target: '_blank',
               rel: 'noreferrer',
             }}
-            sx={{ color: 'blue' }}
-          >
+            sx={{ color: 'blue' }}>
             Fernando Rojo
           </A>
           .
@@ -45,8 +41,7 @@ export function HomeScreen() {
           href="/user/fernando"
           textProps={{
             style: sx({ fontSize: 16, fontWeight: 'bold', color: 'blue' }),
-          }}
-        >
+          }}>
           Regular Link
         </TextLink>
         <View sx={{ width: 32 }} />
@@ -67,10 +62,10 @@ export function HomeScreen() {
           transition={{
             type: 'timing',
             duration: 150,
-          }}
-        ><StyledView
-          >
-         <Text>This is a text</Text></StyledView>
+          }}>
+          <StyledView>
+            <Text>This is a text</Text>
+          </StyledView>
         </MotiLink>
       </Row>
     </View>
