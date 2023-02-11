@@ -1,6 +1,13 @@
 import { Text, useSx, View, H1, P, Row, A } from 'dripsy'
 import { TextLink } from 'solito/link'
 import { MotiLink } from 'solito/moti'
+import styled from "styled-components/native";
+
+const StyledView = styled.View`
+  background: blue;
+  padding: 8px;
+  border-radius: 6px;
+`
 
 export function HomeScreen() {
   const sx = useSx()
@@ -61,13 +68,9 @@ export function HomeScreen() {
             type: 'timing',
             duration: 150,
           }}
-        >
-          <Text
-            selectable={false}
-            sx={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}
+        ><StyledView
           >
-            Moti Link
-          </Text>
+         <Text>This is a text</Text></StyledView>
         </MotiLink>
       </Row>
     </View>
