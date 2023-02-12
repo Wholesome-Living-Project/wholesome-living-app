@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "test": "next lint && tsc && yarn lint:css",
+    "lint:css": "stylelint \"./src/**/*.{tsx,js,ts}\""
   },
   "dependencies": {
     "@expo/next-adapter": "^4.0.12",

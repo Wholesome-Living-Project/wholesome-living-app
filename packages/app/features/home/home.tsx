@@ -1,8 +1,8 @@
 import { Row } from 'dripsy'
 import { MotiLink } from 'solito/moti'
-import Background from '../../theme/components/Background'
-import Button from '../../theme/components/Button'
-import Spacer from '../../theme/components/Spacer'
+import Background from '../../components/Background'
+import Button from '../../components/Button'
+import Spacer from '../../components/Spacer'
 
 export function HomeScreen() {
   return (
@@ -41,7 +41,7 @@ export function HomeScreen() {
             type: 'timing',
             duration: 100,
           }}>
-          <Button type={'secondary'}>Secondary</Button>
+          <Button buttonType={'secondary'}>Secondary</Button>
         </MotiLink>
         <Spacer x={2} />
         <MotiLink
@@ -59,7 +59,7 @@ export function HomeScreen() {
             type: 'timing',
             duration: 100,
           }}>
-          <Button type={'cta'}>CTA</Button>
+          <Button buttonType={'cta'}>CTA</Button>
         </MotiLink>
       </Row>
     </Background>

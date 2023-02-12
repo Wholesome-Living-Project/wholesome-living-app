@@ -3,7 +3,6 @@
   "name": "app",
   "main": "index.ts",
   "dependencies": {
-
     "dripsy": "^3.6.0",
     "expo-linking": "^3.0.0",
     "moti": "0.19.0-alpha.6",
@@ -12,7 +11,9 @@
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "@types/styled-components-react-native": "^5.2.1"
+
   },
   "sideEffects": false
 }

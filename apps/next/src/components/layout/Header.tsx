@@ -52,7 +52,7 @@ const Header = () => {
     <FullWidthContainer row align={'center'}>
       <HeaderContent>
         {routes.map((route) => (
-          <MenuItem link={route.link}>{route.text}</MenuItem>
+          <MenuItem key={route.text} link={route.link}>{route.text}</MenuItem>
         ))}
       </HeaderContent>
     </FullWidthContainer>

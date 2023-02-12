@@ -1,7 +1,7 @@
 import { Text } from 'dripsy'
 import { createParam } from 'solito'
 import { TextLink } from 'solito/link'
-import Background from '../../theme/components/Background'
+import Background from '../../components/Background'
 
 const { useParam } = createParam<{ id: string }>()
 

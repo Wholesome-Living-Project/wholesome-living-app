@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import styled from 'styled-components/native'
-import { __COLORS } from '../theme'
+import { __COLORS } from '../theme/theme'
 
 const StyledView = styled.View`
   display: flex;

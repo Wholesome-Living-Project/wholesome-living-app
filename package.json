@@ -6,19 +6,35 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@tsconfig/react-native": "^2.0.3",
     "@types/react": "^18.0.17",
-    "@types/react-native": "^0.69.5",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "@typescript-eslint/parser": "^5.51.0",
     "eslint": "^8.34.0",
+    "eslint-config-next": "^12.1.6",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-10x": "^1.5.2",
+    "eslint-plugin-no-inline-styles": "^1.0.5",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.0",
+    "flat": "^5.0.2",
+    "node-fetch": "^2.6.7",
+    "postcss": "^8.4.21",
+    "postcss-scss": "^4.0.4",
     "prettier": "^2.8.4",
     "prettier-plugin-organize-imports": "^3.2.2",
+    "stylelint": "^14.9.1",
+    "stylelint-config-recommended": "^8.0.0",
+    "stylelint-config-standard": "^26.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0",
     "turbo": "^1.4.2",
     "typescript": "^4.7.4"
   },
   "scripts": {
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && cd apps/expo && expo start",
-    "web": "set NODE_OPTIONS=--openssl-legacy-provider && cd apps/next && yarn next"
+    "web": "set NODE_OPTIONS=--openssl-legacy-provider && cd apps/next && yarn next",
+    "test": "set NODE_OPTIONS=--openssl-legacy-provider && cd apps/next && yarn test"
   },
   "resolutions": {
     "metro": "^0.73.1",
