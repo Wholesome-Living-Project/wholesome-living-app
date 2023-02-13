@@ -5,7 +5,8 @@
     "baseUrl": ".",
     "paths": {
       "app/*": ["./packages/app/*"]
-    }
+    },
+    "jsx": "react"
   },
   "extends": "expo/tsconfig.base"
 }

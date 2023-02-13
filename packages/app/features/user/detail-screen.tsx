@@ -1,4 +1,5 @@
-import { Text } from 'dripsy'
+import React from 'react'
+import { Text } from 'react-native'
 import { createParam } from 'solito'
 import { TextLink } from 'solito/link'
 import Background from '../../components/Background'
@@ -10,7 +11,7 @@ export function UserDetailScreen() {
 
   return (
     <Background>
-      <Text sx={{ textAlign: 'center', mb: 16, fontWeight: 'bold' }}>{`User ID: ${id}`}</Text>
+      <Text>{`User ID: ${id}`}</Text>
       <TextLink href="/">👈 Go Home</TextLink>
     </Background>
   )

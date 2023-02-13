@@ -1,11 +1,11 @@
 import { Ionicons } from '@expo/vector-icons'
-import { Provider } from 'app/provider'
 import { Tabs } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import { Fragment } from 'react'
 
 export default function Layout() {
   return (
-    <Provider>
+    <Fragment>
       <Tabs initialRouteName={'(home)'} screenOptions={{ headerShown: false }}>
         <Tabs.Screen
           name={'(home)'}
@@ -33,6 +33,6 @@ export default function Layout() {
         />
       </Tabs>
       <StatusBar style="auto" />
-    </Provider>
+    </Fragment>
   )
 }

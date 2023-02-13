@@ -1,8 +1,13 @@
-import { Row } from 'dripsy'
 import { MotiLink } from 'solito/moti'
+import styled from 'styled-components/native'
 import Background from '../../components/Background'
 import Button from '../../components/Button'
 import Spacer from '../../components/Spacer'
+
+const Row = styled.View`
+  display: flex;
+  flex-direction: row;
+`
 
 export function HomeScreen() {
   return (
