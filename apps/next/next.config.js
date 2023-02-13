@@ -9,13 +9,20 @@ const withTM = require('next-transpile-modules')([
 ])
 
 /** @type {import('next').NextConfig} */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   // reanimated (and thus, Moti) doesn't work with strict mode currently...
-  // https://github.com/nandorojo/moti/issues/224
   // https://github.com/necolas/react-native-web/pull/2330
-  // https://github.com/nandorojo/moti/issues/224
   // once that gets fixed, set this back to true
   reactStrictMode: false,
+  amp: {
+    canonicalBase: undefined,
+  },
+  assetPrefix: undefined,
+  i18n: undefined,
+  images: {
+    path: undefined,
+  },
   webpack5: true,
   experimental: {
     forceSwcTransforms: true,
