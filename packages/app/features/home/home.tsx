@@ -1,3 +1,4 @@
+import React from 'react'
 import { MotiLink } from 'solito/moti'
 import styled from 'styled-components/native'
 import Background from '../../components/Background'
