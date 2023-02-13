@@ -1,0 +1,15 @@
+# Add Github Access Tokens for ENV once environment variables are necessary
+on: push
+name: Test
+jobs:
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - uses: actions/checkout@master
+      - name: run yarn
+        run: yarn
+      - run: yarn test
