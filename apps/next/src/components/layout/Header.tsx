@@ -1,9 +1,9 @@
 import { SPACING, __COLORS } from 'app/theme/theme'
 import { Heading4 } from 'app/theme/typography'
+import { Flex } from 'axelra-styled-bootstrap-grid'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 import styled from 'styled-components'
-import { Flex } from '../ui/Flex'
 import { MaxWidthContainer } from '../ui/MaxWidthContainer'
 
 export const HEADER_HEIGHT = 75
@@ -52,7 +52,9 @@ const Header = () => {
     <FullWidthContainer row align={'center'}>
       <HeaderContent>
         {routes.map((route) => (
-          <MenuItem key={route.text} link={route.link}>{route.text}</MenuItem>
+          <MenuItem key={route.text} link={route.link}>
+            {route.text}
+          </MenuItem>
         ))}
       </HeaderContent>
     </FullWidthContainer>

@@ -2383,7 +2383,7 @@
     "@types/react-native" "^0.70"
     "@types/styled-components" "*"
 
-"@types/styled-components@*", "@types/styled-components@^5.1.26":
+"@types/styled-components@*", "@types/styled-components@^5.1.24", "@types/styled-components@^5.1.26":
   version "5.1.26"
   resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-5.1.26.tgz#5627e6812ee96d755028a98dae61d28e57c233af"
   integrity sha512-KuKJ9Z6xb93uJiIyxo/+ksS7yLjS1KzG6iv5i78dhVg/X3u5t1H7juRWqVmodIdz6wGVaIApo1u01kmFRdJHVw==
@@ -3139,6 +3139,15 @@ axe-core@^4.6.2:
   version "4.6.3"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.6.3.tgz#fc0db6fdb65cc7a80ccf85286d91d64ababa3ece"
   integrity sha512-/BQzOX780JhsxDnPpH4ZiyrJAzcd8AfzFPkv+89veFSr1rcMjuq2JDCwypKaPeB6ljHp9KjXhPpjgCvQlWYuqg==
+
+axelra-styled-bootstrap-grid@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/axelra-styled-bootstrap-grid/-/axelra-styled-bootstrap-grid-0.7.4.tgz#db51cb13ace199858acb42b1f4fcf7eac7278ab3"
+  integrity sha512-6BJHhkgrcGwCa0hKGHJWtyAzCuWCd27oAjt2V891EW9sWvQGVxrnZg5hnId+/9nnEc7LeqBZ2EnsdkT2gwDNfQ==
+  dependencies:
+    "@types/styled-components" "^5.1.24"
+    prettier "^2.6.0"
+    typescript "^4.6.2"
 
 axobject-query@^3.1.1:
   version "3.1.1"
@@ -9985,7 +9994,7 @@ prettier-plugin-organize-imports@^3.2.2:
   resolved "https://registry.yarnpkg.com/prettier-plugin-organize-imports/-/prettier-plugin-organize-imports-3.2.2.tgz#91993365e017daa5d0d28d8183179834224d8dd1"
   integrity sha512-e97lE6odGSiHonHJMTYC0q0iLXQyw0u5z/PJpvP/3vRy6/Zi9kLBwFAbEGjDzIowpjQv8b+J04PDamoUSQbzGA==
 
-prettier@^2.8.4:
+prettier@^2.6.0, prettier@^2.8.4:
   version "2.8.4"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.4.tgz#34dd2595629bfbb79d344ac4a91ff948694463c3"
   integrity sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==
@@ -12226,7 +12235,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
 
-typescript@^4.6.3, typescript@^4.7.4:
+typescript@^4.6.2, typescript@^4.6.3, typescript@^4.7.4:
   version "4.9.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==

@@ -1,5 +1,5 @@
+import { Container } from 'axelra-styled-bootstrap-grid'
 import styled from 'styled-components'
-import { Container } from './Container'
 
 type MaxWidthContainerProps = {
   disablePadding?: boolean
