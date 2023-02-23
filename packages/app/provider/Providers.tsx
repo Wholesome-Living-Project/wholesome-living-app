@@ -1,8 +1,9 @@
 import React, { PropsWithChildren } from 'react'
+import { Dripsy as DripsyProvider } from './DripsyProvider'
 
 // add providers here
 const Providers = ({ children }: PropsWithChildren) => {
-  return <div>{children}</div>
+  return <DripsyProvider>{children}</DripsyProvider>
 }
 
 export default Providers

@@ -1,6 +1,12 @@
 const { withExpo } = require('@expo/next-adapter')
 const withPlugins = require('next-compose-plugins')
-const withTM = require('next-transpile-modules')(['solito', 'moti', 'app'])
+const withTM = require('next-transpile-modules')([
+  'solito',
+  'moti',
+  'app',
+  'dripsy',
+  '@dripsy/core',
+])
 
 /** @type {import('next').NextConfig} */
 /** @type {import('next').NextConfig} */

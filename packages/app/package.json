@@ -8,7 +8,8 @@
     "react-native-reanimated": "2.9.1",
     "solito": "^2.0.0",
     "styled-components": "^5.3.6",
-    "react-native": "0.70.5"
+    "react-native": "0.70.5",
+    "dripsy": "^3.6.0"
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26",
