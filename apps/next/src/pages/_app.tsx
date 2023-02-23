@@ -9,7 +9,7 @@ const fixReanimatedIssue = () => {
 
 fixReanimatedIssue()
 
-import { Provider } from 'app/provider'
+import Providers from 'app/provider/Providers'
 import Head from 'next/head'
 import type { SolitoAppProps } from 'solito'
 import { ThemeProvider } from 'styled-components'
@@ -27,10 +27,10 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
       </Head>
       <GlobalStyle />
       <ThemeProvider theme={MAIN_THEME}>
-        <Provider>
+        <Providers>
           <Header />
           <Component {...pageProps} />
-        </Provider>
+        </Providers>
       </ThemeProvider>
     </>
   )
