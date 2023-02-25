@@ -1,3 +1,15 @@
-import { HomeScreen } from 'app/features/home/home'
+import Background from 'app/components/Background'
+import Form from '../../../../packages/app/components/Form'
+import { MaxWidthFlex } from '../components/ui/MaxWidthFlex'
 
-export default HomeScreen
+const Home = () => {
+  return (
+    <Background>
+      <MaxWidthFlex column>
+        <Form />
+      </MaxWidthFlex>
+    </Background>
+  )
+}
+
+export default Home

@@ -9,5 +9,7 @@ export const __COLORS = {
 
 export const SPACING = 8
 
+export const HEADER_HEIGHT = 75
+
 export const OUTER_BORDER_RADIUS = 8
 export const INNER_BORDER_RADIUS = 4

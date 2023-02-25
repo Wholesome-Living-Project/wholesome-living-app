@@ -1,12 +1,10 @@
-import { SPACING, __COLORS } from 'app/theme/theme'
+import { HEADER_HEIGHT, SPACING, __COLORS } from 'app/theme/theme'
 import { Heading4 } from 'app/theme/typography'
 import { Flex } from 'axelra-styled-bootstrap-grid'
-import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 import styled from 'styled-components'
+import OptionalLink from '../OptionalLink'
 import { MaxWidthContainer } from '../ui/MaxWidthContainer'
-
-export const HEADER_HEIGHT = 75
 
 const FullWidthContainer = styled(Flex)`
   width: 100%;
@@ -20,25 +18,20 @@ const FullWidthContainer = styled(Flex)`
 const HeaderContent = styled(MaxWidthContainer)`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+`
+
+const HeaderLinks = styled(Flex)`
   gap: ${SPACING * 2}px;
+  margin: 0;
+  padding: 0;
 `
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-  }
-`
-
-type MenuItemProps = { link: string } & PropsWithChildren
+type MenuItemProps = { link?: string } & PropsWithChildren
 const MenuItem = ({ link, children }: MenuItemProps) => (
-  <StyledLink href={link}>
+  <OptionalLink href={link}>
     <Heading4 color={__COLORS.WHITE}>{children}</Heading4>
-  </StyledLink>
+  </OptionalLink>
 )
 
 type RouteType = { link: string; text: string }
@@ -51,11 +44,14 @@ const Header = () => {
   return (
     <FullWidthContainer row align={'center'}>
       <HeaderContent>
-        {routes.map((route) => (
-          <MenuItem key={route.text} link={route.link}>
-            {route.text}
-          </MenuItem>
-        ))}
+        <HeaderLinks row>
+          {routes.map((route) => (
+            <MenuItem key={route.text} link={route.link}>
+              {route.text}
+            </MenuItem>
+          ))}
+        </HeaderLinks>
+        <MenuItem>Register</MenuItem>
       </HeaderContent>
     </FullWidthContainer>
   )

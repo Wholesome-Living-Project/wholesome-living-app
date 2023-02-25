@@ -16,7 +16,6 @@ type Props = { color?: string; link?: string } & ButtonProps &
 const StyledButton = styled(TouchableOpacity)<ButtonProps>`
   display: flex;
   flex-direction: row;
-  min-width: 200px;
 
   background-color: ${(p) =>
     p.buttonType === 'cta'

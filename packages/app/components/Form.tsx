@@ -1,5 +1,6 @@
 import Button from 'app/components/Button'
 import Spacer from 'app/components/Spacer'
+import { ComponentWidthWeb } from 'app/components/ui/ComponentWidthWeb'
 import { OUTER_BORDER_RADIUS, SPACING, __COLORS } from 'app/theme/theme'
 import { Heading3 } from 'app/theme/typography'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
@@ -12,6 +13,12 @@ const Input = styled.TextInput`
   border-radius: ${OUTER_BORDER_RADIUS}px;
   padding: ${SPACING}px ${SPACING * 2}px;
   min-width: 200px;
+`
+
+const Wrapper = styled(ComponentWidthWeb)`
+  border: 1px solid ${__COLORS.PRIMARY};
+  padding: 30px;
+  border-radius: ${OUTER_BORDER_RADIUS}px;
 `
 
 export type FormType = 'register' | 'login'
@@ -36,7 +43,7 @@ const Form = ({ type = 'login' }: Props) => {
   }, [])
 
   return (
-    <>
+    <Wrapper maxWidth={300}>
       <Heading3 color={__COLORS.PRIMARY}>{type === 'register' ? 'Register' : 'Login'}</Heading3>
       <Spacer x={4} />
       <Input placeholder={'email'} onChangeText={(text) => setEmail(text)} />
@@ -49,7 +56,7 @@ const Form = ({ type = 'login' }: Props) => {
         onPress={type === 'register' ? () => createUser(email, password) : () => undefined}>
         Submit
       </Button>
-    </>
+    </Wrapper>
   )
 }
 
