@@ -1,100 +1,84 @@
-import { SPACING, __COLORS } from 'app/theme/theme'
-import { css } from 'styled-components'
-import styled from 'styled-components/native'
+import { __COLORS } from 'app/theme/theme'
+import { AttrProps, FontWeights, HeadingRoot, TextProps, TEXT_SIZE } from 'app/theme/typography'
+import styled from 'styled-components'
 
-export enum FontWeights {
-  Thin = 100,
-  ExtraLight = 200,
-  Light = 300,
-  Normal = 400,
-  Medium = 500,
-  SemiBold = 600,
-  Bold = 700,
-  ExtraBold = 800,
-  Black = 900,
-}
-
-export type TextProps = {
-  size?: number
-  weight?: keyof typeof FontWeights | number
-  center?: boolean
-  color?: string
-  block?: boolean
-}
-
-export const HeadingRoot = css`
-  font-weight: 500;
-  line-height: 1.2;
-  margin: ${SPACING}px 0;
+const H1 = styled.span`
+  ${HeadingRoot};
+  font-size: 40px;
 `
 
-export type AttrProps = {
-  weight?: string
-  block?: boolean
-  center?: boolean
-  color?: string
-}
+const H2 = styled.span`
+  ${HeadingRoot};
+  font-size: 32px;
+`
 
-export const TEXT_SIZE = 12
+const H3 = styled.span`
+  ${HeadingRoot};
+  font-size: 28px;
+`
 
-const Text = styled.Text<TextProps>`
+const H4 = styled.span`
+  ${HeadingRoot};
+  font-size: 24px;
+`
+
+const H5 = styled.span`
+  ${HeadingRoot};
+  font-size: 20px;
+`
+
+const H6 = styled.span`
+  ${HeadingRoot};
+  font-size: 16px;
+`
+
+const Text = styled.span<TextProps>`
   font-size: ${(p) => p.size ?? TEXT_SIZE}px;
   text-align: ${(p) => (p.center ? 'center' : 'left')};
   color: ${(p) => p.color ?? __COLORS.BLACK};
   display: ${(p) => (p.block ? 'block' : 'inline')};
-  font-weight: ${(p) => p.weight};
+  font-weight: ${(p) =>
+    typeof p.weight === 'number' ? p.weight : FontWeights[p.weight ?? 'Normal']};
 `
 
-export const Heading1 = styled.Text<AttrProps>`
-  ${HeadingRoot};
-  font-size: 40px;
+export const Heading1 = styled(H1)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
   text-align: ${(p) => (p.block ? 'justify' : 'left')};
   color: ${(p) => p.color ?? __COLORS.BLACK};
 `
 
-export const Heading2 = styled.Text<AttrProps>`
-  ${HeadingRoot};
-  font-size: 32px;
+export const Heading2 = styled(H2)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
   color: ${(p) => p.color ?? __COLORS.BLACK};
 `
 
-export const Heading3 = styled.Text<AttrProps>`
-  ${HeadingRoot};
-  font-size: 28px;
+export const Heading3 = styled(H3)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
   color: ${(p) => p.color ?? __COLORS.BLACK};
 `
 
-export const Heading4 = styled.Text<AttrProps>`
-  ${HeadingRoot};
-  font-size: 24px;
+export const Heading4 = styled(H4)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
   color: ${(p) => p.color ?? __COLORS.BLACK};
 `
 
-export const Heading5 = styled.Text<AttrProps>`
-  ${HeadingRoot};
-  font-size: 20px;
+export const Heading5 = styled(H5)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
   color: ${(p) => p.color ?? __COLORS.BLACK};
 `
 
-export const Heading6 = styled.Text<AttrProps>`
-  ${HeadingRoot};
-  font-size: 16px;
+export const Heading6 = styled(H6)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
   color: ${(p) => p.color ?? __COLORS.BLACK};
 `
 
-/*export const Heading7 = styled(Text)<AttrProps>`
+export const Heading7 = styled(Text)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.Medium};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
   color: ${(p) => p.color ?? __COLORS.BLACK};
-`*/
+`

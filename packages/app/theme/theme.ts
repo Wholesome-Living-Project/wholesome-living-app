@@ -8,3 +8,6 @@ export const __COLORS = {
 }
 
 export const SPACING = 8
+
+export const OUTER_BORDER_RADIUS = 8
+export const INNER_BORDER_RADIUS = 4

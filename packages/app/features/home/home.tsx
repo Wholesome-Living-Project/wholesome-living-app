@@ -1,72 +1,31 @@
-import React from 'react'
-import { MotiLink } from 'solito/moti'
-import styled from 'styled-components/native'
+import Form, { FormType } from 'app/components/Form'
+import { Row } from 'app/components/ui/Row'
+import React, { useState } from 'react'
 import Background from '../../components/Background'
 import Button from '../../components/Button'
 import Spacer from '../../components/Spacer'
 
-const Row = styled.View`
-  display: flex;
-  flex-direction: row;
-`
-
 export function HomeScreen() {
+  const [formType, setFormType] = useState<FormType>('login')
   return (
     <Background>
+      <Form type={formType} />
+      <Spacer x={6} />
       <Row>
-        <MotiLink
-          href="/user/primary"
-          animate={({ hovered, pressed }) => {
-            'worklet'
-            return {
-              scale: pressed ? 0.9 : 1,
-            }
-          }}
-          from={{
-            scale: 1,
-          }}
-          transition={{
-            type: 'timing',
-            duration: 100,
+        <Button
+          onClick={() => {
+            setFormType('login')
           }}>
-          <Button>Primary</Button>
-        </MotiLink>
+          Login
+        </Button>
         <Spacer x={2} />
-        <MotiLink
-          href="/user/secondary"
-          animate={({ hovered, pressed }) => {
-            'worklet'
-            return {
-              scale: pressed ? 0.9 : 1,
-            }
+        <Button
+          onClick={() => {
+            setFormType('register')
           }}
-          from={{
-            scale: 1,
-          }}
-          transition={{
-            type: 'timing',
-            duration: 100,
-          }}>
-          <Button buttonType={'secondary'}>Secondary</Button>
-        </MotiLink>
-        <Spacer x={2} />
-        <MotiLink
-          href="/user/cta"
-          animate={({ hovered, pressed }) => {
-            'worklet'
-            return {
-              scale: pressed ? 0.9 : 1,
-            }
-          }}
-          from={{
-            scale: 1,
-          }}
-          transition={{
-            type: 'timing',
-            duration: 100,
-          }}>
-          <Button buttonType={'cta'}>CTA</Button>
-        </MotiLink>
+          buttonType={'secondary'}>
+          Register
+        </Button>
       </Row>
     </Background>
   )

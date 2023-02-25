@@ -30,6 +30,12 @@ export const GlobalStyle = createGlobalStyle<{
     line-height: 1.5;
     
   }
+  
+  input {
+    &:focus {
+      outline: none;
+    }
+  }
 
 
   

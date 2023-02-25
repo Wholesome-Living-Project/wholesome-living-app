@@ -28,6 +28,9 @@ const nextConfig = {
     forceSwcTransforms: true,
     swcPlugins: [[require.resolve('./plugins/swc_plugin_reanimated.wasm')]],
   },
+  compiler: {
+    styledComponents: true,
+  },
 }
 
 module.exports = withPlugins([withTM, withExpo], nextConfig)
