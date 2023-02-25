@@ -46,7 +46,7 @@ const Form = ({ type = 'login' }: Props) => {
       <Button
         link={'/user/primary'}
         buttonType={'cta'}
-        onClick={type === 'register' ? () => createUser(email, password) : () => undefined}>
+        onPress={type === 'register' ? () => createUser(email, password) : () => undefined}>
         Submit
       </Button>
     </>

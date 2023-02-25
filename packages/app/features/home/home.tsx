@@ -13,14 +13,14 @@ export function HomeScreen() {
       <Spacer x={6} />
       <Row>
         <Button
-          onClick={() => {
+          onPress={() => {
             setFormType('login')
           }}>
           Login
         </Button>
         <Spacer x={2} />
         <Button
-          onClick={() => {
+          onPress={() => {
             setFormType('register')
           }}
           buttonType={'secondary'}>

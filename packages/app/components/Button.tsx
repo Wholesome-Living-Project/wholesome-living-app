@@ -1,6 +1,6 @@
 import { Heading6 } from 'app/theme/typography'
 import React, { PropsWithChildren } from 'react'
-import { View, ViewProps } from 'react-native'
+import { Platform, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { MotiLink } from 'solito/moti'
 import styled from 'styled-components/native'
 import { SPACING, __COLORS } from '../theme/theme'
@@ -9,9 +9,11 @@ type ButtonType = 'cta' | 'primary' | 'secondary'
 
 type ButtonProps = { small?: boolean; buttonType?: ButtonType }
 
-type Props = { color?: string; link?: string } & ButtonProps & PropsWithChildren & ViewProps
+type Props = { color?: string; link?: string } & ButtonProps &
+  PropsWithChildren &
+  TouchableOpacityProps
 
-const StyledButton = styled(View)<ButtonProps>`
+const StyledButton = styled(TouchableOpacity)<ButtonProps>`
   display: flex;
   flex-direction: row;
   min-width: 200px;
@@ -35,13 +37,13 @@ const StyledText = styled(Heading6)<{ color?: string; buttonType?: string }>`
 `
 
 const Button = ({ small, color, link, buttonType, children, ...rest }: Props) => {
-  return (
+  return link ? (
     <MotiLink
-      href={link ? link : ''}
+      href={link}
       animate={({ pressed }) => {
         'worklet'
         return {
-          scale: pressed ? 0.9 : 1,
+          scale: pressed ? (Platform.OS !== 'web' ? 0.95 : 1) : 1,
         }
       }}
       from={{
@@ -57,6 +59,12 @@ const Button = ({ small, color, link, buttonType, children, ...rest }: Props) =>
         </StyledText>
       </StyledButton>
     </MotiLink>
+  ) : (
+    <StyledButton small={small} buttonType={buttonType} {...rest}>
+      <StyledText color={color} buttonType={buttonType}>
+        {children}
+      </StyledText>
+    </StyledButton>
   )
 }
 

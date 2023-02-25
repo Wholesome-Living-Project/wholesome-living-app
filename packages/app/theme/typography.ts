@@ -24,7 +24,6 @@ export type TextProps = {
 
 export const HeadingRoot = css`
   font-weight: 500;
-  line-height: 1.2;
   margin: ${SPACING}px 0;
 `
 
