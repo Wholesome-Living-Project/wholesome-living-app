@@ -1,12 +1,13 @@
+import { signIn, signUp } from 'app/auth/auth'
 import Button from 'app/components/Button'
 import Spacer from 'app/components/Spacer'
 import { ComponentWidthWeb } from 'app/components/ui/ComponentWidthWeb'
 import { OUTER_BORDER_RADIUS, SPACING, __COLORS } from 'app/theme/theme'
 import { Heading3 } from 'app/theme/typography'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
+import { Platform } from 'react-native'
+import { useNextRouter } from 'solito/build/router/use-next-router'
 import styled from 'styled-components/native'
-import { auth } from '../lib/firebase'
 
 const Input = styled.TextInput`
   border: 1px solid ${__COLORS.PRIMARY};
@@ -30,17 +31,7 @@ type Props = {
 const Form = ({ type = 'login' }: Props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  const createUser = useCallback((email: string, password: string) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user
-        console.log(user.email)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [])
+  const router = useNextRouter()
 
   return (
     <Wrapper maxWidth={300}>
@@ -51,9 +42,16 @@ const Form = ({ type = 'login' }: Props) => {
       <Input placeholder={'password'} secureTextEntry onChangeText={(text) => setPassword(text)} />
       <Spacer x={4} />
       <Button
-        link={'/user/primary'}
         buttonType={'cta'}
-        onPress={type === 'register' ? () => createUser(email, password) : () => undefined}>
+        onPress={
+          type === 'register'
+            ? () => {
+                signUp(email, password).then(
+                  (r) => Platform.OS === 'web' && router?.push('/').catch((err) => console.log(err))
+                )
+              }
+            : () => signIn(email, password)
+        }>
         Submit
       </Button>
     </Wrapper>

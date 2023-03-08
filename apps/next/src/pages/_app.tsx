@@ -13,6 +13,7 @@ import Providers from 'app/provider/Providers'
 import Head from 'next/head'
 import type { SolitoAppProps } from 'solito'
 import { ThemeProvider } from 'styled-components'
+import Background from '../../../../packages/app/components/Background'
 import Header from '../components/layout/Header'
 import { MAIN_THEME } from '../theme/makeTheme'
 import { GlobalStyle } from '../theme/theme'
@@ -29,7 +30,9 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
       <ThemeProvider theme={MAIN_THEME}>
         <Providers>
           <Header />
-          <Component {...pageProps} />
+          <Background>
+            <Component {...pageProps} />
+          </Background>
         </Providers>
       </ThemeProvider>
     </>

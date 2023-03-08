@@ -1,15 +1,18 @@
-import Background from 'app/components/Background'
+import { useAuth } from 'app/hooks/useAuth'
 import Form from '../../../../packages/app/components/Form'
 import { MaxWidthFlex } from '../components/ui/MaxWidthFlex'
 
 const Home = () => {
-  return (
-    <Background>
+  const user = useAuth()
+
+  if (!user)
+    return (
       <MaxWidthFlex column>
-        <Form />
+        <Form type={'login'} />
       </MaxWidthFlex>
-    </Background>
-  )
+    )
+
+  return <MaxWidthFlex>You are logged in with {user?.email}</MaxWidthFlex>
 }
 
 export default Home

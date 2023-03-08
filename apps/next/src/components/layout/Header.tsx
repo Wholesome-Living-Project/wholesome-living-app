@@ -1,3 +1,5 @@
+import { signOut } from 'app/auth/auth'
+import { useAuth } from 'app/hooks/useAuth'
 import { HEADER_HEIGHT, SPACING, __COLORS } from 'app/theme/theme'
 import { Heading4 } from 'app/theme/typography'
 import { Flex } from 'axelra-styled-bootstrap-grid'
@@ -27,10 +29,12 @@ const HeaderLinks = styled(Flex)`
   padding: 0;
 `
 
-type MenuItemProps = { link?: string } & PropsWithChildren
-const MenuItem = ({ link, children }: MenuItemProps) => (
+type MenuItemProps = { link?: string; onPress?: () => void } & PropsWithChildren
+const MenuItem = ({ link, children, onPress }: MenuItemProps) => (
   <OptionalLink href={link}>
-    <Heading4 color={__COLORS.WHITE}>{children}</Heading4>
+    <Heading4 color={__COLORS.WHITE} onPress={!link ? onPress : undefined}>
+      {children}
+    </Heading4>
   </OptionalLink>
 )
 
@@ -41,6 +45,8 @@ const routes: RouteType[] = [
 ]
 
 const Header = () => {
+  // TODO actually add this to the react lifecycle through redux or some other hook
+  const user = useAuth()
   return (
     <FullWidthContainer row align={'center'}>
       <HeaderContent>
@@ -51,7 +57,11 @@ const Header = () => {
             </MenuItem>
           ))}
         </HeaderLinks>
-        <MenuItem>Register</MenuItem>
+        {user ? (
+          <MenuItem onPress={() => signOut()}>Logout</MenuItem>
+        ) : (
+          <MenuItem link={'/register'}>Register</MenuItem>
+        )}
       </HeaderContent>
     </FullWidthContainer>
   )

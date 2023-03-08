@@ -1,9 +1,22 @@
 import { Ionicons } from '@expo/vector-icons'
-import { Tabs } from 'expo-router'
+import { useAuth } from 'app/hooks/useAuth'
+import { Stack, Tabs } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
 
 export default function Layout() {
+  const user = useAuth()
+
+  if (!user?.email)
+    return (
+      <Fragment>
+        <Stack initialRouteName={'index'} screenOptions={{ headerShown: false }}>
+          <Stack.Screen name={'index'} />
+        </Stack>
+        <StatusBar style="dark" />
+      </Fragment>
+    )
+
   return (
     <Fragment>
       <Tabs initialRouteName={'(home)'} screenOptions={{ headerShown: false }}>
@@ -11,6 +24,7 @@ export default function Layout() {
           name={'(home)'}
           options={{
             title: 'Home',
+            headerShown: false,
             tabBarIcon({ color, size, focused }) {
               return <Ionicons name={focused ? 'home' : 'home-outline'} size={size} color={color} />
             },
@@ -19,7 +33,7 @@ export default function Layout() {
         <Tabs.Screen
           name={'settings'}
           options={{
-            title: 'Home',
+            title: 'Settings',
             tabBarIcon({ color, size, focused }) {
               return (
                 <Ionicons
@@ -31,8 +45,14 @@ export default function Layout() {
             },
           }}
         />
+        <Tabs.Screen
+          name={'index'}
+          options={{
+            href: null,
+          }}
+        />
       </Tabs>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
     </Fragment>
   )
 }

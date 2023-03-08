@@ -24,7 +24,8 @@ const StyledButton = styled(TouchableOpacity)<ButtonProps>`
       ? __COLORS.SECONDARY
       : __COLORS.PRIMARY};
 
-  padding: ${(p) => (p.small ? SPACING : SPACING * 2)}px;
+  padding: ${(p) => (p.small ? SPACING : SPACING * 1.5)}px
+    ${(p) => (p.small ? SPACING : SPACING * 2)}px;
   border-radius: ${SPACING}px;
   justify-content: center;
 `

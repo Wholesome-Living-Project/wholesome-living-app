@@ -1,4 +1,5 @@
 import { Stack } from 'expo-router'
+import React from 'react'
 
 // layout for customizing mobile navigation
 export default function Layout() {

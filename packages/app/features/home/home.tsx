@@ -1,30 +1,24 @@
-import Form, { FormType } from 'app/components/Form'
+import { signOut } from 'app/auth/auth'
 import { Row } from 'app/components/ui/Row'
-import React, { useState } from 'react'
+import { useAuth } from 'app/hooks/useAuth'
+import { Heading6 } from 'app/theme/typography'
+import React from 'react'
+import { useNavigation } from 'solito/build/router/use-navigation'
 import Background from '../../components/Background'
 import Button from '../../components/Button'
-import Spacer from '../../components/Spacer'
 
 export function HomeScreen() {
-  const [formType, setFormType] = useState<FormType>('login')
+  const user = useAuth()
+  const navigation = useNavigation()
   return (
     <Background>
-      <Form type={formType} />
-      <Spacer x={6} />
+      <Heading6>{`You are logged in with email ${user?.email}`}</Heading6>
       <Row>
         <Button
-          onPress={() => {
-            setFormType('login')
+          onPress={async () => {
+            await signOut().catch((err) => console.log(err))
           }}>
-          Login
-        </Button>
-        <Spacer x={2} />
-        <Button
-          onPress={() => {
-            setFormType('register')
-          }}
-          buttonType={'secondary'}>
-          Register
+          Logout
         </Button>
       </Row>
     </Background>
