@@ -8,7 +8,6 @@ export default function Layout() {
   return (
     <Stack initialRouteName={'index'}>
       <Stack.Screen name={'index'} options={{ title: 'Dashboard' }} />
-      <Stack.Screen name={'user/[id]'} options={{ title: 'User' }} />
     </Stack>
   )
 }

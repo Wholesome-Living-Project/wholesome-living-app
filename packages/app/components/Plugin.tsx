@@ -1,27 +1,40 @@
-import { COLORS, SPACING } from 'app/theme/theme'
+import PluginBanner from 'app/components/PluginBanner'
 import { Regular } from 'app/theme/typography'
+import { FontAwesomeType } from 'app/types/FontAwesome'
+import { IonIconType } from 'app/types/IonIcon'
+import { MaterialCommunityType } from 'app/types/MaterialCommunity'
+import { MaterialIconsType } from 'app/types/MaterialIcons'
 import React from 'react'
-import { View } from 'react-native'
+import { TouchableOpacity } from 'react-native'
+import { useRouter } from 'solito/router'
 import styled from 'styled-components'
 
-const PluginBanner = styled(View)<{ color?: string }>`
-  background-color: ${(p) => p.color ?? COLORS.PRIMARY};
-  height: 60px;
-  width: 60px;
-  border-radius: ${SPACING}px;
-`
-
-const Container = styled(View)`
+const Container = styled(TouchableOpacity)`
   display: flex;
   flex-direction: column;
 `
 
-export type PluginType = { title: string; color?: string }
+export type PluginType = {
+  title: string
+  color?: string
+  materialIcon?: MaterialIconsType
+  faIcon?: FontAwesomeType
+  ionIcon?: IonIconType
+  icon?: MaterialCommunityType
+}
 
-const Plugin = ({ title, color }: PluginType) => {
+const Plugin = (plugin: PluginType) => {
+  const { title, color, icon, faIcon, materialIcon, ionIcon } = plugin
+  const router = useRouter()
   return (
-    <Container>
-      <PluginBanner color={color} />
+    <Container
+      onPress={() =>
+        router.push({
+          pathname: `/plugin/${title}`,
+          query: { color, icon, faIcon, materialIcon, ionIcon },
+        })
+      }>
+      <PluginBanner {...plugin} size={60} />
       <Regular center>{title}</Regular>
     </Container>
   )
