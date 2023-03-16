@@ -1,1 +1,1 @@
-export { Settings as default } from 'app/features/settings/settings'
+export { SettingsScreen as default } from 'app/features/settings/settings'

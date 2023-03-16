@@ -31,6 +31,15 @@ export default function Layout() {
           }}
         />
         <Tabs.Screen
+          name={'(discover)'}
+          options={{
+            title: 'Plugins',
+            tabBarIcon({ color, size, focused }) {
+              return <Ionicons name={focused ? 'eye' : 'eye-outline'} size={size} color={color} />
+            },
+          }}
+        />
+        <Tabs.Screen
           name={'settings'}
           options={{
             title: 'Settings',
@@ -45,6 +54,7 @@ export default function Layout() {
             },
           }}
         />
+
         <Tabs.Screen
           name={'index'}
           options={{

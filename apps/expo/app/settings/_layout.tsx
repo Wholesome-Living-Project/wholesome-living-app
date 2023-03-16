@@ -5,7 +5,10 @@ import React from 'react'
 export default function Root() {
   return (
     <Stack initialRouteName={'index'}>
-      <Stack.Screen name={'index'} options={{ title: 'Settings' }} />
+      <Stack.Screen name={'index'} options={{ headerShown: false }} />
+      <Stack.Screen name={'personal'} options={{ title: 'Personal Information' }} />
+      <Stack.Screen name={'privacy'} options={{ title: 'Privacy' }} />
+      <Stack.Screen name={'security'} options={{ title: 'Security' }} />
     </Stack>
   )
 }

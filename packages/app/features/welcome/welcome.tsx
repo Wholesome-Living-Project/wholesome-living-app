@@ -10,6 +10,7 @@ export function WelcomeScreen() {
   return (
     <Background>
       <Form type={formType} />
+      <Spacer x={2} />
       <Spacer x={6} />
       <Row>
         <Button

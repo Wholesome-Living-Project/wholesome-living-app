@@ -92,6 +92,30 @@ export const Heading6 = styled.Text<AttrProps>`
   color: ${(p) => p.color ?? __COLORS.BLACK};
 `
 
+export const Regular = styled.Text<AttrProps>`
+  ${HeadingRoot};
+  font-size: 16px;
+  font-weight: ${(p) => p.weight ?? FontWeights.Medium};
+  text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
+  color: ${(p) => p.color ?? __COLORS.BLACK};
+`
+
+export const Light = styled.Text<AttrProps>`
+  ${HeadingRoot};
+  font-size: 14px;
+  font-weight: ${(p) => p.weight ?? FontWeights.Light};
+  text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
+  color: ${(p) => p.color ?? __COLORS.BLACK};
+`
+
+export const Caption = styled.Text<AttrProps>`
+  ${HeadingRoot};
+  font-size: 10px;
+  font-weight: ${(p) => p.weight ?? FontWeights.Light};
+  text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
+  color: ${(p) => p.color ?? __COLORS.BLACK};
+`
+
 /*export const Heading7 = styled(Text)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.Medium};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
