@@ -11376,7 +11376,7 @@ metro-react-native-babel-transformer@0.72.3:
     metro-source-map "0.72.3"
     nullthrows "^1.1.1"
 
-metro-resolver@0.72.3, metro-resolver@0.73.8, metro-resolver@^0.73.1:
+metro-resolver@0.72.3, metro-resolver@0.73.8, metro-resolver@^0.73.7:
   version "0.73.8"
   resolved "https://registry.yarnpkg.com/metro-resolver/-/metro-resolver-0.73.8.tgz#65cc158575d130363296f66a33257c7971228640"
   integrity sha512-GiBWont7/OgAftkkj2TiEp+Gf1PYZUk8xV4MbtnQjIKyy3MlGY3GbpMQ1BHih9GUQqlF0n9jsUlC2K5P0almXQ==
@@ -11481,7 +11481,7 @@ metro-transform-worker@0.73.8:
     metro-transform-plugins "0.73.8"
     nullthrows "^1.1.1"
 
-metro@0.72.3, metro@0.73.8, metro@^0.73.1:
+metro@0.72.3, metro@0.73.8, metro@^0.73.7:
   version "0.73.8"
   resolved "https://registry.yarnpkg.com/metro/-/metro-0.73.8.tgz#25f014e4064eb34a4833c316e0a9094528061a8c"
   integrity sha512-2EMJME9w5x7Uzn+DnQ4hzWr33u/aASaOBGdpf4lxbrlk6/vl4UBfX1sru6KU535qc/0Z1BMt4Vq9qsP3ZGFmWg==
