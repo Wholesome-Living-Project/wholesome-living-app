@@ -1,4 +1,4 @@
-import { __COLORS } from 'app/theme/theme'
+import { COLORS } from 'app/theme/theme'
 import { AttrProps, FontWeights, HeadingRoot, TextProps, TEXT_SIZE } from 'app/theme/typography'
 import styled from 'styled-components'
 
@@ -35,7 +35,7 @@ const H6 = styled.span`
 const Text = styled.span<TextProps>`
   font-size: ${(p) => p.size ?? TEXT_SIZE}px;
   text-align: ${(p) => (p.center ? 'center' : 'left')};
-  color: ${(p) => p.color ?? __COLORS.BLACK};
+  color: ${(p) => p.color ?? COLORS.BLACK};
   display: ${(p) => (p.block ? 'block' : 'inline')};
   font-weight: ${(p) =>
     typeof p.weight === 'number' ? p.weight : FontWeights[p.weight ?? 'Normal']};
@@ -44,41 +44,41 @@ const Text = styled.span<TextProps>`
 export const Heading1 = styled(H1)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
   text-align: ${(p) => (p.block ? 'justify' : 'left')};
-  color: ${(p) => p.color ?? __COLORS.BLACK};
+  color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
 export const Heading2 = styled(H2)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
-  color: ${(p) => p.color ?? __COLORS.BLACK};
+  color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
 export const Heading3 = styled(H3)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
-  color: ${(p) => p.color ?? __COLORS.BLACK};
+  color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
 export const Heading4 = styled(H4)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
-  color: ${(p) => p.color ?? __COLORS.BLACK};
+  color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
 export const Heading5 = styled(H5)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
-  color: ${(p) => p.color ?? __COLORS.BLACK};
+  color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
 export const Heading6 = styled(H6)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
-  color: ${(p) => p.color ?? __COLORS.BLACK};
+  color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
 export const Heading7 = styled(Text)<AttrProps>`
   font-weight: ${(p) => p.weight ?? FontWeights.Medium};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
-  color: ${(p) => p.color ?? __COLORS.BLACK};
+  color: ${(p) => p.color ?? COLORS.BLACK};
 `

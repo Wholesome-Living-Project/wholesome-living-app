@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { SPACING } from '../theme/theme'
+import { SPACING } from '../../theme/theme'
 
 const SpacingView = styled.View<{ x: number }>`
   height: ${(p) => p.x * SPACING}px;

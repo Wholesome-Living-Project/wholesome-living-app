@@ -7,7 +7,7 @@ export default function Layout() {
   const user = useAuth()
   return (
     <Stack initialRouteName={'index'}>
-      <Stack.Screen name={'index'} options={{ title: 'Dashboard' }} />
+      <Stack.Screen name={'index'} options={{ headerShown: false }} />
     </Stack>
   )
 }

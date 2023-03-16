@@ -3,7 +3,7 @@ import React, { PropsWithChildren } from 'react'
 import { Platform, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { MotiLink } from 'solito/moti'
 import styled from 'styled-components/native'
-import { SPACING, __COLORS } from '../theme/theme'
+import { COLORS, SPACING } from '../../theme/theme'
 
 type ButtonType = 'cta' | 'primary' | 'secondary'
 
@@ -19,10 +19,10 @@ const StyledButton = styled(TouchableOpacity)<ButtonProps>`
 
   background-color: ${(p) =>
     p.buttonType === 'cta'
-      ? __COLORS.CTA
+      ? COLORS.CTA
       : p.buttonType === 'secondary'
-      ? __COLORS.SECONDARY
-      : __COLORS.PRIMARY};
+      ? COLORS.SECONDARY
+      : COLORS.PRIMARY};
 
   padding: ${(p) => (p.small ? SPACING : SPACING * 1.5)}px
     ${(p) => (p.small ? SPACING : SPACING * 2)}px;
@@ -32,7 +32,7 @@ const StyledButton = styled(TouchableOpacity)<ButtonProps>`
 
 const StyledText = styled(Heading6)<{ color?: string; buttonType?: string }>`
   color: ${(p) =>
-    p.color ? p.color : p.buttonType === 'secondary' ? __COLORS.PRIMARY : __COLORS.WHITE};
+    p.color ? p.color : p.buttonType === 'secondary' ? COLORS.PRIMARY : COLORS.WHITE};
   text-align: center;
 `
 

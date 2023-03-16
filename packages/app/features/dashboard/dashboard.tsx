@@ -4,7 +4,7 @@ import { useAuth } from 'app/hooks/useAuth'
 import { Heading6 } from 'app/theme/typography'
 import React from 'react'
 import Background from '../../components/Background'
-import Button from '../../components/Button'
+import Button from '../../components/ui/Button'
 
 export function DashboardScreen() {
   const user = useAuth()

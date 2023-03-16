@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unexpected-multiline
-import { __COLORS } from 'app/theme/theme'
+import { COLORS } from 'app/theme/theme'
 import { createGlobalStyle, ThemeProviderProps } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle<{
@@ -52,7 +52,7 @@ export const GlobalStyle = createGlobalStyle<{
   figure, figcaption, footer, header, hgroup, 
   menu, nav, output, ruby, section, summary,
   time, mark, audio, video {
-    color: ${__COLORS.PRIMARY};
+    color: ${COLORS.PRIMARY};
   }
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure, 

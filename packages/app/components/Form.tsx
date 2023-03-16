@@ -1,8 +1,8 @@
 import { signIn, signUp } from 'app/auth/auth'
-import Button from 'app/components/Button'
-import Spacer from 'app/components/Spacer'
+import Button from 'app/components/ui/Button'
 import { ComponentWidthWeb } from 'app/components/ui/ComponentWidthWeb'
-import { OUTER_BORDER_RADIUS, SPACING, __COLORS } from 'app/theme/theme'
+import Spacer from 'app/components/ui/Spacer'
+import { COLORS, OUTER_BORDER_RADIUS, SPACING } from 'app/theme/theme'
 import { Heading3 } from 'app/theme/typography'
 import React, { useState } from 'react'
 import { Platform } from 'react-native'
@@ -10,14 +10,14 @@ import { useNextRouter } from 'solito/build/router/use-next-router'
 import styled from 'styled-components/native'
 
 const Input = styled.TextInput`
-  border: 1px solid ${__COLORS.PRIMARY};
+  border: 1px solid ${COLORS.PRIMARY};
   border-radius: ${OUTER_BORDER_RADIUS}px;
   padding: ${SPACING}px ${SPACING * 2}px;
   min-width: 200px;
 `
 
 const Wrapper = styled(ComponentWidthWeb)`
-  border: 1px solid ${__COLORS.PRIMARY};
+  border: 1px solid ${COLORS.PRIMARY};
   padding: 30px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
 `
@@ -35,7 +35,7 @@ const Form = ({ type = 'login' }: Props) => {
 
   return (
     <Wrapper maxWidth={300}>
-      <Heading3 color={__COLORS.PRIMARY}>{type === 'register' ? 'Register' : 'Login'}</Heading3>
+      <Heading3 color={COLORS.PRIMARY}>{type === 'register' ? 'Register' : 'Login'}</Heading3>
       <Spacer x={4} />
       <Input placeholder={'email'} onChangeText={(text) => setEmail(text)} />
       <Spacer x={2} />

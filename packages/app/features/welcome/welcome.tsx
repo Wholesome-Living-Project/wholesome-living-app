@@ -2,8 +2,8 @@ import Form, { FormType } from 'app/components/Form'
 import { Row } from 'app/components/ui/Row'
 import React, { useState } from 'react'
 import Background from '../../components/Background'
-import Button from '../../components/Button'
-import Spacer from '../../components/Spacer'
+import Button from '../../components/ui/Button'
+import Spacer from '../../components/ui/Spacer'
 
 export function WelcomeScreen() {
   const [formType, setFormType] = useState<FormType>('login')

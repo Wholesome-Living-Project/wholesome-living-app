@@ -1,10 +1,10 @@
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { signOut } from 'app/auth/auth'
-import Spacer from 'app/components/Spacer'
+import Spacer from 'app/components/ui/Spacer'
 import { useAuth } from 'app/hooks/useAuth'
-import { SPACING, __COLORS } from 'app/theme/theme'
+import { COLORS, SPACING } from 'app/theme/theme'
 import { Heading5, Regular } from 'app/theme/typography'
-import { IonIconType } from 'app/types/IonIcon'
+import type { IonIconType } from 'app/types/IonIcon'
 import React from 'react'
 import { Dimensions, FlatList, SafeAreaView, TouchableOpacity, View } from 'react-native'
 import { Divider } from 'react-native-elements'
@@ -14,7 +14,7 @@ import styled from 'styled-components'
 const HORIZONTAL_PADDING = SPACING * 2
 
 const StyledList = styled(FlatList)`
-  background-color: ${__COLORS.GREY};
+  background-color: ${COLORS.GREY};
 `
 
 const ListItem = styled(View)<{ width: number }>`
@@ -46,7 +46,7 @@ const ProfileImage = styled(View)`
   width: 60px;
   height: 60px;
   border-radius: 50px;
-  background-color: ${__COLORS.PRIMARY};
+  background-color: ${COLORS.PRIMARY};
 `
 
 const UserInfoContainer = styled(View)`
@@ -81,10 +81,10 @@ export const SettingsScreen = () => {
         renderItem={({ item }) => {
           return <Setting {...(item as never as SettingsType)} />
         }}
-        ItemSeparatorComponent={() => <Divider width={0.7} color={__COLORS.PRIMARY} />}
+        ItemSeparatorComponent={() => <Divider width={0.7} color={COLORS.PRIMARY} />}
         ListFooterComponent={
           <>
-            <Divider width={0.7} color={__COLORS.PRIMARY} />
+            <Divider width={0.7} color={COLORS.PRIMARY} />
             <Spacer x={8} />
             <Setting
               name={'Logout'}
