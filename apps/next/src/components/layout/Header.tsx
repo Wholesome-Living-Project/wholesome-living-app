@@ -42,6 +42,8 @@ type RouteType = { link: string; text: string }
 const routes: RouteType[] = [
   { link: '/', text: 'Home' },
   { link: '/settings', text: 'Settings' },
+  { link: '/discover', text: 'Discover' },
+  { link: '/dashboard', text: 'Dashboard' },
 ]
 
 const Header = () => {
