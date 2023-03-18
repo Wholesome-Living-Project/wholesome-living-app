@@ -1,12 +1,13 @@
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { signOut } from 'app/auth/auth'
+import { SafeAreaBackground } from 'app/components/SafeAreaBackground'
 import Spacer from 'app/components/ui/Spacer'
 import { useAuth } from 'app/hooks/useAuth'
 import { COLORS, SPACING } from 'app/theme/theme'
 import { Heading5, Regular } from 'app/theme/typography'
 import type { IonIconType } from 'app/types/IonIcon'
 import React from 'react'
-import { Dimensions, FlatList, SafeAreaView, TouchableOpacity, View } from 'react-native'
+import { Dimensions, FlatList, TouchableOpacity, View } from 'react-native'
 import { Divider } from 'react-native-elements'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
@@ -75,7 +76,7 @@ export const SettingsScreen = () => {
   const user = useAuth()
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaBackground>
       <StyledList
         data={SETTINGS}
         renderItem={({ item }) => {
@@ -107,7 +108,7 @@ export const SettingsScreen = () => {
           </UserProfile>
         )}
       />
-    </SafeAreaView>
+    </SafeAreaBackground>
   )
 }
 

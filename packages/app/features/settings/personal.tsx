@@ -1,11 +1,12 @@
+import Background from 'app/components/Background'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
 
 const PersonalSettings = () => {
   return (
-    <View>
+    <Background>
       <Text> This is the personal info settings screen </Text>
-    </View>
+    </Background>
   )
 }
 

@@ -5,6 +5,9 @@ export const COLORS = {
   PRIMARY: '#497174',
   SECONDARY: '#D6E4E5',
   CTA: '#EB6440',
+  HEADER: '#D6E4E5',
+  TAB_BAR: '#D6E4E5',
+  TAB_BAR_ICONS: '#497174',
 }
 
 export const EXTRA_COLORS = {

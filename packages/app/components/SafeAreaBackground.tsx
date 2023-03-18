@@ -3,6 +3,6 @@ import { SafeAreaView } from 'react-native'
 import styled from 'styled-components'
 
 export const SafeAreaBackground = styled(SafeAreaView)`
-  background: ${COLORS.SECONDARY};
+  background: ${COLORS.GREY};
   flex: 1;
 `

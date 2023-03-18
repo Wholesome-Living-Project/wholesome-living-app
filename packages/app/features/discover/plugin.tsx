@@ -45,7 +45,7 @@ const PluginDetailScreen = () => {
       <Spacer x={3} />
 
       <Button buttonType={'cta'} small>
-        <Light color={COLORS.WHITE}>Add to your Habbits</Light>
+        <Light color={COLORS.WHITE}>Add to your Habits</Light>
       </Button>
     </Background>
   )

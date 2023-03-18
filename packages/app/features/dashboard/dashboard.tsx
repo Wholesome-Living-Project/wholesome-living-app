@@ -1,25 +1,17 @@
-import { signOut } from 'app/auth/auth'
-import { Row } from 'app/components/ui/Row'
+import { Padder } from 'app/components/Padder'
+import { SafeAreaBackground } from 'app/components/SafeAreaBackground'
 import { useAuth } from 'app/hooks/useAuth'
-import { Heading6 } from 'app/theme/typography'
+import { Heading3 } from 'app/theme/typography'
 import React from 'react'
-import Background from '../../components/Background'
-import Button from '../../components/ui/Button'
 
 export function DashboardScreen() {
   const user = useAuth()
 
   return (
-    <Background>
-      <Heading6>{`You are logged in with email ${user?.email}`}</Heading6>
-      <Row>
-        <Button
-          onPress={async () => {
-            await signOut().catch((err) => console.log(err))
-          }}>
-          Logout
-        </Button>
-      </Row>
-    </Background>
+    <SafeAreaBackground>
+      <Padder>
+        <Heading3>Welcome {user?.email}</Heading3>
+      </Padder>
+    </SafeAreaBackground>
   )
 }
