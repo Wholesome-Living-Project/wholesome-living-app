@@ -17,6 +17,8 @@ const BackButtonContainer = styled(TouchableOpacity)`
 const BackButton = ({ color }: { color?: string }) => {
   const navigation = useRootNavigation()
 
+  if (!navigation?.canGoBack) return null
+
   return (
     <BackButtonContainer
       onPress={() => {

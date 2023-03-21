@@ -22,7 +22,7 @@ export default function Layout() {
       screenOptions={{
         headerStyle: { backgroundColor: COLORS.HEADER },
         headerTitleStyle: { color: COLORS.PRIMARY },
-        headerLeft: ({ canGoBack }) => (canGoBack ? <BackButton /> : null),
+        headerLeft: ({ canGoBack }) => <BackButton />,
       }}>
       <Stack.Screen name={'index'} options={{ headerShown: false }} />
       <Stack.Screen name={'plugin/[name]'} options={{ title: params.name as string }} />

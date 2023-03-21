@@ -57,6 +57,8 @@ export default function Layout() {
           name={'(discover)'}
           options={{
             title: 'Discover',
+
+            unmountOnBlur: true,
             tabBarIcon({ color, size, focused }) {
               return (
                 <TabBarIcon
