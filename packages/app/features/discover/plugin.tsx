@@ -4,22 +4,12 @@ import Button from 'app/components/ui/Button'
 import Spacer from 'app/components/ui/Spacer'
 import { COLORS } from 'app/theme/theme'
 import { Light } from 'app/theme/typography'
-import { FontAwesomeType } from 'app/types/FontAwesome'
-import { IonIconType } from 'app/types/IonIcon'
-import { MaterialCommunityType } from 'app/types/MaterialCommunity'
-import { MaterialIconsType } from 'app/types/MaterialIcons'
 import React from 'react'
 import { Text } from 'react-native'
 import { createParam } from 'solito'
+import { PluginNavigationProps } from 'wholesome-living-app/types/navigation/DiscoverNavigationTypes'
 
-const { useParam } = createParam<{
-  name: string
-  color: string
-  icon: MaterialCommunityType
-  faIcon: FontAwesomeType
-  materialIcon: MaterialIconsType
-  ionIcon: IonIconType
-}>()
+const { useParam } = createParam<PluginNavigationProps>()
 
 const PluginDetailScreen = () => {
   const [name] = useParam('name')

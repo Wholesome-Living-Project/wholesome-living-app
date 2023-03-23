@@ -14,10 +14,14 @@ const BackButtonContainer = styled(TouchableOpacity)`
   justify-content: center;
 `
 
-const BackButton = ({ color }: { color?: string }) => {
+type Props = {
+  color?: string
+}
+
+const BackButton = ({ color }: Props) => {
   const navigation = useRootNavigation()
 
-  if (!navigation?.canGoBack) return null
+  // if (!navigation?.canGoBack) return null
 
   return (
     <BackButtonContainer

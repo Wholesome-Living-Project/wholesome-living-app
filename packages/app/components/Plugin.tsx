@@ -4,9 +4,9 @@ import { FontAwesomeType } from 'app/types/FontAwesome'
 import { IonIconType } from 'app/types/IonIcon'
 import { MaterialCommunityType } from 'app/types/MaterialCommunity'
 import { MaterialIconsType } from 'app/types/MaterialIcons'
+import { useRootNavigation } from 'expo-router'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import { useRouter } from 'solito/router'
 import styled from 'styled-components'
 
 const Container = styled(TouchableOpacity)`
@@ -25,14 +25,21 @@ export type PluginType = {
 
 const Plugin = (plugin: PluginType) => {
   const { title, color, icon, faIcon, materialIcon, ionIcon } = plugin
-  const router = useRouter()
+  const navigation = useRootNavigation()
+
   return (
     <Container
       onPress={() =>
-        router.push({
-          pathname: `/plugin/${title}`,
-          query: { color, icon, faIcon, materialIcon, ionIcon },
-        })
+        navigation?.navigate(
+          'plugin' as never,
+          {
+            color,
+            icon,
+            faIcon,
+            materialIcon,
+            ionIcon,
+          } as never
+        )
       }>
       <PluginBanner {...plugin} size={60} />
       <Regular center>{title}</Regular>

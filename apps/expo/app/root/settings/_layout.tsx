@@ -1,12 +1,10 @@
-import { useAuth } from 'app/hooks/useAuth'
 import { COLORS } from 'app/theme/theme'
 import { Stack } from 'expo-router'
 import React from 'react'
-import BackButton from '../../components/BackButton'
+import BackButton from '../../../components/BackButton'
 
 // layout for customizing mobile navigation
 export default function Layout() {
-  const user = useAuth()
   return (
     <Stack
       initialRouteName={'index'}
@@ -15,7 +13,10 @@ export default function Layout() {
         headerTitleStyle: { color: COLORS.PRIMARY },
         headerLeft: ({ canGoBack }) => (canGoBack ? <BackButton /> : null),
       }}>
-      <Stack.Screen name={'index'} options={{ title: 'Dashboard', headerShown: false }} />
+      <Stack.Screen name={'index'} options={{ headerShown: false }} />
+      <Stack.Screen name={'personal'} options={{ title: 'Personal Information' }} />
+      <Stack.Screen name={'privacy'} options={{ title: 'Privacy' }} />
+      <Stack.Screen name={'security'} options={{ title: 'Security' }} />
     </Stack>
   )
 }
