@@ -1,13 +1,18 @@
 import { Heading6 } from 'app/theme/typography'
-import React, { PropsWithChildren } from 'react'
-import { Platform, TouchableOpacity, TouchableOpacityProps } from 'react-native'
+import React, { PropsWithChildren, useMemo } from 'react'
+import { Dimensions, Platform, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { MotiLink } from 'solito/moti'
 import styled from 'styled-components/native'
 import { COLORS, SPACING } from '../../theme/theme'
 
 type ButtonType = 'cta' | 'primary' | 'secondary'
 
-type ButtonProps = { small?: boolean; buttonType?: ButtonType }
+type ButtonProps = {
+  small?: boolean
+  buttonType?: ButtonType
+  fullWidth?: boolean
+  maxWidth?: number
+}
 
 type Props = { color?: string; link?: string } & ButtonProps &
   PropsWithChildren &
@@ -16,6 +21,7 @@ type Props = { color?: string; link?: string } & ButtonProps &
 const StyledButton = styled(TouchableOpacity)<ButtonProps>`
   display: flex;
   flex-direction: row;
+  width: ${(p) => (p.fullWidth ? `${p.maxWidth}px` : 'auto')}
 
   background-color: ${(p) =>
     p.buttonType === 'cta'
@@ -36,7 +42,17 @@ const StyledText = styled(Heading6)<{ color?: string; buttonType?: string }>`
   text-align: center;
 `
 
-const Button = ({ small, color, link, buttonType, children, ...rest }: Props) => {
+const Button = ({
+  small,
+  color,
+  fullWidth,
+  maxWidth,
+  link,
+  buttonType,
+  children,
+  ...rest
+}: Props) => {
+  const width = useMemo(() => maxWidth ?? Dimensions.get('window').width * 0.85, [])
   return link ? (
     <MotiLink
       href={link}
@@ -53,14 +69,24 @@ const Button = ({ small, color, link, buttonType, children, ...rest }: Props) =>
         type: 'timing',
         duration: 100,
       }}>
-      <StyledButton small={small} buttonType={buttonType} {...rest}>
+      <StyledButton
+        small={small}
+        buttonType={buttonType}
+        fullWidth={fullWidth}
+        maxWidth={width}
+        {...rest}>
         <StyledText color={color} buttonType={buttonType}>
           {children}
         </StyledText>
       </StyledButton>
     </MotiLink>
   ) : (
-    <StyledButton small={small} buttonType={buttonType} {...rest}>
+    <StyledButton
+      small={small}
+      buttonType={buttonType}
+      fullWidth={fullWidth}
+      maxWidth={width}
+      {...rest}>
       <StyledText color={color} buttonType={buttonType}>
         {children}
       </StyledText>

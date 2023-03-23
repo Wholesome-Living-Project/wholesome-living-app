@@ -1,6 +1,7 @@
 import { useAuth } from 'app/hooks/useAuth'
 import { Stack, useRootNavigation } from 'expo-router'
 import React, { Fragment, useEffect, useMemo } from 'react'
+import 'react-native-url-polyfill/auto'
 
 export default function Layout() {
   const user = useAuth()

@@ -1,10 +1,10 @@
-import Form from 'app/components/Form'
+import RegisterForm from 'packages/app/components/RegisterForm'
 import { MaxWidthFlex } from '../components/ui/MaxWidthFlex'
 
 const Register = () => {
   return (
     <MaxWidthFlex column>
-      <Form type={'register'} />
+      <RegisterForm type={'register'} />
     </MaxWidthFlex>
   )
 }
