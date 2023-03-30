@@ -25,8 +25,8 @@ export default function Layout() {
         <Tabs.Screen
           name={'(dashboard)'}
           options={{
-            title: 'Dashboard',
-            headerShown: false,
+            title: '',
+
             tabBarIcon({ color, size, focused }) {
               return (
                 <TabBarIcon
@@ -44,6 +44,7 @@ export default function Layout() {
           name={'(discover)'}
           options={{
             title: 'Discover',
+            headerShown: false,
             tabBarIcon({ color, size, focused }) {
               return (
                 <TabBarIcon
@@ -61,6 +62,7 @@ export default function Layout() {
           name={'settings'}
           options={{
             title: 'Settings',
+            headerShown: false,
             tabBarIcon({ color, size, focused }) {
               return (
                 <TabBarIcon

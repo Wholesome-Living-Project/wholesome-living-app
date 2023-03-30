@@ -4,7 +4,7 @@ import React, { PropsWithChildren, useMemo } from 'react'
 import { Platform, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { MotiLink } from 'solito/moti'
 import styled from 'styled-components/native'
-import { COLORS, IO_COMPONENT_WIDTH_PERCENT, SPACING } from '../../theme/theme'
+import { COLORS, IO_COMPONENT_WIDTH_PERCENT, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
 
 type ButtonType = 'cta' | 'primary' | 'secondary'
 
@@ -33,7 +33,7 @@ const StyledButton = styled(TouchableOpacity)<ButtonProps>`
 
   padding: ${(p) => (p.small ? SPACING : SPACING * 1.5)}px
     ${(p) => (p.small ? SPACING : SPACING * 2)}px;
-  border-radius: ${SPACING}px;
+  border-radius: ${OUTER_BORDER_RADIUS}px;
   justify-content: center;
 `
 

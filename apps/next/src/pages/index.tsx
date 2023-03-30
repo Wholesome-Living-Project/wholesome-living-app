@@ -8,7 +8,7 @@ const Home = () => {
   if (!user)
     return (
       <MaxWidthFlex column>
-        <SignupForm type={'login'} />
+        <SignupForm />
       </MaxWidthFlex>
     )
 

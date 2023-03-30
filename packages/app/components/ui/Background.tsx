@@ -1,10 +1,11 @@
 import { onlyOnMobile } from 'app/helpers/onlyOnMobile'
 import { onlyOnWeb } from 'app/helpers/onlyOnWeb'
 import React, { PropsWithChildren } from 'react'
+import { View } from 'react-native'
 import styled from 'styled-components/native'
 import { COLORS, HEADER_HEIGHT, SPACING } from '../../theme/theme'
 
-const StyledView = styled.View<Props>`
+const StyledView = styled(View)<Props>`
   display: flex;
   position: relative;
   flex-direction: column;

@@ -6,14 +6,21 @@ import Spacer from 'app/components/ui/Spacer'
 import { COLORS, OUTER_BORDER_RADIUS } from 'app/theme/theme'
 import { Heading3 } from 'app/theme/typography'
 import React, { useCallback, useState } from 'react'
-import { Platform } from 'react-native'
+import { Keyboard, Platform, View } from 'react-native'
 import { useNextRouter } from 'solito/build/router/use-next-router'
 import styled from 'styled-components/native'
 import { api } from '../../../api/requests'
 
 const Wrapper = styled(ComponentWidthWeb)`
-  padding: 30px;
+  padding: 10px 30px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
+  flex: 1;
+`
+
+const NameWrapper = styled(View)`
+  display: flex;
+  flex-direction: row;
+  flex: 1;
 `
 
 const SignupForm = () => {
@@ -34,7 +41,7 @@ const SignupForm = () => {
           id: firebaseUser.user.uid,
         })
         .then(() => Platform.OS === 'web' && router?.push('/'))
-      console.log('user: ', user)
+      Keyboard.dismiss()
     } catch (err) {
       console.log(err)
     }
@@ -44,11 +51,19 @@ const SignupForm = () => {
     <Wrapper maxWidthWeb={300}>
       <Heading3 color={COLORS.PRIMARY}>Register</Heading3>
       <Spacer x={4} />
-      <Input
-        placeholder={'Full Name'}
-        value={firstName}
-        onChangeText={(text) => setFirstName(text)}
-      />
+      <NameWrapper>
+        <Input
+          placeholder={'First Name'}
+          value={firstName}
+          onChangeText={(text) => setFirstName(text)}
+        />
+        <Spacer x={2} />
+        <Input
+          placeholder={'Last Name'}
+          value={firstName}
+          onChangeText={(text) => setFirstName(text)}
+        />
+      </NameWrapper>
       <Spacer x={2} />
       <Input placeholder={'Email'} value={email} onChangeText={(text) => setEmail(text)} />
       <Spacer x={2} />
@@ -62,6 +77,7 @@ const SignupForm = () => {
       <Button buttonType={'primary'} onPress={() => submit()}>
         Submit
       </Button>
+      <Spacer x={20} />
     </Wrapper>
   )
 }

@@ -22,7 +22,9 @@ export const SPACING = 8
 
 export const HEADER_HEIGHT = 75
 
-export const OUTER_BORDER_RADIUS = 8
-export const INNER_BORDER_RADIUS = 4
+export const OUTER_BORDER_RADIUS = 12
+export const INNER_BORDER_RADIUS = 6
 
-export const IO_COMPONENT_WIDTH_PERCENT = 0.85
+export const IO_COMPONENT_WIDTH_PERCENT = 0.9
+
+export const SCREEN_PADDING = 16
