@@ -1,9 +1,10 @@
 import PluginDetailedBanner from 'app/components/dashboard/PluginDetailedBanner'
 import { getFormattedTimer } from 'app/helpers/getFormattedTimer'
 import { plugins } from 'app/helpers/pluginList'
-import { Heading1, Light } from 'app/theme/typography'
+import { COLORS } from 'app/theme/theme'
+import { Light } from 'app/theme/typography'
 import React, { useMemo } from 'react'
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 import styled from 'styled-components'
 
 type MeditationType = {
@@ -35,8 +36,8 @@ const Content = () => {
 
   return (
     <Wrapper>
-      <Light>Last Meditation</Light>
-      <Heading1>{computedTime}</Heading1>
+      <Light color={COLORS.WHITE}>Last Meditation</Light>
+      <Text style={{ fontSize: 55, color: COLORS.WHITE }}>{computedTime}</Text>
     </Wrapper>
   )
 }
