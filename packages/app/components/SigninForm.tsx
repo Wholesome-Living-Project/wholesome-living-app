@@ -17,9 +17,10 @@ const Input = styled.TextInput`
 const Wrapper = styled(ComponentWidthWeb)`
   padding: 30px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
+  background-color: red;
 `
 
-const LoginForm = () => {
+const SigninForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -44,4 +45,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default SigninForm

@@ -1,5 +1,5 @@
 import { useAuth } from 'app/hooks/useAuth'
-import RegisterForm from '../../../../packages/app/components/RegisterForm'
+import SignupForm from '../../../../packages/app/components/SignupForm'
 import { MaxWidthFlex } from '../components/ui/MaxWidthFlex'
 
 const Home = () => {
@@ -8,7 +8,7 @@ const Home = () => {
   if (!user)
     return (
       <MaxWidthFlex column>
-        <RegisterForm type={'login'} />
+        <SignupForm type={'login'} />
       </MaxWidthFlex>
     )
 

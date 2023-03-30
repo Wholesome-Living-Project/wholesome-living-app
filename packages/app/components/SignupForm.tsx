@@ -22,7 +22,7 @@ const Wrapper = styled(ComponentWidthWeb)`
   border-radius: ${OUTER_BORDER_RADIUS}px;
 `
 
-const RegisterForm = () => {
+const SignupForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -65,11 +65,11 @@ const RegisterForm = () => {
         onChangeText={(text) => setPassword(text)}
       />
       <Spacer x={4} />
-      <Button buttonType={'cta'} onPress={() => submit()}>
+      <Button buttonType={'primary'} onPress={() => submit()}>
         Submit
       </Button>
     </Wrapper>
   )
 }
 
-export default RegisterForm
+export default SignupForm
