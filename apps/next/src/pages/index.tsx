@@ -1,5 +1,5 @@
 import { useAuth } from 'app/hooks/useAuth'
-import SignupForm from '../../../../packages/app/components/SignupForm'
+import SignupForm from '../../../../packages/app/components/welcome/SignupForm'
 import { MaxWidthFlex } from '../components/ui/MaxWidthFlex'
 
 const Home = () => {

@@ -1,4 +1,4 @@
-import Plugin, { PluginType } from 'app/components/Plugin'
+import Plugin, { PluginType } from 'app/components/discover/Plugin'
 import Spacer from 'app/components/ui/Spacer'
 import { EXTRA_COLORS } from 'app/theme/theme'
 import React from 'react'

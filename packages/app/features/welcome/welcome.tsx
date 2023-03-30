@@ -1,8 +1,8 @@
 import { signInModalRef, signUpModalRef } from 'app/components/refs/modal-refs'
-import SignInModal from 'app/components/SignInModal'
-import SignUpModal from 'app/components/SignUpModal'
+import SignInModal from 'app/components/welcome/SignInModal'
+import SignUpModal from 'app/components/welcome/SignUpModal'
 import React, { useCallback } from 'react'
-import Background from '../../components/Background'
+import Background from '../../components/ui/Background'
 import Button from '../../components/ui/Button'
 import Spacer from '../../components/ui/Spacer'
 

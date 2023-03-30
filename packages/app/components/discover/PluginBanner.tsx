@@ -1,5 +1,5 @@
 import { FontAwesome, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { PluginType } from 'app/components/Plugin'
+import { PluginType } from 'app/components/discover/Plugin'
 import { COLORS, SPACING } from 'app/theme/theme'
 import React from 'react'
 import { View } from 'react-native'

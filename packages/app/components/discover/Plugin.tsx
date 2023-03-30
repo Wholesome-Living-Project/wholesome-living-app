@@ -1,4 +1,4 @@
-import PluginBanner from 'app/components/PluginBanner'
+import PluginBanner from 'app/components/discover/PluginBanner'
 import { Regular } from 'app/theme/typography'
 import { FontAwesomeType } from 'app/types/FontAwesome'
 import { IonIconType } from 'app/types/IonIcon'

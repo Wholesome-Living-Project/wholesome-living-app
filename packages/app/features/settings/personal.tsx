@@ -1,4 +1,4 @@
-import Background from 'app/components/Background'
+import Background from 'app/components/ui/Background'
 import React from 'react'
 import { Text } from 'react-native'
 

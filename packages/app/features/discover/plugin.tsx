@@ -1,5 +1,5 @@
-import Background from 'app/components/Background'
-import PluginBanner from 'app/components/PluginBanner'
+import PluginBanner from 'app/components/discover/PluginBanner'
+import Background from 'app/components/ui/Background'
 import Button from 'app/components/ui/Button'
 import Spacer from 'app/components/ui/Spacer'
 import { COLORS } from 'app/theme/theme'

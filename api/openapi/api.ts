@@ -26,6 +26,19 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
+ * @interface HandlersCreateMeditationDTO
+ */
+export interface HandlersCreateMeditationDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof HandlersCreateMeditationDTO
+     */
+    'meditationTime'?: string;
+}
+/**
+ * 
+ * @export
  * @interface HandlersCreateTodoDTO
  */
 export interface HandlersCreateTodoDTO {
@@ -102,13 +115,7 @@ export interface HandlersCreateUserDTO {
      * @type {string}
      * @memberof HandlersCreateUserDTO
      */
-    'id'?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof HandlersCreateUserDTO
-     */
-    'lastName'?: boolean;
+    'lastName'?: string;
 }
 /**
  * 
@@ -121,37 +128,7 @@ export interface HandlersCreateUserResDTO {
      * @type {string}
      * @memberof HandlersCreateUserResDTO
      */
-    'createdAt'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof HandlersCreateUserResDTO
-     */
-    'dateOfBirth'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof HandlersCreateUserResDTO
-     */
-    'email'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof HandlersCreateUserResDTO
-     */
-    'firstName'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof HandlersCreateUserResDTO
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof HandlersCreateUserResDTO
-     */
-    'lastName'?: boolean;
+    'inserted_id'?: string;
 }
 /**
  * 
@@ -213,6 +190,43 @@ export interface HandlersUpdateTodoResDTO {
 /**
  * 
  * @export
+ * @interface ModelsMeditation
+ */
+export interface ModelsMeditation {
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsMeditation
+     */
+    'completed'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsMeditation
+     */
+    'date'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsMeditation
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsMeditation
+     */
+    'meditationTime'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsMeditation
+     */
+    'user_id'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ModelsTodo
  */
 export interface ModelsTodo {
@@ -244,6 +258,43 @@ export interface ModelsTodo {
      * 
      * @type {string}
      * @memberof ModelsTodo
+     */
+    'title'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ModelsUser
+ */
+export interface ModelsUser {
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsUser
+     */
+    'completed'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsUser
+     */
+    'date'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsUser
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsUser
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsUser
      */
     'title'?: string;
 }
@@ -347,6 +398,116 @@ export class HealthApi extends BaseAPI {
 
 
 /**
+ * MeditationApi - axios parameter creator
+ * @export
+ */
+export const MeditationApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Creates a new meditation.
+         * @param {string} id User ID
+         * @param {HandlersCreateMeditationDTO} meditation Meditation to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        meditationIdPost: async (id: string, meditation: HandlersCreateMeditationDTO, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('meditationIdPost', 'id', id)
+            // verify required parameter 'meditation' is not null or undefined
+            assertParamExists('meditationIdPost', 'meditation', meditation)
+            const localVarPath = `/meditation/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(meditation, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * MeditationApi - functional programming interface
+ * @export
+ */
+export const MeditationApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = MeditationApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Creates a new meditation.
+         * @param {string} id User ID
+         * @param {HandlersCreateMeditationDTO} meditation Meditation to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async meditationIdPost(id: string, meditation: HandlersCreateMeditationDTO, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsMeditation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationIdPost(id, meditation, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * MeditationApi - factory interface
+ * @export
+ */
+export const MeditationApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = MeditationApiFp(configuration)
+    return {
+        /**
+         * Creates a new meditation.
+         * @param {string} id User ID
+         * @param {HandlersCreateMeditationDTO} meditation Meditation to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        meditationIdPost(id: string, meditation: HandlersCreateMeditationDTO, options?: any): AxiosPromise<ModelsMeditation> {
+            return localVarFp.meditationIdPost(id, meditation, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * MeditationApi - object-oriented interface
+ * @export
+ * @class MeditationApi
+ * @extends {BaseAPI}
+ */
+export class MeditationApi extends BaseAPI {
+    /**
+     * Creates a new meditation.
+     * @param {string} id User ID
+     * @param {HandlersCreateMeditationDTO} meditation Meditation to create
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MeditationApi
+     */
+    public meditationIdPost(id: string, meditation: HandlersCreateMeditationDTO, options?: AxiosRequestConfig) {
+        return MeditationApiFp(this.configuration).meditationIdPost(id, meditation, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * TodosApi - axios parameter creator
  * @export
  */
@@ -392,7 +553,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
         todosIdDelete: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('todosIdDelete', 'id', id)
-            const localVarPath = `/todos/:id`
+            const localVarPath = `/todos/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -426,7 +587,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
         todosIdGet: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('todosIdGet', 'id', id)
-            const localVarPath = `/todos/:id`
+            const localVarPath = `/todos/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -463,7 +624,7 @@ export const TodosApiAxiosParamCreator = function (configuration?: Configuration
             assertParamExists('todosIdPut', 'id', id)
             // verify required parameter 'todo' is not null or undefined
             assertParamExists('todosIdPut', 'todo', todo)
-            const localVarPath = `/todos/:id`
+            const localVarPath = `/todos/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -730,6 +891,73 @@ export class TodosApi extends BaseAPI {
 export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * fetch a single user.
+         * @param {string} id Meditationo ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        meditationIdGet: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('meditationIdGet', 'id', id)
+            const localVarPath = `/meditation/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * fetch a single user.
+         * @summary Get a single user.
+         * @param {string} id User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userIdGet: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('userIdGet', 'id', id)
+            const localVarPath = `/user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * creates a user and returns it.
          * @summary Create a user.
          * @param {HandlersCreateUserDTO} user Todo to create
@@ -776,6 +1004,27 @@ export const UserApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
     return {
         /**
+         * fetch a single user.
+         * @param {string} id Meditationo ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async meditationIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationIdGet(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * fetch a single user.
+         * @summary Get a single user.
+         * @param {string} id User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userIdGet(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * creates a user and returns it.
          * @summary Create a user.
          * @param {HandlersCreateUserDTO} user Todo to create
@@ -797,6 +1046,25 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = UserApiFp(configuration)
     return {
         /**
+         * fetch a single user.
+         * @param {string} id Meditationo ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        meditationIdGet(id: string, options?: any): AxiosPromise<ModelsUser> {
+            return localVarFp.meditationIdGet(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * fetch a single user.
+         * @summary Get a single user.
+         * @param {string} id User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userIdGet(id: string, options?: any): AxiosPromise<ModelsUser> {
+            return localVarFp.userIdGet(id, options).then((request) => request(axios, basePath));
+        },
+        /**
          * creates a user and returns it.
          * @summary Create a user.
          * @param {HandlersCreateUserDTO} user Todo to create
@@ -816,6 +1084,29 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
  * @extends {BaseAPI}
  */
 export class UserApi extends BaseAPI {
+    /**
+     * fetch a single user.
+     * @param {string} id Meditationo ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public meditationIdGet(id: string, options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).meditationIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * fetch a single user.
+     * @summary Get a single user.
+     * @param {string} id User ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public userIdGet(id: string, options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).userIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * creates a user and returns it.
      * @summary Create a user.

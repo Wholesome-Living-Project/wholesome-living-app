@@ -1,4 +1,5 @@
 import { COLORS, SPACING } from 'app/theme/theme'
+import { Text as NativeText } from 'react-native'
 import { css } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -36,7 +37,7 @@ export type AttrProps = {
 
 export const TEXT_SIZE = 12
 
-const Text = styled.Text<TextProps>`
+const Text = styled(NativeText)<TextProps>`
   font-size: ${(p) => p.size ?? TEXT_SIZE}px;
   text-align: ${(p) => (p.center ? 'center' : 'left')};
   color: ${(p) => p.color ?? COLORS.BLACK};
@@ -44,7 +45,7 @@ const Text = styled.Text<TextProps>`
   font-weight: ${(p) => p.weight};
 `
 
-export const Heading1 = styled.Text<AttrProps>`
+export const Heading1 = styled(NativeText)<AttrProps>`
   ${HeadingRoot};
   font-size: 40px;
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
@@ -52,7 +53,7 @@ export const Heading1 = styled.Text<AttrProps>`
   color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
-export const Heading2 = styled.Text<AttrProps>`
+export const Heading2 = styled(NativeText)<AttrProps>`
   ${HeadingRoot};
   font-size: 32px;
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
@@ -60,7 +61,7 @@ export const Heading2 = styled.Text<AttrProps>`
   color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
-export const Heading3 = styled.Text<AttrProps>`
+export const Heading3 = styled(NativeText)<AttrProps>`
   ${HeadingRoot};
   font-size: 28px;
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
@@ -68,7 +69,7 @@ export const Heading3 = styled.Text<AttrProps>`
   color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
-export const Heading4 = styled.Text<AttrProps>`
+export const Heading4 = styled(NativeText)<AttrProps>`
   ${HeadingRoot};
   font-size: 24px;
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
@@ -76,7 +77,7 @@ export const Heading4 = styled.Text<AttrProps>`
   color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
-export const Heading5 = styled.Text<AttrProps>`
+export const Heading5 = styled(NativeText)<AttrProps>`
   ${HeadingRoot};
   font-size: 20px;
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
@@ -84,7 +85,7 @@ export const Heading5 = styled.Text<AttrProps>`
   color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
-export const Heading6 = styled.Text<AttrProps>`
+export const Heading6 = styled(NativeText)<AttrProps>`
   ${HeadingRoot};
   font-size: 16px;
   font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
@@ -100,7 +101,7 @@ export const Regular = styled.Text<AttrProps>`
   color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
-export const Light = styled.Text<AttrProps>`
+export const Light = styled(NativeText)<AttrProps>`
   ${HeadingRoot};
   font-size: 14px;
   font-weight: ${(p) => p.weight ?? FontWeights.Light};
@@ -108,7 +109,7 @@ export const Light = styled.Text<AttrProps>`
   color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
-export const Caption = styled.Text<AttrProps>`
+export const Caption = styled(NativeText)<AttrProps>`
   ${HeadingRoot};
   font-size: 10px;
   font-weight: ${(p) => p.weight ?? FontWeights.Light};

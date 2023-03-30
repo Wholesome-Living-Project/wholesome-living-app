@@ -1,6 +1,6 @@
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { signOut } from 'app/auth/auth'
-import { SafeAreaBackground } from 'app/components/SafeAreaBackground'
+import { SafeAreaBackground } from 'app/components/ui/SafeAreaBackground'
 import Spacer from 'app/components/ui/Spacer'
 import { useAuth } from 'app/hooks/useAuth'
 import { COLORS, SPACING } from 'app/theme/theme'

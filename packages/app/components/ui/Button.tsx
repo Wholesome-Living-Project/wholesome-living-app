@@ -1,9 +1,10 @@
+import { useWindowDimensions } from 'app/hooks/useWindowDimensions'
 import { Heading6 } from 'app/theme/typography'
 import React, { PropsWithChildren, useMemo } from 'react'
-import { Dimensions, Platform, TouchableOpacity, TouchableOpacityProps } from 'react-native'
+import { Platform, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { MotiLink } from 'solito/moti'
 import styled from 'styled-components/native'
-import { COLORS, SPACING } from '../../theme/theme'
+import { COLORS, IO_COMPONENT_WIDTH_PERCENT, SPACING } from '../../theme/theme'
 
 type ButtonType = 'cta' | 'primary' | 'secondary'
 
@@ -52,7 +53,8 @@ const Button = ({
   children,
   ...rest
 }: Props) => {
-  const width = useMemo(() => maxWidth ?? Dimensions.get('window').width * 0.85, [])
+  const { windowWidth } = useWindowDimensions()
+  const width = useMemo(() => maxWidth ?? windowWidth * IO_COMPONENT_WIDTH_PERCENT, [])
   return link ? (
     <MotiLink
       href={link}
