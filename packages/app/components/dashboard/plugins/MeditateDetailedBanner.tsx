@@ -43,7 +43,13 @@ const Content = () => {
 }
 
 const MeditateDetailedBanner = () => {
-  return <PluginDetailedBanner content={<Content />} plugin={plugins.MEDITATE} />
+  return (
+    <PluginDetailedBanner
+      content={<Content />}
+      plugin={plugins.MEDITATE}
+      backgroundImage={require('../../../../assets/images/woman_meditation.png')}
+    />
+  )
 }
 
 export default MeditateDetailedBanner

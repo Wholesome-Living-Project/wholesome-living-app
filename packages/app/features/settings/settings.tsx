@@ -1,6 +1,6 @@
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { signOut } from 'app/auth/auth'
-import { SafeAreaBackground } from 'app/components/ui/SafeAreaBackground'
+import { SafeArea } from 'app/components/ui/SafeArea'
 import Spacer from 'app/components/ui/Spacer'
 import { useAuth } from 'app/hooks/useAuth'
 import { COLORS, SPACING } from 'app/theme/theme'
@@ -76,7 +76,7 @@ export const SettingsScreen = () => {
   const user = useAuth()
 
   return (
-    <SafeAreaBackground>
+    <SafeArea>
       <StyledList
         data={SETTINGS}
         renderItem={({ item }) => {
@@ -108,7 +108,7 @@ export const SettingsScreen = () => {
           </UserProfile>
         )}
       />
-    </SafeAreaBackground>
+    </SafeArea>
   )
 }
 
