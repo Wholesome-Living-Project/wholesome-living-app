@@ -6,6 +6,7 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.5.2",
     "@tsconfig/react-native": "^2.0.3",
     "@types/react": "^18.0.17",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
@@ -28,9 +29,7 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0",
     "turbo": "^1.4.2",
-    "typescript": "^4.7.4",
-    "@openapitools/openapi-generator-cli": "^2.5.2"
-
+    "typescript": "^4.7.4"
   },
   "scripts": {
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && cd apps/expo && expo start",

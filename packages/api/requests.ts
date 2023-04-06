@@ -1,5 +1,5 @@
-import { axiosInstance } from '../../api/axios'
-import { Configuration, UserApi } from '../../api/openapi'
+import { axiosInstance } from './axios'
+import { Configuration, UserApi } from './openapi'
 
 const openApiConfig = new Configuration()
 

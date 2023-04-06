@@ -1,14 +1,18 @@
 require('dotenv').config()
 const { exec } = require('child_process')
 
+const openapiPath = 'packages/api/openapi'
+const localOpenApiPath = `${openapiPath}/swagger.json`
+
 const getCommand = (apiSpecificationPath) => {
-  return `openapi-generator-cli generate -i ${apiSpecificationPath} -g typescript-axios -o api/openapi --additional-properties=withoutPrefixEnums=true`
+  return `openapi-generator-cli generate -i ${apiSpecificationPath} -g typescript-axios -o ${openapiPath} --additional-properties=withoutPrefixEnums=true`
 }
 
-const localOpenApiPath = 'api/openapi/swagger.json'
+const branchToPull = 'main'
+
 const mainCommand = getCommand(localOpenApiPath)
 
-const getMainOpenApiSpecificationCommand = `curl -H "Authorization: token ${process.env.GITHUB_ACCESS_TOKEN}" "https://raw.githubusercontent.com/Wholesome-Living-Project/wholesome-living-backend/main/docs/swagger.json" -o ${localOpenApiPath} --create-dirs `
+const getMainOpenApiSpecificationCommand = `curl -H "Authorization: token ${process.env.GITHUB_ACCESS_TOKEN}" "https://raw.githubusercontent.com/Wholesome-Living-Project/wholesome-living-backend/${branchToPull}/docs/swagger.json" -o ${localOpenApiPath} --create-dirs `
 
 let errorCount = 0
 

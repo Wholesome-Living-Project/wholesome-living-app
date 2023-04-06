@@ -38,7 +38,6 @@ const SignupForm = () => {
       const user = await api.userApi
         .userPost({
           email,
-          id: firebaseUser.user.uid,
         })
         .then(() => Platform.OS === 'web' && router?.push('/'))
       Keyboard.dismiss()
