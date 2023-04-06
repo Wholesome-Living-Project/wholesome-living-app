@@ -5,7 +5,7 @@ import { View } from 'react-native'
 import styled from 'styled-components/native'
 import { COLORS, HEADER_HEIGHT, SPACING } from '../../theme/theme'
 
-const StyledView = styled(View)<Props>`
+const StyledView = styled(View)<BackgroundProps>`
   display: flex;
   position: relative;
   flex-direction: column;

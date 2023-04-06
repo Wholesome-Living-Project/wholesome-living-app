@@ -1,10 +1,22 @@
+export const PRIMARY_TINTS = {
+  900: '#152021',
+  800: '#24393A',
+  700: '#345153',
+  600: '#3E6163',
+  500: '#497174',
+  400: '#5A8D90',
+  300: '#72A3A7',
+  200: '#AAC8CA',
+  100: '#C7DADC',
+}
+
 export const COLORS = {
   WHITE: 'white',
   BLACK: 'black',
   GREY: '#EFF5F5',
-  PRIMARY: '#497174',
-  SECONDARY: '#D6E4E5',
-  CTA: '#EB6440',
+  PRIMARY: PRIMARY_TINTS['500'],
+  SECONDARY: PRIMARY_TINTS['100'],
+  CTA: '#DE3163',
   HEADER: '#D6E4E5',
   TAB_BAR: '#D6E4E5',
   TAB_BAR_ICONS: '#497174',
