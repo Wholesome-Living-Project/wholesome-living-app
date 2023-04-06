@@ -1,7 +1,7 @@
 import { signOut } from 'app/auth/auth'
 import { useAuth } from 'app/hooks/useAuth'
 import { COLORS, HEADER_HEIGHT, OUTER_BORDER_RADIUS, SIDEBAR_WIDTH, SPACING } from 'app/theme/theme'
-import { Heading4 } from 'app/theme/typography'
+import { Heading6 } from 'app/theme/typography'
 import { Flex } from 'axelra-styled-bootstrap-grid'
 import { PropsWithChildren } from 'react'
 import styled from 'styled-components'
@@ -11,7 +11,8 @@ import { MaxWidthContainer } from '../ui/MaxWidthContainer'
 const FullWidthContainer = styled(Flex)`
   z-index: 10;
   height: ${HEADER_HEIGHT}px;
-  border: 1px solid ${COLORS.BLACK};
+  border: 1px solid ${COLORS.TAB_BAR};
+  background-color: ${COLORS.TAB_BAR};
   border-radius: ${OUTER_BORDER_RADIUS}px;
   flex-direction: column;
   position: absolute;
@@ -52,9 +53,9 @@ const HeaderLinks = styled(Flex)`
 type MenuItemProps = { link?: string; onPress?: () => void } & PropsWithChildren
 const MenuItem = ({ link, children, onPress }: MenuItemProps) => (
   <OptionalLink href={link}>
-    <Heading4 color={COLORS.BLACK} onPress={!link ? onPress : undefined}>
+    <Heading6 color={COLORS.BLACK} onPress={!link ? onPress : undefined}>
       {children}
-    </Heading4>
+    </Heading6>
   </OptionalLink>
 )
 
