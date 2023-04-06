@@ -9,13 +9,14 @@ import { alpha } from 'axelra-react-native-utilities'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useRootNavigation } from 'expo-router'
 import React, { useMemo } from 'react'
-import { Pressable, View } from 'react-native'
+import { Image, ImageSourcePropType, Pressable, View } from 'react-native'
 import styled from 'styled-components'
 
 const Wrapper = styled(Pressable)<{ width: number }>`
   height: 250px;
   width: ${(p) => p.width}px;
   overflow: hidden;
+  position: relative;
 `
 
 const Gradient = styled(LinearGradient)`
@@ -44,28 +45,38 @@ const ArrowContainer = styled(View)`
   align-items: flex-end;
 `
 
-type Props = { plugin: plugins; content?: React.ReactNode }
+const AbsoluteImageContainer = styled(View)`
+  position: absolute;
+  height: 100%;
+`
+
+const StyledImage = styled(Image)<{ width: number }>`
+  width: ${(p) => p.width}px;
+  height: 100%;
+
+  border-radius: ${OUTER_BORDER_RADIUS}px;
+`
+
+type Props = { plugin: plugins; content?: React.ReactNode; backgroundImage?: ImageSourcePropType }
 
 // TODO use animated API for animating pressable in a separate component
 
-const PluginDetailedBanner = ({ content, plugin }: Props) => {
-  const { windowWidth, windowHeight } = useWindowDimensions()
+const PluginDetailedBanner = ({ content, plugin, backgroundImage }: Props) => {
+  const { windowWidth } = useWindowDimensions()
   const width = useMemo(() => windowWidth * IO_COMPONENT_WIDTH_PERCENT, [windowWidth])
-  const { title, color, icon, faIcon, materialIcon, ionIcon } = PLUGINS[plugin]
+  const { route } = PLUGINS[plugin]
 
   const navigation = useRootNavigation()
 
   return (
-    <Wrapper
-      width={width}
-      onPress={() =>
-        navigation?.navigate(
-          'plugin' as never,
-          { name: title, color, icon, faIcon, materialIcon, ionIcon } as never
-        )
-      }>
+    <Wrapper width={width} onPress={() => navigation?.navigate(route as never)}>
+      {backgroundImage && (
+        <AbsoluteImageContainer>
+          <StyledImage source={backgroundImage} width={width} />
+        </AbsoluteImageContainer>
+      )}
       <Gradient
-        colors={[PLUGIN_COLORS[plugin], alpha(0.4, PLUGIN_COLORS[plugin])]}
+        colors={[alpha(0.8, PLUGIN_COLORS[plugin]), alpha(0.2, PLUGIN_COLORS[plugin])]}
         start={{ x: 0.1, y: 0.3 }}>
         <TitleContainer>
           <Heading4 color={COLORS.WHITE}>{plugin && PLUGINS[plugin].title}</Heading4>
@@ -74,7 +85,7 @@ const PluginDetailedBanner = ({ content, plugin }: Props) => {
         <Spacer x={1} />
         <ContentWrapper>{content}</ContentWrapper>
         <ArrowContainer>
-          <MaterialCommunityIcons name={'arrow-right'} size={35} color={PLUGIN_COLORS[plugin]} />
+          <MaterialCommunityIcons name={'arrow-right'} size={35} color={COLORS.WHITE} />
         </ArrowContainer>
       </Gradient>
     </Wrapper>

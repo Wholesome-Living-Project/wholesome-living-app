@@ -20,12 +20,12 @@ const StyledView = styled(View)<BackgroundProps>`
     )}
   ${onlyOnWeb(`top: ${HEADER_HEIGHT}px`)}
 `
-type BackgroundProps = { center?: boolean; bottom?: boolean }
+type BackgroundProps = { center?: boolean; bottom?: boolean; alignCenter?: boolean }
 type Props = BackgroundProps & PropsWithChildren
 
-const Background = ({ center, bottom, children }: Props) => {
+const Background = ({ center, bottom, alignCenter, children }: Props) => {
   return (
-    <StyledView center={center} bottom={bottom}>
+    <StyledView center={center} bottom={bottom} alignCenter={alignCenter}>
       {children}
     </StyledView>
   )
