@@ -1,8 +1,8 @@
 import { axiosInstance } from './axios'
-import { Configuration, UserApi } from './openapi'
+import { Configuration, UsersApi } from './openapi'
 
 const openApiConfig = new Configuration()
 
 export const api = {
-  userApi: new UserApi(openApiConfig, '', axiosInstance),
+  userApi: new UsersApi(openApiConfig, '', axiosInstance),
 }

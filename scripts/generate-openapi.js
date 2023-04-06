@@ -8,7 +8,7 @@ const getCommand = (apiSpecificationPath) => {
   return `openapi-generator-cli generate -i ${apiSpecificationPath} -g typescript-axios -o ${openapiPath} --additional-properties=withoutPrefixEnums=true`
 }
 
-const branchToPull = 'main'
+const branchToPull = 'dev'
 
 const mainCommand = getCommand(localOpenApiPath)
 

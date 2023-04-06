@@ -27,6 +27,7 @@ const SignupForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const router = useNextRouter()
 
   const submit = useCallback(async () => {
@@ -36,8 +37,11 @@ const SignupForm = () => {
 
       if (!firebaseUser) throw new Error('firebase user could not be created')
       const user = await api.userApi
-        .userPost({
+        .usersPost({
           email,
+          id: firebaseUser.user.uid,
+          firstName: firstName,
+          lastName: lastName,
         })
         .then(() => Platform.OS === 'web' && router?.push('/'))
       Keyboard.dismiss()
@@ -59,8 +63,8 @@ const SignupForm = () => {
         <Spacer x={2} />
         <Input
           placeholder={'Last Name'}
-          value={firstName}
-          onChangeText={(text) => setFirstName(text)}
+          value={lastName}
+          onChangeText={(text) => setLastName(text)}
         />
       </NameWrapper>
       <Spacer x={2} />
