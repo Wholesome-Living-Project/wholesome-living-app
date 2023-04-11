@@ -6,7 +6,7 @@ import React from 'react'
 import { Image, Text, View } from 'react-native'
 import styled from 'styled-components'
 
-const IMAGE_HEIGHT = 250
+const IMAGE_HEIGHT = 350
 const ImageContainer = styled(View)`
   position: relative;
   width: 100%;

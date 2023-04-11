@@ -1,8 +1,8 @@
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
-import { signOut } from 'app/auth/auth'
 import { SafeArea } from 'app/components/ui/SafeArea'
 import Spacer from 'app/components/ui/Spacer'
-import { useAuth } from 'app/hooks/useAuth'
+import { useUser } from 'app/hooks/useUser'
+import { useAuthentication } from 'app/provider/AuthenticationProvider'
 import { COLORS, SPACING } from 'app/theme/theme'
 import { Heading5, Regular } from 'app/theme/typography'
 import type { IonIconType } from 'app/types/IonIcon'
@@ -73,7 +73,8 @@ const SETTINGS: SettingsType[] = [
 ]
 export const SettingsScreen = () => {
   const windowWidth = Dimensions.get('window').width
-  const user = useAuth()
+  const { user } = useUser()
+  const { signOutUser } = useAuthentication()
 
   return (
     <SafeArea>
@@ -91,7 +92,7 @@ export const SettingsScreen = () => {
               name={'Logout'}
               icon={'exit-outline'}
               onPress={async () => {
-                await signOut().catch((err) => console.log(err))
+                await signOutUser()
               }}
             />
           </>
@@ -103,7 +104,7 @@ export const SettingsScreen = () => {
             <UserInfoContainer>
               <EmailText>{user?.email}</EmailText>
               <Spacer x={1} />
-              <NameText>name</NameText>
+              <NameText>{user?.firstName}</NameText>
             </UserInfoContainer>
           </UserProfile>
         )}

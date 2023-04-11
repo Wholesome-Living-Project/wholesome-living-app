@@ -26,6 +26,44 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
+ * @interface MeditationCreateMeditationRequest
+ */
+export interface MeditationCreateMeditationRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof MeditationCreateMeditationRequest
+     */
+    'endTime'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MeditationCreateMeditationRequest
+     */
+    'meditationTime'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MeditationCreateMeditationRequest
+     */
+    'userId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface MeditationCreateMeditationResponse
+ */
+export interface MeditationCreateMeditationResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof MeditationCreateMeditationResponse
+     */
+    'id'?: string;
+}
+/**
+ * 
+ * @export
  * @interface MeditationMeditationResponse
  */
 export interface MeditationMeditationResponse {
@@ -89,6 +127,63 @@ export interface UserCreateUserResponse {
 /**
  * 
  * @export
+ * @enum {string}
+ */
+
+export const UserPluginType = {
+    PluginTypeMeditation: 'meditation',
+    PluginTypeWorkout: 'workout'
+} as const;
+
+export type UserPluginType = typeof UserPluginType[keyof typeof UserPluginType];
+
+
+/**
+ * 
+ * @export
+ * @interface UserUpdateUserRequest
+ */
+export interface UserUpdateUserRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserUpdateUserRequest
+     */
+    'dateOfBirth'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserUpdateUserRequest
+     */
+    'email'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserUpdateUserRequest
+     */
+    'firstName'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserUpdateUserRequest
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserUpdateUserRequest
+     */
+    'lastName'?: string;
+    /**
+     * 
+     * @type {Array<UserPluginType>}
+     * @memberof UserUpdateUserRequest
+     */
+    'plugins'?: Array<UserPluginType>;
+}
+/**
+ * 
+ * @export
  * @interface UserUserDB
  */
 export interface UserUserDB {
@@ -128,6 +223,12 @@ export interface UserUserDB {
      * @memberof UserUserDB
      */
     'lastName'?: string;
+    /**
+     * 
+     * @type {Array<UserPluginType>}
+     * @memberof UserUserDB
+     */
+    'plugins'?: Array<UserPluginType>;
 }
 
 /**
@@ -170,6 +271,42 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Creates a new meditation.
+         * @summary Create meditation.
+         * @param {MeditationCreateMeditationRequest} meditation Meditation to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        meditationPost: async (meditation: MeditationCreateMeditationRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'meditation' is not null or undefined
+            assertParamExists('meditationPost', 'meditation', meditation)
+            const localVarPath = `/meditation`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(meditation, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -189,6 +326,17 @@ export const MeditationApiFp = function(configuration?: Configuration) {
          */
         async meditationIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationMeditationResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.meditationIdGet(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Creates a new meditation.
+         * @summary Create meditation.
+         * @param {MeditationCreateMeditationRequest} meditation Meditation to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async meditationPost(meditation: MeditationCreateMeditationRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationCreateMeditationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationPost(meditation, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -211,6 +359,16 @@ export const MeditationApiFactory = function (configuration?: Configuration, bas
         meditationIdGet(id: string, options?: any): AxiosPromise<MeditationMeditationResponse> {
             return localVarFp.meditationIdGet(id, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Creates a new meditation.
+         * @summary Create meditation.
+         * @param {MeditationCreateMeditationRequest} meditation Meditation to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        meditationPost(meditation: MeditationCreateMeditationRequest, options?: any): AxiosPromise<MeditationCreateMeditationResponse> {
+            return localVarFp.meditationPost(meditation, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -231,6 +389,18 @@ export class MeditationApi extends BaseAPI {
      */
     public meditationIdGet(id: string, options?: AxiosRequestConfig) {
         return MeditationApiFp(this.configuration).meditationIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Creates a new meditation.
+     * @summary Create meditation.
+     * @param {MeditationCreateMeditationRequest} meditation Meditation to create
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MeditationApi
+     */
+    public meditationPost(meditation: MeditationCreateMeditationRequest, options?: AxiosRequestConfig) {
+        return MeditationApiFp(this.configuration).meditationPost(meditation, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -341,6 +511,42 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * update a user by id.
+         * @summary Update a user.
+         * @param {UserUpdateUserRequest} user User to update
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersPut: async (user: UserUpdateUserRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'user' is not null or undefined
+            assertParamExists('usersPut', 'user', user)
+            const localVarPath = `/users`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(user, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -383,6 +589,17 @@ export const UsersApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.usersPost(user, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * update a user by id.
+         * @summary Update a user.
+         * @param {UserUpdateUserRequest} user User to update
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersPut(user: UserUpdateUserRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserUserDB>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersPut(user, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -421,6 +638,16 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          */
         usersPost(user: UserCreateUserRequest, options?: any): AxiosPromise<UserCreateUserResponse> {
             return localVarFp.usersPost(user, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * update a user by id.
+         * @summary Update a user.
+         * @param {UserUpdateUserRequest} user User to update
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersPut(user: UserUpdateUserRequest, options?: any): AxiosPromise<UserUserDB> {
+            return localVarFp.usersPut(user, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -465,6 +692,18 @@ export class UsersApi extends BaseAPI {
      */
     public usersPost(user: UserCreateUserRequest, options?: AxiosRequestConfig) {
         return UsersApiFp(this.configuration).usersPost(user, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * update a user by id.
+     * @summary Update a user.
+     * @param {UserUpdateUserRequest} user User to update
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public usersPut(user: UserUpdateUserRequest, options?: AxiosRequestConfig) {
+        return UsersApiFp(this.configuration).usersPut(user, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
