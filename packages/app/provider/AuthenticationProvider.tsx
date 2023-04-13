@@ -41,29 +41,35 @@ export const useAuthentication = () => useContext(AuthContext)
 const useProvideAuth = (): AuthenticationType => {
   const [loading, setLoading] = useState(false)
   const [user, setUser] = useState<UserType | null>(null)
-  const firebaseUser = useAuth()
+  const currentFirebaseUser = useAuth()
 
-  const getUser = useCallback(async () => {
-    if (firebaseUser?.uid) {
-      const { data } = await api.userApi.usersIdGet(firebaseUser.uid)
-      console.log('got user ', data.email)
+  const getUser = useCallback(
+    async (uid?: string) => {
+      if (uid || currentFirebaseUser?.uid) {
+        const id = uid ?? currentFirebaseUser?.uid
+        if (id) {
+          const { data } = await api.userApi.usersIdGet(id)
+          console.log('got user ', data.email)
 
-      const u: UserType = {
-        ...data,
-        firebaseUID: firebaseUser.uid ?? null,
+          const u: UserType = {
+            ...data,
+            firebaseUID: id,
+          }
+          setUser(u)
+
+          return u
+        }
+      } else {
+        console.log('firebase user not available? : ', uid)
       }
-      setUser(u)
-
-      return u
-    } else {
-      console.log('firebase user not available? : ', firebaseUser?.uid)
-    }
-  }, [firebaseUser, setUser])
+    },
+    [setUser]
+  )
 
   const patchUser = useCallback(
     async (request: UserUpdateUserRequest) => {
       await api.userApi.usersPut(request)
-      return getUser()
+      return getUser(currentFirebaseUser?.uid)
     },
     [getUser]
   )
@@ -85,13 +91,19 @@ const useProvideAuth = (): AuthenticationType => {
       const creds = await signUp(email, password)
       console.log('signed up and have new firebase user: ' + creds)
 
-      await api.userApi.usersPost({
-        firstName,
-        email,
-        lastName,
-        dateOfBirth,
-        id: firebaseUser?.uid,
-      })
+      if (typeof creds === 'object') {
+        try {
+          await api.userApi.usersPost({
+            firstName,
+            email,
+            lastName,
+            dateOfBirth,
+            id: creds.user?.uid,
+          })
+        } catch (e) {
+          console.log(e)
+        }
+      }
 
       return getUser()
     },
@@ -101,6 +113,7 @@ const useProvideAuth = (): AuthenticationType => {
   const signOutUser = useCallback(async () => {
     try {
       await signOut()
+      setUser(null)
     } catch (e) {
       /* do nothing as user is probably not logged in */
     } finally {
@@ -110,19 +123,19 @@ const useProvideAuth = (): AuthenticationType => {
 
   const signInWithEmailAndPassword = useCallback(
     async ({ email, password }: { email: string; password: string }) => {
-      await signIn(email, password)
-      return getUser()
+      const fbUser = await signIn(email, password)
+      return getUser(fbUser?.user.uid)
     },
     [getUser]
   )
 
   const getInitialUser = useCallback(async () => {
     // if user has not been initialized yet (via firebase) we do not create it on app start
-    if (!firebaseUser?.uid) return
+    if (!currentFirebaseUser?.uid) return
 
     try {
       setLoading(true)
-      await getUser()
+      await getUser(currentFirebaseUser?.uid)
     } catch (e) {
       console.log(e)
     } finally {

@@ -12,13 +12,13 @@ const getIsSignedIn = () => Boolean(auth.currentUser)
 const signOut = () => auth.signOut()
 
 const signIn = async (email: string, password: string) => {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((user) => {
-      return user
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  try {
+    const user = await signInWithEmailAndPassword(auth, email, password)
+    console.log(user)
+    return user
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 const signUp = async (email: string, password: string) =>

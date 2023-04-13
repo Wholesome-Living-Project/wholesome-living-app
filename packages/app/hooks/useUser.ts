@@ -10,5 +10,5 @@ export const useUser: () => FullUserType = () => {
 
   return useMemo(() => {
     return { firebaseUser: firebaseUser, user: user }
-  }, [])
+  }, [firebaseUser, user])
 }
