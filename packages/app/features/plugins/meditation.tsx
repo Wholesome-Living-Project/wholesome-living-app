@@ -1,4 +1,6 @@
+import Timer from 'app/components/plugins/meditation/Timer'
 import Background from 'app/components/ui/Background'
+import Spacer from 'app/components/ui/Spacer'
 import { PLUGINS } from 'app/helpers/pluginList'
 import { COLORS } from 'app/theme/theme'
 import { Heading1 } from 'app/theme/typography'
@@ -31,7 +33,9 @@ const Meditation = () => {
         <Heading1 color={COLORS.WHITE}>{PLUGINS['MEDITATE'].title}</Heading1>
       </ImageContainer>
       <Background>
-        <Text>Hello</Text>
+        <Text>Unmute phone to hear a sound when you're done</Text>
+        <Spacer x={2} />
+        <Timer />
       </Background>
     </>
   )
