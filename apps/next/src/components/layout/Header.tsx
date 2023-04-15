@@ -1,7 +1,7 @@
 import { signOut } from 'app/auth/auth'
 import { useAuth } from 'app/hooks/useAuth'
 import { COLORS, HEADER_HEIGHT, SPACING } from 'app/theme/theme'
-import { Heading6 } from 'app/theme/typography'
+import { Heading4 } from 'app/theme/typography'
 import { Flex } from 'axelra-styled-bootstrap-grid'
 import { PropsWithChildren } from 'react'
 import styled from 'styled-components'
@@ -14,7 +14,7 @@ const FullWidthContainer = styled(Flex)`
   z-index: 10;
   top: 0;
   height: ${HEADER_HEIGHT}px;
-  background: ${COLORS.TAB_BAR};
+  background: ${COLORS.PRIMARY};
   flex-direction: row;
 `
 
@@ -33,9 +33,9 @@ const HeaderLinks = styled(Flex)`
 type MenuItemProps = { link?: string; onPress?: () => void } & PropsWithChildren
 const MenuItem = ({ link, children, onPress }: MenuItemProps) => (
   <OptionalLink href={link}>
-    <Heading6 color={COLORS.BLACK} onPress={!link ? onPress : undefined}>
+    <Heading4 color={COLORS.WHITE} onPress={!link ? onPress : undefined}>
       {children}
-    </Heading6>
+    </Heading4>
   </OptionalLink>
 )
 
@@ -56,6 +56,7 @@ const Header = () => {
               {route.text}
             </MenuItem>
           ))}
+          <MenuItem link={'/'}>Wholesome Living</MenuItem>
         </HeaderLinks>
         {user ? (
           <MenuItem onPress={() => signOut()}>Logout</MenuItem>
