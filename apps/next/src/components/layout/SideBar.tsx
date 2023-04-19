@@ -11,11 +11,12 @@ import { MaxWidthContainer } from '../ui/MaxWidthContainer'
 const FullWidthContainer = styled(Flex)`
   z-index: 10;
   height: ${HEADER_HEIGHT}px;
-  border: 1px solid ${COLORS.TAB_BAR};
+  border: 1px solid ${COLORS.BLACK};
   background-color: ${COLORS.TAB_BAR};
   border-radius: ${OUTER_BORDER_RADIUS}px;
   flex-direction: column;
   position: absolute;
+  
 
 
   @media only screen and (min-width: ${(p) => p.theme.breakPoints.sm}px) {
