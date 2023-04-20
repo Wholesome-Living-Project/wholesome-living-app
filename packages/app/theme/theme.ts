@@ -46,7 +46,7 @@ export const EXTRA_COLORS = {
 export const SPACING = 8
 
 export const HEADER_HEIGHT = 75
-export const SIDEBAR_WIDTH = 350
+export const SIDEBAR_WIDTH = 250
 export const MOBILE_SIDEBAR_HEIGHT = 75
 export const FILTER_HEIGHT = 100
 
