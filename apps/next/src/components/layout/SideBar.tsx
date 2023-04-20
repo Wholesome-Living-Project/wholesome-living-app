@@ -16,6 +16,7 @@ const FullWidthContainer = styled(Flex)`
   border-radius: ${OUTER_BORDER_RADIUS}px;
   flex-direction: column;
   position: absolute;
+  width: 100%;
   
 
 
