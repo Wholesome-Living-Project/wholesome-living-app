@@ -35,12 +35,10 @@ const HeaderContent = styled(Flex)`
   flex-direction: column;
   justify-content: space-between;
   padding: ${SPACING * 2}px;
-
 `
 
 const HeaderLinks = styled(Flex)`
-
-  gap: ${SPACING * 2}px;
+  gap: ${SPACING}px;
   margin: 0;
   padding: 0;
   
