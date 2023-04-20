@@ -33,7 +33,7 @@ const SideBarPadder = styled(Flex)`
   position: absolute;
   height: 100%;
   padding-top: ${MOBILE_SIDEBAR_HEIGHT}px;
-  margin-top: ${SPACING}px;
+  margin-top: ${SPACING * 2}px;
 
 
   @media only screen and (min-width: ${(p) => p.theme.breakPoints.sm}px) {
