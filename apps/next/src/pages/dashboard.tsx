@@ -1,7 +1,7 @@
-import { MaxWidthFlex } from '../components/ui/MaxWidthFlex'
+import { MainContentContainer } from 'app/components/ui/MainContentContainer'
 
 const Dashboard = () => {
-    return <MaxWidthFlex column>This is the dashboard page </MaxWidthFlex>
+    return <MainContentContainer column>This is the dashboard page </MainContentContainer>
 }
 
 export default Dashboard
