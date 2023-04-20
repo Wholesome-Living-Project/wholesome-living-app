@@ -48,6 +48,7 @@ export const SPACING = 8
 export const HEADER_HEIGHT = 75
 export const SIDEBAR_WIDTH = 350
 export const MOBILE_SIDEBAR_HEIGHT = 75
+export const FILTER_HEIGHT = 100
 
 export const OUTER_BORDER_RADIUS = 12
 export const INNER_BORDER_RADIUS = 6

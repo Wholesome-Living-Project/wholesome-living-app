@@ -21,19 +21,31 @@ import { GlobalStyle } from '../theme/theme'
 import styled from 'styled-components'
 import { SIDEBAR_WIDTH } from 'app/theme/theme'
 import { MOBILE_SIDEBAR_HEIGHT } from 'app/theme/theme'
+import { SPACING } from 'axelra-styled-bootstrap-grid'
+import { MaxWidthContainer } from '../components/ui/MaxWidthContainer'
+import Spacer from 'app/components/ui/Spacer'
+import { Flex } from 'axelra-styled-bootstrap-grid'
 
 
-const SideBarPadder = styled.div`
+
+const SideBarPadder = styled(Flex)`
   width: 100%;
   position: relative;
   height: 100%;
   padding-top: ${MOBILE_SIDEBAR_HEIGHT}px;
+  margin-top: ${SPACING}px;
 
   @media only screen and (min-width: ${(p) => p.theme.breakPoints.sm}px) {
     padding-left: ${SIDEBAR_WIDTH}px;
+    padding-top: 0px;
+    margin-top: 0px;
   }
-
 `
+
+const MaxWidthContainerPadder = styled(MaxWidthContainer)`
+  position: relative;
+  height: 100%;
+  `
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
   return (
@@ -48,10 +60,13 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
         <Providers>
           <Header />
           <Background>
+            <MaxWidthContainerPadder row>
           <SideBar />
-          <SideBarPadder>
+          <Spacer x={2}/>
+          <SideBarPadder column>
             <Component {...pageProps} />
           </SideBarPadder>
+          </MaxWidthContainerPadder>
           </Background>
         </Providers>
       </ThemeProvider>
