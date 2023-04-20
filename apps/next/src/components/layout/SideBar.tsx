@@ -37,7 +37,7 @@ const HeaderContent = styled(Flex)`
 `
 
 const HeaderLinks = styled(Flex)`
-  flex-direction: row;
+
   gap: ${SPACING * 2}px;
   margin: 0;
   padding: 0;
