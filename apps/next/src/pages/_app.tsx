@@ -30,15 +30,17 @@ import { Flex } from 'axelra-styled-bootstrap-grid'
 
 const SideBarPadder = styled(Flex)`
   width: 100%;
-  position: relative;
+  position: absolute;
   height: 100%;
   padding-top: ${MOBILE_SIDEBAR_HEIGHT}px;
   margin-top: ${SPACING}px;
+
 
   @media only screen and (min-width: ${(p) => p.theme.breakPoints.sm}px) {
     padding-left: ${SIDEBAR_WIDTH}px;
     padding-top: 0px;
     margin-top: 0px;
+    margin-left: ${SPACING*2}px;
   }
 `
 
@@ -46,6 +48,7 @@ const MaxWidthContainerPadder = styled(MaxWidthContainer)`
   position: relative;
   height: 100%;
   `
+
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
   return (
@@ -62,9 +65,9 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
           <Background>
             <MaxWidthContainerPadder row>
           <SideBar />
-          <Spacer x={2}/>
           <SideBarPadder column>
             <Component {...pageProps} />
+            <Spacer x={2}/>
           </SideBarPadder>
           </MaxWidthContainerPadder>
           </Background>

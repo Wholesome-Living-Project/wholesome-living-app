@@ -8,7 +8,7 @@ import { MaxWidthFlex } from '../components/ui/MaxWidthFlex'
 const FlexContainer = styled(Flex)`
   height: 100%;
   position: relative;
-  gap: ${SPACING}px;
+  gap: ${SPACING * 2}px;
 `
 
 const FilterContainer = styled(Flex)`
