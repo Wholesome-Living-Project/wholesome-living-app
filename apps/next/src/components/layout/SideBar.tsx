@@ -17,6 +17,7 @@ const FullWidthContainer = styled(Flex)`
   flex-direction: column;
   position: absolute;
   width: 100%;
+  margin-left: -${SPACING*2}px;
   
 
 
