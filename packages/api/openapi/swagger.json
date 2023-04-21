@@ -47,6 +47,52 @@
                 }
             }
         },
+        "/meditation/getAll/{userID}": {
+            "get": {
+                "description": "fetch all meditation sessions of a user.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "meditation"
+                ],
+                "summary": "Get all meditation session",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "userID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "endTime": {
+                                        "type": "string"
+                                    },
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "meditationTime": {
+                                        "type": "string"
+                                    },
+                                    "userId": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/meditation/{id}": {
             "get": {
                 "description": "fetch a single meditation session.",
@@ -70,7 +116,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/meditation.meditationResponse"
+                            "$ref": "#/definitions/meditation.getMeditationResponse"
                         }
                     }
                 }
@@ -222,10 +268,19 @@
                 }
             }
         },
-        "meditation.meditationResponse": {
+        "meditation.getMeditationResponse": {
             "type": "object",
             "properties": {
-                "meditationId": {
+                "endTime": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "meditationTime": {
+                    "type": "string"
+                },
+                "userId": {
                     "type": "string"
                 }
             }

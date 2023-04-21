@@ -1,19 +1,39 @@
 import DateTimePicker from '@react-native-community/datetimepicker'
-import { Heading5 } from 'app/theme/typography'
+import { Flex } from 'app/components/ui/Flex'
+import { displayTime } from 'app/helpers/timerHelpers'
+import { Heading4 } from 'app/theme/typography'
 import React, { useState } from 'react'
-const TimePicker = () => {
-  const [time, setTime] = useState<Date>(new Date())
-  const [difference, setDifference] = useState(0)
+
+type Props = {
+  difference: number
+  setDifference: (time: number) => void
+}
+const TimePicker = ({ setDifference, difference }: Props) => {
+  const [time, setTime] = useState(new Date())
   return (
     <>
-      <Heading5>{difference}</Heading5>
+      <Flex row flex={1} justify={'center'}>
+        <Heading4>{displayTime(difference)} minutes</Heading4>
+      </Flex>
       <DateTimePicker
         value={time}
         mode={'time'}
         display={'spinner'}
         onChange={(_, t) => {
-          t && setTime(t)
-          t && setDifference(t.getMinutes() - new Date().getMinutes())
+          if (t) {
+            const difference =
+              t.getMinutes() -
+              new Date().getMinutes() +
+              t.getHours() * 60 -
+              new Date().getHours() * 60
+
+            setTime(t)
+            if (difference > 0) {
+              setDifference(difference)
+            } else {
+              setDifference(24 * 60 - difference * -1)
+            }
+          }
         }}
       />
     </>
