@@ -19,11 +19,23 @@ const FilterContainer = styled(Flex)`
     border-radius: ${OUTER_BORDER_RADIUS}px;
 `
 
+const ContentContainer = styled(Flex)`
+  padding: ${SPACING * 2}px;
+`
+
 const Dashboard = () => {
   return (
     <FlexContainer column >
-      <FilterContainer>This is the Filter Fam</FilterContainer>
-      <MainContentContainer column>This is the dashboard page </MainContentContainer>
+      <FilterContainer>
+      <ContentContainer column>
+        This is the Filter 
+        </ContentContainer>
+        </FilterContainer>
+      <MainContentContainer column>
+        <ContentContainer column>
+        This is the dashboard page 
+        </ContentContainer>
+        </MainContentContainer>
     </FlexContainer>
   )
 }
