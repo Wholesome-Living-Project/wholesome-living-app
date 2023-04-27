@@ -1,9 +1,8 @@
+import PluginList from 'app/components/discover/PluginList'
 import { MainContentContainer } from 'app/components/ui/MainContentContainer'
+import { COLORS, FILTER_HEIGHT, OUTER_BORDER_RADIUS } from 'app/theme/theme'
 import { Flex, SPACING } from 'axelra-styled-bootstrap-grid'
 import styled from 'styled-components'
-import Spacer from 'app/components/ui/Spacer'
-import { FILTER_HEIGHT, COLORS, OUTER_BORDER_RADIUS} from 'app/theme/theme'
-import { MaxWidthFlex } from '../components/ui/MaxWidthFlex'
 
 const FlexContainer = styled(Flex)`
   height: 100%;
@@ -12,11 +11,11 @@ const FlexContainer = styled(Flex)`
 `
 
 const FilterContainer = styled(Flex)`
-    height: ${FILTER_HEIGHT}px;
-    width: 100%;
-    border: 1px solid ${COLORS.BLACK};
-    background-color: ${COLORS.TAB_BAR};
-    border-radius: ${OUTER_BORDER_RADIUS}px;
+  height: ${FILTER_HEIGHT}px;
+  width: 100%;
+  border: 1px solid ${COLORS.BLACK};
+  background-color: ${COLORS.TAB_BAR};
+  border-radius: ${OUTER_BORDER_RADIUS}px;
 `
 
 const ContentContainer = styled(Flex)`
@@ -25,17 +24,14 @@ const ContentContainer = styled(Flex)`
 
 const Dashboard = () => {
   return (
-    <FlexContainer column >
+    <FlexContainer column>
       <FilterContainer>
-      <ContentContainer column>
-        This is the Filter 
-        </ContentContainer>
-        </FilterContainer>
+        <PluginList></PluginList>
+        <ContentContainer column>This is the Filter</ContentContainer>
+      </FilterContainer>
       <MainContentContainer column>
-        <ContentContainer column>
-        This is the dashboard page 
-        </ContentContainer>
-        </MainContentContainer>
+        <ContentContainer column>This is the dashboard page</ContentContainer>
+      </MainContentContainer>
     </FlexContainer>
   )
 }
