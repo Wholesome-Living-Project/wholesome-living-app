@@ -47,7 +47,7 @@ const MeditateDetailedBanner = () => {
     <PluginDetailedBanner
       content={<Content />}
       plugin={plugins.MEDITATE}
-      backgroundImage={require('../../../../assets/images/woman_meditation.png')}
+      backgroundImage={require('../../../../assets/images/woman_meditation.jpg')}
     />
   )
 }

@@ -8,7 +8,7 @@ import { Heading1 } from 'app/theme/typography'
 import { alpha } from 'axelra-react-native-utilities'
 import { Audio } from 'expo-av'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Button as NativeButton, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
 
 const TimerContainer = styled(View)`
@@ -29,7 +29,11 @@ const TimerBackground = styled(TouchableOpacity)`
   background: ${alpha(0.6, COLORS.SECONDARY)};
 `
 
-const Timer = () => {
+type Props = {
+  onTimerEnded: (time: number) => void
+}
+
+const Timer = ({ onTimerEnded }: Props) => {
   const [isTimerStart, setIsTimerStart] = useState(false)
   const [timerDuration, setTimerDuration] = useState<number>(60)
   const { timerDifference } = useMeditate()
@@ -70,7 +74,7 @@ const Timer = () => {
 
   const resetTimer = useCallback(() => {
     pauseTimer()
-    setTimerDuration(timerDifference)
+    setTimerDuration(timerDuration)
   }, [pauseTimer, setTimerDuration])
 
   useEffect(() => {
@@ -85,15 +89,16 @@ const Timer = () => {
     if (timerIsZero) {
       pauseTimer()
       handleTimerAtZero()
+      onTimerEnded(timerDuration)
     }
-  }, [pauseTimer, handleTimerAtZero, timerDuration])
+  }, [pauseTimer, handleTimerAtZero, timerDuration, onTimerEnded])
 
   const openTimePicker = useCallback(() => {
     meditateTimePickerModalRef.current?.expand()
   }, [signUpModalRef])
 
   useEffect(() => {
-    setTimerDuration(timerDifference * 60)
+    setTimerDuration(timerDifference)
   }, [timerDifference])
 
   return (
@@ -102,7 +107,7 @@ const Timer = () => {
         <TimerBackground onPress={() => openTimePicker()}>
           <Heading1>{displayTime(timerDuration)}</Heading1>
         </TimerBackground>
-        <Spacer x={3} />
+        <Spacer x={4} />
         <Button
           buttonType={isTimerStart ? 'cta' : 'primary'}
           fullWidth
@@ -110,7 +115,7 @@ const Timer = () => {
           onPress={!isTimerStart ? startTimer : pauseTimer}>
           {!isTimerStart ? 'Start' : 'Stop'}
         </Button>
-        <Spacer x={3} />
+        <Spacer x={2} />
         <Button
           buttonType={'secondary'}
           disabled={timerDuration === timerDifference && !isTimerStart}
@@ -118,6 +123,16 @@ const Timer = () => {
           onPress={resetTimer}>
           Reset
         </Button>
+        <Spacer x={2} />
+        <NativeButton
+          title={"I'm finished"}
+          color={COLORS.PRIMARY}
+          disabled={!isTimerStart || timerDuration === timerDifference}
+          onPress={() => {
+            onTimerEnded(timerDifference - timerDuration)
+            resetTimer()
+          }}
+        />
       </TimerContainer>
     </>
   )
