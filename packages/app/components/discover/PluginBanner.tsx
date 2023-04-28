@@ -1,7 +1,6 @@
 import { FontAwesome, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { alpha } from 'axelra-react-native-utilities'
-
 import { PluginType } from 'app/helpers/pluginList'
+import { alpha } from 'app/theme/alpha'
 import { COLORS, SPACING } from 'app/theme/theme'
 import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
