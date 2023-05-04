@@ -1,4 +1,4 @@
-import PluginList from 'app/components/discover/PluginList'
+import PluginList from 'app/components/discover/web/PluginList'
 import { MainContentContainer } from 'app/components/ui/MainContentContainer'
 import { COLORS, FILTER_HEIGHT, OUTER_BORDER_RADIUS } from 'app/theme/theme'
 import { Flex, SPACING } from 'axelra-styled-bootstrap-grid'
