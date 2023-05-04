@@ -13,8 +13,8 @@ const FlexContainer = styled(Flex)`
 const FilterContainer = styled(Flex)`
   height: ${FILTER_HEIGHT}px;
   width: 100%;
-  border: 1px solid ${COLORS.BLACK};
-  background-color: ${COLORS.TAB_BAR};
+  background-color: ${COLORS.WHITE};
+  box-shadow: 0 8px 8px -4px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
 `
 
