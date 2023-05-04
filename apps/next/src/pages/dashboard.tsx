@@ -16,9 +16,14 @@ const FilterContainer = styled(Flex)`
   background-color: ${COLORS.WHITE};
   box-shadow: 0 8px 8px -4px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
+  flex-direction: column;
 `
 
 const ContentContainer = styled(Flex)`
+  padding: ${SPACING * 2}px;
+`
+
+const PluginContentContainer = styled(Flex)`
   padding: ${SPACING * 2}px;
 `
 
@@ -26,9 +31,9 @@ const Dashboard = () => {
   return (
     <FlexContainer column>
       <FilterContainer>
-        <ContentContainer column>
+        <PluginContentContainer column>
           <PluginList />
-        </ContentContainer>
+        </PluginContentContainer>
       </FilterContainer>
       <MainContentContainer column>
         <ContentContainer column>This is the dashboard page</ContentContainer>
