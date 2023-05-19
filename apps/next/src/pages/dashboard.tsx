@@ -38,7 +38,6 @@ const Dashboard = () => {
       </FilterContainer>
       <MainContentContainer column>
         <ContentContainer column>
-          <h3>This is the dashboard page</h3>
           <GraphComponent />
         </ContentContainer>
       </MainContentContainer>
