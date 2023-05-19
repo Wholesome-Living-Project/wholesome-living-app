@@ -1,3 +1,4 @@
+import GraphComponent from 'app/components/dashboard/Graphs/GraphComponent'
 import PluginList from 'app/components/discover/web/PluginList'
 import { MainContentContainer } from 'app/components/ui/MainContentContainer'
 import { COLORS, FILTER_HEIGHT, OUTER_BORDER_RADIUS } from 'app/theme/theme'
@@ -36,7 +37,10 @@ const Dashboard = () => {
         </PluginContentContainer>
       </FilterContainer>
       <MainContentContainer column>
-        <ContentContainer column>This is the dashboard page</ContentContainer>
+        <ContentContainer column>
+          <h3>This is the dashboard page</h3>
+          <GraphComponent />
+        </ContentContainer>
       </MainContentContainer>
     </FlexContainer>
   )

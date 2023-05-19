@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Platform } from 'react-native'
 
-const baseURL = 'http://172.20.10.3:8080'
+const baseURL = 'http://127.0.0.1:8080/'
 
 export const axiosInstance = axios.create({
   baseURL,
