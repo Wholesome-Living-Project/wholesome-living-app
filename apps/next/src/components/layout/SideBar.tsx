@@ -11,12 +11,13 @@ const FullWidthContainer = styled(Flex)`
   height: ${HEADER_HEIGHT}px;
   background-color: ${COLORS.SIDEBAR};
   border-radius: ${OUTER_BORDER_RADIUS}px;
-  flex-direction: column;
+  //flex-direction: column;
   position: absolute;
   width: 100%;
   margin-left: -${SPACING * 2}px;
   box-shadow: 0 8px 8px -4px;
 
+//NORMAL  
   @media only screen and (min-width: ${(p) => p.theme.breakPoints.sm}px) {
     z-index: 10;
     height: calc(100% - ${HEADER_HEIGHT}px);
@@ -32,6 +33,7 @@ const HeaderContent = styled(Flex)`
   flex-direction: column;
   justify-content: space-between;
   padding: ${SPACING * 2}px;
+  flex-wrap: wrap;
 `
 
 const HeaderLinks = styled(Flex)`
@@ -39,13 +41,16 @@ const HeaderLinks = styled(Flex)`
   margin: 0;
   padding: 0;
   letter-spacing: 2px;
+  flex-wrap: wrap;
+  // remove gap between elements
+  grid-row-gap: 0px;
 
   @media only screen and (min-width: ${(p) => p.theme.breakPoints.sm}px) {
     flex-direction: column;
     align-items: flex-start;
     padding-top: ${SPACING * 4}px;
-    //padding-left: ${SPACING * 4}px;
     letter-spacing: 4px;
+
   }
 `
 

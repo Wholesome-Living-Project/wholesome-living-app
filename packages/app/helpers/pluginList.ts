@@ -8,18 +8,18 @@ export enum plugins {
   MEDITATE = 'MEDITATE',
   ELEVATOR = 'ELEVATOR',
   RUN = 'RUN',
-  SLEEP = 'SLEEP',
+  //SLEEP = 'SLEEP',
   WORKOUT = 'WORKOUT',
-  DIET = 'DIET',
+  //DIET = 'DIET',
 }
 
 export const PLUGIN_COLORS: { [key in plugins]: string } = {
   MEDITATE: EXTRA_COLORS.BLUE,
   ELEVATOR: EXTRA_COLORS.PURPLE,
   RUN: EXTRA_COLORS.OCEAN,
-  SLEEP: EXTRA_COLORS.MAUVE,
+  //SLEEP: EXTRA_COLORS.MAUVE,
   WORKOUT: EXTRA_COLORS.JORDY,
-  DIET: EXTRA_COLORS.PURPLE,
+  //DIET: EXTRA_COLORS.PURPLE,
 }
 
 export type PluginType = {
@@ -51,12 +51,12 @@ export const PLUGINS: { [key in plugins]: PluginType } = {
     materialIcon: 'directions-run',
     route: 'run',
   },
-  SLEEP: { title: 'Sleep', color: PLUGIN_COLORS.SLEEP, icon: 'power-sleep', route: 'sleep' },
+  //SLEEP: { title: 'Sleep', color: PLUGIN_COLORS.SLEEP, icon: 'power-sleep', route: 'sleep' },
   WORKOUT: {
     title: 'Workout',
     color: PLUGIN_COLORS.WORKOUT,
     materialIcon: 'fitness-center',
     route: 'workout',
   },
-  DIET: { title: 'Diet', color: PLUGIN_COLORS.DIET, icon: 'weight-kilogram', route: 'diet' },
+  //DIET: { title: 'Diet', color: PLUGIN_COLORS.DIET, icon: 'weight-kilogram', route: 'diet' },
 }

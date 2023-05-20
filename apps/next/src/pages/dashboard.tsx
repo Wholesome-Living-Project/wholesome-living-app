@@ -21,12 +21,13 @@ const FilterContainer = styled(Flex)`
 `
 
 const ContentContainer = styled(Flex)`
-  padding: ${SPACING * 2}px;
+  padding: ${SPACING * 8}px;
 `
 
 const PluginContentContainer = styled(Flex)`
-  padding: ${SPACING * 2}px;
+  padding: ${SPACING * 1.5}px;
 `
+
 
 const Dashboard = () => {
   return (

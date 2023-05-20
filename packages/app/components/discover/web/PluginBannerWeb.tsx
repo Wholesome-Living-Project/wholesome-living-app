@@ -13,8 +13,8 @@ const PluginContainer = styled.div<{ color?: string }>`
 `
 
 const Gradient = styled(Flex)<{ size?: number; color?: string }>`
-  height: ${(p) => p.size ?? 60}px;
-  width: ${(p) => p.size ?? 60}px;
+  height: ${(p) => p.size ?? 50}px;
+  width: ${(p) => p.size ?? 50}px;
   background: linear-gradient(
     90deg,
     ${(p) => p.color ?? COLORS.PRIMARY} 0%,
@@ -32,7 +32,7 @@ const PluginBannerWeb = ({
 }: PluginType & { size?: number }) => {
   return (
     <PluginContainer>
-      <Gradient size={60} color={color} justify={'center'} align={'center'} row>
+      <Gradient size={50} color={color} justify={'center'} align={'center'} row>
         {icon && (
           <MaterialCommunityIcons size={size ? size * 0.5 : 30} color={COLORS.WHITE} name={icon} />
         )}
