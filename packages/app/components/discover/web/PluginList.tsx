@@ -7,6 +7,7 @@ import styled from 'styled-components'
 
 const Wrapper = styled(Flex)`
   gap: ${SPACING}px;
+  flex-wrap: wrap;
 `
 
 const PluginList = () => {
