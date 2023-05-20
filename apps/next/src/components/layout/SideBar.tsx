@@ -17,7 +17,7 @@ const FullWidthContainer = styled(Flex)`
   margin-left: -${SPACING * 2}px;
   box-shadow: 0 8px 8px -4px;
 
-//NORMAL  
+  //NORMAL
   @media only screen and (min-width: ${(p) => p.theme.breakPoints.sm}px) {
     z-index: 10;
     height: calc(100% - ${HEADER_HEIGHT}px);
@@ -34,6 +34,8 @@ const HeaderContent = styled(Flex)`
   justify-content: space-between;
   padding: ${SPACING * 2}px;
   flex-wrap: wrap;
+  //padding-right: 112px;
+  //margin-left: -40px;
 `
 
 const HeaderLinks = styled(Flex)`
@@ -43,14 +45,13 @@ const HeaderLinks = styled(Flex)`
   letter-spacing: 2px;
   flex-wrap: wrap;
   // remove gap between elements
-  grid-row-gap: 0px;
+  grid-row-gap: 0;
 
   @media only screen and (min-width: ${(p) => p.theme.breakPoints.sm}px) {
     flex-direction: column;
     align-items: flex-start;
     padding-top: ${SPACING * 4}px;
     letter-spacing: 4px;
-
   }
 `
 
