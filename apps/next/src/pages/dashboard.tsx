@@ -28,7 +28,6 @@ const PluginContentContainer = styled(Flex)`
   padding: ${SPACING * 1.5}px;
 `
 
-
 const Dashboard = () => {
   return (
     <FlexContainer column>
