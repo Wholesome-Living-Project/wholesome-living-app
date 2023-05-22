@@ -1,3 +1,4 @@
+import { getCurrentUser } from 'app/auth/auth'
 import axios from 'axios'
 import { Platform } from 'react-native'
 
@@ -34,7 +35,11 @@ axiosInstance.interceptors.request.use(
 
     // TODO use firebase token as access token const accessToken = await auth().currentUser?.getIdToken();
 
-    // if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+    const currentUser = getCurrentUser()
+
+    console.log(currentUser)
+    // TODO use firebase token as access token const accessToken = await auth().currentUser?.getIdToken();
+    if (currentUser?.uid) config.headers.userId = currentUser.uid
 
     return config
   },

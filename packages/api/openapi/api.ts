@@ -31,22 +31,16 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 export interface MeditationCreateMeditationRequest {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof MeditationCreateMeditationRequest
      */
-    'endTime'?: string;
+    'endTime'?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof MeditationCreateMeditationRequest
      */
-    'meditationTime'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof MeditationCreateMeditationRequest
-     */
-    'userId'?: string;
+    'meditationTime'?: number;
 }
 /**
  * 
@@ -64,31 +58,31 @@ export interface MeditationCreateMeditationResponse {
 /**
  * 
  * @export
- * @interface MeditationGetAllUserIDGet200ResponseInner
+ * @interface MeditationGet200ResponseInner
  */
-export interface MeditationGetAllUserIDGet200ResponseInner {
+export interface MeditationGet200ResponseInner {
     /**
      * 
-     * @type {string}
-     * @memberof MeditationGetAllUserIDGet200ResponseInner
+     * @type {number}
+     * @memberof MeditationGet200ResponseInner
      */
-    'endTime'?: string;
+    'endTime'?: number;
     /**
      * 
      * @type {string}
-     * @memberof MeditationGetAllUserIDGet200ResponseInner
+     * @memberof MeditationGet200ResponseInner
      */
     'id'?: string;
     /**
      * 
-     * @type {string}
-     * @memberof MeditationGetAllUserIDGet200ResponseInner
+     * @type {number}
+     * @memberof MeditationGet200ResponseInner
      */
-    'meditationTime'?: string;
+    'meditationTime'?: number;
     /**
      * 
      * @type {string}
-     * @memberof MeditationGetAllUserIDGet200ResponseInner
+     * @memberof MeditationGet200ResponseInner
      */
     'userId'?: string;
 }
@@ -100,10 +94,10 @@ export interface MeditationGetAllUserIDGet200ResponseInner {
 export interface MeditationGetMeditationResponse {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof MeditationGetMeditationResponse
      */
-    'endTime'?: string;
+    'endTime'?: number;
     /**
      * 
      * @type {string}
@@ -112,10 +106,10 @@ export interface MeditationGetMeditationResponse {
     'id'?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof MeditationGetMeditationResponse
      */
-    'meditationTime'?: string;
+    'meditationTime'?: number;
     /**
      * 
      * @type {string}
@@ -216,12 +210,6 @@ export interface UserUpdateUserRequest {
      * @type {string}
      * @memberof UserUpdateUserRequest
      */
-    'id'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserUpdateUserRequest
-     */
     'lastName'?: string;
     /**
      * 
@@ -238,10 +226,10 @@ export interface UserUpdateUserRequest {
 export interface UserUserDB {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof UserUserDB
      */
-    'createdAt'?: string;
+    'createdAt'?: number;
     /**
      * 
      * @type {string}
@@ -289,15 +277,12 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
         /**
          * fetch all meditation sessions of a user.
          * @summary Get all meditation session
-         * @param {string} userID User ID
+         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationGetAllUserIDGet: async (userID: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userID' is not null or undefined
-            assertParamExists('meditationGetAllUserIDGet', 'userID', userID)
-            const localVarPath = `/meditation/getAll/{userID}`
-                .replace(`{${"userID"}}`, encodeURIComponent(String(userID)));
+        meditationGet: async (userId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/meditation`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -308,6 +293,10 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
 
 
     
@@ -324,12 +313,15 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
          * fetch a single meditation session.
          * @summary Get a meditation session
          * @param {string} id Meditation ID
+         * @param {string} userId User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationIdGet: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        meditationIdGet: async (id: string, userId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('meditationIdGet', 'id', id)
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('meditationIdGet', 'userId', userId)
             const localVarPath = `/meditation/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -342,6 +334,10 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
 
 
     
@@ -358,10 +354,11 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
          * Creates a new meditation.
          * @summary Create meditation.
          * @param {MeditationCreateMeditationRequest} meditation Meditation to create
+         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationPost: async (meditation: MeditationCreateMeditationRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        meditationPost: async (meditation: MeditationCreateMeditationRequest, userId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'meditation' is not null or undefined
             assertParamExists('meditationPost', 'meditation', meditation)
             const localVarPath = `/meditation`;
@@ -375,6 +372,10 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
 
 
     
@@ -403,34 +404,36 @@ export const MeditationApiFp = function(configuration?: Configuration) {
         /**
          * fetch all meditation sessions of a user.
          * @summary Get all meditation session
-         * @param {string} userID User ID
+         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async meditationGetAllUserIDGet(userID: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MeditationGetAllUserIDGet200ResponseInner>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationGetAllUserIDGet(userID, options);
+        async meditationGet(userId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MeditationGet200ResponseInner>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationGet(userId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * fetch a single meditation session.
          * @summary Get a meditation session
          * @param {string} id Meditation ID
+         * @param {string} userId User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async meditationIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationGetMeditationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationIdGet(id, options);
+        async meditationIdGet(id: string, userId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationGetMeditationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationIdGet(id, userId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Creates a new meditation.
          * @summary Create meditation.
          * @param {MeditationCreateMeditationRequest} meditation Meditation to create
+         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async meditationPost(meditation: MeditationCreateMeditationRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationCreateMeditationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationPost(meditation, options);
+        async meditationPost(meditation: MeditationCreateMeditationRequest, userId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationCreateMeditationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationPost(meditation, userId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -446,32 +449,34 @@ export const MeditationApiFactory = function (configuration?: Configuration, bas
         /**
          * fetch all meditation sessions of a user.
          * @summary Get all meditation session
-         * @param {string} userID User ID
+         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationGetAllUserIDGet(userID: string, options?: any): AxiosPromise<Array<MeditationGetAllUserIDGet200ResponseInner>> {
-            return localVarFp.meditationGetAllUserIDGet(userID, options).then((request) => request(axios, basePath));
+        meditationGet(userId?: string, options?: any): AxiosPromise<Array<MeditationGet200ResponseInner>> {
+            return localVarFp.meditationGet(userId, options).then((request) => request(axios, basePath));
         },
         /**
          * fetch a single meditation session.
          * @summary Get a meditation session
          * @param {string} id Meditation ID
+         * @param {string} userId User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationIdGet(id: string, options?: any): AxiosPromise<MeditationGetMeditationResponse> {
-            return localVarFp.meditationIdGet(id, options).then((request) => request(axios, basePath));
+        meditationIdGet(id: string, userId: string, options?: any): AxiosPromise<MeditationGetMeditationResponse> {
+            return localVarFp.meditationIdGet(id, userId, options).then((request) => request(axios, basePath));
         },
         /**
          * Creates a new meditation.
          * @summary Create meditation.
          * @param {MeditationCreateMeditationRequest} meditation Meditation to create
+         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationPost(meditation: MeditationCreateMeditationRequest, options?: any): AxiosPromise<MeditationCreateMeditationResponse> {
-            return localVarFp.meditationPost(meditation, options).then((request) => request(axios, basePath));
+        meditationPost(meditation: MeditationCreateMeditationRequest, userId?: string, options?: any): AxiosPromise<MeditationCreateMeditationResponse> {
+            return localVarFp.meditationPost(meditation, userId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -486,37 +491,39 @@ export class MeditationApi extends BaseAPI {
     /**
      * fetch all meditation sessions of a user.
      * @summary Get all meditation session
-     * @param {string} userID User ID
+     * @param {string} [userId] User ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeditationApi
      */
-    public meditationGetAllUserIDGet(userID: string, options?: AxiosRequestConfig) {
-        return MeditationApiFp(this.configuration).meditationGetAllUserIDGet(userID, options).then((request) => request(this.axios, this.basePath));
+    public meditationGet(userId?: string, options?: AxiosRequestConfig) {
+        return MeditationApiFp(this.configuration).meditationGet(userId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * fetch a single meditation session.
      * @summary Get a meditation session
      * @param {string} id Meditation ID
+     * @param {string} userId User ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeditationApi
      */
-    public meditationIdGet(id: string, options?: AxiosRequestConfig) {
-        return MeditationApiFp(this.configuration).meditationIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    public meditationIdGet(id: string, userId: string, options?: AxiosRequestConfig) {
+        return MeditationApiFp(this.configuration).meditationIdGet(id, userId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Creates a new meditation.
      * @summary Create meditation.
      * @param {MeditationCreateMeditationRequest} meditation Meditation to create
+     * @param {string} [userId] User ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeditationApi
      */
-    public meditationPost(meditation: MeditationCreateMeditationRequest, options?: AxiosRequestConfig) {
-        return MeditationApiFp(this.configuration).meditationPost(meditation, options).then((request) => request(this.axios, this.basePath));
+    public meditationPost(meditation: MeditationCreateMeditationRequest, userId?: string, options?: AxiosRequestConfig) {
+        return MeditationApiFp(this.configuration).meditationPost(meditation, userId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -631,10 +638,11 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
          * update a user by id.
          * @summary Update a user.
          * @param {UserUpdateUserRequest} user User to update
+         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersPut: async (user: UserUpdateUserRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        usersPut: async (user: UserUpdateUserRequest, userId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'user' is not null or undefined
             assertParamExists('usersPut', 'user', user)
             const localVarPath = `/users`;
@@ -648,6 +656,10 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
 
 
     
@@ -709,11 +721,12 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * update a user by id.
          * @summary Update a user.
          * @param {UserUpdateUserRequest} user User to update
+         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async usersPut(user: UserUpdateUserRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserUserDB>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.usersPut(user, options);
+        async usersPut(user: UserUpdateUserRequest, userId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserUserDB>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersPut(user, userId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -759,11 +772,12 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * update a user by id.
          * @summary Update a user.
          * @param {UserUpdateUserRequest} user User to update
+         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersPut(user: UserUpdateUserRequest, options?: any): AxiosPromise<UserUserDB> {
-            return localVarFp.usersPut(user, options).then((request) => request(axios, basePath));
+        usersPut(user: UserUpdateUserRequest, userId?: string, options?: any): AxiosPromise<UserUserDB> {
+            return localVarFp.usersPut(user, userId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -814,12 +828,13 @@ export class UsersApi extends BaseAPI {
      * update a user by id.
      * @summary Update a user.
      * @param {UserUpdateUserRequest} user User to update
+     * @param {string} [userId] User ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public usersPut(user: UserUpdateUserRequest, options?: AxiosRequestConfig) {
-        return UsersApiFp(this.configuration).usersPut(user, options).then((request) => request(this.axios, this.basePath));
+    public usersPut(user: UserUpdateUserRequest, userId?: string, options?: AxiosRequestConfig) {
+        return UsersApiFp(this.configuration).usersPut(user, userId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

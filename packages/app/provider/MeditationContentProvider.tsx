@@ -1,3 +1,4 @@
+import { getUnixTime } from 'app/helpers/getUnixTime'
 import { useUser } from 'app/hooks/useUser'
 import React, {
   createContext,
@@ -33,9 +34,8 @@ const useProvideMeditate = (): MeditationContentType => {
 
       try {
         await api.meditationApi.meditationPost({
-          meditationTime: meditationTime.toString(),
-          endTime: new Date().toString(),
-          userId: user?.id,
+          meditationTime: meditationTime,
+          endTime: getUnixTime(),
         })
       } catch (e) {
         console.log(e)
@@ -46,8 +46,12 @@ const useProvideMeditate = (): MeditationContentType => {
 
   const getMeditations = useCallback(async () => {
     if (!user?.id) return
-    const { data } = await api.meditationApi.meditationGetAllUserIDGet(user.id)
-    setMeditations(data)
+    try {
+      const { data } = await api.meditationApi.meditationGet()
+      setMeditations(data)
+    } catch (e) {
+      console.log(e)
+    }
   }, [user?.id])
 
   useEffect(() => {

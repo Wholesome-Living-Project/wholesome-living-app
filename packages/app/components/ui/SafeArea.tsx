@@ -14,7 +14,6 @@ const BackButtonContainer = styled(View)`
   position: relative;
   top: 0;
   width: 100%;
-  background: red;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

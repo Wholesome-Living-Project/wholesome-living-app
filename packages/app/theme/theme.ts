@@ -10,24 +10,37 @@ export const PRIMARY_TINTS = {
   100: '#C7DADC',
 }
 
+export const SECONDARY_TINTS = {
+  900: '#508080',
+  800: '#70A5A5',
+  700: '#9AC0C0',
+  600: '#C5DBDB',
+  500: '#EFF5F5',
+  400: '#F2F7F7',
+  300: '#F4F8F8',
+  200: '#F5F9F9',
+  100: '#F7FAFA',
+}
+
 export const COLORS = {
   WHITE: 'white',
   BLACK: 'black',
   GREY: '#EFF5F5',
   PRIMARY: PRIMARY_TINTS['500'],
-  SECONDARY: PRIMARY_TINTS['100'],
+  SECONDARY: SECONDARY_TINTS['500'],
   CTA: '#DE3163',
   HEADER: '#D6E4E5',
-  TAB_BAR: '#D6E4E5',
-  TAB_BAR_ICONS: '#497174',
+  TAB_BAR: SECONDARY_TINTS['300'],
+  TAB_BAR_ICONS: PRIMARY_TINTS['600'],
 }
 
 export const EXTRA_COLORS = {
   PURPLE: '#8A84E2',
   MAUVE: '#AFAFDC',
   BLUE: '#79BEEE',
-  OCEAN: '#B7D3F2',
+  OCEAN: '#ffbaab',
   JORDY: '#84AFE6',
+  FINA: '#7457af',
 }
 
 export const SPACING = 8

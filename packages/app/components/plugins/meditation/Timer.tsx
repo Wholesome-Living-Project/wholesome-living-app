@@ -3,7 +3,7 @@ import Button from 'app/components/ui/Button'
 import Spacer from 'app/components/ui/Spacer'
 import { displayTime } from 'app/helpers/timerHelpers'
 import { useMeditate } from 'app/provider/MeditationContentProvider'
-import { COLORS, OUTER_BORDER_RADIUS, SPACING } from 'app/theme/theme'
+import { COLORS, OUTER_BORDER_RADIUS } from 'app/theme/theme'
 import { Heading1 } from 'app/theme/typography'
 import { alpha } from 'axelra-react-native-utilities'
 import { Audio } from 'expo-av'
@@ -16,7 +16,6 @@ const TimerContainer = styled(View)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: ${SPACING}px;
 `
 
 const TimerBackground = styled(TouchableOpacity)`
@@ -25,7 +24,6 @@ const TimerBackground = styled(TouchableOpacity)`
   justify-content: center;
   align-items: center;
   border-radius: ${OUTER_BORDER_RADIUS}px;
-  padding: ${SPACING}px ${SPACING * 2}px;
   background: ${alpha(0.6, COLORS.SECONDARY)};
 `
 
@@ -74,7 +72,7 @@ const Timer = ({ onTimerEnded }: Props) => {
 
   const resetTimer = useCallback(() => {
     pauseTimer()
-    setTimerDuration(timerDuration)
+    setTimerDuration(timerDifference)
   }, [pauseTimer, setTimerDuration])
 
   useEffect(() => {
@@ -120,14 +118,15 @@ const Timer = ({ onTimerEnded }: Props) => {
           buttonType={'secondary'}
           disabled={timerDuration === timerDifference && !isTimerStart}
           fullWidth
-          onPress={resetTimer}>
+          onPress={resetTimer}
+          border>
           Reset
         </Button>
         <Spacer x={2} />
         <NativeButton
           title={"I'm finished"}
           color={COLORS.PRIMARY}
-          disabled={!isTimerStart || timerDuration === timerDifference}
+          disabled={!isTimerStart && timerDuration === timerDifference}
           onPress={() => {
             onTimerEnded(timerDifference - timerDuration)
             resetTimer()

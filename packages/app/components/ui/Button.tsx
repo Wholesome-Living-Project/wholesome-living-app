@@ -14,6 +14,7 @@ type ButtonProps = {
   buttonType?: ButtonType
   fullWidth?: boolean
   maxWidth?: number
+  border?: boolean
 }
 
 type Props = { color?: string; link?: string } & ButtonProps &
@@ -24,6 +25,9 @@ const StyledButton = styled(TouchableOpacity)<ButtonProps>`
   display: flex;
   flex-direction: row;
   width: ${(p) => (p.fullWidth ? `${p.maxWidth}px` : 'auto')}
+  border-width: ${(p) => (p.buttonType === 'secondary' ? '1.5px' : '0px')}
+  border-color: ${(p) =>
+    p.border ? (p.disabled ? alpha(0.4, COLORS.PRIMARY) : COLORS.PRIMARY) : '0px'}
 
   background-color: ${(p) =>
     p.disabled

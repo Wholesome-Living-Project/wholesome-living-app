@@ -14,7 +14,7 @@ const signOut = () => auth.signOut()
 const signIn = async (email: string, password: string) => {
   try {
     const user = await signInWithEmailAndPassword(auth, email, password)
-    console.log('fetched user: ', user)
+    console.log('fetched user: ', user.user.uid)
     return user
   } catch (err) {
     console.log(err)
@@ -25,9 +25,9 @@ const signUp = async (email: string, password: string) => {
   try {
     const user = await createUserWithEmailAndPassword(auth, email, password)
     console.log('created user: ', user)
-    return user
+    return { data: user, message: 'success' }
   } catch (err) {
-    console.log(err)
+    return { data: undefined, message: err.message }
   }
 }
 

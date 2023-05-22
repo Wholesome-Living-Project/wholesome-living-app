@@ -11,6 +11,7 @@ export enum plugins {
   SLEEP = 'SLEEP',
   WORKOUT = 'WORKOUT',
   DIET = 'DIET',
+  FINANCE = 'FINANCE',
 }
 
 export const PLUGIN_COLORS: { [key in plugins]: string } = {
@@ -20,6 +21,7 @@ export const PLUGIN_COLORS: { [key in plugins]: string } = {
   SLEEP: EXTRA_COLORS.MAUVE,
   WORKOUT: EXTRA_COLORS.JORDY,
   DIET: EXTRA_COLORS.PURPLE,
+  FINANCE: EXTRA_COLORS.FINA,
 }
 
 export type PluginType = {
@@ -38,6 +40,12 @@ export const PLUGINS: { [key in plugins]: PluginType } = {
     color: PLUGIN_COLORS.MEDITATE,
     icon: 'meditation',
     route: 'meditation',
+  },
+  FINANCE: {
+    title: 'Finance',
+    color: PLUGIN_COLORS.FINANCE,
+    icon: 'finance',
+    route: 'finance',
   },
   ELEVATOR: {
     title: 'Elevator',
