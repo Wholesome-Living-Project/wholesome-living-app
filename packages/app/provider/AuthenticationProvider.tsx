@@ -90,6 +90,7 @@ const useProvideAuth = (): AuthenticationType => {
     }) => {
       const creds = await signUp(email, password)
 
+      console.log(creds)
       try {
         if (creds.data) {
           await api.userApi.usersPost({
@@ -118,7 +119,7 @@ const useProvideAuth = (): AuthenticationType => {
         console.log(e)
       }
 
-      return getUser()
+      return getUser(creds.data?.user.uid)
     },
     [getUser]
   )
