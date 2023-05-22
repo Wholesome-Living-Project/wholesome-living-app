@@ -2,7 +2,7 @@ import PluginDetailedBanner from 'app/components/dashboard/PluginDetailedBanner'
 import { getFormattedTimer } from 'app/helpers/getFormattedTimer'
 import { plugins } from 'app/helpers/pluginList'
 import { COLORS } from 'app/theme/theme'
-import { Light } from 'app/theme/typography'
+import { Regular } from 'app/theme/typography'
 import React, { useMemo } from 'react'
 import { Text, View } from 'react-native'
 import styled from 'styled-components'
@@ -36,8 +36,8 @@ const Content = () => {
 
   return (
     <Wrapper>
-      <Light color={COLORS.WHITE}>Last Meditation</Light>
-      <Text style={{ fontSize: 55, color: COLORS.WHITE }}>{computedTime}</Text>
+      <Regular color={COLORS.WHITE}>Last Meditation</Regular>
+      <Text style={{ fontSize: 55, color: COLORS.WHITE, fontWeight: '600' }}>{computedTime}</Text>
     </Wrapper>
   )
 }
@@ -47,7 +47,7 @@ const MeditateDetailedBanner = () => {
     <PluginDetailedBanner
       content={<Content />}
       plugin={plugins.MEDITATE}
-      backgroundImage={require('../../../../assets/images/woman_meditation.png')}
+      backgroundImage={require('../../../../assets/images/woman_meditation.jpg')}
     />
   )
 }

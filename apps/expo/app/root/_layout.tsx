@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons'
+import TimePickerModal from 'app/components/dashboard/plugins/TimePickerModal'
 import { COLORS } from 'app/theme/theme'
 import { IonIconType } from 'app/types/IonIcon'
 import { Tabs } from 'expo-router'
@@ -77,7 +78,7 @@ export default function Layout() {
           }}
         />
       </Tabs>
-
+      <TimePickerModal title={'Until what time do you want to mediate?'} />
       <StatusBar style={'auto'} />
     </Fragment>
   )

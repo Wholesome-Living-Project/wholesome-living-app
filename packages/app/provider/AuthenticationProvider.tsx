@@ -89,20 +89,33 @@ const useProvideAuth = (): AuthenticationType => {
       dateOfBirth: string
     }) => {
       const creds = await signUp(email, password)
-      console.log('signed up and have new firebase user: ' + creds)
 
-      if (typeof creds === 'object') {
-        try {
+      try {
+        if (creds.data) {
           await api.userApi.usersPost({
             firstName,
             email,
             lastName,
             dateOfBirth,
-            id: creds.user?.uid,
+            id: creds.data.user.uid,
           })
-        } catch (e) {
-          console.log(e)
+        } else if (creds.message === 'Firebase: Error (auth/email-already-in-use).') {
+          console.log('email already in use.')
+          const existing = await signIn(email, password)
+
+          if (existing?.user.uid) {
+            console.log('trying to create user with existing firebase user')
+            await api.userApi.usersPost({
+              firstName,
+              email,
+              lastName,
+              dateOfBirth,
+              id: existing.user.uid,
+            })
+          }
         }
+      } catch (e) {
+        console.log(e)
       }
 
       return getUser()

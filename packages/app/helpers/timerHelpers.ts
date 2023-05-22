@@ -5,13 +5,17 @@ export const displayTime = (seconds: number) => {
     seconds = 0
   }
   if (seconds < 60) {
-    return `00:${padToTwo(seconds)}`
+    return `00:00:${padToTwo(seconds)}`
   }
   let remainCentiseconds = seconds % 60
   minutes = (seconds - remainCentiseconds) / 60
   if (minutes < 60) {
-    return `${padToTwo(minutes)}:${padToTwo(remainCentiseconds)}`
+    return `00:${padToTwo(minutes)}:${padToTwo(remainCentiseconds)}`
   }
   let remainSeconds = minutes % 60
-  return `${padToTwo(remainSeconds)}:${padToTwo(remainCentiseconds)}`
+
+  let hours = (minutes - remainSeconds) / 60
+  let remainMinutes = hours % 60
+
+  return `${padToTwo(remainMinutes)}:${padToTwo(remainSeconds)}:${padToTwo(remainCentiseconds)}`
 }

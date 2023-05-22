@@ -36,7 +36,7 @@ const Landing = () => {
     <>
       <AbsoluteContainer>
         <StyledImage
-          source={require('../../../assets/images/woman_productive_full_size.png')}
+          source={require('../../../assets/images/woman_productive_full_size.jpg')}
           width={windowWidth}
           height={windowHeight}
         />

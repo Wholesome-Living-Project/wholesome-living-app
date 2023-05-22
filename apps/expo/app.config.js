@@ -7,6 +7,7 @@ export default {
     version: '0.0.1',
     scheme: 'wholesome-living',
     platforms: ['ios', 'android'],
+    orientation: 'portrait',
     ios: {
       bundleIdentifier: 'com.wholesome-living',
     },

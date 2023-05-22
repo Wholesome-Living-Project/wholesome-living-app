@@ -32,7 +32,7 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
-    "start": "set NODE_OPTIONS=--openssl-legacy-provider && watchman watch-del '/Users/remus/Documents/GitHub/wholesome-living-app' && cd apps/expo && expo start",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && cd apps/expo && expo start",
     "web": "set NODE_OPTIONS=--openssl-legacy-provider && cd apps/next && yarn next",
     "test": "set NODE_OPTIONS=--openssl-legacy-provider && cd apps/next && yarn test",
     "openapi": "node scripts/generate-openapi.js",
