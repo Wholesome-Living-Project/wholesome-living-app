@@ -5,12 +5,12 @@ jobs:
   build:
     name: Test
     runs-on: ubuntu-latest
+    env:
+      GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-          env:
-            GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@master
       - name: run yarn
         run: yarn
