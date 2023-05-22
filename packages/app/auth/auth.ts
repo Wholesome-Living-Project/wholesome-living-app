@@ -26,8 +26,8 @@ const signUp = async (email: string, password: string) => {
     const user = await createUserWithEmailAndPassword(auth, email, password)
     console.log('created user: ', user)
     return { data: user, message: 'success' }
-  } catch (err) {
-    return { data: undefined, message: err.message }
+  } catch (err: any) {
+    return { data: undefined, message: err.message ?? '' }
   }
 }
 
