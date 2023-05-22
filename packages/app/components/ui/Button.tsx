@@ -41,13 +41,14 @@ const StyledButton = styled(TouchableOpacity)<ButtonProps>`
       : p.buttonType === 'secondary'
       ? COLORS.SECONDARY
       : COLORS.PRIMARY};
-  
-  
+
+
 
   padding: ${(p) => (p.small ? SPACING : SPACING * 1.5)}px
-    ${(p) => (p.small ? SPACING : SPACING * 2)}px;
+  ${(p) => (p.small ? SPACING : SPACING * 2)}px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
   justify-content: center;
+  min-height: ${(p) => (p.small ? SPACING * 5 : SPACING * 6)}px;
   
 `
 
@@ -71,14 +72,21 @@ const Button = ({
   const width = useMemo(() => maxWidth ?? windowWidth * IO_COMPONENT_WIDTH_PERCENT, [])
 
   const { disabled } = rest
-  const buttonColor = useMemo(() => {
+  const textColor = useMemo(() => {
     let baseColor = color
+    if (buttonType === 'primary') {
+      baseColor = COLORS.WHITE
+    }
+
     if (buttonType === 'secondary') {
       baseColor = COLORS.PRIMARY
     }
 
-    return disabled ? alpha(0.2, baseColor) : baseColor
-  }, [color, disabled])
+    if (!baseColor) baseColor = COLORS.PRIMARY
+
+    return disabled ? alpha(0.5, baseColor) : baseColor
+  }, [buttonType, color, disabled])
+
   return link ? (
     <MotiLink
       href={link}
@@ -101,7 +109,7 @@ const Button = ({
         fullWidth={fullWidth}
         maxWidth={width}
         {...rest}>
-        <StyledText color={buttonColor} buttonType={buttonType}>
+        <StyledText color={textColor} buttonType={buttonType}>
           {children}
         </StyledText>
       </StyledButton>
@@ -113,7 +121,7 @@ const Button = ({
       fullWidth={fullWidth}
       maxWidth={width}
       {...rest}>
-      <StyledText color={buttonColor} buttonType={buttonType}>
+      <StyledText color={textColor} buttonType={buttonType}>
         {children}
       </StyledText>
     </StyledButton>

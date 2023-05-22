@@ -31,6 +31,7 @@ export function WelcomeScreen() {
       <Footer>
         <Button
           fullWidth
+          small
           onPress={() => {
             openSignInModal()
           }}>
@@ -39,6 +40,7 @@ export function WelcomeScreen() {
         <Spacer x={2} />
         <Button
           fullWidth
+          small
           onPress={() => {
             openSignUpModal()
           }}

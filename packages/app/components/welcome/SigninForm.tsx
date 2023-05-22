@@ -44,7 +44,7 @@ const SigninForm = () => {
         onChangeText={(text) => setPassword(text)}
       />
       <Spacer x={4} />
-      <Button fullWidth onPress={() => submit()}>
+      <Button fullWidth onPress={() => submit()} small>
         Submit
       </Button>
       <Spacer x={20} />

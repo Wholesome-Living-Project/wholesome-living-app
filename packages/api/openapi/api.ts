@@ -26,6 +26,63 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
+ * @interface FinanceCreateInvestmentRequest
+ */
+export interface FinanceCreateInvestmentRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceCreateInvestmentRequest
+     */
+    'amount'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceCreateInvestmentRequest
+     */
+    'investmentTime'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface FinanceCreateInvestmentResponse
+ */
+export interface FinanceCreateInvestmentResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof FinanceCreateInvestmentResponse
+     */
+    'id'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface FinanceGetInvestmentResponse
+ */
+export interface FinanceGetInvestmentResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'amount'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'investmentTime'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'userId'?: string;
+}
+/**
+ * 
+ * @export
  * @interface MeditationCreateMeditationRequest
  */
 export interface MeditationCreateMeditationRequest {
@@ -267,6 +324,217 @@ export interface UserUserDB {
      */
     'plugins'?: Array<UserPluginType>;
 }
+
+/**
+ * FinanceApi - axios parameter creator
+ * @export
+ */
+export const FinanceApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * fetch a single investment session.
+         * @summary Get a single investment
+         * @param {string} userId User ID
+         * @param {string} [id] investment ID
+         * @param {number} [startTime] start time
+         * @param {number} [endTime] end time
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        investmentGet: async (userId: string, id?: string, startTime?: number, endTime?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('investmentGet', 'userId', userId)
+            const localVarPath = `/investment`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (startTime !== undefined) {
+                localVarQueryParameter['startTime'] = startTime;
+            }
+
+            if (endTime !== undefined) {
+                localVarQueryParameter['endTime'] = endTime;
+            }
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Creates a new investment.
+         * @summary Create a investment.
+         * @param {string} userId User ID
+         * @param {FinanceCreateInvestmentRequest} investment investment to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        investmentPost: async (userId: string, investment: FinanceCreateInvestmentRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('investmentPost', 'userId', userId)
+            // verify required parameter 'investment' is not null or undefined
+            assertParamExists('investmentPost', 'investment', investment)
+            const localVarPath = `/investment`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(investment, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * FinanceApi - functional programming interface
+ * @export
+ */
+export const FinanceApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = FinanceApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * fetch a single investment session.
+         * @summary Get a single investment
+         * @param {string} userId User ID
+         * @param {string} [id] investment ID
+         * @param {number} [startTime] start time
+         * @param {number} [endTime] end time
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async investmentGet(userId: string, id?: string, startTime?: number, endTime?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FinanceGetInvestmentResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.investmentGet(userId, id, startTime, endTime, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Creates a new investment.
+         * @summary Create a investment.
+         * @param {string} userId User ID
+         * @param {FinanceCreateInvestmentRequest} investment investment to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async investmentPost(userId: string, investment: FinanceCreateInvestmentRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FinanceCreateInvestmentResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.investmentPost(userId, investment, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * FinanceApi - factory interface
+ * @export
+ */
+export const FinanceApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = FinanceApiFp(configuration)
+    return {
+        /**
+         * fetch a single investment session.
+         * @summary Get a single investment
+         * @param {string} userId User ID
+         * @param {string} [id] investment ID
+         * @param {number} [startTime] start time
+         * @param {number} [endTime] end time
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        investmentGet(userId: string, id?: string, startTime?: number, endTime?: number, options?: any): AxiosPromise<FinanceGetInvestmentResponse> {
+            return localVarFp.investmentGet(userId, id, startTime, endTime, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates a new investment.
+         * @summary Create a investment.
+         * @param {string} userId User ID
+         * @param {FinanceCreateInvestmentRequest} investment investment to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        investmentPost(userId: string, investment: FinanceCreateInvestmentRequest, options?: any): AxiosPromise<FinanceCreateInvestmentResponse> {
+            return localVarFp.investmentPost(userId, investment, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * FinanceApi - object-oriented interface
+ * @export
+ * @class FinanceApi
+ * @extends {BaseAPI}
+ */
+export class FinanceApi extends BaseAPI {
+    /**
+     * fetch a single investment session.
+     * @summary Get a single investment
+     * @param {string} userId User ID
+     * @param {string} [id] investment ID
+     * @param {number} [startTime] start time
+     * @param {number} [endTime] end time
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FinanceApi
+     */
+    public investmentGet(userId: string, id?: string, startTime?: number, endTime?: number, options?: AxiosRequestConfig) {
+        return FinanceApiFp(this.configuration).investmentGet(userId, id, startTime, endTime, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Creates a new investment.
+     * @summary Create a investment.
+     * @param {string} userId User ID
+     * @param {FinanceCreateInvestmentRequest} investment investment to create
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FinanceApi
+     */
+    public investmentPost(userId: string, investment: FinanceCreateInvestmentRequest, options?: AxiosRequestConfig) {
+        return FinanceApiFp(this.configuration).investmentPost(userId, investment, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 
 /**
  * MeditationApi - axios parameter creator

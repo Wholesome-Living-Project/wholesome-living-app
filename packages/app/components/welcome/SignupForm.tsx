@@ -73,7 +73,7 @@ const SignupForm = () => {
         onChangeText={(text) => setPassword(text)}
       />
       <Spacer x={4} />
-      <Button buttonType={'primary'} onPress={() => submit()}>
+      <Button buttonType={'primary'} onPress={() => submit()} small>
         Submit
       </Button>
       <Spacer x={20} />
