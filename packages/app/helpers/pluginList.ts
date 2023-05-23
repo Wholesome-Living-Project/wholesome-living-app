@@ -26,7 +26,7 @@ export const PLUGIN_COLORS: { [key in plugins]: string } = {
 
 export type PluginType = {
   title: string
-  route: string
+  route?: string
   color?: string
   materialIcon?: MaterialIconsType
   faIcon?: FontAwesomeType

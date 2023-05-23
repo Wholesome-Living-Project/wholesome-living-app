@@ -13,7 +13,7 @@ const PluginList = () => {
         centerContent
         horizontal
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <Plugin {...item} />}></FlatList>
+        renderItem={({ item }) => <Plugin plugin={item} />}></FlatList>
     </View>
   )
 }

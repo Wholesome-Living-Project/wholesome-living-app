@@ -6,8 +6,9 @@ import 'react-native-url-polyfill/auto'
 export default function Layout() {
   return (
     <Providers>
-      <Stack initialRouteName={'root'} screenOptions={{ headerShown: false }}>
+      <Stack initialRouteName={'(onboarding)'} screenOptions={{ headerShown: false }}>
         <Stack.Screen name={'(auth)/welcome'} />
+        <Stack.Screen name={'(onboarding)'} />
         <Stack.Screen name={'root'} />
       </Stack>
     </Providers>

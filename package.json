@@ -17,6 +17,7 @@
     "eslint-plugin-no-inline-styles": "^1.0.5",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "flat": "^5.0.2",
     "node-fetch": "^2.6.7",
     "postcss": "^8.4.21",

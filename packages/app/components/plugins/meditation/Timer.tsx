@@ -110,7 +110,8 @@ const Timer = ({ onTimerEnded }: Props) => {
           buttonType={isTimerStart ? 'cta' : 'primary'}
           fullWidth
           disabled={timerIsZero}
-          onPress={!isTimerStart ? startTimer : pauseTimer}>
+          onPress={!isTimerStart ? startTimer : pauseTimer}
+          small>
           {!isTimerStart ? 'Start' : 'Stop'}
         </Button>
         <Spacer x={2} />
@@ -118,6 +119,7 @@ const Timer = ({ onTimerEnded }: Props) => {
           buttonType={'secondary'}
           disabled={timerDuration === timerDifference && !isTimerStart}
           fullWidth
+          small
           onPress={resetTimer}
           border>
           Reset

@@ -11,23 +11,30 @@ const Container = styled(TouchableOpacity)`
   flex-direction: column;
 `
 
-const Plugin = (plugin: PluginType) => {
+type Props = {
+  plugin: PluginType
+  onPress?: () => void
+}
+
+const Plugin = ({ plugin, onPress }: Props) => {
   const { title, color, icon, faIcon, materialIcon, ionIcon } = plugin
   const navigation = useRootNavigation()
 
   return (
     <Container
-      onPress={() =>
-        navigation?.navigate(
-          'plugin' as never,
-          {
-            color,
-            icon,
-            faIcon,
-            materialIcon,
-            ionIcon,
-          } as never
-        )
+      onPress={
+        onPress ??
+        (() =>
+          navigation?.navigate(
+            'plugin' as never,
+            {
+              color,
+              icon,
+              faIcon,
+              materialIcon,
+              ionIcon,
+            } as never
+          ))
       }>
       <PluginBanner {...plugin} size={60} />
       <Regular center>{title}</Regular>
