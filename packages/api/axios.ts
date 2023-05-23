@@ -2,7 +2,7 @@ import { getCurrentUser } from 'app/auth/auth'
 import axios from 'axios'
 import { Platform } from 'react-native'
 
-const baseURL = 'http://192.168.8.112:8080'
+const baseURL = 'http://192.168.3.233:8080'
 
 export const axiosInstance = axios.create({
   baseURL,

@@ -38,7 +38,7 @@ export const EXTRA_COLORS = {
   PURPLE: '#8A84E2',
   MAUVE: '#AFAFDC',
   BLUE: '#79BEEE',
-  OCEAN: '#ffbaab',
+  SUNSET: '#ffbaab',
   JORDY: '#84AFE6',
   FINA: '#7457af',
 }

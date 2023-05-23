@@ -2,7 +2,7 @@ import Plugin from 'app/components/discover/Plugin'
 import OnboardingStep from 'app/components/onboarding/OnboardingStep'
 import { Flex } from 'app/components/ui/Flex'
 import Spacer from 'app/components/ui/Spacer'
-import { PLUGINS } from 'app/helpers/pluginList'
+import { plugins, PLUGINS } from 'app/helpers/pluginList'
 import { useOnboarding } from 'app/provider/OnboardingProvider'
 import { COLORS } from 'app/theme/theme'
 import { Heading4 } from 'app/theme/typography'
@@ -33,17 +33,17 @@ const ChoosePlugins = () => {
   const { chosenPlugins, setChosenPlugins } = useOnboarding()
 
   const addPlugin = useCallback(
-    (plugin: string) => {
+    (plugin: plugins) => {
       setChosenPlugins([...chosenPlugins, plugin])
     },
-    [chosenPlugins]
+    [chosenPlugins, setChosenPlugins]
   )
 
   const removePlugin = useCallback(
     (plugin: string) => {
       setChosenPlugins(chosenPlugins.filter((p) => p !== plugin))
     },
-    [chosenPlugins]
+    [chosenPlugins, setChosenPlugins]
   )
 
   return (
@@ -52,31 +52,35 @@ const ChoosePlugins = () => {
         <Heading4>Choose your Plugins</Heading4>
         <Spacer x={3} />
         <Flex row wrap={'wrap'} align={'center'}>
-          {Object.values(PLUGINS).map((plugin) => (
-            <Fragment key={plugin.title}>
-              <Flex>
-                <OpacityWrapper active={chosenPlugins?.includes(plugin.title)}>
-                  <Plugin
-                    plugin={plugin}
-                    onPress={() =>
-                      chosenPlugins?.includes(plugin.title)
-                        ? removePlugin(plugin.title)
-                        : addPlugin(plugin.title)
-                    }
-                  />
-                  {chosenPlugins?.includes(plugin.title) && (
-                    <ChosenIndicator justify={'center'} align={'center'}>
-                      <IndicatorNumber>
-                        {chosenPlugins.findIndex((t) => plugin.title === t) + 1}
-                      </IndicatorNumber>
-                    </ChosenIndicator>
-                  )}
-                </OpacityWrapper>
-                <Spacer x={2} />
-              </Flex>
-              <Spacer x={2} />
-            </Fragment>
-          ))}
+          {Object.values(PLUGINS).map(
+            (plugin) =>
+              plugin.plugin && (
+                <Fragment key={plugin.title}>
+                  <Flex>
+                    <OpacityWrapper active={chosenPlugins?.includes(plugin.plugin)}>
+                      <Plugin
+                        plugin={plugin}
+                        onPress={() =>
+                          plugin.plugin &&
+                          (chosenPlugins?.includes(plugin.plugin)
+                            ? removePlugin(plugin.plugin)
+                            : addPlugin(plugin.plugin))
+                        }
+                      />
+                      {chosenPlugins?.includes(plugin.plugin) && (
+                        <ChosenIndicator justify={'center'} align={'center'}>
+                          <IndicatorNumber>
+                            {chosenPlugins.findIndex((t) => plugin.plugin === t) + 1}
+                          </IndicatorNumber>
+                        </ChosenIndicator>
+                      )}
+                    </OpacityWrapper>
+                    <Spacer x={2} />
+                  </Flex>
+                  <Spacer x={2} />
+                </Fragment>
+              )
+          )}
         </Flex>
       </Flex>
     </OnboardingStep>
