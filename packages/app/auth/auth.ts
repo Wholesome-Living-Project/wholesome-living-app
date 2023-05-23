@@ -12,6 +12,7 @@ const getIsSignedIn = () => Boolean(auth.currentUser)
 const signOut = () => auth.signOut()
 
 const signIn = async (email: string, password: string) => {
+  console.log('user tries to signIn: ', email)
   try {
     const user = await signInWithEmailAndPassword(auth, email, password)
     console.log('fetched user: ', user.user.uid)
@@ -22,6 +23,7 @@ const signIn = async (email: string, password: string) => {
 }
 
 const signUp = async (email: string, password: string) => {
+  console.log('user tries to signUp: ', email)
   try {
     const user = await createUserWithEmailAndPassword(auth, email, password)
     console.log('created user: ', user)
