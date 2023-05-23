@@ -1,12 +1,13 @@
+import { getCurrentUser } from 'app/auth/auth'
 import axios from 'axios'
 import { Platform } from 'react-native'
 
-const baseURL = 'http://172.20.10.3:8080'
+const baseURL = 'http://192.168.8.112:8080'
 
 export const axiosInstance = axios.create({
   baseURL,
   timeout: 15000,
-  headers: { 'Content-Type': 'application/json' },
+  headers: { 'Content-Type': '*/*' },
 })
 
 axiosInstance.interceptors.request.use((requestConfig) => {
@@ -32,13 +33,18 @@ axiosInstance.interceptors.request.use(
       config.headers = {}
     }
 
-    // TODO use firebase token as access tokenconst accessToken = await auth().currentUser?.getIdToken();
+    // TODO use firebase token as access token const accessToken = await auth().currentUser?.getIdToken();
 
-    // if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+    const currentUser = getCurrentUser()
+
+    console.log(currentUser)
+    // TODO use firebase token as access token const accessToken = await auth().currentUser?.getIdToken();
+    if (currentUser?.uid) config.headers.userId = currentUser.uid
 
     return config
   },
   (error) => {
+    console.log('error happened')
     // Do something with request error
     return Promise.reject(error)
   }

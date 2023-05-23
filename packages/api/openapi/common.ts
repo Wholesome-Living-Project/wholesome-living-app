@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Wholesome Living Backend
- * An example template of a Golang backend API using Fiber and MongoDB
+ * A backend for Wholesome Living written in Golang backend API using Fiber and MongoDB
  *
  * The version of the OpenAPI document: 0.1
  * 

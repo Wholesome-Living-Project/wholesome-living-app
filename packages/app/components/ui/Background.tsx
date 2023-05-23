@@ -1,10 +1,11 @@
 import { onlyOnMobile } from 'app/helpers/onlyOnMobile'
 import { onlyOnWeb } from 'app/helpers/onlyOnWeb'
 import React, { PropsWithChildren } from 'react'
+import { View } from 'react-native'
 import styled from 'styled-components/native'
 import { COLORS, HEADER_HEIGHT, SPACING } from '../../theme/theme'
 
-const StyledView = styled.View<Props>`
+const StyledView = styled(View)<BackgroundProps>`
   display: flex;
   position: relative;
   flex-direction: column;
@@ -19,12 +20,12 @@ const StyledView = styled.View<Props>`
     )}
   ${onlyOnWeb(`top: ${HEADER_HEIGHT}px`)}
 `
-type BackgroundProps = { center?: boolean; bottom?: boolean }
+type BackgroundProps = { center?: boolean; bottom?: boolean; alignCenter?: boolean }
 type Props = BackgroundProps & PropsWithChildren
 
-const Background = ({ center, bottom, children }: Props) => {
+const Background = ({ center, bottom, alignCenter, children }: Props) => {
   return (
-    <StyledView center={center} bottom={bottom}>
+    <StyledView center={center} bottom={bottom} alignCenter={alignCenter}>
       {children}
     </StyledView>
   )

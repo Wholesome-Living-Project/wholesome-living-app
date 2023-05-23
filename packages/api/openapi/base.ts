@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Wholesome Living Backend
- * An example template of a Golang backend API using Fiber and MongoDB
+ * A backend for Wholesome Living written in Golang backend API using Fiber and MongoDB
  *
  * The version of the OpenAPI document: 0.1
  * 
@@ -19,7 +19,7 @@ import type { Configuration } from './configuration';
 import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 
-export const BASE_PATH = "http://localhost:8080".replace(/\/+$/, "");
+export const BASE_PATH = "http://localhost".replace(/\/+$/, "");
 
 /**
  *

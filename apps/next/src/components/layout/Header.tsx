@@ -15,6 +15,7 @@ const FullWidthContainer = styled(Flex)`
   top: 0;
   height: ${HEADER_HEIGHT}px;
   background: ${COLORS.PRIMARY};
+  flex-direction: row;
 `
 
 const HeaderContent = styled(MaxWidthContainer)`
@@ -40,10 +41,7 @@ const MenuItem = ({ link, children, onPress }: MenuItemProps) => (
 
 type RouteType = { link: string; text: string }
 const routes: RouteType[] = [
-  { link: '/', text: 'Home' },
-  { link: '/settings', text: 'Settings' },
-  { link: '/discover', text: 'Discover' },
-  { link: '/dashboard', text: 'Dashboard' },
+
 ]
 
 const Header = () => {

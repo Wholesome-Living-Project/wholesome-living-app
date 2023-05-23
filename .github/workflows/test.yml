@@ -5,6 +5,8 @@ jobs:
   build:
     name: Test
     runs-on: ubuntu-latest
+    env:
+      GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/setup-node@v3
         with:

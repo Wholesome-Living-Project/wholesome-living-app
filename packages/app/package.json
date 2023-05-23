@@ -9,8 +9,9 @@
     "expo-linking": "^3.0.0",
     "firebase": "^9.17.1",
     "moti": "0.19.0-alpha.6",
-    "react-native": "0.70.5",
+    "react-native": "0.70.8",
     "react-native-reanimated": "2.9.1",
+    "axelra-react-native-flex": "^0.1.6",
     "solito": "^2.0.0",
     "styled-components": "^5.3.6"
   },

@@ -1,8 +1,9 @@
-import { axiosInstance } from '../../api/axios'
-import { Configuration, UserApi } from '../../api/openapi'
+import { axiosInstance } from './axios'
+import { Configuration, MeditationApi, UsersApi } from './openapi'
 
 const openApiConfig = new Configuration()
 
 export const api = {
-  userApi: new UserApi(openApiConfig, '', axiosInstance),
+  userApi: new UsersApi(openApiConfig, '', axiosInstance),
+  meditationApi: new MeditationApi(openApiConfig, '', axiosInstance),
 }

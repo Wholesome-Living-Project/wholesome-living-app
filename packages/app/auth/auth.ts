@@ -12,23 +12,24 @@ const getIsSignedIn = () => Boolean(auth.currentUser)
 const signOut = () => auth.signOut()
 
 const signIn = async (email: string, password: string) => {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((user) => {
-      return user
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  try {
+    const user = await signInWithEmailAndPassword(auth, email, password)
+    console.log('fetched user: ', user.user.uid)
+    return user
+  } catch (err) {
+    console.log(err)
+  }
 }
 
-const signUp = async (email: string, password: string) =>
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((user) => {
-      return user
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+const signUp = async (email: string, password: string) => {
+  try {
+    const user = await createUserWithEmailAndPassword(auth, email, password)
+    console.log('created user: ', user)
+    return { data: user, message: 'success' }
+  } catch (err: any) {
+    return { data: undefined, message: err.message ?? '' }
+  }
+}
 
 const onAuthStateChanged = (callback: NextOrObserver<User>) => {
   return onAuthStateChangedFirebase(auth, callback)
