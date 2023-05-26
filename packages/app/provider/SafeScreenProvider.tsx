@@ -19,7 +19,7 @@ const useProtectedRoute = (user: FullUserType) => {
       router.replace('/welcome')
     } else if (user.user?.firebaseUID && inAuthGroup) {
       // Redirect away from the sign-in page.
-      router.replace('/(onboarding)')
+      router.replace('/root')
     }
   }, [user.user?.firebaseUID, segments])
 }

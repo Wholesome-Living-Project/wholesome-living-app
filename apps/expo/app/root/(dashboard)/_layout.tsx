@@ -27,6 +27,22 @@ export default function Layout() {
           statusBarTranslucent: true,
         }}
       />
+      <Stack.Screen
+        name={'finance'}
+        options={{
+          title: '',
+          headerTransparent: true,
+          statusBarTranslucent: true,
+        }}
+      />
+      <Stack.Screen
+        name={'finance-analytics'}
+        options={{
+          title: '',
+          headerTransparent: true,
+          statusBarTranslucent: true,
+        }}
+      />
     </Stack>
   )
 }

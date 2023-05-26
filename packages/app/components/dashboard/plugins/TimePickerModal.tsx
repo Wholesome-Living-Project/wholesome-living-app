@@ -54,7 +54,7 @@ const TimePickerModal = ({ title }: Props) => {
       <BottomSheetViewFlex flex={1} justify={'center'} column>
         <ContentWrapper>
           <Heading5>{title}</Heading5>
-          <TimePicker difference={currentDifference} setDifference={setCurrentDifference} />
+          {/*<TimePicker difference={currentDifference} setDifference={setCurrentDifference} />*/}
           <Spacer x={2} />
           <Button
             onPress={() => {
