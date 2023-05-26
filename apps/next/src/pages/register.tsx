@@ -1,7 +1,14 @@
-import { MaxWidthFlex } from '../components/ui/MaxWidthFlex'
+import Button from 'app/components/ui/Button'
+import Input from 'app/components/ui/Input'
 
 const Register = () => {
-  return <MaxWidthFlex column>{/* <RegisterForm type={'register'} />*/}</MaxWidthFlex>
+  return (
+    <div>
+      <h1>Register</h1>
+      <Input />
+      <Button buttonType={'cta'}>Register</Button>
+    </div>
+  )
 }
 
 export default Register

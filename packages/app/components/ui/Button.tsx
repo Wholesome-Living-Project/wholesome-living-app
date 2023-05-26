@@ -29,6 +29,7 @@ const StyledButton = styled(TouchableOpacity)<ButtonProps>`
   border-color: ${(p) =>
     p.border ? (p.disabled ? alpha(0.4, COLORS.PRIMARY) : COLORS.PRIMARY) : '0px'}
 
+
   background-color: ${(p) =>
     p.disabled
       ? p.buttonType === 'cta'
