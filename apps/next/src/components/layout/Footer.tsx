@@ -15,6 +15,10 @@ const FullWidthContainer = styled.footer`
   height: ${FOOTER_HEIGHT}px;
   background: ${COLORS.WHITE};
   flex-direction: row;
+
+  @media only screen and (min-width: ${(p) => p.theme.breakPoints.sm}px) {
+    flex-direction: column; //top
+  }
 `
 
 const FooterContent = styled(MaxWidthContainer)`
@@ -28,6 +32,7 @@ const FooterLinks = styled(Flex)`
   margin: 0;
   padding: 0;
   align-items: flex-start;
+  display: flex;
 `
 
 type MenuItemProps = { link?: string; onPress?: () => void } & PropsWithChildren

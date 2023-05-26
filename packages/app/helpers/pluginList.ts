@@ -59,12 +59,13 @@ export const PLUGINS: { [key in plugins]: PluginType } = {
     materialIcon: 'directions-run',
     route: 'run',
   },
-  SLEEP: { title: 'Sleep', color: PLUGIN_COLORS.SLEEP, icon: 'power-sleep', route: 'sleep' },
-  WORKOUT: {
-    title: 'Workout',
-    color: PLUGIN_COLORS.WORKOUT,
-    materialIcon: 'fitness-center',
-    route: 'workout',
-  },
-  DIET: { title: 'Diet', color: PLUGIN_COLORS.DIET, icon: 'weight-kilogram', route: 'diet' },
+  /*
+SLEEP: { title: 'Sleep', color: PLUGIN_COLORS.SLEEP, icon: 'power-sleep', route: 'sleep' },
+WORKOUT: {
+  title: 'Workout',
+  color: PLUGIN_COLORS.WORKOUT,
+  materialIcon: 'fitness-center',
+  route: 'workout',
+},
+DIET: { title: 'Diet', color: PLUGIN_COLORS.DIET, icon: 'weight-kilogram', route: 'diet' },*/
 }

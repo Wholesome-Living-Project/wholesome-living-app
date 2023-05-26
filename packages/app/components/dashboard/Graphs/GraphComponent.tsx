@@ -171,7 +171,7 @@ const GraphComponent = () => {
   )
 
   return (
-    <div style={{ width: '100%', height: '300px', maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ width: '100%', height: '200px', maxWidth: '800px', margin: '0 auto' }}>
       <h3>Track your overall progress</h3>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
