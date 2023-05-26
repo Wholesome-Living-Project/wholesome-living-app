@@ -1,3 +1,4 @@
+import TimePickerModal from 'app/components/dashboard/plugins/TimePickerModal'
 import { Providers } from 'app/provider/ProvidersMobile'
 import { Stack } from 'expo-router'
 import React from 'react'
@@ -11,6 +12,7 @@ export default function Layout() {
         <Stack.Screen name={'(onboarding)'} />
         <Stack.Screen name={'root'} />
       </Stack>
+      <TimePickerModal title={'Until what time do you want to mediate?'} />
     </Providers>
   )
 }

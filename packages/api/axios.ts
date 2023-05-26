@@ -37,12 +37,9 @@ axiosInstance.interceptors.request.use(
       config.headers = {}
     }
 
-    // TODO use firebase token as access token const accessToken = await auth().currentUser?.getIdToken();
-
     const currentUser = getCurrentUser()
 
     console.log(currentUser)
-    // TODO use firebase token as access token const accessToken = await auth().currentUser?.getIdToken();
     if (currentUser?.uid) config.headers.userId = currentUser.uid
 
     return config

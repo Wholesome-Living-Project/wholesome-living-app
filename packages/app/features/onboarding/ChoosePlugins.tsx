@@ -19,7 +19,7 @@ const ChosenIndicator = styled(Flex)`
   top: -5px;
   right: -5px;
   background-color: ${COLORS.CTA};
-  border-radius: 50%;
+  border-radius: 100px;
   width: 25px;
   height: 25px;
 `
@@ -30,25 +30,44 @@ const IndicatorNumber = styled(Text)`
 `
 
 const ChoosePlugins = () => {
-  const { chosenPlugins, setChosenPlugins } = useOnboarding()
+  const { chosenPlugins, setChosenPlugins, setChosenPluginSteps, chosenPluginSteps } =
+    useOnboarding()
 
   const addPlugin = useCallback(
     (plugin: plugins) => {
+      const route = PLUGINS[plugin].onboardingRoute
+      const steps = PLUGINS[plugin].onboardingSubRoutes
+      const stepArray = steps?.map((step) => route + '/' + step)
+
       setChosenPlugins([...chosenPlugins, plugin])
+      stepArray && setChosenPluginSteps([...chosenPluginSteps, ...stepArray])
     },
-    [chosenPlugins, setChosenPlugins]
+    [chosenPluginSteps, chosenPlugins, setChosenPluginSteps, setChosenPlugins]
   )
 
   const removePlugin = useCallback(
     (plugin: string) => {
+      const route = PLUGINS[plugin].onboardingRoute
+      const steps = PLUGINS[plugin].onboardingSubRoutes
+      const stepArray = steps?.map((step) => route + '/' + step)
+
+      const newChosenPluginSteps = chosenPluginSteps.filter((step) => !stepArray?.includes(step))
+
       setChosenPlugins(chosenPlugins.filter((p) => p !== plugin))
+      setChosenPluginSteps(newChosenPluginSteps)
     },
-    [chosenPlugins, setChosenPlugins]
+    [chosenPluginSteps, chosenPlugins, setChosenPluginSteps, setChosenPlugins]
   )
 
+  console.log({ chosenPluginSteps, chosenPlugins })
+
   return (
-    <OnboardingStep primaryText={'Continue'} primaryDisabled={chosenPlugins.length === 0}>
+    <OnboardingStep
+      primaryText={'Continue'}
+      primaryDisabled={chosenPlugins.length === 0}
+      nextStep={chosenPluginSteps[0]}>
       <Flex>
+        <Spacer x={4} />
         <Heading4>Choose your Plugins</Heading4>
         <Spacer x={3} />
         <Flex row wrap={'wrap'} align={'center'}>

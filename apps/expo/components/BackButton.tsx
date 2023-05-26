@@ -16,9 +16,10 @@ const BackButtonContainer = styled(TouchableOpacity)`
 
 type Props = {
   color?: string
+  size?: 'sm' | 'md' | 'lg'
 }
 
-const BackButton = ({ color }: Props) => {
+const BackButton = ({ color, size }: Props) => {
   const navigation = useRootNavigation()
 
   // if (!navigation?.canGoBack) return null
@@ -28,7 +29,11 @@ const BackButton = ({ color }: Props) => {
       onPress={() => {
         navigation?.goBack()
       }}>
-      <FontAwesome color={color ?? COLORS.PRIMARY} name={'chevron-left'} size={15} />
+      <FontAwesome
+        color={color ?? COLORS.PRIMARY}
+        name={'chevron-left'}
+        size={size === 'sm' ? 15 : size === 'md' ? 18 : size === 'lg' ? 22 : 15}
+      />
       <Spacer x={1} />
       <Heading6 color={color ?? COLORS.PRIMARY}>back</Heading6>
     </BackButtonContainer>

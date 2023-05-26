@@ -21,7 +21,7 @@ const useProtectedRoute = (user: FullUserType) => {
       // Redirect away from the sign-in page.
       router.replace('/root')
     }
-  }, [user.user?.firebaseUID, segments])
+  }, [user.user?.firebaseUID, segments, router])
 }
 
 const SafeScreenProvider = ({ children }: PropsWithChildren) => {

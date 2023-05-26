@@ -18,7 +18,7 @@ const TimePicker = ({ setDifference, difference }: Props) => {
 
   return (
     <DateTimePicker
-      value={Platform.OS === 'android' ? new Date(0, 0, 0, hours, minutes, seconds) : new Date(0)}
+      value={Platform.OS === 'android' ? new Date(0, 0, 0, hours, minutes, seconds) : time}
       mode={Platform.OS === 'ios' ? 'countdown' : 'time'}
       display={'spinner'}
       onChange={(_, t) => {

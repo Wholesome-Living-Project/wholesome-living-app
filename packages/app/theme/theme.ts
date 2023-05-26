@@ -36,10 +36,10 @@ export const COLORS = {
 
 export const EXTRA_COLORS = {
   PURPLE: '#8A84E2',
-  MAUVE: '#AFAFDC',
-  BLUE: '#79BEEE',
-  SUNSET: '#ffbaab',
-  JORDY: '#84AFE6',
+  MAUVE: '#9898d7',
+  BLUE: '#64b4ec',
+  SUNSET: '#ff9179',
+  JORDY: '#5791da',
   FINA: '#7457af',
 }
 

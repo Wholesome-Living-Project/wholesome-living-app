@@ -15,6 +15,7 @@ type ButtonProps = {
   fullWidth?: boolean
   maxWidth?: number
   border?: boolean
+  buttonColor?: string
 }
 
 type Props = { color?: string; link?: string } & ButtonProps &
@@ -30,7 +31,11 @@ const StyledButton = styled(TouchableOpacity)<ButtonProps>`
     p.border ? (p.disabled ? alpha(0.4, COLORS.PRIMARY) : COLORS.PRIMARY) : '0px'}
 
   background-color: ${(p) =>
-    p.disabled
+    p.buttonColor
+      ? p.disabled
+        ? alpha(0.4, p.buttonColor)
+        : p.buttonColor
+      : p.disabled
       ? p.buttonType === 'cta'
         ? alpha(0.4, COLORS.CTA)
         : p.buttonType === 'secondary'
@@ -64,12 +69,16 @@ const Button = ({
   fullWidth,
   maxWidth,
   link,
+  buttonColor,
   buttonType,
   children,
   ...rest
 }: Props) => {
   const { windowWidth } = useWindowDimensions()
-  const width = useMemo(() => maxWidth ?? windowWidth * IO_COMPONENT_WIDTH_PERCENT, [])
+  const width = useMemo(
+    () => maxWidth ?? windowWidth * IO_COMPONENT_WIDTH_PERCENT,
+    [maxWidth, windowWidth]
+  )
 
   const { disabled } = rest
   const textColor = useMemo(() => {
@@ -107,6 +116,7 @@ const Button = ({
         small={small}
         buttonType={buttonType}
         fullWidth={fullWidth}
+        buttonColor={buttonColor}
         maxWidth={width}
         {...rest}>
         <StyledText color={textColor} buttonType={buttonType}>
@@ -119,6 +129,7 @@ const Button = ({
       small={small}
       buttonType={buttonType}
       fullWidth={fullWidth}
+      buttonColor={buttonColor}
       maxWidth={width}
       {...rest}>
       <StyledText color={textColor} buttonType={buttonType}>
