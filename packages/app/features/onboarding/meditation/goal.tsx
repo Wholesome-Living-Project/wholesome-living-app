@@ -58,7 +58,7 @@ const Goal = () => {
           </StyledPicker>
         </Flex>
         <Divider />
-        <Spacer x={1} />
+        <Spacer x={3} />
         <Light>
           I want to start with{' '}
           {selectedGoalTime && (
