@@ -9,7 +9,7 @@ import { View } from 'react-native'
 import { Divider } from 'react-native-elements'
 
 const Strategy = () => {
-  const { selectedStrategy, setSelectedStrategy } = useOnboarding()
+  const { selectedStrategy, setSelectedStrategy, roundUpNumber, setRoundUpNumber } = useOnboarding()
 
   return (
     <OnboardingStep primaryText={'Continue'} plugin={plugins.FINANCE} onPressPrimary={() => {}}>
@@ -24,6 +24,15 @@ const Strategy = () => {
           <Picker.Item label="Round up" value={'roundup'} />
           <Picker.Item label="Plus one" value={'plusone'} />
         </Picker>
+
+        {selectedStrategy === 'roundup' && (
+          <Picker
+            selectedValue={roundUpNumber}
+            onValueChange={(itemValue: number) => setRoundUpNumber(itemValue)}>
+            <Picker.Item label="to 5" value={5} />
+            <Picker.Item label="to 10" value={10} />
+          </Picker>
+        )}
       </View>
     </OnboardingStep>
   )

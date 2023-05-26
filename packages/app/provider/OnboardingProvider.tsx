@@ -24,6 +24,8 @@ type OnboardingType = {
   setSelectedStrategy: (st: string) => void
   takeElevatorNotification: boolean
   setTakeElevatorNotification: (st: boolean) => void
+  setRoundUpNumber: (st: number) => void
+  roundUpNumber: number
 }
 
 const OnboardingContext = createContext<OnboardingType>({} as OnboardingType)
@@ -45,6 +47,7 @@ const useProvideOnboarding = (): OnboardingType => {
   // finance
   const [financeSaveReminderNotification, setFinanceSaveReminderNotification] = useState(false)
   const [selectedStrategy, setSelectedStrategy] = useState('roundup')
+  const [roundUpNumber, setRoundUpNumber] = useState(5)
 
   // elevator
   const [takeElevatorNotification, setTakeElevatorNotification] = useState(false)
@@ -72,6 +75,8 @@ const useProvideOnboarding = (): OnboardingType => {
     setSelectedStrategy,
     takeElevatorNotification,
     setTakeElevatorNotification,
+    setRoundUpNumber,
+    roundUpNumber,
   }
 }
 

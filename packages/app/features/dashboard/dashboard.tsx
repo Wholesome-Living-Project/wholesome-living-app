@@ -14,10 +14,9 @@ export function DashboardScreen() {
         <Spacer x={2} />
         <MeditateDetailedBanner />
         <Spacer x={4} />
-        <RunDetailedBanner />
-        <Spacer x={4} />
         <FinanceDetailedBanner />
         <Spacer x={4} />
+        <RunDetailedBanner />
       </ScrollView>
     </SafeAreaView>
   )

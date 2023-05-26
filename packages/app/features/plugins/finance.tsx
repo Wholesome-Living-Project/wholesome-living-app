@@ -1,5 +1,4 @@
 import { FontAwesome } from '@expo/vector-icons'
-import FinanceHistory from 'app/components/dashboard/plugins/FinanceHistory'
 import Button from 'app/components/ui/Button'
 import { Flex } from 'app/components/ui/Flex'
 import Input from 'app/components/ui/Input'
@@ -12,6 +11,7 @@ import { useRootNavigation } from 'expo-router'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Dimensions, Image, ScrollView, View } from 'react-native'
 import { LineChart } from 'react-native-chart-kit'
+import { Divider } from 'react-native-elements'
 import styled from 'styled-components'
 
 const IMAGE_HEIGHT = 320
@@ -121,11 +121,13 @@ const Finance = () => {
               Track Spending
             </Button>
           </Flex>
+          <Spacer x={3} />
+          <Divider style={{ backgroundColor: COLORS.GREY, height: 1, width: '100%' }} />
           <Spacer x={4} />
-          <FinanceHistory />
-          <Spacer x={2} />
           <Heading5>Your Savings</Heading5>
           <Spacer x={2} />
+          <Heading1>5120 CHF</Heading1>
+          <Spacer x={1} />
           <LineChart
             withHorizontalLabels={true}
             withVerticalLabels={true}
