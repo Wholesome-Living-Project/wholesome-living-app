@@ -56,7 +56,7 @@ const useProvideMeditate = (): MeditationContentType => {
 
   useEffect(() => {
     getMeditations()
-  }, [])
+  }, [getMeditations])
 
   return { timerDifference, setTimerDifference, saveMeditation, getMeditations, meditations }
 }

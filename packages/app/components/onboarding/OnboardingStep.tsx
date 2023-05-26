@@ -4,9 +4,9 @@ import { Flex } from 'app/components/ui/Flex'
 import { PLUGINS, plugins } from 'app/helpers/pluginList'
 import { useWindowDimensions } from 'app/hooks/useWindowDimensions'
 import { useOnboarding } from 'app/provider/OnboardingProvider'
-import { SPACING } from 'app/theme/theme'
+import { COLORS, SPACING } from 'app/theme/theme'
+import { useSegments } from 'expo-router'
 import React, { PropsWithChildren, useMemo } from 'react'
-import { SafeAreaView } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 
@@ -15,7 +15,7 @@ const Wrapper = styled(Flex)`
 `
 
 const Footer = styled(Flex)`
-  padding: ${SPACING * 10}px 0;
+  padding: ${SPACING * 10}px ${SPACING * 2}px;
 `
 
 type Props = {
@@ -27,6 +27,7 @@ type Props = {
   primaryDisabled?: boolean
   plugin?: plugins
   secondaryDisabled?: boolean
+  nextStep?: string
 } & PropsWithChildren
 
 const OnboardingStep = ({
@@ -36,66 +37,47 @@ const OnboardingStep = ({
   secondaryText,
   infoText,
   secondaryDisabled,
+  nextStep,
   primaryDisabled,
   plugin,
   children,
 }: Props) => {
   const { windowHeight } = useWindowDimensions()
-  const { finishedOnboardingSteps, chosenPlugins, finishedPlugins, setFinishedOnboardingSteps } =
-    useOnboarding()
+  const { chosenPluginSteps } = useOnboarding()
 
   const navigation = useNavigation()
+  const segments = useSegments()
 
-  const nextStep: string | undefined = useMemo(() => {
-    const firstChosen = chosenPlugins[0]
-    if (finishedPlugins.length === 0 && finishedOnboardingSteps.length === 0 && firstChosen)
-      return PLUGINS[firstChosen].route + '/' + PLUGINS[firstChosen].onboardingSubRoutes?.[0]
-    if (!plugin) return
+  const currentRoute = useMemo(() => {
+    return segments[segments.length - 2] + '/' + segments[segments.length - 1]
+  }, [segments])
 
-    const steps = PLUGINS[plugin].onboardingSubRoutes
-    const route = PLUGINS[plugin].route
-
-    const nextStepForCurrentPlugin = steps?.find((step) => !finishedOnboardingSteps.includes(step))
-
-    if (nextStepForCurrentPlugin) return nextStepForCurrentPlugin
-
-    const nextPlugin = Object.values(chosenPlugins).find(
-      (plugin) => !finishedPlugins.includes(plugin)
-    )
-
-    if (!nextPlugin) return
-
-    return (
-      route +
-      '/' +
-      PLUGINS[nextPlugin].onboardingSubRoutes?.find(
-        (step) => !finishedOnboardingSteps.includes(step)
-      )
-    )
-  }, [chosenPlugins, finishedOnboardingSteps, finishedPlugins, plugin])
-
-  console.log('nextStep', nextStep)
+  const foundNextStep = useMemo(() => {
+    const ind = chosenPluginSteps.findIndex((route) => currentRoute === route) + 1
+    if (ind < chosenPluginSteps.length) return chosenPluginSteps[ind]
+  }, [chosenPluginSteps, currentRoute])
 
   return (
-    <SafeAreaView>
-      <Wrapper style={{ height: windowHeight }} column justify={'space-between'}>
+    <Flex style={{ height: windowHeight }} column justify={'space-between'}>
+      <Flex>
         <OnboardingStepHeader plugin={plugin} />
-        {children}
-        <Footer>
-          <Button
-            small
-            onPress={
-              onPressPrimary ??
-              (() => {
-                nextStep && navigation?.navigate(nextStep)
-              })
-            }
-            disabled={primaryDisabled || !nextStep}>
-            {primaryText}
-          </Button>
-        </Footer>
-      </Wrapper>
-    </SafeAreaView>
+        <Wrapper column>{children}</Wrapper>
+      </Flex>
+      <Footer>
+        <Button
+          small
+          buttonColor={plugin ? PLUGINS[plugin]?.color : COLORS.PRIMARY}
+          onPress={() => {
+            onPressPrimary?.()
+            nextStep
+              ? navigation?.navigate(nextStep)
+              : foundNextStep && navigation?.navigate(foundNextStep)
+          }}
+          disabled={primaryDisabled}>
+          {primaryText}
+        </Button>
+      </Footer>
+    </Flex>
   )
 }
 

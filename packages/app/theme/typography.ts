@@ -101,6 +101,14 @@ export const Regular = styled.Text<AttrProps>`
   color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
+export const Body = styled.Text<AttrProps>`
+  ${HeadingRoot};
+  font-size: 16px;
+  font-weight: ${(p) => p.weight ?? FontWeights.Normal};
+  text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
+  color: ${(p) => p.color ?? COLORS.BLACK};
+`
+
 export const Light = styled(NativeText)<AttrProps>`
   ${HeadingRoot};
   font-size: 14px;

@@ -63,7 +63,7 @@ export const PLUGINS: { [key in plugins]: PluginType } = {
     icon: 'elevator-passenger',
     route: 'elevator',
     onboardingRoute: 'elevator',
-    onboardingSubRoutes: ['behavior', 'notifications'],
+    onboardingSubRoutes: ['notifications'],
   },
   RUN: {
     title: 'Run',

@@ -1,4 +1,4 @@
-import { meditateTimePickerModalRef, signUpModalRef } from 'app/components/refs/modal-refs'
+import { meditateTimePickerModalRef } from 'app/components/refs/modal-refs'
 import Button from 'app/components/ui/Button'
 import Spacer from 'app/components/ui/Spacer'
 import { displayTime } from 'app/helpers/timerHelpers'
@@ -73,15 +73,15 @@ const Timer = ({ onTimerEnded }: Props) => {
   const resetTimer = useCallback(() => {
     pauseTimer()
     setTimerDuration(timerDifference)
-  }, [pauseTimer, setTimerDuration])
+  }, [pauseTimer, timerDifference])
 
   useEffect(() => {
     return () => clearInterval(countDownInterval)
-  }, [setTimerDuration])
+  }, [countDownInterval, setTimerDuration])
 
   const handleTimerAtZero = useCallback(() => {
     playSound()
-  }, [timerDuration, pauseTimer, playSound])
+  }, [playSound])
 
   useEffect(() => {
     if (timerIsZero) {
@@ -89,11 +89,11 @@ const Timer = ({ onTimerEnded }: Props) => {
       handleTimerAtZero()
       onTimerEnded(timerDuration)
     }
-  }, [pauseTimer, handleTimerAtZero, timerDuration, onTimerEnded])
+  }, [pauseTimer, handleTimerAtZero, timerDuration, onTimerEnded, timerIsZero])
 
   const openTimePicker = useCallback(() => {
     meditateTimePickerModalRef.current?.expand()
-  }, [signUpModalRef])
+  }, [])
 
   useEffect(() => {
     setTimerDuration(timerDifference)
