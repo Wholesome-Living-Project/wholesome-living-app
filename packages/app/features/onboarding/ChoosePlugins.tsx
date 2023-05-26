@@ -5,9 +5,10 @@ import Spacer from 'app/components/ui/Spacer'
 import { plugins, PLUGINS } from 'app/helpers/pluginList'
 import { useOnboarding } from 'app/provider/OnboardingProvider'
 import { COLORS } from 'app/theme/theme'
-import { Heading4 } from 'app/theme/typography'
+import { Heading4, Light } from 'app/theme/typography'
 import React, { Fragment, useCallback } from 'react'
 import { Text } from 'react-native'
+import { Divider } from 'react-native-elements'
 import styled from 'styled-components'
 
 const OpacityWrapper = styled(Flex)<{ active: boolean }>`
@@ -67,9 +68,12 @@ const ChoosePlugins = () => {
       primaryDisabled={chosenPlugins.length === 0}
       nextStep={chosenPluginSteps[0]}>
       <Flex>
-        <Spacer x={4} />
+        <Spacer x={5} />
         <Heading4>Choose your Plugins</Heading4>
-        <Spacer x={3} />
+        <Light>Choose the plugins you want to create habits with</Light>
+        <Spacer x={1} />
+        <Divider />
+        <Spacer x={2} />
         <Flex row wrap={'wrap'} align={'center'}>
           {Object.values(PLUGINS).map(
             (plugin) =>
