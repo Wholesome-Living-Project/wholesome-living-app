@@ -98,7 +98,7 @@ const GraphComponent = () => {
 
   const [data, setData] = useState([])
   //const userId = getCurrentUser()
-  const userId = 'string'
+  const userId = 'RafaelDubach'
 
   useEffect(() => {
     const fetchData = async () => {
@@ -108,8 +108,15 @@ const GraphComponent = () => {
             userId: userId,
           },
         })
-        setData(response.data)
-        console.log('Fetched data:', response.data)
+
+        // Transform fetched data
+        const transformedData = response.data.map((item) => ({
+          ...item,
+          investmentTime: new Date(item.investmentTime * 1000).toISOString().slice(0, 10),
+        }))
+
+        setData(transformedData)
+        console.log('Fetched data:', transformedData)
       } catch (error) {
         console.error('Error fetching data:', error)
       }
