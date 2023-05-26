@@ -1,3 +1,4 @@
+import { FontAwesome } from '@expo/vector-icons'
 import FinanceHistory from 'app/components/dashboard/plugins/FinanceHistory'
 import Button from 'app/components/ui/Button'
 import { Flex } from 'app/components/ui/Flex'
@@ -6,7 +7,7 @@ import Spacer from 'app/components/ui/Spacer'
 import { PLUGINS } from 'app/helpers/pluginList'
 import { useFinance } from 'app/provider/FinanceContentProvider'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from 'app/theme/theme'
-import { Heading1, Heading4, Heading6 } from 'app/theme/typography'
+import { Heading1, Heading4, Heading5, Heading6 } from 'app/theme/typography'
 import { useRootNavigation } from 'expo-router'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Dimensions, Image, ScrollView, View } from 'react-native'
@@ -122,10 +123,9 @@ const Finance = () => {
           </Flex>
           <Spacer x={4} />
           <FinanceHistory />
-          <Spacer x={4} />
-          <Heading6 onPress={() => navigation?.navigate('finance-analytics')}>
-            Go to Analytics view
-          </Heading6>
+          <Spacer x={2} />
+          <Heading5>Your Savings</Heading5>
+          <Spacer x={2} />
           <LineChart
             withHorizontalLabels={true}
             withVerticalLabels={true}
@@ -143,7 +143,7 @@ const Finance = () => {
                   color: (opacity = 1) => `rgba(0,0,102, ${opacity})`, // optional
                 },
               ],
-              legend: ['Goal', 'Your 3a'],
+              legend: ['Max', 'Your 3a'],
             }}
             width={Dimensions.get('window').width - 1}
             height={200}
@@ -162,6 +162,14 @@ const Finance = () => {
               borderRadius: 16,
             }}
           />
+          <Spacer x={2} />
+          <Flex row align={'center'}>
+            <Heading6 onPress={() => navigation?.navigate('finance-analytics')}>
+              Go to Analytics view
+            </Heading6>
+            <Spacer x={2} />
+            <FontAwesome name={'arrow-right'} size={18} color={COLORS.PRIMARY} />
+          </Flex>
         </Container>
       </ScrollView>
     </>
