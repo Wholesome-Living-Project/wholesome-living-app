@@ -71,7 +71,9 @@ const OnboardingStep = ({
             onPressPrimary?.()
             nextStep
               ? navigation?.navigate(nextStep)
-              : foundNextStep && navigation?.navigate(foundNextStep)
+              : foundNextStep
+              ? navigation?.navigate(foundNextStep)
+              : navigation?.navigate('root')
           }}
           disabled={primaryDisabled}>
           {primaryText}
