@@ -1,9 +1,8 @@
 import { Flex } from 'axelra-styled-bootstrap-grid'
+import axios from 'axios'
 import { endOfDay, endOfMonth, startOfDay, startOfMonth } from 'date-fns'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
-  Area,
-  AreaChart,
   CartesianGrid,
   Legend,
   Line,
@@ -16,99 +15,108 @@ import {
 import styled from 'styled-components'
 
 const GraphComponent = () => {
-  const data = [
+  /*const data = [
     {
-      id: '64551d7cdf3cd21385680409',
+      _id: '64551d7cdf3cd21385680409',
       userId: 'string',
       investmentTime: '2023-01-15',
       amount: 10,
-      plannedAmount: 15,
     },
     {
-      id: '64551d8edf3cd2138568040a',
+      _id: '64551d8edf3cd2138568040a',
       userId: 'string',
       investmentTime: '2023-02-10',
       amount: 12,
-      plannedAmount: 18,
     },
     {
-      id: '64551d97df3cd2138568040b',
+      _id: '64551d97df3cd2138568040b',
       userId: 'string',
       investmentTime: '2023-03-22',
       amount: 122,
-      plannedAmount: 150,
     },
     {
-      id: '64551e28df3cd2138568040c',
+      _id: '64551e28df3cd2138568040c',
       userId: 'string',
       investmentTime: '2023-04-05',
       amount: 50,
-      plannedAmount: 60,
     },
     {
-      id: '64551e37df3cd2138568040d',
+      _id: '64551e37df3cd2138568040d',
       userId: 'string',
       investmentTime: '2023-05-18',
       amount: 75,
-      plannedAmount: 90,
     },
     {
-      id: '64551e41df3cd2138568040e',
+      _id: '64551e41df3cd2138568040e',
       userId: 'string',
       investmentTime: '2023-06-11',
       amount: 35,
-      plannedAmount: 40,
     },
     {
-      id: '64551e4adf3cd2138568040f',
+      _id: '64551e4adf3cd2138568040f',
       userId: 'string',
       investmentTime: '2023-07-09',
       amount: 80,
-      plannedAmount: 95,
     },
     {
-      id: '64551e54df3cd21385680410',
+      _id: '64551e54df3cd21385680410',
       userId: 'string',
       investmentTime: '2023-08-17',
       amount: 65,
-      plannedAmount: 75,
     },
     {
-      id: '64551e5cdf3cd21385680411',
+      _id: '64551e5cdf3cd21385680411',
       userId: 'string',
       investmentTime: '2023-09-24',
       amount: 45,
-      plannedAmount: 55,
     },
     {
-      id: '64551e66df3cd21385680412',
+      _id: '64551e66df3cd21385680412',
       userId: 'string',
       investmentTime: '2023-10-13',
       amount: 90,
-      plannedAmount: 100,
     },
     {
-      id: '64551e70df3cd21385680413',
+      _id: '64551e70df3cd21385680413',
       userId: 'string',
       investmentTime: '2023-11-08',
       amount: 30,
-      plannedAmount: 35,
     },
     {
-      id: '64551e78df3cd21385680414',
+      _id: '64551e78df3cd21385680414',
       userId: 'string',
       investmentTime: '2023-12-27',
       amount: 55,
-      plannedAmount: 65,
     },
     {
-      id: '64551e78df3cd21385680414',
+      _id: '64551e78df3cd21385680414',
       userId: 'string',
       investmentTime: '2023-05-20',
       amount: 13,
-      plannedAmount: 20,
     },
-  ]
+  ]*/
+
+  const [data, setData] = useState([])
+  //const userId = getCurrentUser()
+  const userId = 'string'
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8080/investment', {
+          headers: {
+            userId: userId,
+          },
+        })
+        setData(response.data)
+        console.log('Fetched data:', response.data)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   const GraphContent = styled(Flex)``
 
@@ -169,7 +177,7 @@ const GraphComponent = () => {
         </LineChart>
       </ResponsiveContainer>
 
-      <h3>Track your weekly progress</h3>
+      {/*      <h3>Track your weekly progress</h3>
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           width={500}
@@ -195,7 +203,7 @@ const GraphComponent = () => {
             fill="#82ca9d"
           />
         </AreaChart>
-      </ResponsiveContainer>
+      </ResponsiveContainer>*/}
     </div>
   )
 }
