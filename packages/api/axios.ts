@@ -1,8 +1,12 @@
 import { getCurrentUser } from 'app/auth/auth'
 import axios from 'axios'
 import { Platform } from 'react-native'
+import Constants from "expo-constants";
 
-const baseURL = 'http://192.168.3.233:8080'
+const { manifest } = Constants;
+
+const baseURL = `http://${manifest?.debuggerHost?.split(':').shift()}:8080`;
+// const baseURL = 'http://192.168.1.142:8080'
 
 export const axiosInstance = axios.create({
   baseURL,
