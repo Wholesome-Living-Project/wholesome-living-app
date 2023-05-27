@@ -1,19 +1,19 @@
-import MeditationListItem from 'app/components/dashboard/plugins/MeditationListItem'
+import FinanceListItem from 'app/components/dashboard/plugins/FinanceListItem'
 import { Flex } from 'app/components/ui/Flex'
-import { useMeditate } from 'app/provider/MeditationContentProvider'
+import { useFinance } from 'app/provider/FinanceContentProvider'
 import React, { Fragment } from 'react'
 import { Divider } from 'react-native-elements'
-import {useFinance} from "app/provider/FinanceContentProvider";
-import FinanceListItem from "app/components/dashboard/plugins/FinanceListItem";
 
+type Props = {
+  preview?: number
+}
 
-const FinanceHistory = () => {
+const FinanceHistory = ({ preview }: Props) => {
   const { spendings } = useFinance()
-
 
   return (
     <Flex column>
-      {spendings.map((spending, i) => (
+      {spendings.slice(0, preview ? preview : -1).map((spending, i) => (
         <Fragment key={i}>
           <FinanceListItem spending={spending} />
           <Divider />

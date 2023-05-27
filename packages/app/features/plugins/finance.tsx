@@ -1,4 +1,5 @@
 import { FontAwesome } from '@expo/vector-icons'
+import FinanceHistory from 'app/components/dashboard/plugins/FinanceHistory'
 import Button from 'app/components/ui/Button'
 import { Flex } from 'app/components/ui/Flex'
 import Input from 'app/components/ui/Input'
@@ -122,6 +123,7 @@ const Finance = () => {
             </Button>
           </Flex>
           <Spacer x={3} />
+          <FinanceHistory preview={3} />
           <Divider style={{ backgroundColor: COLORS.GREY, height: 1, width: '100%' }} />
           <Spacer x={4} />
           <Heading5>Your Savings</Heading5>
