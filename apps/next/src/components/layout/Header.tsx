@@ -23,14 +23,12 @@ const HeaderContent = styled(MaxWidthContainer)`
   flex-direction: row;
   justify-content: space-between;
   letter-spacing: 4px;
-  
 `
 
 const HeaderLinks = styled(Flex)`
   gap: ${SPACING * 2}px;
   margin: 0;
   padding: 0;
-  
 `
 
 type MenuItemProps = { link?: string; onPress?: () => void } & PropsWithChildren

@@ -11868,7 +11868,7 @@ metro-react-native-babel-transformer@0.72.3:
     metro-source-map "0.72.3"
     nullthrows "^1.1.1"
 
-metro-resolver@0.72.3, metro-resolver@0.73.9, metro-resolver@^0.73.1:
+metro-resolver@0.72.3, metro-resolver@0.73.9, metro-resolver@^0.73.7:
   version "0.73.9"
   resolved "https://registry.yarnpkg.com/metro-resolver/-/metro-resolver-0.73.9.tgz#f3cf77e6c7606a34aa81bad40edb856aad671cf3"
   integrity sha512-Ej3wAPOeNRPDnJmkK0zk7vJ33iU07n+oPhpcf5L0NFkWneMmSM2bflMPibI86UjzZGmRfn0AhGhs8yGeBwQ/Xg==
@@ -11973,7 +11973,7 @@ metro-transform-worker@0.73.9:
     metro-transform-plugins "0.73.9"
     nullthrows "^1.1.1"
 
-metro@0.72.3, metro@0.73.9, metro@^0.73.1:
+metro@0.72.3, metro@0.73.9, metro@^0.73.7:
   version "0.73.9"
   resolved "https://registry.yarnpkg.com/metro/-/metro-0.73.9.tgz#150e69a6735fab0bcb4f6ee97fd1efc65b3ec36f"
   integrity sha512-BlYbPmTF60hpetyNdKhdvi57dSqutb+/oK0u3ni4emIh78PiI0axGo7RfdsZ/mn3saASXc94tDbpC5yn7+NpEg==
@@ -14962,6 +14962,13 @@ react-smooth@^2.0.2:
   dependencies:
     fast-equals "^5.0.0"
     react-transition-group "2.9.0"
+
+react-switch@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/react-switch/-/react-switch-7.0.0.tgz#400990bb9822864938e343ed24f13276a617bdc0"
+  integrity sha512-KkDeW+cozZXI6knDPyUt3KBN1rmhoVYgAdCJqAh7st7tk8YE6N0iR89zjCWO8T8dUTeJGTR0KU+5CHCRMRffiA==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-transition-group@2.9.0:
   version "2.9.0"

@@ -10,18 +10,27 @@ interface FormData {
   dateOfBirth: number | null
 }
 
-const FormContainer = styled.form`
+const Container = styled.div`
   max-width: 400px;
-  margin: 0 auto;
+  margin: 2em auto;
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+`
+
+const FormContainer = styled.form`
+  margin-bottom: 2em;
 `
 
 const FormGroup = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 1.5em;
 `
 
 const Label = styled.label`
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0.5em;
+  font-weight: 600;
 `
 
 interface InputProps {
@@ -32,7 +41,7 @@ const Input = styled.input<InputProps>`
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: 1px solid ${(props) => (props.invalid ? 'red' : '#ccc')};
   transition: border-color 0.3s ease-in-out;
 
@@ -59,7 +68,7 @@ const Button = styled.button`
 
 const FlexContainer = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 1em;
 `
 
 const FirstNameInput = styled(Input)`
@@ -74,7 +83,52 @@ const DatePickerInput = styled(Input)`
   cursor: pointer;
 `
 
-const Register: React.FC = () => {
+const ToggleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 1em;
+`
+
+const SwitchContainer = styled.label`
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+`
+
+const SwitchSlider = styled.div<{ isOn: boolean }>`
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: ${(props) => (props.isOn ? '#0088cc' : '#ccc')};
+  border-radius: 34px;
+  transition: background-color 0.3s ease-in-out;
+
+  &:before {
+    position: absolute;
+    content: '';
+    height: 26px;
+    width: 26px;
+    bottom: 4px;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+    border-radius: 50%;
+    left: ${(props) => (props.isOn ? 'calc(100% - 4px)' : '4px')};
+    transform: ${(props) => (props.isOn ? 'translateX(-100%)' : 'none')};
+  }
+`
+
+const InputCheckbox = styled.input`
+  opacity: 0;
+  width: 0;
+  height: 0;
+`
+
+const Login: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     email: '',
     firstName: '',
@@ -83,6 +137,7 @@ const Register: React.FC = () => {
   })
 
   const [validationErrors, setValidationErrors] = useState<Partial<FormData>>({})
+  const [isRegisterMode, setIsRegisterMode] = useState<boolean>(true)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -156,67 +211,87 @@ const Register: React.FC = () => {
     return regex.test(name)
   }
 
+  const toggleFormMode = () => {
+    setIsRegisterMode((prevMode) => !prevMode)
+  }
+
   return (
-    <FormContainer onSubmit={handleSubmit}>
-      <FlexContainer>
-        <FormGroup>
-          <Label htmlFor="firstName">First Name</Label>
-          <FirstNameInput
-            type="text"
-            id="firstName"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            invalid={!!validationErrors.firstName}
-          />
-          {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
-        </FormGroup>
+    <Container>
+      <ToggleContainer>
+        <SwitchContainer>
+          <InputCheckbox type="checkbox" onChange={toggleFormMode} />
+          <SwitchSlider isOn={isRegisterMode} />
+        </SwitchContainer>
+      </ToggleContainer>
+      <FormContainer onSubmit={handleSubmit}>
+        <h2>{isRegisterMode ? 'Register' : 'Login'}</h2>
+        <br />
+        {isRegisterMode && (
+          <FlexContainer>
+            <FormGroup>
+              <Label htmlFor="firstName">First Name</Label>
+              <FirstNameInput
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                invalid={!!validationErrors.firstName}
+              />
+              {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
+            </FormGroup>
+
+            <FormGroup>
+              <Label htmlFor="lastName">Last Name</Label>
+              <LastNameInput
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                invalid={!!validationErrors.lastName}
+              />
+              {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
+            </FormGroup>
+          </FlexContainer>
+        )}
 
         <FormGroup>
-          <Label htmlFor="lastName">Last Name</Label>
-          <LastNameInput
-            type="text"
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
+          <Label htmlFor="email">Email</Label>
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
             onChange={handleChange}
-            invalid={!!validationErrors.lastName}
+            invalid={!!validationErrors.email}
           />
-          {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
+          {validationErrors.email && <p>{validationErrors.email}</p>}
         </FormGroup>
-      </FlexContainer>
-      <FormGroup>
-        <Label htmlFor="email">Email</Label>
-        <Input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          invalid={!!validationErrors.email}
-        />
-        {validationErrors.email && <p>{validationErrors.email}</p>}
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="dateOfBirth">Date of Birth</Label>
-        <DatePicker
-          id="dateOfBirth"
-          name="dateOfBirth"
-          selected={formData.dateOfBirth ? new Date(formData.dateOfBirth * 1000) : null}
-          onChange={handleDateChange}
-          dateFormat="yyyy-MM-dd"
-          placeholderText="Select Date"
-          customInput={<DatePickerInput />}
-          peekNextMonth
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-        />
-      </FormGroup>
 
-      <Button type="submit">Register</Button>
-    </FormContainer>
+        {isRegisterMode && (
+          <FormGroup>
+            <Label htmlFor="dateOfBirth">Date of Birth</Label>
+            <DatePicker
+              selected={formData.dateOfBirth ? new Date(formData.dateOfBirth * 1000) : null}
+              onChange={handleDateChange}
+              customInput={<DatePickerInput />}
+              showYearDropdown
+              dropdownMode="select"
+              maxDate={new Date()}
+            />
+          </FormGroup>
+        )}
+
+        <FormGroup>
+          <Label htmlFor="password">Password</Label>
+          <Input type="password" id="password" name="password" />
+        </FormGroup>
+
+        <Button type="submit">{isRegisterMode ? 'Register' : 'Login'}</Button>
+      </FormContainer>
+    </Container>
   )
 }
 
-export default Register
+export default Login
