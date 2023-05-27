@@ -1,5 +1,14 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import styled from 'styled-components'
+
+interface FormData {
+  email: string
+  firstName: string
+  lastName: string
+  dateOfBirth: number | null
+}
 
 const FormContainer = styled.form`
   max-width: 400px;
@@ -15,12 +24,16 @@ const Label = styled.label`
   margin-bottom: 5px;
 `
 
-const Input = styled.input`
+interface InputProps {
+  invalid?: boolean
+}
+
+const Input = styled.input<InputProps>`
   width: 100%;
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid ${(props) => (props.invalid ? 'red' : '#ccc')};
   transition: border-color 0.3s ease-in-out;
 
   &:focus {
@@ -57,15 +70,21 @@ const LastNameInput = styled(Input)`
   flex: 1;
 `
 
-const Register = () => {
-  const [formData, setFormData] = useState({
+const DatePickerInput = styled(Input)`
+  cursor: pointer;
+`
+
+const Register: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
     email: '',
     firstName: '',
     lastName: '',
-    dateOfBirth: '',
+    dateOfBirth: null,
   })
 
-  const handleChange = (event) => {
+  const [validationErrors, setValidationErrors] = useState<Partial<FormData>>({})
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -73,8 +92,39 @@ const Register = () => {
     }))
   }
 
-  const handleSubmit = (event) => {
+  const handleDateChange = (date: Date | null) => {
+    const unixTimestamp = date ? Math.floor(date.getTime() / 1000) : null
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      dateOfBirth: unixTimestamp,
+    }))
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
+    // Validation checks
+    const errors: Partial<FormData> = {}
+
+    if (!validateEmail(formData.email)) {
+      errors.email = 'Please enter a valid email address.'
+    }
+
+    if (!validateName(formData.firstName)) {
+      errors.firstName = 'Please enter a valid first name.'
+    }
+
+    if (!validateName(formData.lastName)) {
+      errors.lastName = 'Please enter a valid last name.'
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors)
+      return
+    }
+
+    setValidationErrors({})
+
     // Make the API call to submit the data
     fetch('your-backend-url', {
       method: 'PUT',
@@ -94,6 +144,18 @@ const Register = () => {
       })
   }
 
+  const validateEmail = (email: string) => {
+    // Basic email validation check
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return regex.test(email)
+  }
+
+  const validateName = (name: string) => {
+    // Name validation check (only allowing letters, spaces, and hyphens)
+    const regex = /^[A-Za-z\s-]+$/
+    return regex.test(name)
+  }
+
   return (
     <FormContainer onSubmit={handleSubmit}>
       <FlexContainer>
@@ -105,7 +167,9 @@ const Register = () => {
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
+            invalid={!!validationErrors.firstName}
           />
+          {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
         </FormGroup>
 
         <FormGroup>
@@ -116,7 +180,9 @@ const Register = () => {
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
+            invalid={!!validationErrors.lastName}
           />
+          {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
         </FormGroup>
       </FlexContainer>
       <FormGroup>
@@ -127,16 +193,24 @@ const Register = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
+          invalid={!!validationErrors.email}
         />
+        {validationErrors.email && <p>{validationErrors.email}</p>}
       </FormGroup>
       <FormGroup>
         <Label htmlFor="dateOfBirth">Date of Birth</Label>
-        <Input
-          type="text"
+        <DatePicker
           id="dateOfBirth"
           name="dateOfBirth"
-          value={formData.dateOfBirth}
-          onChange={handleChange}
+          selected={formData.dateOfBirth ? new Date(formData.dateOfBirth * 1000) : null}
+          onChange={handleDateChange}
+          dateFormat="yyyy-MM-dd"
+          placeholderText="Select Date"
+          customInput={<DatePickerInput />}
+          peekNextMonth
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
         />
       </FormGroup>
 
