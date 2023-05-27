@@ -8,6 +8,7 @@ interface FormData {
   firstName: string
   lastName: string
   dateOfBirth: number | null
+  password: string
 }
 
 const Container = styled.div`
@@ -31,6 +32,8 @@ const Label = styled.label`
   display: block;
   margin-bottom: 0.5em;
   font-weight: 600;
+  font-size: 14px;
+  color: #555;
 `
 
 interface InputProps {
@@ -86,46 +89,35 @@ const DatePickerInput = styled(Input)`
 const ToggleContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 1em;
 `
 
-const SwitchContainer = styled.label`
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-`
-
-const SwitchSlider = styled.div<{ isOn: boolean }>`
-  position: absolute;
+const FormToggleButton = styled.button<{ active?: boolean }>`
+  flex: 1;
+  padding: 10px 0;
+  font-size: 16px;
+  background-color: ${(props) => (props.active ? '#0088cc' : '#f2f2f2')};
+  color: ${(props) => (props.active ? '#fff' : '#333')};
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: ${(props) => (props.isOn ? '#0088cc' : '#ccc')};
-  border-radius: 34px;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 
-  &:before {
-    position: absolute;
-    content: '';
-    height: 26px;
-    width: 26px;
-    bottom: 4px;
-    background-color: white;
-    transition: all 0.3s ease-in-out;
-    border-radius: 50%;
-    left: ${(props) => (props.isOn ? 'calc(100% - 4px)' : '4px')};
-    transform: ${(props) => (props.isOn ? 'translateX(-100%)' : 'none')};
+  &:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
-`
 
-const InputCheckbox = styled.input`
-  opacity: 0;
-  width: 0;
-  height: 0;
+  &:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &:hover {
+    background-color: ${(props) => (props.active ? '#006699' : '#e6e6e6')};
+    color: ${(props) => (props.active ? '#fff' : '#333')};
+  }
 `
 
 const Login: React.FC = () => {
@@ -134,10 +126,12 @@ const Login: React.FC = () => {
     firstName: '',
     lastName: '',
     dateOfBirth: null,
+    password: '',
   })
 
   const [validationErrors, setValidationErrors] = useState<Partial<FormData>>({})
   const [isRegisterMode, setIsRegisterMode] = useState<boolean>(true)
+  const [formModeText, setFormModeText] = useState<string>(isRegisterMode ? 'Register' : 'Login')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -171,6 +165,10 @@ const Login: React.FC = () => {
 
     if (!validateName(formData.lastName)) {
       errors.lastName = 'Please enter a valid last name.'
+    }
+
+    if (!validatePassword(formData.password)) {
+      errors.password = 'Please enter a valid password.'
     }
 
     if (Object.keys(errors).length > 0) {
@@ -211,21 +209,33 @@ const Login: React.FC = () => {
     return regex.test(name)
   }
 
-  const toggleFormMode = () => {
-    setIsRegisterMode((prevMode) => !prevMode)
+  const validatePassword = (password: string) => {
+    // Password validation check (e.g., minimum length, specific characters)
+    return password.length >= 8
+  }
+
+  const toggleFormMode = (mode: string) => {
+    if (mode === 'register') {
+      setIsRegisterMode(true)
+      setFormModeText('Register')
+    } else if (mode === 'login') {
+      setIsRegisterMode(false)
+      setFormModeText('Login')
+    }
   }
 
   return (
     <Container>
       <ToggleContainer>
-        <SwitchContainer>
-          <InputCheckbox type="checkbox" onChange={toggleFormMode} />
-          <SwitchSlider isOn={isRegisterMode} />
-        </SwitchContainer>
+        <FormToggleButton active={isRegisterMode} onClick={() => toggleFormMode('register')}>
+          Register
+        </FormToggleButton>
+        <FormToggleButton active={!isRegisterMode} onClick={() => toggleFormMode('login')}>
+          Login
+        </FormToggleButton>
       </ToggleContainer>
       <FormContainer onSubmit={handleSubmit}>
-        <h2>{isRegisterMode ? 'Register' : 'Login'}</h2>
-        <br />
+        {/*<h2>{formModeText}</h2>*/}
         {isRegisterMode && (
           <FlexContainer>
             <FormGroup>
@@ -275,7 +285,7 @@ const Login: React.FC = () => {
             <DatePicker
               selected={formData.dateOfBirth ? new Date(formData.dateOfBirth * 1000) : null}
               onChange={handleDateChange}
-              customInput={<DatePickerInput />}
+              customInput={<DatePickerInput readOnly />}
               showYearDropdown
               dropdownMode="select"
               maxDate={new Date()}
@@ -285,10 +295,18 @@ const Login: React.FC = () => {
 
         <FormGroup>
           <Label htmlFor="password">Password</Label>
-          <Input type="password" id="password" name="password" />
+          <Input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            invalid={!!validationErrors.password}
+          />
+          {validationErrors.password && <p>{validationErrors.password}</p>}
         </FormGroup>
 
-        <Button type="submit">{isRegisterMode ? 'Register' : 'Login'}</Button>
+        <Button type="submit">{formModeText}</Button>
       </FormContainer>
     </Container>
   )
