@@ -27,8 +27,9 @@ export const COLORS = {
   BLACK: 'black',
   GREY: '#EFF5F5',
   PRIMARY: PRIMARY_TINTS['500'],
-  SECONDARY: SECONDARY_TINTS['500'],
+  SECONDARY: SECONDARY_TINTS['700'],
   CTA: '#DE3163',
+  BACKGROUND_GREY: '#eaeaea',
   HEADER: '#D6E4E5',
   TAB_BAR: SECONDARY_TINTS['300'],
   TAB_BAR_ICONS: PRIMARY_TINTS['600'],
@@ -44,6 +45,8 @@ export const EXTRA_COLORS = {
 }
 
 export const SPACING = 8
+
+export const BACKGROUND_PADDING = 4 * SPACING
 
 export const HEADER_HEIGHT = 75
 export const SIDEBAR_WIDTH = 350

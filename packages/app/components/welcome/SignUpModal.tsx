@@ -1,13 +1,15 @@
 import { signUpModalRef } from 'app/components/refs/modal-refs'
 import { BottomSheetViewFlex } from 'app/components/ui/BottomSheetViewFlex'
 import SignupForm from 'app/components/welcome/SignupForm'
+import useKeyboard from 'app/hooks/useKeyboard'
 import { useModal } from 'app/hooks/useModal'
 import BottomSheet from 'axelra-react-native-bottom-sheet'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Keyboard, Platform } from 'react-native'
 
 const SignUpModal = () => {
-  const [modalHeight, setModalHeight] = useState(65)
+  const [modalHeight, setModalHeight] = useState(50)
+  const { keyboardOpen } = useKeyboard()
 
   const modalProps = useModal({ snapPoints: [`${modalHeight}%`] })
 
@@ -18,9 +20,12 @@ const SignUpModal = () => {
   }, [])
 
   useEffect(() => {
-    Keyboard.addListener('keyboardWillShow', () => setModalHeight(95))
-    Keyboard.addListener('keyboardWillHide', () => setModalHeight(65))
-  }, [])
+    if (keyboardOpen) {
+      setModalHeight(85)
+    } else {
+      setModalHeight(50)
+    }
+  }, [keyboardOpen])
 
   return (
     <BottomSheet

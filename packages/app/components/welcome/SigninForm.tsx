@@ -1,18 +1,16 @@
-import { signInModalRef } from 'app/components/refs/modal-refs'
-import Button from 'app/components/ui/Button'
-import { ComponentWidthWeb } from 'app/components/ui/ComponentWidthWeb'
-import Input from 'app/components/ui/Input'
 import Spacer from 'app/components/ui/Spacer'
 import { useAuthentication } from 'app/provider/AuthenticationProvider'
-import { COLORS, OUTER_BORDER_RADIUS } from 'app/theme/theme'
-import { Heading3 } from 'app/theme/typography'
+import { COLORS } from 'app/theme/theme'
 import React, { useCallback, useState } from 'react'
-import { Keyboard } from 'react-native'
+import { Keyboard, View } from 'react-native'
 import styled from 'styled-components/native'
+import { Heading4 } from '../../theme/typography'
+import { signInModalRef } from '../refs/modal-refs'
+import Button from '../ui/Button'
+import Input from '../ui/Input'
 
-const Wrapper = styled(ComponentWidthWeb)`
+const Wrapper = styled(View)`
   padding: 10px 30px;
-  border-radius: ${OUTER_BORDER_RADIUS}px;
 `
 
 const SigninForm = () => {
@@ -29,12 +27,12 @@ const SigninForm = () => {
     } catch (err) {
       console.log(err)
     }
-  }, [email, password, signInModalRef, signInWithEmailAndPassword])
+  }, [email, password, signInWithEmailAndPassword])
 
   return (
-    <Wrapper maxWidthWeb={300}>
-      <Heading3 color={COLORS.PRIMARY}>Login</Heading3>
-      <Spacer x={2} />
+    <Wrapper>
+      <Heading4 color={COLORS.BLACK}>Login</Heading4>
+      <Spacer x={3} />
       <Input placeholder={'Email'} value={email} onChangeText={(text) => setEmail(text)} />
       <Spacer x={2} />
       <Input
@@ -44,10 +42,10 @@ const SigninForm = () => {
         onChangeText={(text) => setPassword(text)}
       />
       <Spacer x={4} />
-      <Button fullWidth onPress={() => submit()} small>
+      <Button fullWidth onPress={() => submit()}>
         Submit
       </Button>
-      <Spacer x={20} />
+      <Spacer x={2} />
     </Wrapper>
   )
 }

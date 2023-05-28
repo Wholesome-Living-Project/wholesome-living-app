@@ -1,12 +1,15 @@
 import OnboardingStepHeader from 'app/components/onboarding/OnboardingStepHeader'
 import Button from 'app/components/ui/Button'
 import { Flex } from 'app/components/ui/Flex'
+import Spacer from 'app/components/ui/Spacer'
 import { PLUGINS, plugins } from 'app/helpers/pluginList'
 import { useWindowDimensions } from 'app/hooks/useWindowDimensions'
 import { useOnboarding } from 'app/provider/OnboardingProvider'
 import { COLORS, SPACING } from 'app/theme/theme'
+import { alpha } from 'axelra-react-native-utilities'
 import { useSegments } from 'expo-router'
 import React, { PropsWithChildren, useMemo } from 'react'
+import { Button as NativeButton } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 
@@ -15,7 +18,7 @@ const Wrapper = styled(Flex)`
 `
 
 const Footer = styled(Flex)`
-  padding: ${SPACING * 10}px ${SPACING * 2}px;
+  padding: ${SPACING * 7}px ${SPACING * 2}px;
 `
 
 type Props = {
@@ -28,6 +31,7 @@ type Props = {
   plugin?: plugins
   secondaryDisabled?: boolean
   nextStep?: string
+  canSkip?: boolean
 } & PropsWithChildren
 
 const OnboardingStep = ({
@@ -37,6 +41,7 @@ const OnboardingStep = ({
   secondaryText,
   infoText,
   secondaryDisabled,
+  canSkip = true,
   nextStep,
   primaryDisabled,
   plugin,
@@ -65,7 +70,6 @@ const OnboardingStep = ({
       </Flex>
       <Footer>
         <Button
-          small
           buttonColor={plugin ? PLUGINS[plugin]?.color : COLORS.PRIMARY}
           onPress={() => {
             onPressPrimary?.()
@@ -78,6 +82,20 @@ const OnboardingStep = ({
           disabled={primaryDisabled}>
           {primaryText}
         </Button>
+        <Spacer x={1} />
+        {canSkip && (
+          <NativeButton
+            title={'Skip'}
+            onPress={() => {
+              nextStep
+                ? navigation?.navigate(nextStep)
+                : foundNextStep
+                ? navigation?.navigate(foundNextStep)
+                : navigation?.navigate('root')
+            }}
+            color={alpha(0.8, COLORS.BLACK)}
+          />
+        )}
       </Footer>
     </Flex>
   )

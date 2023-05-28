@@ -33,6 +33,7 @@ export type AttrProps = {
   block?: boolean
   center?: boolean
   color?: string
+  margin?: boolean
 }
 
 export const TEXT_SIZE = 12
@@ -93,17 +94,33 @@ export const Heading6 = styled(NativeText)<AttrProps>`
   color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
+export const Heading7 = styled(Text)<AttrProps>`
+  ${HeadingRoot};
+  font-size: 14px;
+  font-weight: ${(p) => p.weight ?? FontWeights.SemiBold};
+  text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
+  color: ${(p) => p.color ?? COLORS.BLACK};
+`
+
+export const Label = styled.Text<AttrProps>`
+  ${HeadingRoot};
+  font-size: 18px;
+  font-weight: ${(p) => p.weight ?? FontWeights.Medium};
+  text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
+  color: ${(p) => p.color ?? COLORS.BLACK};
+`
+
 export const Regular = styled.Text<AttrProps>`
   ${HeadingRoot};
   font-size: 16px;
-  font-weight: ${(p) => p.weight ?? FontWeights.Medium};
+  font-weight: ${(p) => p.weight ?? FontWeights.Normal};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
   color: ${(p) => p.color ?? COLORS.BLACK};
 `
 
 export const Body = styled.Text<AttrProps>`
   ${HeadingRoot};
-  font-size: 16px;
+  font-size: 14px;
   font-weight: ${(p) => p.weight ?? FontWeights.Normal};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
   color: ${(p) => p.color ?? COLORS.BLACK};
@@ -119,14 +136,8 @@ export const Light = styled(NativeText)<AttrProps>`
 
 export const Caption = styled(NativeText)<AttrProps>`
   ${HeadingRoot};
-  font-size: 10px;
+  font-size: 12px;
   font-weight: ${(p) => p.weight ?? FontWeights.Light};
   text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
   color: ${(p) => p.color ?? COLORS.BLACK};
 `
-
-/*export const Heading7 = styled(Text)<AttrProps>`
-  font-weight: ${(p) => p.weight ?? FontWeights.Medium};
-  text-align: ${(p) => (p.center ? 'center' : p.block ? 'justify' : 'left')};
-  color: ${(p) => p.color ?? __COLORS.BLACK};
-`*/

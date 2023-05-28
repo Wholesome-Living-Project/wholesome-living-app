@@ -5,15 +5,20 @@ import { Flex } from 'app/components/ui/Flex'
 import Spacer from 'app/components/ui/Spacer'
 import { plugins } from 'app/helpers/pluginList'
 import { useOnboarding } from 'app/provider/OnboardingProvider'
+import { COLORS, OUTER_BORDER_RADIUS } from 'app/theme/theme'
 import { Heading4, Light } from 'app/theme/typography'
 import React from 'react'
 import { View } from 'react-native'
-import { Divider } from 'react-native-elements'
 import styled from 'styled-components'
 
 const StyledPicker = styled(Picker)`
   width: 150px;
 `
+const PickerBackground = styled(Flex)`
+  background: ${COLORS.BACKGROUND_GREY};
+  border-radius: ${OUTER_BORDER_RADIUS}px;
+`
+
 const Goal = () => {
   const {
     setSelectedGoalTime,
@@ -35,7 +40,7 @@ const Goal = () => {
             {selectedGoalNumber === 1 ? selectedGoalPeriod.slice(0, -1) : selectedGoalPeriod}
           </Light>
         </Light>
-        <Flex row justify={'center'}>
+        <PickerBackground row justify={'center'}>
           <StyledPicker
             selectedValue={selectedGoalNumber}
             onValueChange={(itemValue: number) => setSelectedGoalNumber(itemValue)}>
@@ -56,26 +61,30 @@ const Goal = () => {
             <Picker.Item label={selectedGoalNumber === 1 ? 'Week' : 'Weeks'} value="weeks" />
             <Picker.Item label={selectedGoalNumber === 1 ? 'Month' : 'Months'} value="months" />
           </StyledPicker>
-        </Flex>
-        <Divider />
+        </PickerBackground>
         <Spacer x={3} />
         <Light>
           I want to start with{' '}
           {selectedGoalTime && (
             <Light weight={'600'}>
-              {new Date(selectedGoalTime).getHours()}{' '}
-              {new Date(selectedGoalTime).getHours() === 1 ? 'hour' : 'hours'} and{' '}
-              {new Date(selectedGoalTime).getMinutes()}{' '}
-              {new Date(selectedGoalTime).getMinutes() === 1 ? 'minute' : 'minutes'}
+              {new Date(selectedGoalTime).getHours() > 0 && new Date(selectedGoalTime).getHours()}{' '}
+              {new Date(selectedGoalTime).getHours() > 0 &&
+                (new Date(selectedGoalTime).getHours() === 1 ? 'hour and ' : 'hours and ')}
+              {new Date(selectedGoalTime).getMinutes() > 0 &&
+                new Date(selectedGoalTime).getMinutes()}{' '}
+              {new Date(selectedGoalTime).getMinutes() > 0 &&
+                (new Date(selectedGoalTime).getMinutes() === 1 ? 'minute' : 'minutes')}
             </Light>
           )}
         </Light>
-        <DateTimePicker
-          mode={'countdown'}
-          value={new Date(selectedGoalTime)}
-          display={'spinner'}
-          onChange={(_, date) => setSelectedGoalTime(date?.getTime() ?? new Date().getTime())}
-        />
+        <PickerBackground>
+          <DateTimePicker
+            mode={'countdown'}
+            value={new Date(selectedGoalTime)}
+            display={'spinner'}
+            onChange={(_, date) => setSelectedGoalTime(date?.getTime() ?? new Date().getTime())}
+          />
+        </PickerBackground>
       </View>
     </OnboardingStep>
   )

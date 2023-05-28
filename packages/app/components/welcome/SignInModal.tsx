@@ -1,15 +1,22 @@
-import { signInModalRef } from 'app/components/refs/modal-refs'
-import { BottomSheetViewFlex } from 'app/components/ui/BottomSheetViewFlex'
-import SigninForm from 'app/components/welcome/SigninForm'
-import { useModal } from 'app/hooks/useModal'
+import useKeyboard from 'app/hooks/useKeyboard'
+import { COLORS } from 'app/theme/theme'
 import BottomSheet from 'axelra-react-native-bottom-sheet'
+import { Flex } from 'axelra-react-native-flex'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Keyboard, Platform } from 'react-native'
+import { Keyboard, Platform, TouchableOpacity } from 'react-native'
+import { useModal } from '../../hooks/useModal'
+import { Body } from '../../theme/typography'
+import { signInModalRef, signUpModalRef } from '../refs/modal-refs'
+import { BottomSheetViewFlex } from '../ui/BottomSheetViewFlex'
+import KeyboardCloseHandleComponent from '../ui/KeyboardCloseHandleComponent'
+import SigninForm from './SigninForm'
 
 const SignInModal = () => {
-  const [modalHeight, setModalHeight] = useState(65)
+  const [modalHeight, setModalHeight] = useState(45)
 
   const modalProps = useModal({ snapPoints: [`${modalHeight}%`] })
+
+  const { keyboardOpen } = useKeyboard()
 
   const onModalClose = useCallback(() => {
     if (Platform.OS === 'ios') {
@@ -17,10 +24,18 @@ const SignInModal = () => {
     }
   }, [])
 
-  useEffect(() => {
-    Keyboard.addListener('keyboardWillShow', () => setModalHeight(80))
-    Keyboard.addListener('keyboardWillHide', () => setModalHeight(65))
+  const openSignUpModal = useCallback(() => {
+    signInModalRef.current?.close()
+    signUpModalRef.current?.expand()
   }, [])
+
+  useEffect(() => {
+    if (keyboardOpen) {
+      setModalHeight(80)
+    } else {
+      setModalHeight(50)
+    }
+  }, [keyboardOpen])
 
   return (
     <BottomSheet
@@ -29,9 +44,17 @@ const SignInModal = () => {
       enablePanDownToClose
       onClose={onModalClose}
       {...modalProps}>
-      <BottomSheetViewFlex flex={1} justify={'center'} row>
+      <KeyboardCloseHandleComponent>
         <SigninForm />
-      </BottomSheetViewFlex>
+        <BottomSheetViewFlex flex={1} align={'center'}>
+          <Flex row align={'center'}>
+            <Body>{`Don't have an account?`} </Body>
+            <TouchableOpacity onPress={openSignUpModal}>
+              <Body color={COLORS.CTA}>Sign up</Body>
+            </TouchableOpacity>
+          </Flex>
+        </BottomSheetViewFlex>
+      </KeyboardCloseHandleComponent>
     </BottomSheet>
   )
 }

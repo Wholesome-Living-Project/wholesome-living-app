@@ -44,7 +44,7 @@ const SignupForm = () => {
     } catch (err) {
       console.log(err)
     }
-  }, [email, firstName, password, router])
+  }, [createUserWithEmailAndPassword, dateOfBirth, email, firstName, lastName, password, router])
 
   return (
     <Wrapper maxWidthWeb={300}>
@@ -73,7 +73,7 @@ const SignupForm = () => {
         onChangeText={(text) => setPassword(text)}
       />
       <Spacer x={4} />
-      <Button buttonType={'primary'} onPress={() => submit()} small>
+      <Button buttonType={'primary'} onPress={() => submit()}>
         Submit
       </Button>
       <Spacer x={20} />

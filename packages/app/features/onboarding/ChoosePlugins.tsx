@@ -66,6 +66,7 @@ const ChoosePlugins = () => {
     <OnboardingStep
       primaryText={'Continue'}
       primaryDisabled={chosenPlugins.length === 0}
+      canSkip={false}
       nextStep={chosenPluginSteps[0]}>
       <Flex>
         <Spacer x={5} />
