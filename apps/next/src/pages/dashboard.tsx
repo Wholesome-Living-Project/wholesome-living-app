@@ -1,4 +1,4 @@
-import GraphComponent from 'app/components/dashboard/Graphs/GraphComponent'
+import FinanceGraph from 'app/components/dashboard/Graphs/FinanceGraph'
 import PluginList from 'app/components/discover/web/PluginList'
 import { MainContentContainer } from 'app/components/ui/MainContentContainer'
 import Spacer from 'app/components/ui/Spacer'
@@ -22,7 +22,7 @@ const FilterContainer = styled(Flex)`
 `
 
 const ContentContainer = styled(Flex)`
-  padding: 0 ${SPACING * 8}px;
+  padding: 0 ${SPACING * 1.5}px;
 `
 
 const PluginContentContainer = styled(Flex)`
@@ -39,7 +39,7 @@ const Dashboard = () => {
       </FilterContainer>
       <MainContentContainer column>
         <ContentContainer column>
-          <GraphComponent />
+          <FinanceGraph />
         </ContentContainer>
       </MainContentContainer>
       <Spacer x={40} />
