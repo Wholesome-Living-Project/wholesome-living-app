@@ -57,7 +57,7 @@ export const PLUGINS: { [key in plugins]: PluginType } = {
     onboardingSubRoutes: ['strategy', 'notifications'],
   },
   ELEVATOR: {
-    title: 'Take the Stairs',
+    title: 'Stairs',
     color: PLUGIN_COLORS.ELEVATOR,
     plugin: plugins.ELEVATOR,
     icon: 'elevator-passenger',
