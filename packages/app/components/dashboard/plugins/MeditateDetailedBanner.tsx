@@ -37,7 +37,7 @@ const Content = () => {
   return (
     <Wrapper>
       <Regular color={COLORS.WHITE}>Last Meditation</Regular>
-      <Text style={{ fontSize: 55, color: COLORS.WHITE, fontWeight: '600' }}>{computedTime}</Text>
+      <Text style={{ fontSize: 33, color: COLORS.WHITE, fontWeight: '600' }}>{computedTime}</Text>
     </Wrapper>
   )
 }

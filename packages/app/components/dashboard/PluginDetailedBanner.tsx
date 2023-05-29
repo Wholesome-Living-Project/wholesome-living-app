@@ -1,10 +1,9 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import PluginBanner from 'app/components/discover/PluginBanner'
 import Spacer from 'app/components/ui/Spacer'
 import { plugins, PLUGINS, PLUGIN_COLORS } from 'app/helpers/pluginList'
 import { useWindowDimensions } from 'app/hooks/useWindowDimensions'
 import { COLORS, IO_COMPONENT_WIDTH_PERCENT, OUTER_BORDER_RADIUS, SPACING } from 'app/theme/theme'
-import { Heading4 } from 'app/theme/typography'
+import { Heading5 } from 'app/theme/typography'
 import { alpha } from 'axelra-react-native-utilities'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useRootNavigation } from 'expo-router'
@@ -13,8 +12,8 @@ import { Image, ImageSourcePropType, Pressable, View } from 'react-native'
 import styled from 'styled-components'
 
 const Wrapper = styled(Pressable)<{ width: number }>`
-  height: 250px;
-  width: ${(p) => p.width}px;
+  height: 200px;
+  width: 200px;
   overflow: hidden;
   position: relative;
 `
@@ -38,20 +37,13 @@ const TitleContainer = styled(View)`
   justify-content: space-between;
 `
 
-const ArrowContainer = styled(View)`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-end;
-`
-
 const AbsoluteImageContainer = styled(View)`
   position: absolute;
   height: 100%;
 `
 
 const StyledImage = styled(Image)<{ width: number }>`
-  width: ${(p) => p.width}px;
+  width: 200px;
   height: 100%;
 
   border-radius: ${OUTER_BORDER_RADIUS}px;
@@ -79,14 +71,11 @@ const PluginDetailedBanner = ({ content, plugin, backgroundImage }: Props) => {
         colors={[alpha(0.8, PLUGIN_COLORS[plugin]), alpha(0.2, PLUGIN_COLORS[plugin])]}
         start={{ x: 0.1, y: 0.3 }}>
         <TitleContainer>
-          <Heading4 color={COLORS.WHITE}>{plugin && PLUGINS[plugin].title}</Heading4>
+          <Heading5 color={COLORS.WHITE}>{plugin && PLUGINS[plugin].title}</Heading5>
           {plugin && <PluginBanner {...PLUGINS[plugin]} size={40} />}
         </TitleContainer>
-        <Spacer x={1} />
+        <Spacer x={2} />
         <ContentWrapper>{content}</ContentWrapper>
-        <ArrowContainer>
-          <MaterialCommunityIcons name={'arrow-right'} size={35} color={COLORS.WHITE} />
-        </ArrowContainer>
       </Gradient>
     </Wrapper>
   )

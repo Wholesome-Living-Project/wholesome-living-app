@@ -115,37 +115,6 @@ export interface MeditationCreateMeditationResponse {
 /**
  * 
  * @export
- * @interface MeditationGet200ResponseInner
- */
-export interface MeditationGet200ResponseInner {
-    /**
-     * 
-     * @type {number}
-     * @memberof MeditationGet200ResponseInner
-     */
-    'endTime'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof MeditationGet200ResponseInner
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof MeditationGet200ResponseInner
-     */
-    'meditationTime'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof MeditationGet200ResponseInner
-     */
-    'userId'?: string;
-}
-/**
- * 
- * @export
  * @interface MeditationGetMeditationResponse
  */
 export interface MeditationGetMeditationResponse {
@@ -332,8 +301,8 @@ export interface UserUserDB {
 export const FinanceApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * fetch a single investment session.
-         * @summary Get a single investment
+         * Query Investments with the user ID, start time and end time.
+         * @summary Query Investments with the user ID, start time and end time.
          * @param {string} userId User ID
          * @param {string} [id] investment ID
          * @param {number} [startTime] start time
@@ -437,8 +406,8 @@ export const FinanceApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = FinanceApiAxiosParamCreator(configuration)
     return {
         /**
-         * fetch a single investment session.
-         * @summary Get a single investment
+         * Query Investments with the user ID, start time and end time.
+         * @summary Query Investments with the user ID, start time and end time.
          * @param {string} userId User ID
          * @param {string} [id] investment ID
          * @param {number} [startTime] start time
@@ -473,8 +442,8 @@ export const FinanceApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = FinanceApiFp(configuration)
     return {
         /**
-         * fetch a single investment session.
-         * @summary Get a single investment
+         * Query Investments with the user ID, start time and end time.
+         * @summary Query Investments with the user ID, start time and end time.
          * @param {string} userId User ID
          * @param {string} [id] investment ID
          * @param {number} [startTime] start time
@@ -507,8 +476,8 @@ export const FinanceApiFactory = function (configuration?: Configuration, basePa
  */
 export class FinanceApi extends BaseAPI {
     /**
-     * fetch a single investment session.
-     * @summary Get a single investment
+     * Query Investments with the user ID, start time and end time.
+     * @summary Query Investments with the user ID, start time and end time.
      * @param {string} userId User ID
      * @param {string} [id] investment ID
      * @param {number} [startTime] start time
@@ -543,13 +512,18 @@ export class FinanceApi extends BaseAPI {
 export const MeditationApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * fetch all meditation sessions of a user.
-         * @summary Get all meditation session
+         * Fetch one or multiple meditation sessions.
+         * @summary Get meditation sessions
+         * @param {string} [id] investment ID
+         * @param {number} [startTime] start time
+         * @param {number} [endTime] end time
+         * @param {number} [durationStart] duration start time
+         * @param {number} [durationEnd] duration end time
          * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationGet: async (userId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        meditationGet: async (id?: string, startTime?: number, endTime?: number, durationStart?: number, durationEnd?: number, userId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/meditation`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -562,46 +536,25 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (userId != null) {
-                localVarHeaderParameter['userId'] = String(userId);
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
             }
 
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * fetch a single meditation session.
-         * @summary Get a meditation session
-         * @param {string} id Meditation ID
-         * @param {string} userId User ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        meditationIdGet: async (id: string, userId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('meditationIdGet', 'id', id)
-            // verify required parameter 'userId' is not null or undefined
-            assertParamExists('meditationIdGet', 'userId', userId)
-            const localVarPath = `/meditation/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (startTime !== undefined) {
+                localVarQueryParameter['startTime'] = startTime;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+            if (endTime !== undefined) {
+                localVarQueryParameter['endTime'] = endTime;
+            }
+
+            if (durationStart !== undefined) {
+                localVarQueryParameter['durationStart'] = durationStart;
+            }
+
+            if (durationEnd !== undefined) {
+                localVarQueryParameter['durationEnd'] = durationEnd;
+            }
 
             if (userId != null) {
                 localVarHeaderParameter['userId'] = String(userId);
@@ -670,26 +623,19 @@ export const MeditationApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = MeditationApiAxiosParamCreator(configuration)
     return {
         /**
-         * fetch all meditation sessions of a user.
-         * @summary Get all meditation session
+         * Fetch one or multiple meditation sessions.
+         * @summary Get meditation sessions
+         * @param {string} [id] investment ID
+         * @param {number} [startTime] start time
+         * @param {number} [endTime] end time
+         * @param {number} [durationStart] duration start time
+         * @param {number} [durationEnd] duration end time
          * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async meditationGet(userId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MeditationGet200ResponseInner>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationGet(userId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * fetch a single meditation session.
-         * @summary Get a meditation session
-         * @param {string} id Meditation ID
-         * @param {string} userId User ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async meditationIdGet(id: string, userId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationGetMeditationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationIdGet(id, userId, options);
+        async meditationGet(id?: string, startTime?: number, endTime?: number, durationStart?: number, durationEnd?: number, userId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationGetMeditationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationGet(id, startTime, endTime, durationStart, durationEnd, userId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -715,25 +661,19 @@ export const MeditationApiFactory = function (configuration?: Configuration, bas
     const localVarFp = MeditationApiFp(configuration)
     return {
         /**
-         * fetch all meditation sessions of a user.
-         * @summary Get all meditation session
+         * Fetch one or multiple meditation sessions.
+         * @summary Get meditation sessions
+         * @param {string} [id] investment ID
+         * @param {number} [startTime] start time
+         * @param {number} [endTime] end time
+         * @param {number} [durationStart] duration start time
+         * @param {number} [durationEnd] duration end time
          * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationGet(userId?: string, options?: any): AxiosPromise<Array<MeditationGet200ResponseInner>> {
-            return localVarFp.meditationGet(userId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * fetch a single meditation session.
-         * @summary Get a meditation session
-         * @param {string} id Meditation ID
-         * @param {string} userId User ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        meditationIdGet(id: string, userId: string, options?: any): AxiosPromise<MeditationGetMeditationResponse> {
-            return localVarFp.meditationIdGet(id, userId, options).then((request) => request(axios, basePath));
+        meditationGet(id?: string, startTime?: number, endTime?: number, durationStart?: number, durationEnd?: number, userId?: string, options?: any): AxiosPromise<MeditationGetMeditationResponse> {
+            return localVarFp.meditationGet(id, startTime, endTime, durationStart, durationEnd, userId, options).then((request) => request(axios, basePath));
         },
         /**
          * Creates a new meditation.
@@ -757,28 +697,20 @@ export const MeditationApiFactory = function (configuration?: Configuration, bas
  */
 export class MeditationApi extends BaseAPI {
     /**
-     * fetch all meditation sessions of a user.
-     * @summary Get all meditation session
+     * Fetch one or multiple meditation sessions.
+     * @summary Get meditation sessions
+     * @param {string} [id] investment ID
+     * @param {number} [startTime] start time
+     * @param {number} [endTime] end time
+     * @param {number} [durationStart] duration start time
+     * @param {number} [durationEnd] duration end time
      * @param {string} [userId] User ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeditationApi
      */
-    public meditationGet(userId?: string, options?: AxiosRequestConfig) {
-        return MeditationApiFp(this.configuration).meditationGet(userId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * fetch a single meditation session.
-     * @summary Get a meditation session
-     * @param {string} id Meditation ID
-     * @param {string} userId User ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MeditationApi
-     */
-    public meditationIdGet(id: string, userId: string, options?: AxiosRequestConfig) {
-        return MeditationApiFp(this.configuration).meditationIdGet(id, userId, options).then((request) => request(this.axios, this.basePath));
+    public meditationGet(id?: string, startTime?: number, endTime?: number, durationStart?: number, durationEnd?: number, userId?: string, options?: AxiosRequestConfig) {
+        return MeditationApiFp(this.configuration).meditationGet(id, startTime, endTime, durationStart, durationEnd, userId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -17,7 +17,7 @@ const Content = () => {
   return (
     <Wrapper>
       <Regular color={COLORS.WHITE}>Saved this month</Regular>
-      <Text style={{ fontSize: 55, color: COLORS.WHITE, fontWeight: '600' }}>426.-</Text>
+      <Text style={{ fontSize: 33, color: COLORS.WHITE, fontWeight: '600' }}>26.-</Text>
     </Wrapper>
   )
 }

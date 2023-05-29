@@ -20,7 +20,7 @@ const Content = () => {
   return (
     <Wrapper>
       <Regular color={COLORS.WHITE}>Saved this month</Regular>
-      <Text style={{ fontSize: 55, color: COLORS.WHITE, fontWeight: '600' }}>
+      <Text style={{ fontSize: 33, color: COLORS.WHITE, fontWeight: '600' }}>
         {aggregateSavings + '.-'}
       </Text>
     </Wrapper>
