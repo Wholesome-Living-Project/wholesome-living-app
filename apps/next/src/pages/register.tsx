@@ -50,14 +50,14 @@ const Input = styled.input<InputProps>`
 
   &:focus {
     outline: none;
-    border-color: #0088cc;
+    border-color: #6363f2;
   }
 `
 
 const Button = styled.button`
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #0088cc;
+  background-color: #6363f2;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -97,7 +97,7 @@ const FormToggleButton = styled.button<{ active?: boolean }>`
   flex: 1;
   padding: 10px 0;
   font-size: 16px;
-  background-color: ${(props) => (props.active ? '#0088cc' : '#f2f2f2')};
+  background-color: ${(props) => (props.active ? '#6363F2' : '#f2f2f2')};
   color: ${(props) => (props.active ? '#fff' : '#333')};
   border: none;
   border-radius: 5px;

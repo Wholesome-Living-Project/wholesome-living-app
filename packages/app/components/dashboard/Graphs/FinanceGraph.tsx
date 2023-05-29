@@ -2,8 +2,6 @@ import { Flex } from 'axelra-styled-bootstrap-grid'
 import axios from 'axios'
 import React, { useCallback, useEffect, useState } from 'react'
 import {
-  Area,
-  AreaChart,
   CartesianGrid,
   Legend,
   Line,
@@ -15,70 +13,141 @@ import {
 } from 'recharts'
 import styled from 'styled-components'
 
+const GraphContent = styled(Flex)`
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+`
+
+const Container = styled.div`
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+`
+
+const MS_TO_SECONDS = 1000
+
 const FinanceGraph = () => {
   const [data, setData] = useState([])
+  const [error, setError] = useState(null)
   const userId = 'RafaelDubach'
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:8080/investment', {
+  const fetchData = async () => {
+    try {
+      const [investmentResponse, settingsResponse] = await Promise.all([
+        axios.get('http://127.0.0.1:8080/finance', {
           headers: {
             userId: userId,
           },
-        })
+        }),
+        axios.get('http://127.0.0.1:8080/settings', {
+          headers: {
+            userId: userId,
+          },
+        }),
+      ])
 
-        // Transform fetched data
-        const transformedData = response.data.map((item) => ({
+      if (investmentResponse.data && settingsResponse.data) {
+        const transformedFinanceData = investmentResponse.data.map((item) => ({
           ...item,
-          investmentTime: new Date(item.investmentTime * 1000).toISOString().slice(0, 10),
+          investmentTime: new Date(item.investmentTime * MS_TO_SECONDS).toISOString().slice(0, 10),
         }))
 
-        // Sort data by investmentTime in ascending order
         // @ts-ignore
-        transformedData.sort((a, b) => new Date(a.investmentTime) - new Date(b.investmentTime))
+        transformedFinanceData.sort(
+          (a, b) => new Date(a.investmentTime) - new Date(b.investmentTime)
+        )
 
-        setData(transformedData)
-        console.log('Fetched data:', transformedData)
-      } catch (error) {
-        console.error('Error fetching data:', error)
+        const settingsData = settingsResponse.data
+
+        // Sum the amounts per month
+        const monthlyData = transformedFinanceData.reduce((accumulator, item) => {
+          const month = item.investmentTime.slice(0, 7) // Extract the year and month (e.g., "2023-05")
+          if (!accumulator[month]) {
+            accumulator[month] = 0
+          }
+          accumulator[month] += item.amount
+          return accumulator
+        }, {})
+
+        // Create an array of objects with the monthly data
+        const combinedData = Object.entries(monthlyData).map(([investmentTime, amount]) => ({
+          investmentTime,
+          amount,
+          investmentGoal: settingsData.finance.investmentGoal,
+        }))
+
+        setData(combinedData)
+        console.log('Fetched combined data:', combinedData)
+      } else {
+        console.error('Response data is missing')
+        setError('Response data is missing')
       }
+    } catch (error) {
+      console.error('Error fetching data:', error)
+      setError(error)
     }
+  }
 
+  useEffect(() => {
     fetchData()
+
+    const interval = setInterval(fetchData, 5000) // Fetch data every 5 seconds
+
+    return () => {
+      clearInterval(interval) // Clean up the interval when the component unmounts
+    }
   }, [])
 
-  const GraphContent = styled(Flex)``
-
   const [opacity, setOpacity] = useState({
-    uv: 1,
-    pv: 1,
+    amount: 1,
+    investmentGoal: 1,
   })
 
-  const handleMouseEnter = useCallback(
-    (o) => {
-      const { dataKey } = o
+  const handleMouseEnter = useCallback((o) => {
+    const { dataKey } = o
 
-      setOpacity({ ...opacity, [dataKey]: 0.5 })
-    },
-    [opacity, setOpacity]
-  )
+    setOpacity((prevOpacity) => ({
+      ...prevOpacity,
+      [dataKey]: 0.5,
+    }))
+  }, [])
 
-  const handleMouseLeave = useCallback(
-    (o) => {
-      const { dataKey } = o
-      setOpacity({ ...opacity, [dataKey]: 1 })
-    },
-    [opacity, setOpacity]
-  )
+  const handleMouseLeave = useCallback((o) => {
+    const { dataKey } = o
 
+    setOpacity((prevOpacity) => ({
+      ...prevOpacity,
+      [dataKey]: 1,
+    }))
+  }, [])
+
+  // Define custom legend labels
+  const legendLabels = {
+    amount: 'Invested Amount',
+    investmentGoal: 'Investment Goal',
+  }
+
+  // @ts-ignore
   return (
-    <div style={{ width: '100%', maxWidth: '800px', margin: '0 auto' }}>
-      <h3>Track your overall progress</h3>
+    <Container>
+      <h5>Track your overall progress</h5>
+      {error && <p>Error: {error.message}</p>}
       <div style={{ width: '100%', height: '200px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-            <Line type="monotone" dataKey="amount" stroke="#8884d8" />
+            <Line type="monotone" dataKey="amount" stroke="#d66ef0" name={legendLabels.amount} />
+            <Line
+              type="monotone"
+              dataKey="investmentGoal"
+              stroke="#6363F2"
+              name={legendLabels.investmentGoal}
+            />
             <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
             <XAxis dataKey="investmentTime" />
             <YAxis label={{ value: 'Invested amount', angle: -90 }} tick={false} />
@@ -88,42 +157,33 @@ const FinanceGraph = () => {
         </ResponsiveContainer>
       </div>
 
-      <h3>Track your weekly progress</h3>
+      {/*      <h3>Track your other progress</h3>
       <div style={{ width: '100%', height: '200px' }}>
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
+          <BarChart
             data={data}
             margin={{
-              top: 10,
-              right: 30,
-              left: 0,
-              bottom: 0,
+              top: 5,
+              right: 10,
+              left: 20,
+              bottom: 5,
             }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="investmentTime" />
-            <YAxis label={{ value: 'Invested amount', angle: -90 }} tick={false} />
+            <YAxis />
             <Tooltip />
             <Legend onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
-            <Area
-              type="monotone"
-              dataKey="amount"
-              stackId="1"
-              stroke="#8884d8"
-              fill="#8884d8"
-              name="Invested amount"
+            <Bar
+              dataKey="investmentGoal"
+              fill="#6363F2"
+              background={{ fill: '#eee' }}
+              name={legendLabels.investmentGoal}
             />
-            <Area
-              type="monotone"
-              dataKey="amount"
-              stackId="1"
-              stroke="#82ca9d"
-              fill="#82ca9d"
-              name="Planned amount"
-            />
-          </AreaChart>
+            <Bar dataKey="amount" fill="#d66ef0" name={legendLabels.amount} />
+          </BarChart>
         </ResponsiveContainer>
-      </div>
-    </div>
+      </div>*/}
+    </Container>
   )
 }
 
