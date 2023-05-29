@@ -12,7 +12,6 @@ import { useRootNavigation } from 'expo-router'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Dimensions, Image, ScrollView, View } from 'react-native'
 import { LineChart } from 'react-native-chart-kit'
-import { Divider } from 'react-native-elements'
 import styled from 'styled-components'
 
 const IMAGE_HEIGHT = 320
@@ -42,7 +41,7 @@ const TextContainer = styled(Flex)`
 `
 
 const Finance = () => {
-  const { saveSpending, getSpendings } = useFinance()
+  const { saveSpending, getSpendings, aggregateSavings } = useFinance()
   const [amount, setAmount] = useState('')
   const [reason, setReason] = useState('')
   const [loading, setLoading] = useState(false)
@@ -124,11 +123,10 @@ const Finance = () => {
           </Flex>
           <Spacer x={3} />
           <FinanceHistory preview={3} />
-          <Divider style={{ backgroundColor: COLORS.GREY, height: 1, width: '100%' }} />
           <Spacer x={4} />
           <Heading5>Your Savings</Heading5>
           <Spacer x={2} />
-          <Heading1>5120 CHF</Heading1>
+          <Heading1>{aggregateSavings} CHF</Heading1>
           <Spacer x={1} />
           <LineChart
             withHorizontalLabels={true}
@@ -142,7 +140,7 @@ const Finance = () => {
                   color: (opacity = 1) => `rgba(255,0,0,${opacity})`, // optional
                 },
                 {
-                  data: [200, 600, 900, 2000, 4000, 4500, 5000],
+                  data: [0, 0, 0, 0, 0, 0, aggregateSavings],
                   strokeWidth: 2,
                   color: (opacity = 1) => `rgba(0,0,102, ${opacity})`, // optional
                 },
@@ -160,10 +158,6 @@ const Finance = () => {
               style: {
                 borderRadius: 16,
               },
-            }}
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
             }}
           />
           <Spacer x={2} />

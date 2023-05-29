@@ -5,7 +5,7 @@ import { PLUGINS } from 'app/helpers/pluginList'
 import { useFinance } from 'app/provider/FinanceContentProvider'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from 'app/theme/theme'
 import { Heading1, Heading4, Heading6 } from 'app/theme/typography'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Dimensions, Image, ScrollView, View } from 'react-native'
 import { BarChart, PieChart } from 'react-native-chart-kit'
 import styled from 'styled-components'
@@ -32,25 +32,13 @@ const Container = styled(Flex)`
   border-radius: ${OUTER_BORDER_RADIUS}px;
   padding: ${SPACING * 4}px;
 `
-const TextContainer = styled(Flex)`
-  width: 25%;
-`
 
 const FinanceAnalytics = () => {
-  const { saveSpending, getSpendings, spendings } = useFinance()
-  const [amount, setAmount] = useState('')
-  const [reason, setReason] = useState('')
-  const [loading, setLoading] = useState(false)
+  const { getSpendings, aggregatedSpendings } = useFinance()
 
   useEffect(() => {
     getSpendings()
   }, [getSpendings])
-
-  const calcSpendings = useMemo(() => {
-    let dailySpendings = 0
-    spendings.forEach((spending) => (dailySpendings += spending.amount))
-    return dailySpendings
-  }, [spendings])
 
   return (
     <>
@@ -73,13 +61,14 @@ const FinanceAnalytics = () => {
               labels: ['Tue', 'Wed', 'Thu', 'Today', 'Sat', 'Sun'],
               datasets: [
                 {
-                  data: [140, 250, 100, calcSpendings, 0, 0],
+                  data: [140, 250, 100, aggregatedSpendings, 0, 0],
                 },
               ],
             }}
             width={Dimensions.get('window').width - 16}
             height={250}
             yAxisLabel={'CHF  '}
+            yAxisSuffix={''}
             chartConfig={{
               backgroundColor: `${COLORS.GREY}`,
               backgroundGradientFrom: `${COLORS.GREY}`,
@@ -90,10 +79,6 @@ const FinanceAnalytics = () => {
               style: {
                 borderRadius: 16,
               },
-            }}
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
             }}
           />
           <Spacer x={4} />
@@ -141,10 +126,6 @@ const FinanceAnalytics = () => {
               style: {
                 borderRadius: 16,
               },
-            }}
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
             }}
             accessor="population"
             backgroundColor="transparent"

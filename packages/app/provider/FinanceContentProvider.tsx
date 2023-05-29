@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react'
 
@@ -18,6 +19,8 @@ type FinanceContentType = {
   saveSpending: (Spending) => void
   getSpendings: () => void
   spendings: Spending[]
+  aggregatedSpendings: number
+  aggregateSavings: number
 }
 
 const FinanceContext = createContext<FinanceContentType>({} as FinanceContentType)
@@ -52,11 +55,25 @@ const useProvideFinance = (): FinanceContentType => {
     }
   }, [user?.id])
 
+  const aggregatedSpendings = useMemo(() => {
+    let dailySpendings = 0
+    spendings.forEach((spending) => (dailySpendings += spending.amount))
+    return dailySpendings
+  }, [spendings])
+
+  const aggregateSavings = useMemo(() => {
+    let savings = 0
+    spendings.forEach((spending) => {
+      savings += Math.ceil(spending.amount / 5) * 5 - spending.amount
+    })
+    return savings
+  }, [spendings])
+
   useEffect(() => {
     getSpendings()
   }, [getSpendings])
 
-  return { saveSpending, getSpendings, spendings }
+  return { saveSpending, getSpendings, spendings, aggregateSavings, aggregatedSpendings }
 }
 
 export const FinanceProvider = ({ children }: PropsWithChildren) => {
