@@ -10,7 +10,6 @@ import { SafeAreaView, ScrollView } from 'react-native'
 import styled from 'styled-components'
 
 const AppTitleContainer = styled(Flex)`
-  background: red;
   width: 100%;
   padding: ${SPACING * 2}px;
 `
@@ -19,7 +18,7 @@ export function DashboardScreen() {
   return (
     <SafeAreaView>
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-        <AppTitleContainer flex={1}>
+        <AppTitleContainer>
           <Heading5>Wholesome</Heading5>
           <Heading3>Dashbord</Heading3>
         </AppTitleContainer>
