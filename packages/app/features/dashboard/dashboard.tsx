@@ -4,7 +4,7 @@ import RunDetailedBanner from 'app/components/dashboard/plugins/RunDetailedBanne
 import { Flex } from 'app/components/ui/Flex'
 import Spacer from 'app/components/ui/Spacer'
 import { SPACING } from 'app/theme/theme'
-import { Heading3, Heading5 } from 'app/theme/typography'
+import { Heading3 } from 'app/theme/typography'
 import React from 'react'
 import { SafeAreaView, ScrollView } from 'react-native'
 import styled from 'styled-components'
@@ -19,7 +19,6 @@ export function DashboardScreen() {
     <SafeAreaView>
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
         <AppTitleContainer>
-          <Heading5>Wholesome</Heading5>
           <Heading3>Dashbord</Heading3>
         </AppTitleContainer>
         <Spacer x={2} />
