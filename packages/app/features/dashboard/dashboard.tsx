@@ -6,7 +6,7 @@ import { Flex } from 'app/components/ui/Flex'
 import Spacer from 'app/components/ui/Spacer'
 import { useWindowDimensions } from 'app/hooks/useWindowDimensions'
 import { SPACING } from 'app/theme/theme'
-import React, { useRef } from 'react'
+import React, { useMemo, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import styled from 'styled-components'
 
@@ -22,18 +22,22 @@ const SectionTitleContainer = styled(Flex)`
 
 export function DashboardScreen() {
   const { windowHeight } = useWindowDimensions()
-  const scrollRef = useRef<ScrollView | null>(null)
-  const [headerHeight, setHeaderHeight] = React.useState(700)
+  const [scrollY, setScrollY] = useState(0)
+
+  const headerHeight = useMemo(() => (scrollY < 20 ? 180 : 100), [scrollY])
 
   return (
     <View>
-      <DashboardHeader ref={(ref) => ref?.height && setHeaderHeight(ref?.height)} />
+      <DashboardHeader showFull={scrollY < 20} />
+      <Spacer x={12} />
       <ScrollView
         contentContainerStyle={{ alignItems: 'center' }}
         style={{
           height: windowHeight - headerHeight,
         }}
-        onScroll={(event) => console.log(event.nativeEvent.contentOffset.y > 20)}>
+        onScroll={(event) => setScrollY(event.nativeEvent.contentOffset.y)}
+        scrollEventThrottle={16}>
+        <Spacer x={12} />
         <Forest />
         <PluginCards />
         <Discover />
