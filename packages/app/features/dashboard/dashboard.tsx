@@ -43,12 +43,10 @@ export function DashboardScreen() {
           <RunDetailedBanner />
           <Spacer x={2} />
         </ScrollView>
-        <Spacer x={2} />
         <SectionTitleContainer>
           <Heading4>Explore Plugins</Heading4>
         </SectionTitleContainer>
         <Discover />
-        <Spacer x={4} />
       </ScrollView>
     </View>
   )
