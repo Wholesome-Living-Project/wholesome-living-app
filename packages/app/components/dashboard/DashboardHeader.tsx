@@ -60,9 +60,9 @@ const DashboardHeader = ({ showFull }: Props) => {
 
   useEffect(() => {
     if (showFull) {
-      animatedMaxHeight.value = withTiming(180, { duration: 300 })
+      animatedMaxHeight.value = withTiming(180, { duration: 150 })
     } else {
-      animatedMaxHeight.value = withTiming(100, { duration: 300 })
+      animatedMaxHeight.value = withTiming(100, { duration: 150 })
     }
   }, [animatedMaxHeight, showFull])
 
