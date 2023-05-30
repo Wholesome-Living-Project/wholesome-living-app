@@ -3,19 +3,21 @@ import { Flex } from 'app/components/ui/Flex'
 import Spacer from 'app/components/ui/Spacer'
 import { useUser } from 'app/hooks/useUser'
 import { COLORS, SPACING } from 'app/theme/theme'
-import { Heading6, Regular } from 'app/theme/typography'
-import React, { forwardRef, useImperativeHandle, useState } from 'react'
+import { Heading4, Label } from 'app/theme/typography'
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import { Image, Platform, View } from 'react-native'
+import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 
 const Wrapper = styled(View)`
   width: 100%;
-  background: ${COLORS.BACKGROUND_GREY};
+  background: ${COLORS.PRIMARY};
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   padding: ${SPACING * 4}px ${SPACING * 2}px ${SPACING * 2}px;
   position: relative;
+  overflow: hidden;
 `
 
 const ProfileImage = styled(View)`
@@ -26,7 +28,7 @@ const ProfileImage = styled(View)`
   position: relative;
 `
 
-const CompactRegular = styled(Regular)`
+const CompactHeading = styled(Heading4)`
   margin: 0;
 `
 
@@ -43,11 +45,23 @@ const StyledImage = styled(Image)<{ width: number }>`
 
 type ExposedProps = { height: number }
 
-const DashboardHeader = forwardRef<ExposedProps>((_, ref) => {
+type Props = {
+  showFull?: boolean
+}
+
+const DashboardHeader = forwardRef<ExposedProps, Props>(({ showFull }, ref) => {
   const { user } = useUser()
   const navigation = useNavigation()
 
   const [height, setHeight] = useState(0)
+
+  const animatedMaxHeight = useSharedValue(250)
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      maxHeight: animatedMaxHeight.value,
+    }
+  }, [])
 
   useImperativeHandle(
     ref,
@@ -59,20 +73,29 @@ const DashboardHeader = forwardRef<ExposedProps>((_, ref) => {
     [height]
   )
 
+  useEffect(() => {
+    if (showFull) {
+      animatedMaxHeight.value = withTiming(250, { duration: 300 })
+    } else {
+      animatedMaxHeight.value = withTiming(100, { duration: 300 })
+    }
+  }, [animatedMaxHeight, showFull])
+
   return (
     <Wrapper
       onLayout={({ nativeEvent }) => {
         setHeight(nativeEvent.layout.height)
-      }}>
+      }}
+      style={animatedStyle}>
       <Spacer x={Platform.OS === 'android' ? 0 : 4} />
       <Flex row justify={'space-between'}>
         <FontAwesome
           name={'bars'}
           size={22}
-          color={COLORS.BLACK}
+          color={COLORS.WHITE}
           onPress={() => navigation?.navigate('settings')}
         />
-        <FontAwesome name={'bell'} size={22} color={COLORS.BLACK} />
+        <FontAwesome name={'bell'} size={22} color={COLORS.WHITE} />
       </Flex>
       <Spacer x={2} />
       <Flex row align={'center'}>
@@ -86,10 +109,10 @@ const DashboardHeader = forwardRef<ExposedProps>((_, ref) => {
         </ProfileImage>
         <Spacer x={2} />
         <Flex column>
-          <CompactRegular>Welcome back</CompactRegular>
-          <Heading6>
+          <CompactHeading color={COLORS.WHITE}>Welcome back</CompactHeading>
+          <Label color={COLORS.WHITE}>
             {user?.firstName} {user?.lastName}
-          </Heading6>
+          </Label>
         </Flex>
       </Flex>
     </Wrapper>
