@@ -12,6 +12,7 @@ const Discover = () => {
       <SectionTitleContainer>
         <Heading4>Explore Plugins</Heading4>
       </SectionTitleContainer>
+
       <FlatList
         data={Object.values(PLUGINS)}
         centerContent
@@ -21,7 +22,7 @@ const Discover = () => {
           <Fragment>
             <Spacer x={2} />
             <Plugin plugin={item} />
-            <Spacer x={2} />
+            <Spacer x={0.5} />
           </Fragment>
         )}
       />
