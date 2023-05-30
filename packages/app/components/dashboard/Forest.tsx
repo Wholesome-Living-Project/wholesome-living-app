@@ -1,6 +1,8 @@
+import { SectionTitleContainer } from 'app/components/dashboard/SharedStyles'
 import { useWindowDimensions } from 'app/hooks/useWindowDimensions'
 import { IO_COMPONENT_WIDTH_PERCENT, OUTER_BORDER_RADIUS } from 'app/theme/theme'
-import React, { useMemo } from 'react'
+import { Heading4 } from 'app/theme/typography'
+import React, { Fragment, useMemo } from 'react'
 import { Image, Pressable, View } from 'react-native'
 import styled from 'styled-components'
 
@@ -29,14 +31,19 @@ const Forest = () => {
   const width = useMemo(() => windowWidth * IO_COMPONENT_WIDTH_PERCENT, [windowWidth])
 
   return (
-    <Wrapper width={width}>
-      <AbsoluteImageContainer>
-        <StyledImage
-          source={require('../../../assets/images/running_full_size.jpg')}
-          width={width}
-        />
-      </AbsoluteImageContainer>
-    </Wrapper>
+    <Fragment>
+      <SectionTitleContainer>
+        <Heading4>Your Forest</Heading4>
+      </SectionTitleContainer>
+      <Wrapper width={width}>
+        <AbsoluteImageContainer>
+          <StyledImage
+            source={require('../../../assets/images/running_full_size.jpg')}
+            width={width}
+          />
+        </AbsoluteImageContainer>
+      </Wrapper>
+    </Fragment>
   )
 }
 

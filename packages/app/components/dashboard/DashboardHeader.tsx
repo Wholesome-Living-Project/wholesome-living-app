@@ -5,7 +5,7 @@ import { useUser } from 'app/hooks/useUser'
 import { COLORS, SPACING } from 'app/theme/theme'
 import { Heading6, Regular } from 'app/theme/typography'
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
-import { Platform, View } from 'react-native'
+import { Image, Platform, View } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 
@@ -21,12 +21,24 @@ const Wrapper = styled(View)`
 const ProfileImage = styled(View)`
   width: 50px;
   height: 50px;
-  border-radius: 25px;
+  border-radius: 100px;
   background: ${COLORS.WHITE};
+  position: relative;
 `
 
 const CompactRegular = styled(Regular)`
   margin: 0;
+`
+
+const AbsoluteImageContainer = styled(View)`
+  position: absolute;
+  height: 100%;
+`
+
+const StyledImage = styled(Image)<{ width: number }>`
+  width: 50px;
+  height: 100%;
+  border-radius: 100px;
 `
 
 type ExposedProps = { height: number }
@@ -64,7 +76,14 @@ const DashboardHeader = forwardRef<ExposedProps>((_, ref) => {
       </Flex>
       <Spacer x={2} />
       <Flex row align={'center'}>
-        <ProfileImage></ProfileImage>
+        <ProfileImage>
+          <AbsoluteImageContainer>
+            <StyledImage
+              source={require('../../../assets/images/woman_productive_full_size.jpg')}
+              width={50}
+            />
+          </AbsoluteImageContainer>
+        </ProfileImage>
         <Spacer x={2} />
         <Flex column>
           <CompactRegular>Welcome back</CompactRegular>
