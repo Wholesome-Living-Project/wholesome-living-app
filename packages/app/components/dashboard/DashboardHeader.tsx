@@ -14,7 +14,7 @@ const Wrapper = styled(Animated.View)`
   width: 100%;
   background: ${COLORS.PRIMARY};
   padding: ${SPACING * 4}px ${SPACING * 2}px ${SPACING * 2}px;
-  position: absolute;
+  position: relative;
   z-index: 2;
   overflow: hidden;
 `
