@@ -35,7 +35,7 @@ const DashboardHeader = () => {
 
   return (
     <Wrapper>
-      <Spacer x={Platform.OS === 'android' ? 8 : 4} />
+      <Spacer x={Platform.OS === 'android' ? 4 : 4} />
       <Flex row justify={'space-between'}>
         <FontAwesome
           name={'bars'}
