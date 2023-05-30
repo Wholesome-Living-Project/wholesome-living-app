@@ -5,7 +5,8 @@ import { useUser } from 'app/hooks/useUser'
 import { COLORS, SPACING } from 'app/theme/theme'
 import { Heading6, Regular } from 'app/theme/typography'
 import React from 'react'
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
+import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 
 const Wrapper = styled(View)`
@@ -13,7 +14,9 @@ const Wrapper = styled(View)`
   background: ${COLORS.BACKGROUND_GREY};
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  padding: ${SPACING * 2}px;
+  padding: ${SPACING * 4}px ${SPACING * 2}px;
+  position: relative;
+  top: -50px;
 `
 
 const ProfileImage = styled(View)`
@@ -29,12 +32,18 @@ const CompactRegular = styled(Regular)`
 
 const DashboardHeader = () => {
   const { user } = useUser()
+  const navigation = useNavigation()
 
   return (
     <Wrapper>
-      <Spacer x={4} />
+      <Spacer x={Platform.OS === 'android' ? 8 : 4} />
       <Flex row justify={'space-between'}>
-        <FontAwesome name={'bars'} size={22} color={COLORS.BLACK} />
+        <FontAwesome
+          name={'bars'}
+          size={22}
+          color={COLORS.BLACK}
+          onPress={() => navigation?.navigate('settings')}
+        />
         <FontAwesome name={'bell'} size={22} color={COLORS.BLACK} />
       </Flex>
       <Spacer x={2} />

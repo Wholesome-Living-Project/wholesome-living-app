@@ -24,8 +24,8 @@ const SectionTitleContainer = styled(Flex)`
 export function DashboardScreen() {
   return (
     <SafeAreaView>
+      <DashboardHeader />
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-        <DashboardHeader />
         <SectionTitleContainer>
           <Heading4>Your Forest</Heading4>
         </SectionTitleContainer>
