@@ -8,7 +8,7 @@ import Spacer from 'app/components/ui/Spacer'
 import { SPACING } from 'app/theme/theme'
 import { Heading4 } from 'app/theme/typography'
 import React from 'react'
-import { SafeAreaView, ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import styled from 'styled-components'
 
 const AppTitleContainer = styled(Flex)`
@@ -23,7 +23,7 @@ const SectionTitleContainer = styled(Flex)`
 
 export function DashboardScreen() {
   return (
-    <SafeAreaView>
+    <View>
       <DashboardHeader />
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
         <SectionTitleContainer>
@@ -44,6 +44,6 @@ export function DashboardScreen() {
         </ScrollView>
         <Spacer x={4} />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }

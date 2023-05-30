@@ -16,7 +16,6 @@ const Wrapper = styled(View)`
   border-bottom-right-radius: 20px;
   padding: ${SPACING * 4}px ${SPACING * 2}px;
   position: relative;
-  top: -50px;
 `
 
 const ProfileImage = styled(View)`
