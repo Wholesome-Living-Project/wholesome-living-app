@@ -6,9 +6,10 @@ import MeditateDetailedBanner from 'app/components/dashboard/plugins/MeditateDet
 import RunDetailedBanner from 'app/components/dashboard/plugins/RunDetailedBanner'
 import { Flex } from 'app/components/ui/Flex'
 import Spacer from 'app/components/ui/Spacer'
+import { useWindowDimensions } from 'app/hooks/useWindowDimensions'
 import { SPACING } from 'app/theme/theme'
 import { Heading4 } from 'app/theme/typography'
-import React from 'react'
+import React, { useRef } from 'react'
 import { ScrollView, View } from 'react-native'
 import styled from 'styled-components'
 
@@ -23,10 +24,19 @@ const SectionTitleContainer = styled(Flex)`
 `
 
 export function DashboardScreen() {
+  const { windowHeight } = useWindowDimensions()
+  const scrollRef = useRef<ScrollView | null>(null)
+  const [headerHeight, setHeaderHeight] = React.useState(700)
+
   return (
     <View>
-      <DashboardHeader />
-      <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
+      <DashboardHeader ref={(ref) => ref?.height && setHeaderHeight(ref?.height)} />
+      <ScrollView
+        contentContainerStyle={{ alignItems: 'center' }}
+        style={{
+          height: windowHeight - headerHeight,
+        }}
+        onScroll={(event) => console.log(event.nativeEvent.contentOffset.y > 20)}>
         <SectionTitleContainer>
           <Heading4>Your Forest</Heading4>
         </SectionTitleContainer>
@@ -47,6 +57,7 @@ export function DashboardScreen() {
           <Heading4>Explore Plugins</Heading4>
         </SectionTitleContainer>
         <Discover />
+        <Spacer x={8} />
       </ScrollView>
     </View>
   )
