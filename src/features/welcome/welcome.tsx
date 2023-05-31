@@ -18,7 +18,7 @@ const Footer = styled(View)`
   justify-content: flex-end;
 `
 
-export function WelcomeScreen() {
+function WelcomeScreen() {
   const openSignInModal = useCallback(() => {
     signInModalRef.current?.expand()
   }, [])
@@ -42,3 +42,5 @@ export function WelcomeScreen() {
     </Background>
   )
 }
+
+export default WelcomeScreen

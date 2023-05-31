@@ -1,6 +1,7 @@
 import React, { createContext, PropsWithChildren, useCallback, useContext, useState } from 'react'
-import { UserUpdateUserRequest, UserUserDB } from '../api/openapi'
-import { api } from '../api/requests'
+
+import { UserUpdateUserRequest, UserUserDB } from '../../api/openapi'
+import { api } from '../../api/requests'
 import { signIn, signOut, signUp } from '../auth/auth'
 import { useAuth } from '../hooks/useAuth'
 import { useEffectOnce } from '../hooks/useEffectOnce'
@@ -63,7 +64,7 @@ const useProvideAuth = (): AuthenticationType => {
         console.log('firebase user not available? : ', uid)
       }
     },
-    [setUser]
+    [currentFirebaseUser?.uid]
   )
 
   const patchUser = useCallback(
@@ -71,7 +72,7 @@ const useProvideAuth = (): AuthenticationType => {
       await api.userApi.usersPut(request)
       return getUser(currentFirebaseUser?.uid)
     },
-    [getUser]
+    [currentFirebaseUser?.uid, getUser]
   )
 
   const createUserWithEmailAndPassword = useCallback(
@@ -155,7 +156,7 @@ const useProvideAuth = (): AuthenticationType => {
     } finally {
       setLoading(false)
     }
-  }, [setLoading, getUser])
+  }, [currentFirebaseUser?.uid, getUser])
 
   useEffectOnce(() => {
     getInitialUser()

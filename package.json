@@ -4,7 +4,6 @@
     "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-native-community/datetimepicker": "6.5.2",
     "@react-native-picker/picker": "2.4.8",
-    "app": "*",
     "axelra-react-native-bottom-sheet": "^4.4.6",
     "axelra-react-native-flex": "^0.1.6",
     "axelra-react-native-utilities": "^0.1.3",
@@ -41,6 +40,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
+    "@babel/eslint-parser": "^7.21.3",
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@openapitools/openapi-generator-cli": "^2.5.2",
     "@tsconfig/react-native": "^2.0.3",
@@ -60,6 +60,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-import": "^2.27.5",
     "flat": "^5.0.2",
     "node-fetch": "^2.6.7",
     "postcss": "^8.4.21",
@@ -86,6 +87,7 @@
   "scripts": {
     "start": "expo start",
     "postinstall": "node src/scripts/generate-openapi.js",
+    "test": "yarn run tsc && yarn run lint && jest --forceExit",
     "openapi": "node src/scripts/generate-openapi.js"
   },
   "version": "0.0.1",

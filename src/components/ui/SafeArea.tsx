@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components'
-import BackButton from 'wholesome-living-app/components/BackButton'
 import { COLORS, SPACING } from '../../theme/theme'
+import BackButton from './BackButton'
 import SafeAreaViewFixed from './SafeAreaViewFixed'
 
 const Background = styled(SafeAreaViewFixed)`

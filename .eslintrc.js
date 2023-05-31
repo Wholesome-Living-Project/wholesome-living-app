@@ -6,6 +6,8 @@ module.exports = {
     'eslint-plugin-no-inline-styles',
     'react-hooks',
   ],
+  parser: '@babel/eslint-parser',
+  extends: ['plugin:import/typescript'],
   rules: {
     indent: 'off',
     'react/display-name': 'off',

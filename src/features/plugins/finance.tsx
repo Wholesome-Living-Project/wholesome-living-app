@@ -162,7 +162,7 @@ const Finance = () => {
           />
           <Spacer x={2} />
           <Flex row align={'center'}>
-            <Heading6 onPress={() => navigation?.navigate('finance-analytics')}>
+            <Heading6 onPress={() => navigation?.navigate('finance-analytics' as never)}>
               Go to Analytics view
             </Heading6>
             <Spacer x={2} />

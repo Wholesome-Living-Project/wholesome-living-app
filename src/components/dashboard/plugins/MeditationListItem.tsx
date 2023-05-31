@@ -1,5 +1,5 @@
 import React from 'react'
-import { MeditationGetMeditationResponse } from '../../../api/openapi'
+import { MeditationGetMeditationResponse } from '../../../../api/openapi'
 import { getFormattedTimer } from '../../../helpers/getFormattedTimer'
 import ListItem, { ListItemActions } from './ListItem'
 

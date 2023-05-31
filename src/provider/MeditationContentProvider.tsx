@@ -6,8 +6,9 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import { MeditationGetMeditationResponse } from '../api/openapi'
-import { api } from '../api/requests'
+
+import { MeditationGetMeditationResponse } from '../../api/openapi'
+import { api } from '../../api/requests'
 import { getUnixTime } from '../helpers/getUnixTime'
 import { useUser } from '../hooks/useUser'
 

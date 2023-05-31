@@ -2,11 +2,11 @@ import { alpha } from 'axelra-react-native-utilities'
 import { LinearGradient } from 'expo-linear-gradient'
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import BackButton from 'wholesome-living-app/components/BackButton'
 import { PLUGINS, plugins } from '../../helpers/pluginList'
 import { COLORS, SPACING } from '../../theme/theme'
 import { Heading4 } from '../../theme/typography'
 import PluginBanner from '../discover/PluginBanner'
+import BackButton from '../ui/BackButton'
 import { Flex } from '../ui/Flex'
 
 const Container = styled(Flex)`
