@@ -1,3 +1,4 @@
+import { SPACING } from 'app/theme/theme'
 import axios from 'axios'
 import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
@@ -12,7 +13,8 @@ interface FinancialData {
 
 const Container = styled.div`
   max-width: 800px;
-  margin: 0 auto; /* Adjust margin to align with the other component */
+  //margin: 0 auto; /* Adjust margin to align with the other component */
+  margin-bottom: ${SPACING * 1.5}px;
   background-color: #fff;
   padding: 2em;
   border-radius: 12px;
@@ -175,7 +177,6 @@ const FinanceForm: React.FC = () => {
       })
   }
 
-  // @ts-ignore
   // @ts-ignore
   return (
     <Container>

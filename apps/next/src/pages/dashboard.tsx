@@ -1,11 +1,7 @@
-import FinanceGraph from 'app/components/dashboard/Graphs/FinanceGraph'
-import FinanceForm from 'app/components/dashboard/Other/FinanceForm'
-import FinanceTable from 'app/components/dashboard/Other/FinanceTable'
+import FinanceView from 'app/components/dashboard/Views/FinanceView'
 import PluginList from 'app/components/discover/web/PluginList'
-import { MainContentContainer } from 'app/components/ui/MainContentContainer'
-import Spacer from 'app/components/ui/Spacer'
 import { COLORS, FILTER_HEIGHT, OUTER_BORDER_RADIUS } from 'app/theme/theme'
-import { Col, Flex, Row, SPACING } from 'axelra-styled-bootstrap-grid'
+import { Col, Flex, SPACING } from 'axelra-styled-bootstrap-grid'
 import styled from 'styled-components'
 
 const FlexContainer = styled(Flex)`
@@ -44,26 +40,7 @@ const Dashboard = () => {
           </PluginContentContainer>
         </FilterContainer>
       </Col>
-      <Col xs={12} md={8}>
-        <MainContentContainer>
-          <ContentContainer>
-            <Row>
-              <Col xs={12} lg={6}>
-                <FinanceForm />
-              </Col>
-              <Col xs={12} lg={6}>
-                <FinanceGraph />
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12}>
-                <FinanceTable />
-              </Col>
-            </Row>
-          </ContentContainer>
-        </MainContentContainer>
-      </Col>
-      <Spacer x={40} />
+      <FinanceView />
     </FlexContainer>
   )
 }

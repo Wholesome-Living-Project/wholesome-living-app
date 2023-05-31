@@ -1,4 +1,3 @@
-import { Flex } from 'axelra-styled-bootstrap-grid'
 import axios from 'axios'
 import React, { useCallback, useEffect, useState } from 'react'
 import {
@@ -12,13 +11,6 @@ import {
   YAxis,
 } from 'recharts'
 import styled from 'styled-components'
-
-const GraphContent = styled(Flex)`
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-`
 
 const Container = styled.div`
   width: 100%;
