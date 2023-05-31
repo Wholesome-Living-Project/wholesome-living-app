@@ -3,25 +3,12 @@ import { FontAwesomeType } from 'app/types/FontAwesome'
 import { IonIconType } from 'app/types/IonIcon'
 import { MaterialCommunityType } from 'app/types/MaterialCommunity'
 import { MaterialIconsType } from 'app/types/MaterialIcons'
+import { UserPluginName } from '../../api/openapi'
 
-export enum plugins {
-  MEDITATE = 'MEDITATE',
-  ELEVATOR = 'ELEVATOR',
-  RUN = 'RUN',
-  SLEEP = 'SLEEP',
-  WORKOUT = 'WORKOUT',
-  DIET = 'DIET',
-  FINANCE = 'FINANCE',
-}
-
-export const PLUGIN_COLORS: { [key in plugins]: string } = {
-  MEDITATE: EXTRA_COLORS.BLUE,
-  ELEVATOR: EXTRA_COLORS.PURPLE,
-  RUN: EXTRA_COLORS.FINA,
-  SLEEP: EXTRA_COLORS.MAUVE,
-  WORKOUT: EXTRA_COLORS.JORDY,
-  DIET: EXTRA_COLORS.PURPLE,
-  FINANCE: EXTRA_COLORS.SUNSET,
+export const PLUGIN_COLORS: { [key in UserPluginName]: string } = {
+  meditation: EXTRA_COLORS.BLUE,
+  finance: EXTRA_COLORS.PURPLE,
+  elevator: EXTRA_COLORS.FINA,
 }
 
 export type PluginType = {
@@ -32,65 +19,37 @@ export type PluginType = {
   faIcon?: FontAwesomeType
   ionIcon?: IonIconType
   icon?: MaterialCommunityType
-  plugin?: plugins
+  plugin?: UserPluginName
   onboardingRoute?: string
   onboardingSubRoutes?: string[]
 }
 
-export const PLUGINS: { [key in plugins]: PluginType } = {
-  MEDITATE: {
+export const PLUGINS: { [key in UserPluginName]: PluginType } = {
+  meditation: {
     title: 'Meditate',
-    plugin: plugins.MEDITATE,
-    color: PLUGIN_COLORS.MEDITATE,
+    plugin: UserPluginName.PluginNameMeditation,
+    color: PLUGIN_COLORS.meditation,
     icon: 'meditation',
     route: 'meditation',
     onboardingRoute: 'meditation',
     onboardingSubRoutes: ['goal', 'notifications'],
   },
-  FINANCE: {
+  finance: {
     title: 'Finance',
-    color: PLUGIN_COLORS.FINANCE,
-    plugin: plugins.FINANCE,
+    color: PLUGIN_COLORS.finance,
+    plugin: UserPluginName.PluginNameFinance,
     icon: 'finance',
     route: 'finance',
     onboardingRoute: 'finance',
     onboardingSubRoutes: ['strategy', 'notifications'],
   },
-  ELEVATOR: {
+  elevator: {
     title: 'Stairs',
-    color: PLUGIN_COLORS.ELEVATOR,
-    plugin: plugins.ELEVATOR,
+    color: PLUGIN_COLORS.elevator,
+    plugin: UserPluginName.PluginNameElevator,
     icon: 'elevator-passenger',
     route: 'elevator',
     onboardingRoute: 'elevator',
     onboardingSubRoutes: ['notifications'],
-  },
-  RUN: {
-    title: 'Run',
-    color: PLUGIN_COLORS.RUN,
-    plugin: plugins.RUN,
-    materialIcon: 'directions-run',
-    route: 'run',
-  },
-  SLEEP: {
-    title: 'Sleep',
-    color: PLUGIN_COLORS.SLEEP,
-    icon: 'power-sleep',
-    plugin: plugins.SLEEP,
-    route: 'sleep',
-  },
-  WORKOUT: {
-    title: 'Workout',
-    color: PLUGIN_COLORS.WORKOUT,
-    plugin: plugins.WORKOUT,
-    materialIcon: 'fitness-center',
-    route: 'workout',
-  },
-  DIET: {
-    title: 'Diet',
-    color: PLUGIN_COLORS.DIET,
-    icon: 'weight-kilogram',
-    route: 'diet',
-    plugin: plugins.DIET,
   },
 }

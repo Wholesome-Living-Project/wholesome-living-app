@@ -3,13 +3,13 @@ import { Picker } from '@react-native-picker/picker'
 import OnboardingStep from 'app/components/onboarding/OnboardingStep'
 import { Flex } from 'app/components/ui/Flex'
 import Spacer from 'app/components/ui/Spacer'
-import { plugins } from 'app/helpers/pluginList'
 import { useOnboarding } from 'app/provider/OnboardingProvider'
 import { COLORS, OUTER_BORDER_RADIUS } from 'app/theme/theme'
 import { Heading4, Light } from 'app/theme/typography'
 import React from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components'
+import { UserPluginName } from '../../../../api/openapi'
 
 const StyledPicker = styled(Picker)`
   width: 150px;
@@ -30,7 +30,10 @@ const Goal = () => {
   } = useOnboarding()
 
   return (
-    <OnboardingStep primaryText={'Continue'} plugin={plugins.MEDITATE} onPressPrimary={() => {}}>
+    <OnboardingStep
+      primaryText={'Continue'}
+      plugin={UserPluginName.PluginNameMeditation}
+      onPressPrimary={() => {}}>
       <View>
         <Heading4>Choose your goal</Heading4>
         <Light>

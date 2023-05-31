@@ -2,7 +2,7 @@ import OnboardingStepHeader from 'app/components/onboarding/OnboardingStepHeader
 import Button from 'app/components/ui/Button'
 import { Flex } from 'app/components/ui/Flex'
 import Spacer from 'app/components/ui/Spacer'
-import { PLUGINS, plugins } from 'app/helpers/pluginList'
+import { PLUGINS } from 'app/helpers/pluginList'
 import { useWindowDimensions } from 'app/hooks/useWindowDimensions'
 import { useOnboarding } from 'app/provider/OnboardingProvider'
 import { COLORS, SPACING } from 'app/theme/theme'
@@ -12,6 +12,7 @@ import React, { PropsWithChildren, useMemo } from 'react'
 import { Button as NativeButton } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
+import { UserPluginName } from '../../../api/openapi'
 
 const Wrapper = styled(Flex)`
   padding: ${SPACING * 2}px;
@@ -28,7 +29,7 @@ type Props = {
   secondaryText?: string
   infoText?: string
   primaryDisabled?: boolean
-  plugin?: plugins
+  plugin?: UserPluginName
   secondaryDisabled?: boolean
   nextStep?: string
   canSkip?: boolean

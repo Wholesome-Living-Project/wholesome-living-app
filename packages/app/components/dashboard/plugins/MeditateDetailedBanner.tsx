@@ -1,11 +1,11 @@
 import PluginDetailedBanner from 'app/components/dashboard/PluginDetailedBanner'
 import { getFormattedTimer } from 'app/helpers/getFormattedTimer'
-import { plugins } from 'app/helpers/pluginList'
 import { COLORS } from 'app/theme/theme'
 import { Regular } from 'app/theme/typography'
 import React, { useMemo } from 'react'
 import { Text, View } from 'react-native'
 import styled from 'styled-components'
+import { UserPluginName } from '../../../../api/openapi'
 
 type MeditationType = {
   time: number
@@ -46,7 +46,7 @@ const MeditateDetailedBanner = () => {
   return (
     <PluginDetailedBanner
       content={<Content />}
-      plugin={plugins.MEDITATE}
+      plugin={UserPluginName.PluginNameMeditation}
       backgroundImage={require('../../../../assets/images/woman_meditation.jpg')}
     />
   )

@@ -1,15 +1,15 @@
-import { plugins } from 'app/helpers/pluginList'
 import React, { createContext, PropsWithChildren, useContext, useState } from 'react'
+import { UserPluginName } from '../../api/openapi'
 
 type OnboardingType = {
-  chosenPlugins: plugins[]
-  setChosenPlugins: (st: plugins[]) => void
+  chosenPlugins: UserPluginName[]
+  setChosenPlugins: (st: UserPluginName[]) => void
   visitedOnboardingSteps: string[]
   setVisitedOnboardingSteps: (st: string[]) => void
-  finishedPlugins: string[]
-  setFinishedPlugins: (st: string[]) => void
-  setChosenPluginSteps: (st: string[]) => void
-  chosenPluginSteps: string[]
+  finishedPlugins: UserPluginName[]
+  setFinishedPlugins: (st: UserPluginName[]) => void
+  setChosenPluginSteps: (st: UserPluginName[]) => void
+  chosenPluginSteps: UserPluginName[]
   selectedGoalTime: number
   setSelectedGoalTime: (st: number) => void
   selectedGoalNumber: number
@@ -33,10 +33,10 @@ const OnboardingContext = createContext<OnboardingType>({} as OnboardingType)
 export const useOnboarding = () => useContext(OnboardingContext)
 
 const useProvideOnboarding = (): OnboardingType => {
-  const [chosenPlugins, setChosenPlugins] = useState<plugins[]>([])
-  const [chosenPluginSteps, setChosenPluginSteps] = useState<string[]>([])
+  const [chosenPlugins, setChosenPlugins] = useState<UserPluginName[]>([])
+  const [chosenPluginSteps, setChosenPluginSteps] = useState<UserPluginName[]>([])
   const [visitedOnboardingSteps, setVisitedOnboardingSteps] = useState<string[]>([])
-  const [finishedPlugins, setFinishedPlugins] = useState<string[]>([])
+  const [finishedPlugins, setFinishedPlugins] = useState<UserPluginName[]>([])
 
   // meditation goal
   const [selectedGoalTime, setSelectedGoalTime] = useState(1)
