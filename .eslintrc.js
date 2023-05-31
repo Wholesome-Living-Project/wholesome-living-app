@@ -6,8 +6,6 @@ module.exports = {
     'eslint-plugin-no-inline-styles',
     'react-hooks',
   ],
-  parser: '@babel/eslint-parser',
-  extends: 'next',
   rules: {
     indent: 'off',
     'react/display-name': 'off',
