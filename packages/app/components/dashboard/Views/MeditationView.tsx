@@ -1,6 +1,5 @@
-import FinanceGraph from 'app/components/dashboard/Graphs/FinanceGraph'
-import FinanceForm from 'app/components/dashboard/Other/FinanceForm'
-import FinanceTable from 'app/components/dashboard/Other/FinanceTable'
+import MeditationGraph from 'app/components/dashboard/Graphs/MeditationGraph'
+import MeditationTable from 'app/components/dashboard/Other/MeditationTable'
 import { MainContentContainer } from 'app/components/ui/MainContentContainer'
 import { Flex } from 'axelra-styled-bootstrap-grid'
 import React from 'react'
@@ -20,9 +19,8 @@ const FinanceView = () => {
   return (
     <FlexContainer>
       <MainContentContainer>
-        <FinanceGraph />
-        <FinanceForm />
-        <FinanceTable />
+        <MeditationGraph />
+        <MeditationTable />
       </MainContentContainer>
     </FlexContainer>
   )

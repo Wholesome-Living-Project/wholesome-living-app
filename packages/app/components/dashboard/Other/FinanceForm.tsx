@@ -148,8 +148,8 @@ const FinanceForm: React.FC = () => {
         const requestData = {
           ...financialData,
           investmentTime: financialData.investmentTime
-            ? new Date(financialData.investmentTime)
-            : null, // Convert to Date object
+            ? Math.floor(financialData.investmentTime.getTime() / 1000)
+            : null, // Convert to UNIX timestamp in seconds
         }
 
         axios
