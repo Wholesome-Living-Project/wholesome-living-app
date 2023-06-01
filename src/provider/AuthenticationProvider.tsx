@@ -49,16 +49,20 @@ const useProvideAuth = (): AuthenticationType => {
       if (uid || currentFirebaseUser?.uid) {
         const id = uid ?? currentFirebaseUser?.uid
         if (id) {
-          const { data } = await api.userApi.usersIdGet(id)
-          console.log('got user ', data.email)
+          try {
+            const { data } = await api.userApi.usersIdGet(id)
+            console.log('got user ', data.email)
 
-          const u: UserType = {
-            ...data,
-            firebaseUID: id,
+            const u: UserType = {
+              ...data,
+              firebaseUID: id,
+            }
+            setUser(u)
+
+            return u
+          } catch (e) {
+            console.log('error getting user', e)
           }
-          setUser(u)
-
-          return u
         }
       } else {
         console.log('firebase user not available? : ', uid)
@@ -69,8 +73,13 @@ const useProvideAuth = (): AuthenticationType => {
 
   const patchUser = useCallback(
     async (request: UserUpdateUserRequest) => {
-      await api.userApi.usersPut(request)
-      return getUser(currentFirebaseUser?.uid)
+      try {
+        await api.userApi.usersPut(request)
+
+        return await getUser(currentFirebaseUser?.uid)
+      } catch (e) {
+        console.log('error patching user', e)
+      }
     },
     [currentFirebaseUser?.uid, getUser]
   )

@@ -3,12 +3,12 @@ import { Text } from 'react-native'
 import { Divider } from 'react-native-elements'
 import styled from 'styled-components'
 import { UserPluginName } from '../../../api/openapi'
-import { api } from '../../../api/requests'
 import Plugin from '../../components/discover/Plugin'
 import OnboardingStep from '../../components/onboarding/OnboardingStep'
 import { Flex } from '../../components/ui/Flex'
 import Spacer from '../../components/ui/Spacer'
 import { PLUGINS } from '../../helpers/pluginList'
+import { useAuthentication } from '../../provider/AuthenticationProvider'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS } from '../../theme/theme'
 import { Heading4, Light } from '../../theme/typography'
@@ -35,6 +35,8 @@ const IndicatorNumber = styled(Text)`
 const ChoosePlugins = () => {
   const { chosenPlugins, setChosenPlugins, setChosenPluginSteps, chosenPluginSteps } =
     useOnboarding()
+
+  const { patchUser } = useAuthentication()
 
   const addPlugin = useCallback(
     (plugin: UserPluginName) => {
@@ -64,10 +66,10 @@ const ChoosePlugins = () => {
 
   const setPlugins = useCallback(async () => {
     console.log('chosen:', chosenPlugins)
-    await api.userApi.usersPut({
+    await patchUser({
       plugins: chosenPlugins,
     })
-  }, [chosenPlugins])
+  }, [chosenPlugins, patchUser])
 
   console.log({ chosenPluginSteps, chosenPlugins })
 

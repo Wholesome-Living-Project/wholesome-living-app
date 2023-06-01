@@ -1,12 +1,17 @@
 import React, { Fragment } from 'react'
 import { FlatList } from 'react-native'
-import { PLUGINS, PluginType } from "../../helpers/pluginList";
+import styled from 'styled-components'
+import { UserPluginName } from '../../../api/openapi'
+import { PLUGINS, PluginType } from '../../helpers/pluginList'
+import { useUser } from '../../hooks/useUser'
 import { Heading4 } from '../../theme/typography'
 import Plugin from '../discover/Plugin'
 import Spacer from '../ui/Spacer'
 import { SectionTitleContainer } from './SharedStyles'
-import { UserPluginName } from "../../../api/openapi";
-import { useUser } from "../../hooks/useUser";
+
+const StyledList = styled(FlatList)`
+  width: 100%;
+`
 
 const Discover = () => {
   const { user } = useUser()
@@ -17,7 +22,7 @@ const Discover = () => {
         <Heading4>Explore Plugins</Heading4>
       </SectionTitleContainer>
 
-      <FlatList
+      <StyledList
         data={Object.values(PLUGINS).filter(
           (plugin: PluginType) => !user?.plugins?.includes(plugin?.plugin as UserPluginName)
         )}

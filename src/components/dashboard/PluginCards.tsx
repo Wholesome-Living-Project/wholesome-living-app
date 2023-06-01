@@ -1,5 +1,6 @@
 import React, { Fragment, ReactNode } from 'react'
 import { ScrollView } from 'react-native'
+import styled from 'styled-components'
 import { UserPluginName } from '../../../api/openapi'
 import { useUser } from '../../hooks/useUser'
 import { Heading4 } from '../../theme/typography'
@@ -8,6 +9,10 @@ import FinanceDetailedBanner from './plugins/FinanceDetailedBanner'
 import MeditateDetailedBanner from './plugins/MeditateDetailedBanner'
 import RunDetailedBanner from './plugins/RunDetailedBanner'
 import { SectionTitleContainer } from './SharedStyles'
+
+const StyledScrollView = styled(ScrollView)`
+  width: 100%;
+`
 
 const Cards: { [key in UserPluginName]: ReactNode } = {
   [UserPluginName.PluginNameFinance]: <FinanceDetailedBanner />,
@@ -23,7 +28,7 @@ const PluginCards = () => {
       <SectionTitleContainer>
         <Heading4>Your Plugins</Heading4>
       </SectionTitleContainer>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <StyledScrollView horizontal showsHorizontalScrollIndicator={false}>
         {user?.plugins?.map((plugin) => (
           <Fragment key={plugin}>
             <Spacer x={2} />
@@ -31,7 +36,7 @@ const PluginCards = () => {
           </Fragment>
         ))}
         <Spacer x={2} />
-      </ScrollView>
+      </StyledScrollView>
     </Fragment>
   )
 }
