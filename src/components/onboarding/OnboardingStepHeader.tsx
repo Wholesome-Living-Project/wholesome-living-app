@@ -8,13 +8,14 @@ import { Heading4 } from '../../theme/typography'
 import PluginBanner from '../discover/PluginBanner'
 import BackButton from '../ui/BackButton'
 import { Flex } from '../ui/Flex'
+import { UserPluginName } from "../../../api/openapi";
 
 const Container = styled(Flex)`
   padding: ${SPACING * 7}px ${SPACING * 2}px ${SPACING * 1.5}px;
 `
 
 type Props = {
-  plugin?: plugins
+  plugin?: UserPluginName
 }
 
 const OnboardingStepHeader = ({ plugin }: Props) => {

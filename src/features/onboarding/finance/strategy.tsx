@@ -4,15 +4,18 @@ import { View } from 'react-native'
 import { Divider } from 'react-native-elements'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
 import Spacer from '../../../components/ui/Spacer'
-import { plugins } from '../../../helpers/pluginList'
 import { useOnboarding } from '../../../provider/OnboardingProvider'
 import { Heading4, Light } from '../../../theme/typography'
+import { UserPluginName } from "../../../../api/openapi";
 
 const Strategy = () => {
   const { selectedStrategy, setSelectedStrategy, roundUpNumber, setRoundUpNumber } = useOnboarding()
 
   return (
-    <OnboardingStep primaryText={'Continue'} plugin={plugins.FINANCE} onPressPrimary={() => {}}>
+    <OnboardingStep
+      primaryText={'Continue'}
+      plugin={UserPluginName.PluginNameElevator}
+      onPressPrimary={() => {}}>
       <View>
         <Heading4>Choose your saving strategy</Heading4>
         <Light>The strategy you chose defines how we calculate your savings</Light>

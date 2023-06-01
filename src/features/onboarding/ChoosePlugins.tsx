@@ -10,6 +10,8 @@ import { plugins, PLUGINS } from '../../helpers/pluginList'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS } from '../../theme/theme'
 import { Heading4, Light } from '../../theme/typography'
+import { api } from "../../../api/requests";
+import { UserPluginName } from "../../../api/openapi";
 
 const OpacityWrapper = styled(Flex)<{ active: boolean }>`
   opacity: ${(p) => (p.active ? 1 : 0.3)};
@@ -35,7 +37,7 @@ const ChoosePlugins = () => {
     useOnboarding()
 
   const addPlugin = useCallback(
-    (plugin: plugins) => {
+    (plugin: UserPluginName) => {
       const route = PLUGINS[plugin].onboardingRoute
       const steps = PLUGINS[plugin].onboardingSubRoutes
       const stepArray = steps?.map((step) => route + '/' + step)
@@ -60,6 +62,13 @@ const ChoosePlugins = () => {
     [chosenPluginSteps, chosenPlugins, setChosenPluginSteps, setChosenPlugins]
   )
 
+  const setPlugins = useCallback(async () => {
+    console.log('chosen:', chosenPlugins)
+    await api.userApi.usersPut({
+      plugins: chosenPlugins,
+    })
+  }, [chosenPlugins])
+
   console.log({ chosenPluginSteps, chosenPlugins })
 
   return (
@@ -67,7 +76,8 @@ const ChoosePlugins = () => {
       primaryText={'Continue'}
       primaryDisabled={chosenPlugins.length === 0}
       canSkip={false}
-      nextStep={chosenPluginSteps[0]}>
+      nextStep={chosenPluginSteps[0]}
+      onPressPrimary={setPlugins}>
       <Flex>
         <Spacer x={5} />
         <Heading4>Choose your Plugins</Heading4>

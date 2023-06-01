@@ -6,6 +6,7 @@ import { useFinance } from '../../../provider/FinanceContentProvider'
 import { COLORS } from '../../../theme/theme'
 import { Regular } from '../../../theme/typography'
 import PluginDetailedBanner from '../PluginDetailedBanner'
+import { UserPluginName } from "../../../../api/openapi";
 
 const Wrapper = styled(View)`
   display: flex;
@@ -31,7 +32,7 @@ const FinanceDetailedBanner = () => {
   return (
     <PluginDetailedBanner
       content={<Content />}
-      plugin={plugins.FINANCE}
+      plugin={UserPluginName.PluginNameElevator}
       backgroundImage={require('../../../../assets/images/man_saving_money.jpg')}
     />
   )

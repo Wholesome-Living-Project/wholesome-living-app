@@ -6,6 +6,7 @@ import { plugins } from '../../../helpers/pluginList'
 import { COLORS } from '../../../theme/theme'
 import { Regular } from '../../../theme/typography'
 import PluginDetailedBanner from '../PluginDetailedBanner'
+import { UserPluginName } from "../../../../api/openapi";
 
 type MeditationType = {
   time: number
@@ -46,7 +47,7 @@ const MeditateDetailedBanner = () => {
   return (
     <PluginDetailedBanner
       content={<Content />}
-      plugin={plugins.MEDITATE}
+      plugin={UserPluginName.PluginNameMeditation}
       backgroundImage={require('../../../../assets/images/woman_meditation.jpg')}
     />
   )

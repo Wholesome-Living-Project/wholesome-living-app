@@ -37,7 +37,6 @@ export function DashboardScreen() {
         <Forest />
         <PluginCards />
         <Discover />
-        <PluginCards />
         <Spacer x={25} />
       </ScrollView>
     </View>

@@ -12,6 +12,7 @@ import Button from '../ui/Button'
 import { Flex } from '../ui/Flex'
 import Spacer from '../ui/Spacer'
 import OnboardingStepHeader from './OnboardingStepHeader'
+import { UserPluginName } from "../../../api/openapi";
 
 const Wrapper = styled(Flex)`
   padding: ${SPACING * 2}px;
@@ -28,7 +29,7 @@ type Props = {
   secondaryText?: string
   infoText?: string
   primaryDisabled?: boolean
-  plugin?: plugins
+  plugin?: UserPluginName
   secondaryDisabled?: boolean
   nextStep?: string
   canSkip?: boolean

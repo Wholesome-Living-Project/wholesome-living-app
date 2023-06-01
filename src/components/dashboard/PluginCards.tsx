@@ -6,20 +6,41 @@ import FinanceDetailedBanner from './plugins/FinanceDetailedBanner'
 import MeditateDetailedBanner from './plugins/MeditateDetailedBanner'
 import RunDetailedBanner from './plugins/RunDetailedBanner'
 import { SectionTitleContainer } from './SharedStyles'
+import { useUser } from "../../hooks/useUser";
 
 const PluginCards = () => {
+  const { user } = useUser()
+
   return (
     <Fragment>
       <SectionTitleContainer>
         <Heading4>Your Plugins</Heading4>
       </SectionTitleContainer>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <Spacer x={2} />
-        <MeditateDetailedBanner />
-        <Spacer x={2} />
-        <FinanceDetailedBanner />
-        <Spacer x={2} />
-        <RunDetailedBanner />
+        {user?.plugins?.includes('meditation') ? (
+          <>
+            <Spacer x={2} />
+            <MeditateDetailedBanner />
+          </>
+        ) : (
+          <></>
+        )}
+        {user?.plugins?.includes('finance') ? (
+          <>
+            <Spacer x={2} />
+            <FinanceDetailedBanner />
+          </>
+        ) : (
+          <></>
+        )}
+        {user?.plugins?.includes('elevator') ? (
+          <>
+            <Spacer x={2} />
+            <RunDetailedBanner />
+          </>
+        ) : (
+          <></>
+        )}
         <Spacer x={2} />
       </ScrollView>
     </Fragment>

@@ -1,5 +1,3 @@
-import DateTimePicker from '@react-native-community/datetimepicker'
-import { Picker } from '@react-native-picker/picker'
 import React from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components'
@@ -10,6 +8,8 @@ import { plugins } from '../../../helpers/pluginList'
 import { useOnboarding } from '../../../provider/OnboardingProvider'
 import { COLORS, OUTER_BORDER_RADIUS } from '../../../theme/theme'
 import { Heading4, Light } from '../../../theme/typography'
+import { Picker } from "@react-native-picker/picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const StyledPicker = styled(Picker)`
   width: 150px;
@@ -30,7 +30,10 @@ const Goal = () => {
   } = useOnboarding()
 
   return (
-    <OnboardingStep primaryText={'Continue'} plugin={plugins.MEDITATE} onPressPrimary={() => {}}>
+    <OnboardingStep
+      primaryText={'Continue'}
+      plugin={UserPluginName.PluginNameMeditation}
+      onPressPrimary={() => {}}>
       <View>
         <Heading4>Choose your goal</Heading4>
         <Light>

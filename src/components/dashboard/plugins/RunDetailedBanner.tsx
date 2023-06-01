@@ -5,6 +5,7 @@ import { plugins } from '../../../helpers/pluginList'
 import { COLORS } from '../../../theme/theme'
 import { Regular } from '../../../theme/typography'
 import PluginDetailedBanner from '../PluginDetailedBanner'
+import { UserPluginName } from "../../../../api/openapi";
 
 const Wrapper = styled(View)`
   display: flex;
@@ -16,8 +17,8 @@ const Wrapper = styled(View)`
 const Content = () => {
   return (
     <Wrapper>
-      <Regular color={COLORS.WHITE}>Saved this month</Regular>
-      <Text style={{ fontSize: 33, color: COLORS.WHITE, fontWeight: '600' }}>26.-</Text>
+      <Regular color={COLORS.WHITE}>Stairs taken</Regular>
+      <Text style={{ fontSize: 33, color: COLORS.WHITE, fontWeight: '600' }}>1</Text>
     </Wrapper>
   )
 }
@@ -26,8 +27,8 @@ const RunDetailedBanner = () => {
   return (
     <PluginDetailedBanner
       content={<Content />}
-      plugin={plugins.RUN}
-      backgroundImage={require('../../../../assets/images/man_jogging.jpg')}
+      plugin={UserPluginName.PluginNameElevator}
+      backgroundImage={require('../../../../assets/images/man_walking_stairs.jpg')}
     />
   )
 }

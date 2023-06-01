@@ -9,6 +9,7 @@ import { plugins } from '../../../helpers/pluginList'
 import { useOnboarding } from '../../../provider/OnboardingProvider'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../../theme/theme'
 import { Heading4, Light, Regular } from '../../../theme/typography'
+import { UserPluginName } from "../../../../api/openapi";
 
 const NotificationOption = styled(Flex)`
   padding: ${SPACING}px ${SPACING * 2}px;
@@ -21,7 +22,10 @@ const Notifications = () => {
   const { takeElevatorNotification, setTakeElevatorNotification } = useOnboarding()
 
   return (
-    <OnboardingStep primaryText={'Continue'} plugin={plugins.ELEVATOR} onPressPrimary={() => {}}>
+    <OnboardingStep
+      primaryText={'Continue'}
+      plugin={UserPluginName.PluginNameElevator}
+      onPressPrimary={() => {}}>
       <View>
         <Heading4>Notifications</Heading4>
         <Light>Get a push notification each time you do not take the stairs</Light>
