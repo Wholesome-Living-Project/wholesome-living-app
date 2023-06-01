@@ -38,14 +38,14 @@ const Meditation = () => {
 
   useEffect(() => {
     getMeditations()
-  }, [])
+  }, [getMeditations])
 
   const onMeditationEnded = useCallback(
     async (time: number) => {
       await saveMeditation(time)
       await getMeditations()
     },
-    [saveMeditation]
+    [getMeditations, saveMeditation]
   )
 
   return (

@@ -1,10 +1,11 @@
 import { alpha } from 'axelra-react-native-utilities'
 import { useSegments } from 'expo-router'
 import React, { PropsWithChildren, useMemo } from 'react'
-import { Button as NativeButton } from 'react-native'
+import { Button as NativeButton, ScrollView } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
-import { PLUGINS, plugins } from '../../helpers/pluginList'
+import { UserPluginName } from '../../../api/openapi'
+import { PLUGINS } from '../../helpers/pluginList'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS, SPACING } from '../../theme/theme'
@@ -12,14 +13,20 @@ import Button from '../ui/Button'
 import { Flex } from '../ui/Flex'
 import Spacer from '../ui/Spacer'
 import OnboardingStepHeader from './OnboardingStepHeader'
-import { UserPluginName } from "../../../api/openapi";
 
 const Wrapper = styled(Flex)`
   padding: ${SPACING * 2}px;
 `
 
 const Footer = styled(Flex)`
-  padding: ${SPACING * 7}px ${SPACING * 2}px;
+  padding: 0 ${SPACING * 2}px;
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+`
+
+const StyledScrollView = styled(ScrollView)`
+  height: 70%;
 `
 
 type Props = {
@@ -67,7 +74,9 @@ const OnboardingStep = ({
     <Flex style={{ height: windowHeight }} column justify={'space-between'}>
       <Flex>
         <OnboardingStepHeader plugin={plugin} />
-        <Wrapper column>{children}</Wrapper>
+        <StyledScrollView>
+          <Wrapper column>{children}</Wrapper>
+        </StyledScrollView>
       </Flex>
       <Footer>
         <Button

@@ -1,12 +1,11 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import styled from 'styled-components'
-import { plugins } from '../../../helpers/pluginList'
+import { UserPluginName } from '../../../../api/openapi'
 import { useFinance } from '../../../provider/FinanceContentProvider'
 import { COLORS } from '../../../theme/theme'
 import { Regular } from '../../../theme/typography'
 import PluginDetailedBanner from '../PluginDetailedBanner'
-import { UserPluginName } from "../../../../api/openapi";
 
 const Wrapper = styled(View)`
   display: flex;

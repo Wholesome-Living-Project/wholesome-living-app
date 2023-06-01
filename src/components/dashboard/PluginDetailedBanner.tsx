@@ -4,7 +4,8 @@ import { useRootNavigation } from 'expo-router'
 import React, { useMemo } from 'react'
 import { Image, ImageSourcePropType, Pressable, View } from 'react-native'
 import styled from 'styled-components'
-import { plugins, PLUGINS, PLUGIN_COLORS } from '../../helpers/pluginList'
+import { UserPluginName } from '../../../api/openapi'
+import { PLUGINS, PLUGIN_COLORS } from '../../helpers/pluginList'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { COLORS, IO_COMPONENT_WIDTH_PERCENT, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
 import { Heading5 } from '../../theme/typography'
@@ -49,7 +50,11 @@ const StyledImage = styled(Image)<{ width: number }>`
   border-radius: ${OUTER_BORDER_RADIUS}px;
 `
 
-type Props = { plugin: plugins; content?: React.ReactNode; backgroundImage?: ImageSourcePropType }
+type Props = {
+  plugin: UserPluginName
+  content?: React.ReactNode
+  backgroundImage?: ImageSourcePropType
+}
 
 // TODO use animated API for animating pressable in a separate component
 

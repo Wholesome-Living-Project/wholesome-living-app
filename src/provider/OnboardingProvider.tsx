@@ -1,6 +1,5 @@
 import React, { createContext, PropsWithChildren, useContext, useState } from 'react'
-import { plugins } from '../helpers/pluginList'
-import { UserPluginName } from "../../api/openapi";
+import { UserPluginName } from '../../api/openapi'
 
 type OnboardingType = {
   chosenPlugins: UserPluginName[]
@@ -9,8 +8,8 @@ type OnboardingType = {
   setVisitedOnboardingSteps: (st: string[]) => void
   finishedPlugins: UserPluginName[]
   setFinishedPlugins: (st: UserPluginName[]) => void
-  setChosenPluginSteps: (st: UserPluginName[]) => void
-  chosenPluginSteps: UserPluginName[]
+  setChosenPluginSteps: (st: string[]) => void
+  chosenPluginSteps: string[]
   selectedGoalTime: number
   setSelectedGoalTime: (st: number) => void
   selectedGoalNumber: number
@@ -35,7 +34,7 @@ export const useOnboarding = () => useContext(OnboardingContext)
 
 const useProvideOnboarding = (): OnboardingType => {
   const [chosenPlugins, setChosenPlugins] = useState<UserPluginName[]>([])
-  const [chosenPluginSteps, setChosenPluginSteps] = useState<UserPluginName[]>([])
+  const [chosenPluginSteps, setChosenPluginSteps] = useState<string[]>([])
   const [visitedOnboardingSteps, setVisitedOnboardingSteps] = useState<string[]>([])
   const [finishedPlugins, setFinishedPlugins] = useState<UserPluginName[]>([])
 

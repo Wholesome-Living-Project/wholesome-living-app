@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react'
 import { Text, View } from 'react-native'
 import styled from 'styled-components'
+import { UserPluginName } from '../../../../api/openapi'
 import { getFormattedTimer } from '../../../helpers/getFormattedTimer'
-import { plugins } from '../../../helpers/pluginList'
 import { COLORS } from '../../../theme/theme'
 import { Regular } from '../../../theme/typography'
 import PluginDetailedBanner from '../PluginDetailedBanner'
-import { UserPluginName } from "../../../../api/openapi";
 
 type MeditationType = {
   time: number

@@ -2,16 +2,16 @@ import React, { Fragment, useCallback } from 'react'
 import { Text } from 'react-native'
 import { Divider } from 'react-native-elements'
 import styled from 'styled-components'
+import { UserPluginName } from '../../../api/openapi'
+import { api } from '../../../api/requests'
 import Plugin from '../../components/discover/Plugin'
 import OnboardingStep from '../../components/onboarding/OnboardingStep'
 import { Flex } from '../../components/ui/Flex'
 import Spacer from '../../components/ui/Spacer'
-import { plugins, PLUGINS } from '../../helpers/pluginList'
+import { PLUGINS } from '../../helpers/pluginList'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS } from '../../theme/theme'
 import { Heading4, Light } from '../../theme/typography'
-import { api } from "../../../api/requests";
-import { UserPluginName } from "../../../api/openapi";
 
 const OpacityWrapper = styled(Flex)<{ active: boolean }>`
   opacity: ${(p) => (p.active ? 1 : 0.3)};

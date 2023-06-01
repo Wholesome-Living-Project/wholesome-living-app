@@ -1,15 +1,15 @@
+import DateTimePicker from '@react-native-community/datetimepicker'
+import { Picker } from '@react-native-picker/picker'
 import React from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components'
+import { UserPluginName } from '../../../../api/openapi'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
 import { Flex } from '../../../components/ui/Flex'
 import Spacer from '../../../components/ui/Spacer'
-import { plugins } from '../../../helpers/pluginList'
 import { useOnboarding } from '../../../provider/OnboardingProvider'
 import { COLORS, OUTER_BORDER_RADIUS } from '../../../theme/theme'
 import { Heading4, Light } from '../../../theme/typography'
-import { Picker } from "@react-native-picker/picker";
-import DateTimePicker from "@react-native-community/datetimepicker";
 
 const StyledPicker = styled(Picker)`
   width: 150px;
