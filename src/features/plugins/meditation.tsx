@@ -54,7 +54,7 @@ const Meditation = () => {
         <StyledImage source={require('../../../assets/images/woman_meditation.jpg')} />
         <Flex column>
           <Spacer x={15} />
-          <Heading1 color={COLORS.WHITE}>{PLUGINS['MEDITATE'].title}</Heading1>
+          <Heading1 color={COLORS.WHITE}>{PLUGINS.meditation.title}</Heading1>
         </Flex>
       </ImageContainer>
       <ScrollView>

@@ -46,7 +46,7 @@ const FinanceAnalytics = () => {
         <StyledImage source={require('../../../assets/images/woman_saving_money_analytics.png')} />
         <Flex column>
           <Spacer x={15} />
-          <Heading1 color={COLORS.WHITE}>{PLUGINS['FINANCE'].title}</Heading1>
+          <Heading1 color={COLORS.WHITE}>{PLUGINS.finance.title}</Heading1>
         </Flex>
       </ImageContainer>
       <ScrollView>
