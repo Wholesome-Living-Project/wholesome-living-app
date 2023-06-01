@@ -13,9 +13,8 @@ import {
 import styled from 'styled-components'
 
 const Container = styled.div`
-  width: 100%;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 2em auto;
   background-color: #fff;
   padding: 2em;
   border-radius: 12px;
@@ -128,7 +127,7 @@ const FinanceGraph = () => {
   // @ts-ignore
   return (
     <Container>
-      <h5>Track your overall progress</h5>
+      <h5>Track your investment progress</h5>
       {error && <p>Error: {error.message}</p>}
       <div style={{ width: '100%', height: '200px' }}>
         <ResponsiveContainer width="100%" height="100%">

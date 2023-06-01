@@ -41,27 +41,39 @@ const TableCell = styled.td`
   padding: 8px;
 `
 
-const FinanceTable = () => {
-  const [data, setData] = useState<
-    { amount: number; description: string; investmentTime: number }[]
-  >([])
+const MeditationTable = () => {
+  const [data, setData] = useState([])
+  const [meditationTimeGoal, setMeditationTimeGoal] = useState(0)
   const [error, setError] = useState('')
-
-  const convertHexToDate = (timestamp: number) => {
-    const date = new Date(timestamp * 1000) // Multiply by 1000 to convert to milliseconds
-    return date.toLocaleDateString() // Use toLocaleDateString() to display only the date
-  }
 
   const fetchData = async () => {
     try {
       const userId = 'RafaelDubach' // Replace with the actual user ID
-      const response = await axios.get('http://127.0.0.1:8080/finance', {
-        headers: {
-          userId: userId,
-        },
-      })
-      if (response.data) {
-        setData(response.data)
+
+      const [meditationResponse, settingsResponse] = await Promise.all([
+        axios.get('http://127.0.0.1:8080/meditation', {
+          headers: {
+            userId: userId,
+          },
+        }),
+        axios.get('http://127.0.0.1:8080/settings', {
+          headers: {
+            userId: userId,
+          },
+        }),
+      ])
+
+      if (meditationResponse.data && settingsResponse.data) {
+        const meditationData = meditationResponse.data.map((item) => ({
+          ...item,
+          endTime: new Date(item.endTime * 1000),
+        }))
+
+        // Sort the meditationData array based on the endTime values
+        meditationData.sort((a, b) => a.endTime - b.endTime)
+
+        setData(meditationData)
+        setMeditationTimeGoal(settingsResponse.data.meditation.meditationTimeGoal)
       } else {
         setError('Response data is missing')
       }
@@ -89,17 +101,17 @@ const FinanceTable = () => {
           <Table>
             <thead>
               <tr>
-                <TableHeader>Amount</TableHeader>
-                <TableHeader>Description</TableHeader>
-                <TableHeader>Investment Time</TableHeader>
+                <TableHeader>End Time</TableHeader>
+                <TableHeader>Meditation Time</TableHeader>
+                <TableHeader>Meditation Time Goal</TableHeader>
               </tr>
             </thead>
             <tbody>
               {data.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell>{item.amount}</TableCell>
-                  <TableCell>{item.description}</TableCell>
-                  <TableCell>{convertHexToDate(item.investmentTime)}</TableCell>
+                  <TableCell>{item.endTime.toLocaleDateString()}</TableCell>
+                  <TableCell>{item.meditationTime}</TableCell>
+                  <TableCell>{meditationTimeGoal}</TableCell>
                 </TableRow>
               ))}
             </tbody>
@@ -110,4 +122,4 @@ const FinanceTable = () => {
   )
 }
 
-export default FinanceTable
+export default MeditationTable

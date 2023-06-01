@@ -13,8 +13,8 @@ interface FinancialData {
 
 const Container = styled.div`
   max-width: 800px;
-  //margin: 0 auto; /* Adjust margin to align with the other component */
-  margin-bottom: ${SPACING * 1.5}px;
+  margin: 0 auto; /* Adjust margin to align with the other component */
+  //margin-bottom: ${SPACING * 1.5}px;
   background-color: #fff;
   padding: 2em;
   border-radius: 12px;
@@ -115,7 +115,6 @@ const FinanceForm: React.FC = () => {
     const errors: Partial<FinancialData> = {}
 
     if (financialData.amount <= 0) {
-      // @ts-ignore
       errors.amount = 'Amount must be greater than zero.'
     }
 
@@ -124,7 +123,6 @@ const FinanceForm: React.FC = () => {
     }
 
     if (!financialData.investmentTime) {
-      // @ts-ignore
       errors.investmentTime = 'Please select the investment time.'
     }
 
@@ -150,8 +148,8 @@ const FinanceForm: React.FC = () => {
         const requestData = {
           ...financialData,
           investmentTime: financialData.investmentTime
-            ? Math.floor(financialData.investmentTime.getTime() / 1000)
-            : null, // Convert to UNIX timestamp in seconds
+            ? new Date(financialData.investmentTime)
+            : null, // Convert to Date object
         }
 
         axios
@@ -177,12 +175,11 @@ const FinanceForm: React.FC = () => {
       })
   }
 
-  // @ts-ignore
   return (
     <Container>
       <FormContainer onSubmit={handleSubmit}>
         <FormGroup>
-          <Label htmlFor="amount">Amount</Label>
+          <Label htmlFor="amount">Invested Amount</Label>
           <Input
             type="number"
             id="amount"
