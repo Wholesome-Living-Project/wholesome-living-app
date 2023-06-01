@@ -23,7 +23,7 @@ const Notifications = () => {
   return (
     <OnboardingStep
       primaryText={'Continue'}
-      plugin={UserPluginName.PluginNameElevator}
+      plugin={UserPluginName.PluginNameFinance}
       onPressPrimary={() => {}}>
       <View>
         <Heading4>Notifications</Heading4>
