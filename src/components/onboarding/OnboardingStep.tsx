@@ -21,8 +21,12 @@ const Wrapper = styled(Flex)`
 const Footer = styled(Flex)`
   padding: 0 ${SPACING * 2}px;
   position: absolute;
-  bottom: 30px;
+  bottom: 0;
   width: 100%;
+  background-color: ${COLORS.WHITE};
+  padding: ${SPACING * 2}px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
 `
 
 const StyledScrollView = styled(ScrollView)`

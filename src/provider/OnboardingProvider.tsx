@@ -32,6 +32,12 @@ type OnboardingType = {
   setFinanceSettings: () => void
   setMeditationSettings: () => void
   setUserPlugins: () => void
+  savingGoal: string
+  setSavingGoal: (st: string) => void
+  notificationPeriod: SettingsNotificationType
+  setNotificationPeriod: (st: SettingsNotificationType) => void
+  notificationFrequency: number
+  setNotificationFrequency: (st: number) => void
 }
 
 const OnboardingContext = createContext<OnboardingType>({} as OnboardingType)
@@ -58,7 +64,11 @@ const useProvideOnboarding = (): OnboardingType => {
     SettingsStrategyType.StrategyTypeRound
   )
   const [roundUpNumber, setRoundUpNumber] = useState(5)
-
+  const [savingGoal, setSavingGoal] = useState<string>('')
+  const [notificationPeriod, setNotificationPeriod] = useState<SettingsNotificationType>(
+    SettingsNotificationType.NotificationTypeWeek
+  )
+  const [notificationFrequency, setNotificationFrequency] = useState<number>(1)
   // elevator
   const [takeElevatorNotification, setTakeElevatorNotification] = useState(false)
 
@@ -71,12 +81,12 @@ const useProvideOnboarding = (): OnboardingType => {
         enabledPlugins: chosenPlugins,
         finance: {
           notifications: financeSaveReminderNotification,
-          amountNotifications: 0,
+          amountNotifications: notificationFrequency,
           investmentGoal: 0,
-          investmentTimeGoal: 0,
+          investmentTimeGoal: 1,
           strategyAmount: roundUpNumber || 0,
           strategy: selectedStrategy,
-          periodNotifications: SettingsNotificationType.NotificationTypeDay,
+          periodNotifications: notificationPeriod,
         },
         meditation: {
           notifications: meditateReminderNotification,
@@ -122,21 +132,29 @@ const useProvideOnboarding = (): OnboardingType => {
   }, [takeElevatorNotification, user?.id])
 
   const setFinanceSettings = useCallback(async () => {
-    if (!user?.id) return
+    if (!user?.id || !Number(savingGoal)) return
     try {
       await api.settingsApi.settingsFinancePut(user?.id, {
         notifications: financeSaveReminderNotification,
-        amountNotifications: 0,
-        investmentGoal: 0,
-        investmentTimeGoal: 0,
+        amountNotifications: notificationFrequency,
+        investmentGoal: Number(savingGoal),
+        investmentTimeGoal: 1,
         strategyAmount: roundUpNumber || 0,
         strategy: selectedStrategy,
-        periodNotifications: SettingsNotificationType.NotificationTypeDay,
+        periodNotifications: notificationPeriod,
       })
     } catch (e) {
       console.log(e.message)
     }
-  }, [financeSaveReminderNotification, roundUpNumber, selectedStrategy, user?.id])
+  }, [
+    financeSaveReminderNotification,
+    notificationFrequency,
+    notificationPeriod,
+    roundUpNumber,
+    savingGoal,
+    selectedStrategy,
+    user?.id,
+  ])
 
   const setMeditationSettings = useCallback(async () => {
     if (!user?.id) return
@@ -187,6 +205,12 @@ const useProvideOnboarding = (): OnboardingType => {
     setFinanceSettings,
     setMeditationSettings,
     setUserPlugins,
+    savingGoal,
+    setSavingGoal,
+    notificationPeriod,
+    setNotificationPeriod,
+    notificationFrequency,
+    setNotificationFrequency,
   }
 }
 

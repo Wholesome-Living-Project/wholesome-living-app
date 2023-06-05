@@ -90,6 +90,7 @@ const Goal = () => {
             onChange={(_, date) => setSelectedGoalTime(date?.getTime() ?? new Date().getTime())}
           />
         </PickerBackground>
+        <Spacer x={8} />
       </View>
     </OnboardingStep>
   )
