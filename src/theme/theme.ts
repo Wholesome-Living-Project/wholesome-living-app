@@ -24,7 +24,7 @@ export const SECONDARY_TINTS = {
 
 export const COLORS = {
   WHITE: 'white',
-  BLACK: 'black',
+  BLACK: '#292929',
   GREY: '#EFF5F5',
   PRIMARY: PRIMARY_TINTS['500'],
   SECONDARY: SECONDARY_TINTS['700'],

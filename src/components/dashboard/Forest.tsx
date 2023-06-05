@@ -1,29 +1,30 @@
 import React, { Fragment, useMemo } from 'react'
-import { Image, Pressable, View } from 'react-native'
 import styled from 'styled-components'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
-import { IO_COMPONENT_WIDTH_PERCENT, OUTER_BORDER_RADIUS } from '../../theme/theme'
+import { IO_COMPONENT_WIDTH_PERCENT, SPACING } from '../../theme/theme'
 import { Heading4 } from '../../theme/typography'
+import { Flex } from '../ui/Flex'
+import { Background, levelComponents } from './Levels'
 import { SectionTitleContainer } from './SharedStyles'
 
-const Wrapper = styled(Pressable)<{ width: number }>`
+const Wrapper = styled(Flex)<{ width: number }>`
   height: 250px;
   width: ${(p) => p.width}px;
   overflow: hidden;
   position: relative;
 `
 
-const AbsoluteImageContainer = styled(View)`
-  position: absolute;
+const LevelsContainer = styled(Flex)`
   height: 100%;
+  padding: ${SPACING * 2}px;
 `
 
-const StyledImage = styled(Image)<{ width: number }>`
-  width: ${(p) => p.width}px;
-  height: 100%;
-
-  border-radius: ${OUTER_BORDER_RADIUS}px;
+const LevelContainer = styled(Flex)<{ width: number }>`
+  width: ${(p) => p.width}%;
 `
+
+// TODO change with actual plugin levels
+const levels = [4, 2, 6]
 
 const Forest = () => {
   const { windowWidth } = useWindowDimensions()
@@ -33,15 +34,17 @@ const Forest = () => {
   return (
     <Fragment>
       <SectionTitleContainer>
-        <Heading4>Your Forest</Heading4>
+        <Heading4>Your Garden</Heading4>
       </SectionTitleContainer>
       <Wrapper width={width}>
-        <AbsoluteImageContainer>
-          <StyledImage
-            source={require('../../../assets/images/running_full_size.jpg')}
-            width={width}
-          />
-        </AbsoluteImageContainer>
+        <Background source={require('../../../assets/images/background_2.jpg')} />
+        <LevelsContainer row align={'flex-end'}>
+          {levels.map((level, index) => (
+            <LevelContainer width={100 / levels.length} justify={'center'} row>
+              {levelComponents[level - 1]}
+            </LevelContainer>
+          ))}
+        </LevelsContainer>
       </Wrapper>
     </Fragment>
   )

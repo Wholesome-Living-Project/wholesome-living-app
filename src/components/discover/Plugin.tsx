@@ -21,21 +21,7 @@ const Plugin = ({ plugin, onPress }: Props) => {
   const navigation = useRootNavigation()
 
   return (
-    <Container
-      onPress={
-        onPress ??
-        (() =>
-          navigation?.navigate(
-            'plugin' as never,
-            {
-              color,
-              icon,
-              faIcon,
-              materialIcon,
-              ionIcon,
-            } as never
-          ))
-      }>
+    <Container onPress={onPress ?? (() => navigation?.navigate(plugin.route as never))}>
       <PluginBanner {...plugin} size={60} />
       <Regular center>{title}</Regular>
     </Container>
