@@ -31,16 +31,8 @@ const FinanceGraph = () => {
   const fetchData = async () => {
     try {
       const [investmentResponse, settingsResponse] = await Promise.all([
-        axios.get('http://127.0.0.1:8080/finance', {
-          headers: {
-            userId: userId,
-          },
-        }),
-        axios.get('http://127.0.0.1:8080/settings', {
-          headers: {
-            userId: userId,
-          },
-        }),
+        axios.get('http://127.0.0.1:8080/finance', { headers: { userId } }),
+        axios.get('http://127.0.0.1:8080/settings', { headers: { userId } }),
       ])
 
       if (investmentResponse.data && settingsResponse.data) {
@@ -49,22 +41,16 @@ const FinanceGraph = () => {
           spendingTime: new Date(item.spendingTime * MS_TO_SECONDS).toISOString().slice(0, 10),
         }))
 
-        // @ts-ignore
         transformedFinanceData.sort((a, b) => new Date(a.spendingTime) - new Date(b.spendingTime))
 
         const settingsData = settingsResponse.data
 
-        // Sum the amounts per month
         const monthlyData = transformedFinanceData.reduce((accumulator, item) => {
-          const month = item.spendingTime.slice(0, 7) // Extract the year and month (e.g., "2023-05")
-          if (!accumulator[month]) {
-            accumulator[month] = 0
-          }
-          accumulator[month] += item.amount
+          const month = item.spendingTime.slice(0, 7)
+          accumulator[month] = (accumulator[month] || 0) + item.amount
           return accumulator
         }, {})
 
-        // Create an array of objects with the monthly data
         const combinedData = Object.entries(monthlyData).map(([spendingTime, amount]) => ({
           spendingTime,
           amount,
@@ -86,11 +72,9 @@ const FinanceGraph = () => {
   useEffect(() => {
     fetchData()
 
-    const interval = setInterval(fetchData, 5000) // Fetch data every 5 seconds
+    const interval = setInterval(fetchData, 5000)
 
-    return () => {
-      clearInterval(interval) // Clean up the interval when the component unmounts
-    }
+    return () => clearInterval(interval)
   }, [])
 
   const [opacity, setOpacity] = useState({
@@ -100,29 +84,19 @@ const FinanceGraph = () => {
 
   const handleMouseEnter = useCallback((o) => {
     const { dataKey } = o
-
-    setOpacity((prevOpacity) => ({
-      ...prevOpacity,
-      [dataKey]: 0.5,
-    }))
+    setOpacity((prevOpacity) => ({ ...prevOpacity, [dataKey]: 0.5 }))
   }, [])
 
   const handleMouseLeave = useCallback((o) => {
     const { dataKey } = o
-
-    setOpacity((prevOpacity) => ({
-      ...prevOpacity,
-      [dataKey]: 1,
-    }))
+    setOpacity((prevOpacity) => ({ ...prevOpacity, [dataKey]: 1 }))
   }, [])
 
-  // Define custom legend labels
   const legendLabels = {
     amount: 'Invested Amount',
     investmentGoal: 'Investment Goal',
   }
 
-  // @ts-ignore
   return (
     <Container>
       <h5>Track your investment progress</h5>
@@ -145,33 +119,6 @@ const FinanceGraph = () => {
           </LineChart>
         </ResponsiveContainer>
       </div>
-
-      {/*      <h3>Track your other progress</h3>
-      <div style={{ width: '100%', height: '200px' }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={data}
-            margin={{
-              top: 5,
-              right: 10,
-              left: 20,
-              bottom: 5,
-            }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="spendingTime" />
-            <YAxis />
-            <Tooltip />
-            <Legend onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
-            <Bar
-              dataKey="investmentGoal"
-              fill="#6363F2"
-              background={{ fill: '#eee' }}
-              name={legendLabels.investmentGoal}
-            />
-            <Bar dataKey="amount" fill="#d66ef0" name={legendLabels.amount} />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>*/}
     </Container>
   )
 }
