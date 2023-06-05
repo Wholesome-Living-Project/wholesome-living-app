@@ -24,6 +24,7 @@ export default {
       FIREBASE_MESSAGING_SENDER_ID: process.env['FIREBASE_MESSAGING_SENDER_ID'],
       FIREBASE_APP_ID: process.env['FIREBASE_APP_ID'],
       GITHUB_ACCESS_TOKEN: process.env['GITHUB_ACCESS_TOKEN'],
+      BACKEND_ENV: process.env['BACKEND_ENV'],
       eas: {
         projectId: '475aab41-a2c2-4c33-8ec9-608097d85ec1',
       },

@@ -6,7 +6,11 @@ import { getCurrentUser } from '../src/auth/auth'
 const { manifest } = Constants
 
 //let baseURL = `http://${manifest?.debuggerHost?.split(':').shift()}:8080`
-const baseURL = 'https://wholesome-living-backend-production.up.railway.app'
+
+const baseURL =
+  process.env.BACKEND_ENV === 'PROD'
+    ? 'https://wholesome-living-backend-production.up.railway.app'
+    : `http://${manifest?.debuggerHost?.split(':').shift()}:8080`
 export const axiosInstance = axios.create({
   baseURL,
   timeout: 15000,
