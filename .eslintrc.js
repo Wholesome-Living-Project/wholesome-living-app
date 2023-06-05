@@ -1,30 +1,47 @@
 module.exports = {
-  "plugins": [
-    "@typescript-eslint/eslint-plugin",
-    "10x",
-    "prettier",
-    "react-hooks",
-    "eslint-plugin-no-inline-styles"
+  plugins: [
+    '@typescript-eslint/eslint-plugin',
+    '10x',
+    'prettier',
+    'eslint-plugin-no-inline-styles',
+    'react-hooks',
   ],
-  extends: 'next',
-  "rules": {
-    "indent": "off",
-    "react/display-name": "off",
-    "no-inline-styles/no-inline-styles": 2,
-    "react/jsx-curly-brace-presence": "off",
-    "require-atomic-updates": "off",
-    "react-hooks/exhaustive-deps": "error",
-    "10x/no-full-import": "error",
-    "10x/react-in-scope": "off",
-    "10x/auto-import": [
-      "error",
+  parser: '@babel/eslint-parser',
+  extends: ['plugin:import/typescript'],
+  rules: {
+    indent: 'off',
+    'react/display-name': 'off',
+    'no-inline-styles/no-inline-styles': 2,
+    'require-atomic-updates': 'off',
+    '10x/no-full-import': 'error',
+    '10x/auto-import': [
+      'error',
       {
-        "imports": {
-          "styled": "import styled from 'styled-components'",
-          "lighten": "import {lighten} from 'polished'",
-          "format": "import {format} from 'date-fns'"
-        }
-      }]
+        imports: {
+          styled: "import styled from 'styled-components'",
+          lighten: "import {lighten} from 'polished'",
+          format: "import {format} from 'date-fns'",
+        },
+      },
+    ],
+    '@typescript-eslint/no-loss-of-precision': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/class-name-casing': 'off',
+    'fp/no-mutating-methods': 'off',
+    '10x/react-in-scope': 'error',
+    'ts-exports/unused-exports': 'off',
+    'default-param-last': 'off',
+    'react/boolean-prop-naming': 'off',
+    'new-cap': 'off',
+    'no-negated-condition': 'off',
+    'react-hooks/exhaustive-deps': 'error',
+    'react-hooks/rules-of-hooks': 'error',
+    complexity: 'off',
+    'no-restricted-imports': 'error',
+    'react/require-default-props': 'off',
+    'no-warning-comments': 'off',
+    'react/jsx-curly-brace-presence': 'off',
+    'react/jsx-no-literals': 'off',
   },
   settings: {
     next: {
