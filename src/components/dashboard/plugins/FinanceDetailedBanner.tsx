@@ -31,7 +31,7 @@ const FinanceDetailedBanner = () => {
   return (
     <PluginDetailedBanner
       content={<Content />}
-      plugin={UserPluginName.PluginNameElevator}
+      plugin={UserPluginName.PluginNameFinance}
       backgroundImage={require('../../../../assets/images/man_saving_money.jpg')}
     />
   )

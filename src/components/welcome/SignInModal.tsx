@@ -12,7 +12,7 @@ import KeyboardCloseHandleComponent from '../ui/KeyboardCloseHandleComponent'
 import SigninForm from './SigninForm'
 
 const SignInModal = () => {
-  const [modalHeight, setModalHeight] = useState(45)
+  const [modalHeight, setModalHeight] = useState(60)
 
   const modalProps = useModal({ snapPoints: [`${modalHeight}%`] })
 
@@ -33,7 +33,7 @@ const SignInModal = () => {
     if (keyboardOpen) {
       setModalHeight(80)
     } else {
-      setModalHeight(50)
+      setModalHeight(60)
     }
   }, [keyboardOpen])
 

@@ -25,6 +25,7 @@ export default {
       FIREBASE_APP_ID: process.env['FIREBASE_APP_ID'],
       GITHUB_ACCESS_TOKEN: process.env['GITHUB_ACCESS_TOKEN'],
       BACKEND_ENV: process.env['BACKEND_ENV'],
+      CHATGPT_API_KEY: process.env['CHATGPT_API_KEY'],
       eas: {
         projectId: '475aab41-a2c2-4c33-8ec9-608097d85ec1',
       },

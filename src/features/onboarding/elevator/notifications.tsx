@@ -18,13 +18,16 @@ const NotificationOption = styled(Flex)`
 `
 
 const Notifications = () => {
-  const { takeElevatorNotification, setTakeElevatorNotification } = useOnboarding()
+  const { takeElevatorNotification, setTakeElevatorNotification, setElevatorSettings } =
+    useOnboarding()
 
   return (
     <OnboardingStep
       primaryText={'Continue'}
       plugin={UserPluginName.PluginNameElevator}
-      onPressPrimary={() => {}}>
+      onPressPrimary={() => {
+        setElevatorSettings()
+      }}>
       <View>
         <Heading4>Notifications</Heading4>
         <Light>Get a push notification each time you do not take the stairs</Light>

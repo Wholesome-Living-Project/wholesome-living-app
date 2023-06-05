@@ -8,7 +8,6 @@ import OnboardingStep from '../../components/onboarding/OnboardingStep'
 import { Flex } from '../../components/ui/Flex'
 import Spacer from '../../components/ui/Spacer'
 import { PLUGINS } from '../../helpers/pluginList'
-import { useAuthentication } from '../../provider/AuthenticationProvider'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS } from '../../theme/theme'
 import { Heading4, Light } from '../../theme/typography'
@@ -33,10 +32,13 @@ const IndicatorNumber = styled(Text)`
 `
 
 const ChoosePlugins = () => {
-  const { chosenPlugins, setChosenPlugins, setChosenPluginSteps, chosenPluginSteps } =
-    useOnboarding()
-
-  const { patchUser } = useAuthentication()
+  const {
+    chosenPlugins,
+    setChosenPlugins,
+    setChosenPluginSteps,
+    chosenPluginSteps,
+    setUserPlugins,
+  } = useOnboarding()
 
   const addPlugin = useCallback(
     (plugin: UserPluginName) => {
@@ -64,22 +66,15 @@ const ChoosePlugins = () => {
     [chosenPluginSteps, chosenPlugins, setChosenPluginSteps, setChosenPlugins]
   )
 
-  const setPlugins = useCallback(async () => {
-    console.log('chosen:', chosenPlugins)
-    await patchUser({
-      plugins: chosenPlugins,
-    })
-  }, [chosenPlugins, patchUser])
-
-  console.log({ chosenPluginSteps, chosenPlugins })
-
   return (
     <OnboardingStep
       primaryText={'Continue'}
       primaryDisabled={chosenPlugins.length === 0}
       canSkip={false}
       nextStep={chosenPluginSteps[0]}
-      onPressPrimary={setPlugins}>
+      onPressPrimary={() => {
+        setUserPlugins()
+      }}>
       <Flex>
         <Spacer x={5} />
         <Heading4>Choose your Plugins</Heading4>

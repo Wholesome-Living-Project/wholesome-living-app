@@ -8,7 +8,7 @@ import { BottomSheetViewFlex } from '../ui/BottomSheetViewFlex'
 import SignupForm from './SignupForm'
 
 const SignUpModal = () => {
-  const [modalHeight, setModalHeight] = useState(50)
+  const [modalHeight, setModalHeight] = useState(60)
   const { keyboardOpen } = useKeyboard()
 
   const modalProps = useModal({ snapPoints: [`${modalHeight}%`] })
@@ -23,7 +23,7 @@ const SignUpModal = () => {
     if (keyboardOpen) {
       setModalHeight(85)
     } else {
-      setModalHeight(50)
+      setModalHeight(60)
     }
   }, [keyboardOpen])
 

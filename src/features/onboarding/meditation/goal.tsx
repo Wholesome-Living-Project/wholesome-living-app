@@ -3,7 +3,7 @@ import { Picker } from '@react-native-picker/picker'
 import React from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../../api/openapi'
+import { SettingsNotificationType, UserPluginName } from '../../../../api/openapi'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
 import { Flex } from '../../../components/ui/Flex'
 import Spacer from '../../../components/ui/Spacer'
@@ -59,10 +59,12 @@ const Goal = () => {
           </StyledPicker>
           <StyledPicker
             selectedValue={selectedGoalPeriod}
-            onValueChange={(itemValue: string) => setSelectedGoalPeriod(itemValue)}>
-            <Picker.Item label={selectedGoalNumber === 1 ? 'Day' : 'Days'} value="days" />
-            <Picker.Item label={selectedGoalNumber === 1 ? 'Week' : 'Weeks'} value="weeks" />
-            <Picker.Item label={selectedGoalNumber === 1 ? 'Month' : 'Months'} value="months" />
+            onValueChange={(itemValue: SettingsNotificationType) =>
+              setSelectedGoalPeriod(itemValue)
+            }>
+            <Picker.Item label={selectedGoalNumber === 1 ? 'Day' : 'Days'} value="Day" />
+            <Picker.Item label={selectedGoalNumber === 1 ? 'Week' : 'Weeks'} value="Week" />
+            <Picker.Item label={selectedGoalNumber === 1 ? 'Month' : 'Months'} value="Month" />
           </StyledPicker>
         </PickerBackground>
         <Spacer x={3} />

@@ -2,7 +2,7 @@ import { Picker } from '@react-native-picker/picker'
 import React from 'react'
 import { View } from 'react-native'
 import { Divider } from 'react-native-elements'
-import { UserPluginName } from '../../../../api/openapi'
+import { SettingsStrategyType, UserPluginName } from '../../../../api/openapi'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
 import Spacer from '../../../components/ui/Spacer'
 import { useOnboarding } from '../../../provider/OnboardingProvider'
@@ -23,12 +23,13 @@ const Strategy = () => {
         <Divider />
         <Picker
           selectedValue={selectedStrategy}
-          onValueChange={(itemValue: string) => setSelectedStrategy(itemValue)}>
-          <Picker.Item label="Round up" value={'roundup'} />
-          <Picker.Item label="Plus one" value={'plusone'} />
+          onValueChange={(itemValue: SettingsStrategyType) => setSelectedStrategy(itemValue)}>
+          <Picker.Item label="Round up" value={'Round'} />
+          <Picker.Item label="Plus one" value={'Plus'} />
+          <Picker.Item label="Percent" value={'Percent'} />
         </Picker>
 
-        {selectedStrategy === 'roundup' && (
+        {selectedStrategy === 'Round' && (
           <Picker
             selectedValue={roundUpNumber}
             onValueChange={(itemValue: number) => setRoundUpNumber(itemValue)}>

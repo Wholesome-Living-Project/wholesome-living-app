@@ -3,6 +3,7 @@ import { ScrollView } from 'react-native'
 import styled from 'styled-components'
 import { UserPluginName } from '../../../api/openapi'
 import { useUser } from '../../hooks/useUser'
+import { useOnboarding } from '../../provider/OnboardingProvider'
 import { Heading4 } from '../../theme/typography'
 import Spacer from '../ui/Spacer'
 import FinanceDetailedBanner from './plugins/FinanceDetailedBanner'
@@ -22,6 +23,7 @@ const Cards: { [key in UserPluginName]: ReactNode } = {
 
 const PluginCards = () => {
   const { user } = useUser()
+  const { chosenPlugins } = useOnboarding()
 
   return (
     <Fragment>
@@ -29,7 +31,7 @@ const PluginCards = () => {
         <Heading4>Your Plugins</Heading4>
       </SectionTitleContainer>
       <StyledScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {user?.plugins?.map((plugin) => (
+        {chosenPlugins.map((plugin) => (
           <Fragment key={plugin}>
             <Spacer x={2} />
             {Cards[plugin]}

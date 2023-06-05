@@ -18,13 +18,19 @@ const NotificationOption = styled(Flex)`
 `
 
 const Notifications = () => {
-  const { financeSaveReminderNotification, setFinanceSaveReminderNotification } = useOnboarding()
+  const {
+    financeSaveReminderNotification,
+    setFinanceSaveReminderNotification,
+    setFinanceSettings,
+  } = useOnboarding()
 
   return (
     <OnboardingStep
       primaryText={'Continue'}
       plugin={UserPluginName.PluginNameFinance}
-      onPressPrimary={() => {}}>
+      onPressPrimary={() => {
+        setFinanceSettings()
+      }}>
       <View>
         <Heading4>Notifications</Heading4>
         <Light>Get a push notification when it is time to save money</Light>
