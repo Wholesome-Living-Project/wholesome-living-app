@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Keyboard, Platform, View } from 'react-native'
 import { useNextRouter } from 'solito/build/router/use-next-router'
 import styled from 'styled-components/native'
@@ -30,6 +30,15 @@ const SignupForm = () => {
   const [dateOfBirth, setDateOfBirth] = useState('01.02.1993')
   const router = useNextRouter()
   const { createUserWithEmailAndPassword } = useAuthentication()
+
+  const [buttonDisabled, setButtonDisabled] = useState(false)
+
+  useEffect(() => {
+    setButtonDisabled(isOneEmpty)
+  }, [email, password, firstName, lastName])
+
+  const isOneEmpty = () =>
+    !(Boolean(email) && Boolean(password) && Boolean(firstName) && Boolean(lastName))
 
   const submit = useCallback(async () => {
     try {
@@ -73,7 +82,7 @@ const SignupForm = () => {
         onChangeText={(text) => setPassword(text)}
       />
       <Spacer x={4} />
-      <Button buttonType={'primary'} onPress={() => submit()}>
+      <Button buttonType={'primary'} disabled={buttonDisabled} onPress={() => submit()}>
         Submit
       </Button>
       <Spacer x={20} />
