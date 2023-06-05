@@ -261,7 +261,7 @@ export interface SettingsCreateSettingsRequestMeditation {
      * @type {number}
      * @memberof SettingsCreateSettingsRequestMeditation
      */
-    'meditationTime'?: number;
+    'meditationTimeGoal'?: number;
     /**
      * 
      * @type {boolean}
@@ -364,25 +364,31 @@ export interface SettingsFinanceSettings {
 /**
  * 
  * @export
- * @interface SettingsGetInvestmentResponse
+ * @interface SettingsGetSettingsResponse
  */
-export interface SettingsGetInvestmentResponse {
+export interface SettingsGetSettingsResponse {
+    /**
+     * 
+     * @type {SettingsElevatorSettings}
+     * @memberof SettingsGetSettingsResponse
+     */
+    'elevator'?: SettingsElevatorSettings;
     /**
      * A list with the Plugins that the user has enabled.
      * @type {Array<SettingsPluginName>}
-     * @memberof SettingsGetInvestmentResponse
+     * @memberof SettingsGetSettingsResponse
      */
     'enabledPlugins'?: Array<SettingsPluginName>;
     /**
      * 
      * @type {SettingsCreateSettingsRequestFinance}
-     * @memberof SettingsGetInvestmentResponse
+     * @memberof SettingsGetSettingsResponse
      */
     'finance'?: SettingsCreateSettingsRequestFinance;
     /**
      * 
      * @type {SettingsCreateSettingsRequestMeditation}
-     * @memberof SettingsGetInvestmentResponse
+     * @memberof SettingsGetSettingsResponse
      */
     'meditation'?: SettingsCreateSettingsRequestMeditation;
 }
@@ -403,7 +409,7 @@ export interface SettingsMeditationSettings {
      * @type {number}
      * @memberof SettingsMeditationSettings
      */
-    'meditationTime'?: number;
+    'meditationTimeGoal'?: number;
     /**
      * 
      * @type {boolean}
@@ -1519,7 +1525,7 @@ export const SettingsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async settingsGet(userId: string, plugin?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SettingsGetInvestmentResponse>> {
+        async settingsGet(userId: string, plugin?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SettingsGetSettingsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.settingsGet(userId, plugin, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1632,7 +1638,7 @@ export const SettingsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        settingsGet(userId: string, plugin?: string, options?: any): AxiosPromise<SettingsGetInvestmentResponse> {
+        settingsGet(userId: string, plugin?: string, options?: any): AxiosPromise<SettingsGetSettingsResponse> {
             return localVarFp.settingsGet(userId, plugin, options).then((request) => request(axios, basePath));
         },
         /**
