@@ -46,19 +46,17 @@ const FinanceGraph = () => {
       if (investmentResponse.data && settingsResponse.data) {
         const transformedFinanceData = investmentResponse.data.map((item) => ({
           ...item,
-          investmentTime: new Date(item.investmentTime * MS_TO_SECONDS).toISOString().slice(0, 10),
+          spendingTime: new Date(item.spendingTime * MS_TO_SECONDS).toISOString().slice(0, 10),
         }))
 
         // @ts-ignore
-        transformedFinanceData.sort(
-          (a, b) => new Date(a.investmentTime) - new Date(b.investmentTime)
-        )
+        transformedFinanceData.sort((a, b) => new Date(a.spendingTime) - new Date(b.spendingTime))
 
         const settingsData = settingsResponse.data
 
         // Sum the amounts per month
         const monthlyData = transformedFinanceData.reduce((accumulator, item) => {
-          const month = item.investmentTime.slice(0, 7) // Extract the year and month (e.g., "2023-05")
+          const month = item.spendingTime.slice(0, 7) // Extract the year and month (e.g., "2023-05")
           if (!accumulator[month]) {
             accumulator[month] = 0
           }
@@ -67,8 +65,8 @@ const FinanceGraph = () => {
         }, {})
 
         // Create an array of objects with the monthly data
-        const combinedData = Object.entries(monthlyData).map(([investmentTime, amount]) => ({
-          investmentTime,
+        const combinedData = Object.entries(monthlyData).map(([spendingTime, amount]) => ({
+          spendingTime,
           amount,
           investmentGoal: settingsData.finance.investmentGoal,
         }))
@@ -140,7 +138,7 @@ const FinanceGraph = () => {
               name={legendLabels.investmentGoal}
             />
             <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-            <XAxis dataKey="investmentTime" />
+            <XAxis dataKey="spendingTime" />
             <YAxis label={{ value: 'Invested amount', angle: -90 }} tick={false} />
             <Tooltip />
             <Legend onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
@@ -160,7 +158,7 @@ const FinanceGraph = () => {
               bottom: 5,
             }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="investmentTime" />
+            <XAxis dataKey="spendingTime" />
             <YAxis />
             <Tooltip />
             <Legend onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />

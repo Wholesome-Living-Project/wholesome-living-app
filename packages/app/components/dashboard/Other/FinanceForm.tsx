@@ -8,7 +8,7 @@ import styled from 'styled-components'
 interface FinancialData {
   amount: number
   description: string
-  investmentTime: Date | null
+  spendingTime: Date | null
 }
 
 const Container = styled.div`
@@ -78,7 +78,7 @@ const FinanceForm: React.FC = () => {
   const [financialData, setFinancialData] = useState<FinancialData>({
     amount: 0,
     description: '',
-    investmentTime: null,
+    spendingTime: null,
   })
 
   const [validationErrors, setValidationErrors] = useState<Partial<FinancialData>>({})
@@ -87,7 +87,7 @@ const FinanceForm: React.FC = () => {
     setFinancialData({
       amount: 0,
       description: '',
-      investmentTime: null,
+      spendingTime: null,
     })
     setValidationErrors({})
   }
@@ -104,7 +104,7 @@ const FinanceForm: React.FC = () => {
   const handleDateChange = (date: Date | null) => {
     setFinancialData((prevData) => ({
       ...prevData,
-      investmentTime: date,
+      spendingTime: date,
     }))
   }
 
@@ -122,8 +122,8 @@ const FinanceForm: React.FC = () => {
       errors.description = 'Please enter a description.'
     }
 
-    if (!financialData.investmentTime) {
-      errors.investmentTime = 'Please select the investment time.'
+    if (!financialData.spendingTime) {
+      errors.spendingTime = 'Please select the investment time.'
     }
 
     if (Object.keys(errors).length > 0) {
@@ -147,8 +147,8 @@ const FinanceForm: React.FC = () => {
 
         const requestData = {
           ...financialData,
-          investmentTime: financialData.investmentTime
-            ? Math.floor(financialData.investmentTime.getTime() / 1000)
+          spendingTime: financialData.spendingTime
+            ? Math.floor(financialData.spendingTime.getTime() / 1000)
             : null, // Convert to UNIX timestamp in seconds
         }
 
@@ -205,11 +205,11 @@ const FinanceForm: React.FC = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label htmlFor="investmentTime">Investment Time</Label>
+          <Label htmlFor="spendingTime">Investment Time</Label>
           <DatePicker
-            id="investmentTime"
-            name="investmentTime"
-            selected={financialData.investmentTime}
+            id="spendingTime"
+            name="spendingTime"
+            selected={financialData.spendingTime}
             onChange={handleDateChange}
             dateFormat="yyyy-MM-dd"
             showYearDropdown
@@ -217,7 +217,7 @@ const FinanceForm: React.FC = () => {
             placeholderText="Select a date"
             customInput={<DatePickerInput />}
           />
-          {validationErrors.investmentTime && <p>{validationErrors.investmentTime}</p>}
+          {validationErrors.spendingTime && <p>{validationErrors.spendingTime}</p>}
         </FormGroup>
 
         <Button type="submit">Submit</Button>

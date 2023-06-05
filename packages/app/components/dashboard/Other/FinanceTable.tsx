@@ -42,9 +42,9 @@ const TableCell = styled.td`
 `
 
 const FinanceTable = () => {
-  const [data, setData] = useState<
-    { amount: number; description: string; investmentTime: number }[]
-  >([])
+  const [data, setData] = useState<{ amount: number; description: string; spendingTime: number }[]>(
+    []
+  )
   const [error, setError] = useState('')
 
   const convertHexToDate = (timestamp: number) => {
@@ -99,7 +99,7 @@ const FinanceTable = () => {
                 <TableRow key={index}>
                   <TableCell>{item.amount}</TableCell>
                   <TableCell>{item.description}</TableCell>
-                  <TableCell>{convertHexToDate(item.investmentTime)}</TableCell>
+                  <TableCell>{convertHexToDate(item.spendingTime)}</TableCell>
                 </TableRow>
               ))}
             </tbody>
