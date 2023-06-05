@@ -13,6 +13,7 @@
     "react-native-reanimated": "2.9.1",
     "axelra-react-native-flex": "^0.1.6",
     "solito": "^2.0.0",
+    "polished": "^4.2.2",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {

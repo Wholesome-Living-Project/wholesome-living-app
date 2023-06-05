@@ -9,8 +9,9 @@ const StyledView = styled(View)<BackgroundProps>`
   display: flex;
   position: relative;
   flex-direction: column;
+  overflow: auto;
   flex: 1;
-  background: ${COLORS.GREY};
+  background: ${COLORS.WHITE};
   padding: ${SPACING * 4}px;
   ${(p) =>
     onlyOnMobile(

@@ -10,6 +10,7 @@
     "lint:css": "stylelint \"./src/**/*.{tsx,js,ts}\""
   },
   "dependencies": {
+    "@date-io/date-fns": "^2.16.0",
     "@expo/next-adapter": "^4.0.12",
     "app": "*",
     "axelra-styled-bootstrap-grid": "^0.7.4",

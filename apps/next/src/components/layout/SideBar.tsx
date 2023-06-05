@@ -1,27 +1,29 @@
-import { signOut } from 'app/auth/auth'
 import { useAuth } from 'app/hooks/useAuth'
 import { COLORS, HEADER_HEIGHT, OUTER_BORDER_RADIUS, SIDEBAR_WIDTH, SPACING } from 'app/theme/theme'
-import { Heading4 } from 'app/theme/typography'
+import { Heading6 } from 'app/theme/typography'
 import { Flex } from 'axelra-styled-bootstrap-grid'
 import { PropsWithChildren } from 'react'
 import styled from 'styled-components'
 import OptionalLink from '../OptionalLink'
-import { MaxWidthContainer } from '../ui/MaxWidthContainer'
 
 const FullWidthContainer = styled(Flex)`
   z-index: 10;
   height: ${HEADER_HEIGHT}px;
-  border: 1px solid ${COLORS.BLACK};
+  background-color: ${COLORS.SIDEBAR};
   border-radius: ${OUTER_BORDER_RADIUS}px;
-  flex-direction: column;
+  //flex-direction: column;
   position: absolute;
+  width: 100%;
+  margin-left: -${SPACING * 2}px;
+  box-shadow: 0 8px 8px -4px;
 
-
+  //NORMAL
   @media only screen and (min-width: ${(p) => p.theme.breakPoints.sm}px) {
     z-index: 10;
     height: calc(100% - ${HEADER_HEIGHT}px);
     width: ${SIDEBAR_WIDTH}px;
-    flex-direction: row;
+    //flex-direction: row; //centered
+    flex-direction: column; //top
     position: absolute;
   }
 `
@@ -31,30 +33,34 @@ const HeaderContent = styled(Flex)`
   flex-direction: column;
   justify-content: space-between;
   padding: ${SPACING * 2}px;
-
+  flex-wrap: wrap;
+  //padding-right: 112px;
+  //margin-left: -40px;
 `
 
 const HeaderLinks = styled(Flex)`
-  flex-direction: row;
-  gap: ${SPACING * 2}px;
+  gap: ${SPACING}px;
   margin: 0;
   padding: 0;
-  
+  letter-spacing: 2px;
+  flex-wrap: wrap;
+  // remove gap between elements
+  grid-row-gap: 0;
 
   @media only screen and (min-width: ${(p) => p.theme.breakPoints.sm}px) {
     flex-direction: column;
     align-items: flex-start;
-    padding-left: ${SPACING * 4}px;
+    padding-top: ${SPACING * 4}px;
+    letter-spacing: 4px;
   }
 `
-
 
 type MenuItemProps = { link?: string; onPress?: () => void } & PropsWithChildren
 const MenuItem = ({ link, children, onPress }: MenuItemProps) => (
   <OptionalLink href={link}>
-    <Heading4 color={COLORS.BLACK} onPress={!link ? onPress : undefined}>
+    <Heading6 color={COLORS.BLACK} onPress={!link ? onPress : undefined}>
       {children}
-    </Heading4>
+    </Heading6>
   </OptionalLink>
 )
 

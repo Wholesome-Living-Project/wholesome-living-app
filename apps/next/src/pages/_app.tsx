@@ -9,30 +9,40 @@ const fixReanimatedIssue = () => {
 
 fixReanimatedIssue()
 
+import Spacer from 'app/components/ui/Spacer'
 import Providers from 'app/provider/Providers'
+import { MOBILE_SIDEBAR_HEIGHT, SIDEBAR_WIDTH } from 'app/theme/theme'
+import { Flex, SPACING } from 'axelra-styled-bootstrap-grid'
 import Head from 'next/head'
 import type { SolitoAppProps } from 'solito'
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import Background from '../../../../packages/app/components/ui/Background'
+import Footer from '../components/layout/Footer'
 import Header from '../components/layout/Header'
 import SideBar from '../components/layout/SideBar'
+import { MaxWidthContainer } from '../components/ui/MaxWidthContainer'
 import { MAIN_THEME } from '../theme/makeTheme'
 import { GlobalStyle } from '../theme/theme'
-import styled from 'styled-components'
-import { SIDEBAR_WIDTH } from 'app/theme/theme'
-import { MOBILE_SIDEBAR_HEIGHT } from 'app/theme/theme'
 
-
-const SideBarPadder = styled.div`
+const SideBarPadder = styled(Flex)`
   width: 100%;
-  position: relative;
+  position: absolute;
   height: 100%;
   padding-top: ${MOBILE_SIDEBAR_HEIGHT}px;
+  margin-top: ${SPACING * 2}px;
+  margin-left: -${SPACING * 2}px;
 
   @media only screen and (min-width: ${(p) => p.theme.breakPoints.sm}px) {
     padding-left: ${SIDEBAR_WIDTH}px;
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-left: ${SPACING * 2}px;
   }
+`
 
+const MaxWidthContainerPadder = styled(MaxWidthContainer)`
+  position: relative;
+  height: 100%;
 `
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
@@ -48,11 +58,15 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
         <Providers>
           <Header />
           <Background>
-          <SideBar />
-          <SideBarPadder>
-            <Component {...pageProps} />
-          </SideBarPadder>
+            <MaxWidthContainerPadder row>
+              <SideBar />
+              <SideBarPadder column>
+                <Component {...pageProps} />
+                <Spacer x={2} />
+              </SideBarPadder>
+            </MaxWidthContainerPadder>
           </Background>
+          <Footer />
         </Providers>
       </ThemeProvider>
     </>

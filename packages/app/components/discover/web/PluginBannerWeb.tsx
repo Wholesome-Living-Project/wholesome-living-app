@@ -1,25 +1,28 @@
 import { FontAwesome, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { PluginType } from 'app/helpers/pluginList'
 import { alpha } from 'app/theme/alpha'
-import { COLORS, SPACING } from 'app/theme/theme'
-import { LinearGradient } from 'expo-linear-gradient'
+import { COLORS, INNER_BORDER_RADIUS } from 'app/theme/theme'
+import { Flex } from 'axelra-styled-bootstrap-grid'
 import React from 'react'
-import { View } from 'react-native'
 import styled from 'styled-components'
 
-const PluginContainer = styled(View)<{ color?: string }>`
+const PluginContainer = styled.div<{ color?: string }>`
   box-shadow: 0 6px 8px ${alpha(0.5, COLORS.PRIMARY)};
+  border-radius: ${INNER_BORDER_RADIUS}px;
+  overflow: hidden;
 `
 
-const Gradient = styled(LinearGradient)<{ size?: number }>`
-  height: ${(p) => p.size ?? 60}px;
-  width: ${(p) => p.size ?? 60}px;
-  border-radius: ${SPACING}px;
-  justify-content: center;
-  align-items: center;
+const Gradient = styled(Flex)<{ size?: number; color?: string }>`
+  height: ${(p) => p.size ?? 50}px;
+  width: ${(p) => p.size ?? 50}px;
+  background: linear-gradient(
+    90deg,
+    ${(p) => p.color ?? COLORS.PRIMARY} 0%,
+    ${(p) => (p.color ? alpha(0.6, p.color) : COLORS.PRIMARY)} 100%
+  );
 `
 
-const PluginBanner = ({
+const PluginBannerWeb = ({
   color,
   icon,
   faIcon,
@@ -29,10 +32,7 @@ const PluginBanner = ({
 }: PluginType & { size?: number }) => {
   return (
     <PluginContainer>
-      <Gradient
-        colors={[color ?? COLORS.PRIMARY, color ? alpha(0.6, color) : COLORS.PRIMARY]}
-        start={{ x: 0.1, y: 0.4 }}
-        size={size}>
+      <Gradient size={50} color={color} justify={'center'} align={'center'} row>
         {icon && (
           <MaterialCommunityIcons size={size ? size * 0.5 : 30} color={COLORS.WHITE} name={icon} />
         )}
@@ -46,4 +46,4 @@ const PluginBanner = ({
   )
 }
 
-export default PluginBanner
+export default PluginBannerWeb
