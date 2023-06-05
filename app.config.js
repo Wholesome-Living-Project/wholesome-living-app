@@ -2,14 +2,19 @@ require('dotenv/config')
 
 export default {
   expo: {
-    name: 'wholesome-living',
+    name: 'Wholesome Living',
     slug: 'wholesome-living',
-    version: '0.0.1',
+    version: '1.0.0',
     scheme: 'wholesome-living',
     platforms: ['ios', 'android'],
     orientation: 'portrait',
+    icon: './assets/images/icon.png',
+    splash: {
+      image: './assets/images/splash.png',
+    },
     ios: {
       bundleIdentifier: 'com.wholesome-living',
+      buildNumber: '1.0.0',
     },
     extra: {
       FIREBASE_API_KEY: process.env['FIREBASE_API_KEY'],
@@ -19,6 +24,9 @@ export default {
       FIREBASE_MESSAGING_SENDER_ID: process.env['FIREBASE_MESSAGING_SENDER_ID'],
       FIREBASE_APP_ID: process.env['FIREBASE_APP_ID'],
       GITHUB_ACCESS_TOKEN: process.env['GITHUB_ACCESS_TOKEN'],
+      eas: {
+        projectId: '475aab41-a2c2-4c33-8ec9-608097d85ec1',
+      },
     },
   },
 }

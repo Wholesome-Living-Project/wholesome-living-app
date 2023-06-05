@@ -31,7 +31,7 @@ const Discover = () => {
         renderItem={({ item }) => (
           <Fragment>
             <Spacer x={2} />
-            <Plugin plugin={item} />
+            <Plugin plugin={item as PluginType} />
             <Spacer x={0.5} />
           </Fragment>
         )}

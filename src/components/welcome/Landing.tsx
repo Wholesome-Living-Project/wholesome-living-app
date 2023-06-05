@@ -3,7 +3,7 @@ import { Image, View } from 'react-native'
 import styled from 'styled-components'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { COLORS } from '../../theme/theme'
-import { Heading1 } from '../../theme/typography'
+import { Heading2 } from '../../theme/typography'
 import Spacer from '../ui/Spacer'
 import BrushSvg from './BrushSvg'
 
@@ -45,7 +45,7 @@ const Landing = () => {
       <TitleWrapper>
         <BrushSvg />
         <TitleContainer>
-          <Heading1 color={COLORS.WHITE}>Wholesome Living</Heading1>
+          <Heading2 color={COLORS.WHITE}>Wholesome Living</Heading2>
         </TitleContainer>
       </TitleWrapper>
     </>
