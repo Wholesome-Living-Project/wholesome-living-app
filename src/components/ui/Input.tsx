@@ -3,11 +3,13 @@ import React, { forwardRef, useState } from 'react'
 import { TextInput, TextInputProps } from 'react-native'
 import styled from 'styled-components/native'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
+import { Light } from '../../theme/typography'
 
 type InputProps = {
   small?: boolean
   fullWidth?: boolean
   maxWidth?: number
+  errorMsg?: string
 }
 
 type Props = { color?: string; link?: string; minHeight?: number } & InputProps & TextInputProps
@@ -16,8 +18,13 @@ const InputField = styled(TextInput)<{
   minHeight?: number
   edit?: boolean
   isFocused?: boolean
+  errorMsg?: string
 }>`
-  border: 1.5px solid ${(p) => alpha(p.edit ? (p.isFocused ? 0.8 : 0.3) : 0.3, COLORS.SECONDARY)};
+  border: 1.5px solid
+    ${(p) =>
+      p.errorMsg
+        ? COLORS.RED
+        : alpha(p.edit ? (p.isFocused ? 0.8 : 0.3) : 0.3, COLORS.SECONDARY)};
   border-radius: ${OUTER_BORDER_RADIUS}px;
   padding: ${SPACING * 1.5}px;
   font-size: 18px;
@@ -26,24 +33,27 @@ const InputField = styled(TextInput)<{
 `
 
 const Input = forwardRef<TextInput, Props>(
-  ({ small, minHeight, fullWidth, maxWidth, editable = true, ...rest }, ref) => {
+  ({ small, minHeight, fullWidth, maxWidth, errorMsg, editable = true, ...rest }, ref) => {
     const [isFocused, setIsFocused] = useState(false)
 
     return (
-      <InputField
-        placeholderTextColor={alpha(editable ? 0.3 : 0.1, COLORS.BLACK)}
-        minHeight={minHeight}
-        isFocused={isFocused}
-        ref={ref}
-        {...rest}
-        edit={editable}
-        onFocus={() => {
-          editable && setIsFocused(true)
-        }}
-        onBlur={() => {
-          setIsFocused(false)
-        }}
-      />
+      <>
+        <InputField
+          placeholderTextColor={alpha(editable ? 0.3 : 0.1, COLORS.BLACK)}
+          minHeight={minHeight}
+          isFocused={isFocused}
+          ref={ref}
+          {...rest}
+          edit={editable}
+          onFocus={() => {
+            editable && setIsFocused(true)
+          }}
+          onBlur={() => {
+            setIsFocused(false)
+          }}
+        />
+        {errorMsg && <Light color={COLORS.RED}>{errorMsg}</Light>}
+      </>
     )
   }
 )

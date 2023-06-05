@@ -22,6 +22,30 @@ const NameWrapper = styled(View)`
   flex: 1;
 `
 
+const validateEmail = (email: string) => {
+  // Basic email validation check
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return regex.test(email)
+}
+
+const validateName = (name: string) => {
+  // Name validation check (only allowing letters, spaces, and hyphens)
+  const regex = /^[A-Za-z\s-]+$/
+  return regex.test(name) && name.length >= 2 
+}
+
+const validatePassword = (password: string) => {
+  // Password validation check (e.g., minimum length, specific characters)
+  return password.length >= 8
+}
+
+type ValidationErrors = {
+  firstName?: string
+  lastName?: string
+  password?: string
+  email?: string
+}
+
 const SignupForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -32,6 +56,7 @@ const SignupForm = () => {
   const { createUserWithEmailAndPassword } = useAuthentication()
 
   const [buttonDisabled, setButtonDisabled] = useState(false)
+  const [errors, setErrors] = useState<ValidationErrors>({})
 
   useEffect(() => {
     setButtonDisabled(isOneEmpty)
@@ -41,6 +66,11 @@ const SignupForm = () => {
     !(Boolean(email) && Boolean(password) && Boolean(firstName) && Boolean(lastName))
 
   const submit = useCallback(async () => {
+    console.log("validateAll", validateAll())
+    if (!validateAll()){
+      return
+    }
+
     try {
       await createUserWithEmailAndPassword({
         email,
@@ -55,31 +85,60 @@ const SignupForm = () => {
     }
   }, [createUserWithEmailAndPassword, dateOfBirth, email, firstName, lastName, password, router])
 
+  const validateAll = useCallback(() => {
+    const err: ValidationErrors = {}
+
+    if (!validateEmail(email)) {
+      err.email = 'Please enter a valid email address.'
+    }
+
+    if (!validateName(firstName)) {
+      err.firstName = 'Please enter a valid first name.'
+    }
+
+    if (!validateName(lastName)) {
+      err.lastName = 'Please enter a valid last name.'
+    }
+
+    if (!validatePassword(password)) {
+      err.password = 'Please enter a valid password (min. 8 letters).'
+    }
+
+    setErrors(err)
+    return !Boolean(err.firstName || err.lastName || err.email || err.password)
+  }, [email, firstName, lastName, password, errors])
+
   return (
     <Wrapper maxWidthWeb={300}>
       <Heading3 color={COLORS.PRIMARY}>Register</Heading3>
       <Spacer x={4} />
-      <NameWrapper>
-        <Input
-          placeholder={'First Name'}
-          value={firstName}
-          onChangeText={(text) => setFirstName(text)}
-        />
-        <Spacer x={2} />
-        <Input
-          placeholder={'Last Name'}
-          value={lastName}
-          onChangeText={(text) => setLastName(text)}
-        />
-      </NameWrapper>
+      <Input
+        placeholder={'First Name'}
+        value={firstName}
+        onChangeText={(text) => setFirstName(text)}
+        errorMsg={errors.firstName}
+      />
       <Spacer x={2} />
-      <Input placeholder={'Email'} value={email} onChangeText={(text) => setEmail(text)} />
-      <Spacer x={2} />
+      <Input
+        placeholder={'Last Name'}
+        value={lastName}
+        onChangeText={(text) => setLastName(text)}
+        errorMsg={errors.lastName}
+      />
+      <Spacer x={3} />
+      <Input
+        placeholder={'Email'}
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+        errorMsg={errors.email}
+      />
+      <Spacer x={1} />
       <Input
         placeholder={'Password'}
         value={password}
         secureTextEntry
         onChangeText={(text) => setPassword(text)}
+        errorMsg={errors.password}
       />
       <Spacer x={4} />
       <Button buttonType={'primary'} disabled={buttonDisabled} onPress={() => submit()}>
