@@ -20,11 +20,11 @@ const InputField = styled(TextInput)<{
   isFocused?: boolean
   errorMsg?: string
 }>`
-  border: 1.5px solid
-    ${(p) =>
-      p.errorMsg
-        ? COLORS.RED
-        : alpha(p.edit ? (p.isFocused ? 0.8 : 0.3) : 0.3, COLORS.SECONDARY)};
+  border: 1.5px solid ${(p) => (
+      p.errorMsg ? 
+      COLORS.RED : 
+      alpha(p.edit ? (p.isFocused ? 0.8 : 0.3) : 0.3, COLORS.SECONDARY)
+    )};
   border-radius: ${OUTER_BORDER_RADIUS}px;
   padding: ${SPACING * 1.5}px;
   font-size: 18px;
@@ -51,6 +51,7 @@ const Input = forwardRef<TextInput, Props>(
           onBlur={() => {
             setIsFocused(false)
           }}
+          errorMsg={errorMsg}
         />
         {errorMsg && <Light color={COLORS.RED}>{errorMsg}</Light>}
       </>

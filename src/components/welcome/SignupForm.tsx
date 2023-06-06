@@ -9,6 +9,7 @@ import Button from '../ui/Button'
 import { ComponentWidthWeb } from '../ui/ComponentWidthWeb'
 import Input from '../ui/Input'
 import Spacer from '../ui/Spacer'
+import { validateEmail, validateName, validatePassword } from '../../helpers/validateFields'
 
 const Wrapper = styled(ComponentWidthWeb)`
   padding: 10px 30px;
@@ -16,28 +17,13 @@ const Wrapper = styled(ComponentWidthWeb)`
   flex: 1;
 `
 
+// maybe not needed anymore
 const NameWrapper = styled(View)`
   display: flex;
   flex-direction: row;
   flex: 1;
 `
 
-const validateEmail = (email: string) => {
-  // Basic email validation check
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return regex.test(email)
-}
-
-const validateName = (name: string) => {
-  // Name validation check (only allowing letters, spaces, and hyphens)
-  const regex = /^[A-Za-z\s-]+$/
-  return regex.test(name) && name.length >= 2 
-}
-
-const validatePassword = (password: string) => {
-  // Password validation check (e.g., minimum length, specific characters)
-  return password.length >= 8
-}
 
 type ValidationErrors = {
   firstName?: string
@@ -66,7 +52,6 @@ const SignupForm = () => {
     !(Boolean(email) && Boolean(password) && Boolean(firstName) && Boolean(lastName))
 
   const submit = useCallback(async () => {
-    console.log("validateAll", validateAll())
     if (!validateAll()){
       return
     }
@@ -118,7 +103,7 @@ const SignupForm = () => {
         onChangeText={(text) => setFirstName(text)}
         errorMsg={errors.firstName}
       />
-      <Spacer x={2} />
+      <Spacer x={1} />
       <Input
         placeholder={'Last Name'}
         value={lastName}
@@ -144,7 +129,7 @@ const SignupForm = () => {
       <Button buttonType={'primary'} disabled={buttonDisabled} onPress={() => submit()}>
         Submit
       </Button>
-      <Spacer x={20} />
+      <Spacer x={2} />
     </Wrapper>
   )
 }
