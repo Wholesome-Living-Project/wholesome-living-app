@@ -1,6 +1,7 @@
 import React from 'react'
-import { Image, View } from 'react-native'
+import { Image, View, Dimensions} from 'react-native'
 import styled from 'styled-components'
+import { StatusBar } from 'react-native'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { COLORS } from '../../theme/theme'
 import { Heading2 } from '../../theme/typography'
@@ -38,7 +39,7 @@ const Landing = () => {
         <StyledImage
           source={require('../../../assets/images/woman_productive_full_size.jpg')}
           width={windowWidth}
-          height={windowHeight}
+          height={windowHeight + (StatusBar.currentHeight || 0)}
         />
       </AbsoluteContainer>
       <Spacer x={15} />
