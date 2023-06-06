@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { AuthenticationProvider } from './AuthenticationProvider'
+import { ChatProvider } from './ChatProvider'
 import { FinanceProvider } from './FinanceContentProvider'
 import { MeditationProvider } from './MeditationContentProvider'
 import { OnboardingProvider } from './OnboardingProvider'
@@ -11,7 +12,9 @@ export const Providers = ({ children }: PropsWithChildren) => {
       <FinanceProvider>
         <MeditationProvider>
           <OnboardingProvider>
-            <SafeScreenProvider>{children}</SafeScreenProvider>
+            <ChatProvider>
+              <SafeScreenProvider>{children}</SafeScreenProvider>
+            </ChatProvider>
           </OnboardingProvider>
         </MeditationProvider>
       </FinanceProvider>

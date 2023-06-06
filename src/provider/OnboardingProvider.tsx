@@ -108,6 +108,8 @@ const useProvideOnboarding = (): OnboardingType => {
     chosenPlugins,
     financeSaveReminderNotification,
     meditateReminderNotification,
+    notificationFrequency,
+    notificationPeriod,
     roundUpNumber,
     selectedGoalNumber,
     selectedGoalPeriod,
