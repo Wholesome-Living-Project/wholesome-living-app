@@ -1,8 +1,10 @@
 import React from 'react'
 import { Image } from 'react-native'
 import styled from 'styled-components'
+import { clamp } from '../../helpers/clamp'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
 import { Caption, Regular } from '../../theme/typography'
+import ExperienceBar from '../ui/ExperienceBar'
 import { Flex } from '../ui/Flex'
 
 const Container = styled(Flex)`
@@ -25,48 +27,31 @@ const LevelComponent = styled(Flex)`
   padding: ${SPACING}px;
 `
 
-const ExperienceBackground = styled(Flex)`
-  width: 100%;
-  background: ${COLORS.BLACK};
-  border-radius: ${OUTER_BORDER_RADIUS}px;
-  height: 12px;
-  border: 3px solid ${COLORS.BLACK};
-  position: relative;
-`
-
-const Experience = styled(Flex)`
-  width: 40%;
-  height: 100%;
-  background: ${COLORS.WHITE};
-`
-
 type Props = {
   height: number
-  experience: number
-  level: number
-  experienceToNextLevel: number
+  experience?: number
+  level?: number
+  experienceToNextLevel?: number
 }
 
 const levelAssets = [
-  require('../../../assets/images/levels/seed.png'),
-  require('../../../assets/images/levels/sprout.png'),
-  require('../../../assets/images/levels/sapling.png'),
-  require('../../../assets/images/levels/small.png'),
-  require('../../../assets/images/levels/middle.png'),
-  require('../../../assets/images/levels/big.png'),
+  require('../../../assets/images/levels/seed_small.png'),
+  require('../../../assets/images/levels/sprout_small.png'),
+  require('../../../assets/images/levels/sapling_small.png'),
+  require('../../../assets/images/levels/small_small.png'),
+  require('../../../assets/images/levels/middle_small.png'),
+  require('../../../assets/images/levels/big_small.png'),
 ]
 
-const Tree = ({ height, experience, level, experienceToNextLevel }: Props) => {
+const Tree = ({ height, experience = 0, level = 1, experienceToNextLevel = 15 }: Props) => {
   return (
     <Container style={{ height }} row justify={'center'} align={'center'}>
-      <StyledImage source={levelAssets[level - 1]} style={{ width: 300, height: 300 }} />
+      <Image source={levelAssets[level - 1]} style={{ width: 300, height: 300 }} />
       <LevelComponent>
         <Regular color={COLORS.WHITE}>Level {level}</Regular>
-        <ExperienceBackground>
-          <Experience />
-        </ExperienceBackground>
+        <ExperienceBar progress={(100 / experienceToNextLevel) * experience} />
         <Caption color={COLORS.WHITE}>
-          Exp: {experience}/{experienceToNextLevel}
+          Exp: {clamp(experience, 0, experienceToNextLevel)}/{experienceToNextLevel}
         </Caption>
       </LevelComponent>
     </Container>

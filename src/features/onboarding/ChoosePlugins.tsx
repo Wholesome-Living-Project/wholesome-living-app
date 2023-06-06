@@ -2,7 +2,7 @@ import React, { Fragment, useCallback } from 'react'
 import { Text } from 'react-native'
 import { Divider } from 'react-native-elements'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../api/openapi'
+import { SettingsPluginName } from '../../../api/openapi'
 import Plugin from '../../components/discover/Plugin'
 import OnboardingStep from '../../components/onboarding/OnboardingStep'
 import { Flex } from '../../components/ui/Flex'
@@ -39,7 +39,7 @@ const ChoosePlugins = () => {
   const { patchUser } = useAuthentication()
 
   const addPlugin = useCallback(
-    (plugin: UserPluginName) => {
+    (plugin: SettingsPluginName) => {
       const route = PLUGINS[plugin].onboardingRoute
       const steps = PLUGINS[plugin].onboardingSubRoutes
       const stepArray = steps?.map((step) => route + '/' + step)

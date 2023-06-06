@@ -4,7 +4,7 @@ import { useRootNavigation } from 'expo-router'
 import React, { useMemo } from 'react'
 import { Image, ImageSourcePropType, Pressable, View } from 'react-native'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../api/openapi'
+import { SettingsPluginName } from '../../../api/openapi'
 import { PLUGINS, PLUGIN_COLORS } from '../../helpers/pluginList'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { COLORS, IO_COMPONENT_WIDTH_PERCENT, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
@@ -51,7 +51,7 @@ const StyledImage = styled(Image)<{ width: number }>`
 `
 
 type Props = {
-  plugin: UserPluginName
+  plugin: SettingsPluginName
   content?: React.ReactNode
   backgroundImage?: ImageSourcePropType
 }

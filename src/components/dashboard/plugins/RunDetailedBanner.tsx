@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../../api/openapi'
+import { SettingsPluginName } from '../../../../api/openapi'
 import { COLORS } from '../../../theme/theme'
 import { Regular } from '../../../theme/typography'
 import PluginDetailedBanner from '../PluginDetailedBanner'
@@ -26,7 +26,7 @@ const RunDetailedBanner = () => {
   return (
     <PluginDetailedBanner
       content={<Content />}
-      plugin={UserPluginName.PluginNameElevator}
+      plugin={SettingsPluginName.PluginNameElevator}
       backgroundImage={require('../../../../assets/images/man_walking_stairs.jpg')}
     />
   )

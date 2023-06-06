@@ -42,7 +42,7 @@ const Meditation = () => {
     <ScrollView>
       <StyledImage source={require('../../../assets/images/woman_meditation.jpg')} />
       <Spacer x={10} />
-      <Tree height={IMAGE_HEIGHT} experience={12} level={6} experienceToNextLevel={15} />
+      <Tree height={IMAGE_HEIGHT} experience={3} level={6} experienceToNextLevel={15} />
       <Container align={'center'}>
         <Text>Unmute phone to hear a sound when you're done</Text>
         <Spacer x={2} />

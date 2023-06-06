@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, View } from 'react-native'
 import { Divider } from 'react-native-elements'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../../api/openapi'
+import { SettingsPluginName } from '../../../../api/openapi'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
 import { Flex } from '../../../components/ui/Flex'
 import Spacer from '../../../components/ui/Spacer'
@@ -23,7 +23,7 @@ const Notifications = () => {
   return (
     <OnboardingStep
       primaryText={'Continue'}
-      plugin={UserPluginName.PluginNameElevator}
+      plugin={SettingsPluginName.PluginNameElevator}
       onPressPrimary={() => {}}>
       <View>
         <Heading4>Notifications</Heading4>

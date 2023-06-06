@@ -51,10 +51,10 @@ export const Background = styled(Image)`
 `
 
 export const levelComponents = [
-  <Seed source={require('../../../assets/images/levels_raw/seed.png')} />,
-  <Sprout source={require('../../../assets/images/levels_raw/sprout.png')} />,
-  <Sapling source={require('../../../assets/images/levels_raw/sapling.png')} />,
-  <Small source={require('../../../assets/images/levels_raw/small.png')} />,
-  <Middle source={require('../../../assets/images/levels_raw/middle.png')} />,
-  <Big source={require('../../../assets/images/levels_raw/big.png')} />,
+  <Seed source={require('../../../assets/images/levels/seed_small.png')} />,
+  <Sprout source={require('../../../assets/images/levels_raw/sprout_small.png')} />,
+  <Sapling source={require('../../../assets/images/levels_raw/sapling_small.png')} />,
+  <Small source={require('../../../assets/images/levels_raw/small_small.png')} />,
+  <Middle source={require('../../../assets/images/levels_raw/middle_small.png')} />,
+  <Big source={require('../../../assets/images/levels_raw/big_small.png')} />,
 ]

@@ -1,9 +1,23 @@
 import React, { PropsWithChildren } from 'react'
-import { Dripsy as DripsyProvider } from './DripsyProvider'
+import { AuthenticationProvider } from './AuthenticationProvider'
+import { FinanceProvider } from './FinanceContentProvider'
+import { LevelProvider } from './LevelProvider'
+import { MeditationProvider } from './MeditationContentProvider'
+import { OnboardingProvider } from './OnboardingProvider'
+import SafeScreenProvider from './SafeScreenProvider'
 
-// add providers here
-const Providers = ({ children }: PropsWithChildren) => {
-  return <DripsyProvider>{children}</DripsyProvider>
+export const Providers = ({ children }: PropsWithChildren) => {
+  return (
+    <AuthenticationProvider>
+      <FinanceProvider>
+        <LevelProvider>
+          <MeditationProvider>
+            <OnboardingProvider>
+              <SafeScreenProvider>{children}</SafeScreenProvider>
+            </OnboardingProvider>
+          </MeditationProvider>
+        </LevelProvider>
+      </FinanceProvider>
+    </AuthenticationProvider>
+  )
 }
-
-export default Providers

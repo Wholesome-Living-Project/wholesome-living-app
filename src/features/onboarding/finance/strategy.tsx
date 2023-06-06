@@ -2,7 +2,7 @@ import { Picker } from '@react-native-picker/picker'
 import React from 'react'
 import { View } from 'react-native'
 import { Divider } from 'react-native-elements'
-import { UserPluginName } from '../../../../api/openapi'
+import { SettingsPluginName } from '../../../../api/openapi'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
 import Spacer from '../../../components/ui/Spacer'
 import { useOnboarding } from '../../../provider/OnboardingProvider'
@@ -14,7 +14,7 @@ const Strategy = () => {
   return (
     <OnboardingStep
       primaryText={'Continue'}
-      plugin={UserPluginName.PluginNameFinance}
+      plugin={SettingsPluginName.PluginNameFinance}
       onPressPrimary={() => {}}>
       <View>
         <Heading4>Choose your saving strategy</Heading4>

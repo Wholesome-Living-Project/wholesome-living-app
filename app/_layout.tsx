@@ -2,7 +2,7 @@ import { Stack } from 'expo-router'
 import React from 'react'
 import 'react-native-url-polyfill/auto'
 import TimePickerModal from '../src/components/dashboard/plugins/TimePickerModal'
-import { Providers } from '../src/provider/ProvidersMobile'
+import { Providers } from '../src/provider/Providers'
 
 export default function Layout() {
   return (

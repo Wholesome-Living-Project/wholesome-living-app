@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { FlatList } from 'react-native'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../api/openapi'
+import { SettingsPluginName } from '../../../api/openapi'
 import { PLUGINS, PluginType } from '../../helpers/pluginList'
 import { useUser } from '../../hooks/useUser'
 import { Heading4 } from '../../theme/typography'
@@ -24,7 +24,7 @@ const Discover = () => {
 
       <StyledList
         data={Object.values(PLUGINS).filter(
-          (plugin: PluginType) => !user?.plugins?.includes(plugin?.plugin as UserPluginName)
+          (plugin: PluginType) => !user?.plugins?.includes(plugin?.plugin as SettingsPluginName)
         )}
         horizontal
         showsHorizontalScrollIndicator={false}

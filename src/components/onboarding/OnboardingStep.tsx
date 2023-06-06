@@ -4,7 +4,7 @@ import React, { PropsWithChildren, useMemo } from 'react'
 import { Button as NativeButton, ScrollView } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../api/openapi'
+import { SettingsPluginName } from '../../../api/openapi'
 import { PLUGINS } from '../../helpers/pluginList'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useOnboarding } from '../../provider/OnboardingProvider'
@@ -36,7 +36,7 @@ type Props = {
   secondaryText?: string
   infoText?: string
   primaryDisabled?: boolean
-  plugin?: UserPluginName
+  plugin?: SettingsPluginName
   secondaryDisabled?: boolean
   nextStep?: string
   canSkip?: boolean

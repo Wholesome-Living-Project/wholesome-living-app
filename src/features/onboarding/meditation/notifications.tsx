@@ -2,13 +2,13 @@ import React from 'react'
 import { Switch, View } from 'react-native'
 import { Divider } from 'react-native-elements'
 import styled from 'styled-components'
+import { SettingsPluginName } from '../../../../api/openapi'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
 import { Flex } from '../../../components/ui/Flex'
 import Spacer from '../../../components/ui/Spacer'
 import { useOnboarding } from '../../../provider/OnboardingProvider'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../../theme/theme'
 import { Heading4, Light, Regular } from '../../../theme/typography'
-import { UserPluginName } from "../../../../api/openapi";
 
 const NotificationOption = styled(Flex)`
   padding: ${SPACING}px ${SPACING * 2}px;
@@ -23,7 +23,7 @@ const Notifications = () => {
   return (
     <OnboardingStep
       primaryText={'Continue'}
-      plugin={UserPluginName.PluginNameMeditation}
+      plugin={SettingsPluginName.PluginNameMeditation}
       onPressPrimary={() => {}}>
       <View>
         <Heading4>Notifications</Heading4>

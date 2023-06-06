@@ -1,11 +1,11 @@
+import { SettingsPluginName } from '../../api/openapi'
 import { EXTRA_COLORS } from '../theme/theme'
 import { FontAwesomeType } from '../types/FontAwesome'
 import { IonIconType } from '../types/IonIcon'
 import { MaterialCommunityType } from '../types/MaterialCommunity'
 import { MaterialIconsType } from '../types/MaterialIcons'
-import { UserPluginName } from "../../api/openapi";
 
-export const PLUGIN_COLORS: { [key in UserPluginName]: string } = {
+export const PLUGIN_COLORS: { [key in SettingsPluginName]: string } = {
   meditation: EXTRA_COLORS.BLUE,
   finance: EXTRA_COLORS.PURPLE,
   elevator: EXTRA_COLORS.FINA,
@@ -19,15 +19,15 @@ export type PluginType = {
   faIcon?: FontAwesomeType
   ionIcon?: IonIconType
   icon?: MaterialCommunityType
-  plugin?: UserPluginName
+  plugin?: SettingsPluginName
   onboardingRoute?: string
   onboardingSubRoutes?: string[]
 }
 
-export const PLUGINS: { [key in UserPluginName]: PluginType } = {
+export const PLUGINS: { [key in SettingsPluginName]: PluginType } = {
   meditation: {
     title: 'Meditate',
-    plugin: UserPluginName.PluginNameMeditation,
+    plugin: SettingsPluginName.PluginNameMeditation,
     color: PLUGIN_COLORS.meditation,
     icon: 'meditation',
     route: 'meditation',
@@ -37,7 +37,7 @@ export const PLUGINS: { [key in UserPluginName]: PluginType } = {
   finance: {
     title: 'Finance',
     color: PLUGIN_COLORS.finance,
-    plugin: UserPluginName.PluginNameFinance,
+    plugin: SettingsPluginName.PluginNameFinance,
     icon: 'finance',
     route: 'finance',
     onboardingRoute: 'finance',
@@ -46,7 +46,7 @@ export const PLUGINS: { [key in UserPluginName]: PluginType } = {
   elevator: {
     title: 'Stairs',
     color: PLUGIN_COLORS.elevator,
-    plugin: UserPluginName.PluginNameElevator,
+    plugin: SettingsPluginName.PluginNameElevator,
     icon: 'elevator-passenger',
     route: 'elevator',
     onboardingRoute: 'elevator',

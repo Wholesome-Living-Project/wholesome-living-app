@@ -62,7 +62,7 @@
                 }
             },
             "post": {
-                "description": "Creates a new investment.",
+                "description": "Creates a new spending.",
                 "consumes": [
                     "*/*"
                 ],
@@ -72,7 +72,7 @@
                 "tags": [
                     "finance"
                 ],
-                "summary": "Create a investment.",
+                "summary": "Create a spending.",
                 "parameters": [
                     {
                         "type": "string",
@@ -82,12 +82,12 @@
                         "required": true
                     },
                     {
-                        "description": "investment to create",
+                        "description": "spending to create",
                         "name": "investment",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/finance.createInvestmentRequest"
+                            "$ref": "#/definitions/finance.createSpendingRequest"
                         }
                     }
                 ],
@@ -95,7 +95,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/finance.createInvestmentResponse"
+                            "$ref": "#/definitions/finance.createSpendingResponse"
                         }
                     }
                 }
@@ -184,7 +184,8 @@
                         "type": "string",
                         "description": "User ID",
                         "name": "userId",
-                        "in": "header"
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -193,6 +194,32 @@
                         "schema": {
                             "$ref": "#/definitions/meditation.createMeditationResponse"
                         }
+                    }
+                }
+            }
+        },
+        "/progress": {
+            "get": {
+                "description": "fetch progress and level for a user.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "progress"
+                ],
+                "summary": "Get progress nad level for a user.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "userId",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
                     }
                 }
             }
@@ -656,7 +683,7 @@
         }
     },
     "definitions": {
-        "finance.createInvestmentRequest": {
+        "finance.createSpendingRequest": {
             "type": "object",
             "properties": {
                 "amount": {
@@ -665,12 +692,12 @@
                 "description": {
                     "type": "string"
                 },
-                "investmentTime": {
+                "spendingTime": {
                     "type": "integer"
                 }
             }
         },
-        "finance.createInvestmentResponse": {
+        "finance.createSpendingResponse": {
             "type": "object",
             "properties": {
                 "id": {
@@ -684,7 +711,7 @@
                 "amount": {
                     "type": "integer"
                 },
-                "investmentTime": {
+                "spendingTime": {
                     "type": "integer"
                 },
                 "userId": {
@@ -900,19 +927,6 @@
                 }
             }
         },
-        "user.PluginName": {
-            "type": "string",
-            "enum": [
-                "meditation",
-                "finance",
-                "elevator"
-            ],
-            "x-enum-varnames": [
-                "PluginNameMeditation",
-                "PluginNameFinance",
-                "PluginNameElevator"
-            ]
-        },
         "user.UserDB": {
             "type": "object",
             "properties": {
@@ -933,12 +947,6 @@
                 },
                 "lastName": {
                     "type": "string"
-                },
-                "plugins": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/user.PluginName"
-                    }
                 }
             }
         },
@@ -984,12 +992,6 @@
                 },
                 "lastName": {
                     "type": "string"
-                },
-                "plugins": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/user.PluginName"
-                    }
                 }
             }
         }
