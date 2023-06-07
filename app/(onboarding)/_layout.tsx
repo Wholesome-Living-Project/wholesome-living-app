@@ -8,6 +8,7 @@ export default function Layout() {
     <>
       <Stack initialRouteName={'index'} screenOptions={{ headerShown: false }}>
         <Stack.Screen name={'index'} />
+        <Stack.Screen name={'choose-plugins'} />
       </Stack>
       <StatusBar style="dark" />
     </>

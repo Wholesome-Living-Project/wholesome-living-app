@@ -1,5 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { KeyboardAvoidingView, ScrollView, Text } from 'react-native'
+import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 import Button from '../../components/ui/Button'
 import { Flex } from '../../components/ui/Flex'
@@ -38,6 +39,7 @@ const Message = styled(Flex)<{ isUser: boolean }>`
   border-radius: 20px;
   padding: ${SPACING * 2}px;
   max-width: 320px;
+  min-width: 60px;
   margin-right: ${(p) => (p.isUser ? `${SPACING}px` : 'auto')};
   margin-left: ${(p) => (p.isUser ? 'auto' : `${SPACING}px`)};
   border: solid ${COLORS.PRIMARY};
@@ -56,6 +58,8 @@ const Chat = () => {
   const scrollRef = useRef<ScrollView | null>(null)
   const { windowHeight } = useWindowDimensions()
   const [footerHeight, setFooterHeight] = useState(0)
+
+  const navigation = useNavigation()
 
   const onSend = useCallback(async () => {
     setMessages([
@@ -97,10 +101,7 @@ const Chat = () => {
                   <MessageHeader column align={m.role === 'user' ? 'flex-end' : 'flex-start'}>
                     <Regular>{m.role === 'user' ? 'You' : 'AI Bot'}</Regular>
                   </MessageHeader>
-                  <Message
-                    isUser={m.role === 'user'}
-                    column
-                    align={m.role === 'user' ? 'flex-end' : 'flex-start'}>
+                  <Message isUser={m.role === 'user'} column align={'center'}>
                     <ChatText>{m.content}</ChatText>
                   </Message>
                 </Fragment>
@@ -113,22 +114,30 @@ const Chat = () => {
       <Footer
         bottom={keyboardOpen ? keyboardHeight : 0}
         onLayout={(e) => {
-          e.persist()
-          e.nativeEvent && setFooterHeight(e.nativeEvent.layout.height)
+          const height = e.nativeEvent?.layout.height
+          height && setFooterHeight(height)
         }}>
-        <Input
-          value={message}
-          onChangeText={(value: string) => setMessage(value)}
-          placeholder={'Your message'}
-          multiline
-          minHeight={80}
-        />
-        <Spacer x={2} />
-        <Flex>
-          <Button onPress={onSend} small>
-            Send
+        {messages.length <= 12 ? (
+          <>
+            <Input
+              value={message}
+              onChangeText={(value: string) => setMessage(value)}
+              placeholder={'Your message'}
+              multiline
+              minHeight={80}
+            />
+            <Spacer x={2} />
+            <Flex>
+              <Button onPress={onSend} small>
+                Send
+              </Button>
+            </Flex>
+          </>
+        ) : (
+          <Button onPress={() => navigation?.navigate('choose-plugins')} fullWidth>
+            continue
           </Button>
-        </Flex>
+        )}
       </Footer>
     </Flex>
   )
