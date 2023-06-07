@@ -17,6 +17,7 @@ export default function Layout() {
       <Stack.Screen name={'personal'} options={{ title: 'Personal Information' }} />
       <Stack.Screen name={'privacy'} options={{ title: 'Privacy' }} />
       <Stack.Screen name={'security'} options={{ title: 'Security' }} />
+      <Stack.Screen name={'academy'} options={{ title: 'Academy' }} />
     </Stack>
   )
 }

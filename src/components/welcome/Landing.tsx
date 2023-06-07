@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, View } from 'react-native'
+import { Image, StatusBar, View } from 'react-native'
 import styled from 'styled-components'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import Spacer from '../ui/Spacer'
@@ -39,7 +39,7 @@ const Landing = () => {
         <StyledImage
           source={require('../../../assets/images/meditation_full_size_1.jpg')}
           width={windowWidth}
-          height={windowHeight}
+          height={windowHeight + (StatusBar.currentHeight || 0)}
         />
       </AbsoluteContainer>
       <Spacer x={15} />
