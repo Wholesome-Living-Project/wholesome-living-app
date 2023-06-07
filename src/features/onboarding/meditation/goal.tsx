@@ -1,15 +1,17 @@
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Picker } from '@react-native-picker/picker'
-import React from 'react'
-import { View } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { Platform, View } from 'react-native'
 import styled from 'styled-components'
 import { UserPluginName } from '../../../../api/openapi'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
 import { Flex } from '../../../components/ui/Flex'
 import Spacer from '../../../components/ui/Spacer'
 import { useOnboarding } from '../../../provider/OnboardingProvider'
-import { COLORS, OUTER_BORDER_RADIUS } from '../../../theme/theme'
-import { Heading4, Light } from '../../../theme/typography'
+import { COLORS, EXTRA_COLORS, OUTER_BORDER_RADIUS } from '../../../theme/theme'
+import { Heading4, Heading5, Light } from '../../../theme/typography'
+import Slider from '@react-native-community/slider';
+import { formatTimeMeditation } from '../../../helpers/formatTimeMeditation'
 
 const StyledPicker = styled(Picker)`
   width: 150px;
@@ -29,11 +31,13 @@ const Goal = () => {
     selectedGoalTime,
   } = useOnboarding()
 
+  const [sliderValue, setSliderValue] = useState(3)
+
   return (
     <OnboardingStep
       primaryText={'Continue'}
       plugin={UserPluginName.PluginNameMeditation}
-      onPressPrimary={() => {}}>
+      onPressPrimary={() => { }}>
       <View>
         <Heading4>Choose your goal</Heading4>
         <Light>
@@ -68,24 +72,42 @@ const Goal = () => {
         <Spacer x={3} />
         <Light>
           I want to start with{' '}
-          {selectedGoalTime && (
-            <Light weight={'600'}>
-              {new Date(selectedGoalTime).getHours() > 0 && new Date(selectedGoalTime).getHours()}{' '}
-              {new Date(selectedGoalTime).getHours() > 0 &&
-                (new Date(selectedGoalTime).getHours() === 1 ? 'hour and ' : 'hours and ')}
-              {new Date(selectedGoalTime).getMinutes() > 0 &&
-                new Date(selectedGoalTime).getMinutes()}{' '}
-              {new Date(selectedGoalTime).getMinutes() > 0 &&
-                (new Date(selectedGoalTime).getMinutes() === 1 ? 'minute' : 'minutes')}
-            </Light>
-          )}
+          {Platform.OS === "ios" ?
+            selectedGoalTime && (
+              <Light weight={'600'}>
+                {new Date(selectedGoalTime).getHours() > 0 && new Date(selectedGoalTime).getHours()}{' '}
+                {new Date(selectedGoalTime).getHours() > 0 &&
+                  (new Date(selectedGoalTime).getHours() === 1 ? 'hour and ' : 'hours and ')}
+                {new Date(selectedGoalTime).getMinutes() > 0 &&
+                  new Date(selectedGoalTime).getMinutes()}{' '}
+                {new Date(selectedGoalTime).getMinutes() > 0 &&
+                  (new Date(selectedGoalTime).getMinutes() === 1 ? 'minute' : 'minutes')}
+              </Light>
+            )
+            : 
+            <Heading5>{" " + formatTimeMeditation(sliderValue)}</Heading5>
+          }
         </Light>
         <PickerBackground>
-          <DateTimePicker
-            mode={'countdown'}
-            value={new Date(selectedGoalTime)}
-            display={'spinner'}
-            onChange={(_, date) => setSelectedGoalTime(date?.getTime() ?? new Date().getTime())}
+          {Platform.OS === "ios" &&
+            <DateTimePicker
+              mode={'countdown'}
+              value={new Date(selectedGoalTime)}
+              display={'spinner'}
+              onChange={(_, date) => setSelectedGoalTime(date?.getTime() ?? new Date().getTime())}
+            />
+          }
+          <Slider
+            style={{ width: "100%", height: 50 }}
+            minimumValue={1}
+            maximumValue={70}
+            value={sliderValue}
+            step={1}
+            onValueChange={setSliderValue}
+            onSlidingComplete={setSliderValue}
+            thumbTintColor={EXTRA_COLORS.BLUE}
+            minimumTrackTintColor={EXTRA_COLORS.BLUE}
+            maximumTrackTintColor="#000000"
           />
         </PickerBackground>
       </View>
