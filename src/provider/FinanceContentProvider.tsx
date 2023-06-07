@@ -33,7 +33,6 @@ const useProvideFinance = (): FinanceContentType => {
     (amount: number) => {
       console.log(settings)
       if (!settings?.finance?.strategy || !settings.finance.strategyAmount) return 0
-      console.log('ROUNDING UP TO ', settings.finance.strategyAmount)
       switch (settings?.finance.strategy) {
         case 'Percent':
           return amount * (settings.finance.strategyAmount / 100)
@@ -53,14 +52,10 @@ const useProvideFinance = (): FinanceContentType => {
     async (spending: FinanceCreateSpendingRequest) => {
       if (!user?.id) return
       if (!spending.amount) return
-      console.log('.........................')
-      console.log('saving spending', spending)
-      console.log('saving spending', getSaving(spending.amount))
-
       try {
         await api.financeApi.financePost(user?.id, {
           amount: spending.amount,
-          saving: getSaving(spending.amount),
+          saving: 100,
           description: spending.description,
           spendingTime: spending.spendingTime,
         })
@@ -68,7 +63,7 @@ const useProvideFinance = (): FinanceContentType => {
         console.log(e)
       }
     },
-    [getSaving, user?.id]
+    [user?.id]
   )
 
   const getSpendings = useCallback(async () => {

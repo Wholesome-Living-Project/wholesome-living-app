@@ -21,7 +21,7 @@ const Cards: { [key in SettingsPluginName]: ReactNode } = {
 }
 
 const PluginCards = () => {
-  const { settings } = useOnboarding()
+  const { chosenPlugins } = useOnboarding()
 
   return (
     <Fragment>
@@ -30,7 +30,7 @@ const PluginCards = () => {
       </SectionTitleContainer>
       <Spacer x={1} />
       <StyledScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {settings?.enabledPlugins?.map((plugin) => (
+        {chosenPlugins.map((plugin) => (
           <Fragment key={plugin}>
             <Spacer x={2} />
             {Cards[plugin]}

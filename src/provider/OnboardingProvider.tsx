@@ -7,7 +7,6 @@ import React, {
   useState,
 } from 'react'
 import {
-  SettingsGetSettingsResponse,
   SettingsNotificationType,
   SettingsPluginName,
   SettingsStrategyType,
@@ -50,7 +49,6 @@ type OnboardingType = {
   setNotificationPeriod: (st: SettingsNotificationType) => void
   notificationFrequency: number
   setNotificationFrequency: (st: number) => void
-  settings: SettingsGetSettingsResponse | undefined
 }
 
 const OnboardingContext = createContext<OnboardingType>({} as OnboardingType)
@@ -58,7 +56,6 @@ const OnboardingContext = createContext<OnboardingType>({} as OnboardingType)
 export const useOnboarding = () => useContext(OnboardingContext)
 
 const useProvideOnboarding = (): OnboardingType => {
-  const [settings, setSettings] = useState<SettingsGetSettingsResponse>()
   const [chosenPlugins, setChosenPlugins] = useState<SettingsPluginName[]>([])
   const [chosenPluginSteps, setChosenPluginSteps] = useState<string[]>([])
   const [visitedOnboardingSteps, setVisitedOnboardingSteps] = useState<string[]>([])
@@ -198,15 +195,32 @@ const useProvideOnboarding = (): OnboardingType => {
     try {
       const { data } = await api.settingsApi.settingsGet(user.id)
       if (data) {
-        setSettings(data)
-        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
-        // data.enabledPlugins&&set(data.enabledPlugins)
-        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
-        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
-        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
-        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
-        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
-        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
+        data.enabledPlugins && setChosenPlugins(data.enabledPlugins)
+
+        data.meditation?.meditationTimeGoal &&
+          setSelectedGoalTime(data.meditation.meditationTimeGoal)
+
+        data.meditation?.notifications &&
+          setMeditateReminderNotification(data.meditation.notifications)
+
+        data.meditation?.periodNotifications &&
+          setSelectedGoalPeriod(data.meditation.periodNotifications)
+
+        data.meditation?.amountNotifications &&
+          setSelectedGoalNumber(data.meditation.amountNotifications)
+
+        data.finance?.notifications &&
+          setFinanceSaveReminderNotification(data.finance.notifications)
+
+        data.finance?.strategy && setSelectedStrategy(data.finance.strategy)
+
+        data.finance?.strategyAmount && setRoundUpNumber(data.finance.strategyAmount)
+        data.finance?.investmentGoal && setSavingGoal(String(data.finance.investmentGoal))
+
+        data.finance?.periodNotifications && setNotificationPeriod(data.finance.periodNotifications)
+        data.finance?.amountNotifications &&
+          setNotificationFrequency(data.finance.amountNotifications)
+        data.elevator?.notifications && setTakeElevatorNotification(data.elevator.notifications)
       }
     } catch (e) {
       console.log(e)
@@ -252,7 +266,6 @@ const useProvideOnboarding = (): OnboardingType => {
     setNotificationPeriod,
     notificationFrequency,
     setNotificationFrequency,
-    settings,
   }
 }
 
