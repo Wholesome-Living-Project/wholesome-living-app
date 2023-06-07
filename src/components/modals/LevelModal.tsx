@@ -2,6 +2,7 @@ import BottomSheet from 'axelra-react-native-bottom-sheet'
 import React, { useCallback } from 'react'
 import { Image, Keyboard, Platform } from 'react-native'
 import styled from 'styled-components'
+import { PLUGINS } from '../../helpers/pluginList'
 import { useModal } from '../../hooks/useModal'
 import { useLevels } from '../../provider/LevelProvider'
 import { SPACING } from '../../theme/theme'
@@ -43,7 +44,9 @@ const LevelModal = () => {
       <BottomSheetViewFlex flex={1} justify={'center'} column>
         <Container>
           <Flex row justify={'space-between'}>
-            <Heading3>Meditation</Heading3>
+            <Heading3>
+              {currentlyInspectedPlugin && PLUGINS[currentlyInspectedPlugin].title}
+            </Heading3>
             {currentlyInspectedPlugin && (
               <PluginBanner plugin={currentlyInspectedPlugin} size={50} />
             )}

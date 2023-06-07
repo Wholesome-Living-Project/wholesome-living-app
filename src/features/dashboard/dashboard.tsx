@@ -22,12 +22,12 @@ export function DashboardScreen() {
           backgroundColor: COLORS.WHITE,
         }}
         scrollEventThrottle={16}>
-        <Spacer x={2} />
+        <Spacer x={3} />
         <WelcomeHeader />
         <Forest />
-        <Spacer x={2} />
+        <Spacer x={3} />
         <PluginCards />
-        <Spacer x={2} />
+        <Spacer x={3} />
         <Discover />
         <Spacer x={25} />
       </ScrollView>

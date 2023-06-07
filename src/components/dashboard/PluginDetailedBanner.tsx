@@ -1,25 +1,23 @@
-import { alpha } from 'axelra-react-native-utilities'
-import { LinearGradient } from 'expo-linear-gradient'
 import { useRootNavigation } from 'expo-router'
 import React, { useMemo } from 'react'
-import { Image, ImageSourcePropType, Pressable, View } from 'react-native'
+import { Image, ImageSourcePropType, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../api/openapi'
-import { PLUGINS, PLUGIN_COLORS } from '../../helpers/pluginList'
+import { PLUGINS } from '../../helpers/pluginList'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { COLORS, IO_COMPONENT_WIDTH_PERCENT, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
 import { Heading5 } from '../../theme/typography'
 import PluginBanner from '../discover/PluginBanner'
 import Spacer from '../ui/Spacer'
 
-const Wrapper = styled(Pressable)<{ width: number }>`
+const Wrapper = styled(TouchableOpacity)<{ width: number }>`
   height: 200px;
   width: 200px;
   overflow: hidden;
   position: relative;
 `
 
-const Gradient = styled(LinearGradient)`
+const Container = styled(View)`
   flex: 1;
   padding: ${SPACING * 3}px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
@@ -72,16 +70,14 @@ const PluginDetailedBanner = ({ content, plugin, backgroundImage }: Props) => {
           <StyledImage source={backgroundImage} width={width} />
         </AbsoluteImageContainer>
       )}
-      <Gradient
-        colors={[alpha(0.8, PLUGIN_COLORS[plugin]), alpha(0.2, PLUGIN_COLORS[plugin])]}
-        start={{ x: 0.1, y: 0.3 }}>
+      <Container>
         <TitleContainer>
           <Heading5 color={COLORS.WHITE}>{plugin && PLUGINS[plugin].title}</Heading5>
-          {plugin && <PluginBanner {...PLUGINS[plugin]} size={40} />}
+          {plugin && <PluginBanner plugin={plugin} size={40} />}
         </TitleContainer>
         <Spacer x={2} />
         <ContentWrapper>{content}</ContentWrapper>
-      </Gradient>
+      </Container>
     </Wrapper>
   )
 }

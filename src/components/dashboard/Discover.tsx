@@ -20,7 +20,7 @@ const Discover = () => {
       <SectionTitleContainer>
         <Heading4>Explore Plugins</Heading4>
       </SectionTitleContainer>
-      <Spacer x={2} />
+      <Spacer x={1} />
       <StyledList
         data={Object.values(SettingsPluginName)}
         horizontal
