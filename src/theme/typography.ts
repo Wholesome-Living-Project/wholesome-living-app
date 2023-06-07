@@ -25,7 +25,7 @@ export type TextProps = {
 
 export const HeadingRoot = css`
   font-weight: 500;
-  margin: ${SPACING}px 0;
+  margin: ${SPACING / 3}px 0;
 `
 
 export type AttrProps = {

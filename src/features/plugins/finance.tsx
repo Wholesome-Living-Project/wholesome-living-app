@@ -1,50 +1,49 @@
-import { FontAwesome } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useRootNavigation } from 'expo-router'
-import React, { useCallback, useEffect, useState } from 'react'
-import { Dimensions, Image, ScrollView, View } from 'react-native'
-import { LineChart } from 'react-native-chart-kit'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { ScrollView, TouchableOpacity } from 'react-native'
 import styled from 'styled-components'
+import { SettingsPluginName } from '../../../api/openapi'
 import FinanceHistory from '../../components/dashboard/plugins/FinanceHistory'
 import Button from '../../components/ui/Button'
 import { Flex } from '../../components/ui/Flex'
 import Input from '../../components/ui/Input'
 import Spacer from '../../components/ui/Spacer'
-import { PLUGINS } from '../../helpers/pluginList'
+import useKeyboard from '../../hooks/useKeyboard'
 import { useFinance } from '../../provider/FinanceContentProvider'
+import { useLevels } from '../../provider/LevelProvider'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
-import { Heading1, Heading4, Heading5, Heading6 } from '../../theme/typography'
-
-const IMAGE_HEIGHT = 320
-const ImageContainer = styled(View)`
-  position: absolute;
-  width: 100%;
-  height: ${IMAGE_HEIGHT}px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`
-
-const StyledImage = styled(Image)`
-  width: 100%;
-  height: ${IMAGE_HEIGHT}px;
-  position: absolute;
-`
+import { Body, Heading4, Heading6, Regular } from '../../theme/typography'
+import PluginScreenLayout from './PluginScreenLayout'
 
 const Container = styled(Flex)`
   position: relative;
-  background-color: ${COLORS.GREY};
   border-radius: ${OUTER_BORDER_RADIUS}px;
-  padding: ${SPACING * 4}px;
+  padding: ${SPACING * 3}px;
 `
-const TextContainer = styled(Flex)`
-  width: 25%;
+const DetailsContainer = styled(Flex)`
+  width: 100%;
+`
+
+const FormContainer = styled(Flex)<{ width?: number }>`
+  width: ${(p) => p.width ?? 100}%;
 `
 
 const Finance = () => {
-  const { saveSpending, getSpendings, aggregateSavings } = useFinance()
+  const { saveSpending, getSpendings, spendings } = useFinance()
   const [amount, setAmount] = useState('')
   const [reason, setReason] = useState('')
   const [loading, setLoading] = useState(false)
+  const [buttonPosition, setButtonPosition] = useState(0)
+  const { keyboardOpen } = useKeyboard()
+  const scrollRef = useRef<ScrollView | null>(null)
+  const { getLevels } = useLevels()
+
+  useEffect(() => {
+    if (keyboardOpen) {
+      scrollRef.current?.scrollToEnd({ animated: true })
+    }
+  }, [buttonPosition, keyboardOpen])
 
   const navigation = useRootNavigation()
 
@@ -59,118 +58,110 @@ const Finance = () => {
 
       return
     }
+
+    console.log(Math.floor(new Date().getTime() / 1000))
     await saveSpending({
       amount: Number(amount),
-      date: 1685089324,
-      text: reason,
+      spendingTime: Math.floor(new Date().getTime() / 1000),
+      description: reason,
     })
     setAmount('')
     setReason('')
     await getSpendings()
+    await getLevels()
     setLoading(false)
-  }, [amount, saveSpending, reason, getSpendings])
+  }, [amount, saveSpending, reason, getSpendings, getLevels])
 
   return (
-    <>
-      <ImageContainer>
-        <StyledImage source={require('../../../assets/images/man_saving_money.jpg')} />
-        <Flex column>
-          <Spacer x={15} />
-          <Heading1 color={COLORS.WHITE}>{PLUGINS.finance.title}</Heading1>
+    <PluginScreenLayout plugin={SettingsPluginName.PluginNameFinance} ref={scrollRef}>
+      <Container>
+        <Heading4>Invest in yourself</Heading4>
+        <Body color={COLORS.DARK_GREY}>
+          Make the tree grow by tracking your expenditures! We will track all your expenditures and
+          notify you at the end of the month how much you spent and how much you should invest
+          according to your chosen strategy.
+        </Body>
+        <Spacer x={2} />
+        <Flex row align={'flex-end'}>
+          <Body>Your current strategy: </Body>
+          <Heading6>Round up</Heading6>
         </Flex>
-      </ImageContainer>
-      <ScrollView>
-        <Spacer x={30} />
-        <Container align={'center'}>
-          <Heading4>Track your spendings</Heading4>
-          <Spacer x={4} />
+        <Spacer x={4} />
+        <Heading4>Track your expenditures</Heading4>
+        <Spacer x={1} />
+        <FormContainer column flex={1} width={60}>
+          <Body color={COLORS.DARK_GREY}>How much did you spend?</Body>
+          <Spacer x={1} />
           <Flex row align={'center'}>
-            <TextContainer>
-              <Heading6>Amount:</Heading6>
-            </TextContainer>
-            <Spacer x={2} />
             <Input
               value={amount}
-              onChange={(a) => setAmount(a.nativeEvent.text)}
+              onChangeText={setAmount}
               keyboardType={'numeric'}
-              placeholder={'Spendings'}
+              placeholder={'Amount'}
               maxLength={6}
-              small
+              minHeight={50}
             />
             <Spacer x={2} />
-            <Heading4 color={COLORS.PRIMARY}>CHF</Heading4>
+            <Heading4 color={COLORS.BLACK}>CHF</Heading4>
           </Flex>
-          <Spacer x={2} />
-          <Flex row align={'center'}>
-            <TextContainer>
-              <Heading6>Comment:</Heading6>
-            </TextContainer>
-            <Spacer x={2} />
-            <Input
-              placeholder={'Reason'}
-              value={reason}
-              onChange={(e) => setReason(e.nativeEvent.text)}
-              maxLength={20}
-              small
-            />
-            <Spacer x={2} />
-          </Flex>
-          <Spacer x={4} />
-          <Flex row>
-            <Button small fullWidth disabled={loading} onPress={onAddSpending}>
-              Track Spending
-            </Button>
-          </Flex>
-          <Spacer x={3} />
-          <FinanceHistory preview={3} />
-          <Spacer x={4} />
-          <Heading5>Your Savings</Heading5>
-          <Spacer x={2} />
-          <Heading1>{aggregateSavings} CHF</Heading1>
+        </FormContainer>
+        <Spacer x={3} />
+        <FormContainer column flex={1} width={85}>
+          <Body color={COLORS.DARK_GREY}>
+            Try to label similar categories the same for consistent feedback .
+          </Body>
           <Spacer x={1} />
-          <LineChart
-            withHorizontalLabels={true}
-            withVerticalLabels={true}
-            data={{
-              labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov'],
-              datasets: [
-                {
-                  data: [7056, 7056, 7056, 7056, 7056, 7056, 7056],
-                  strokeWidth: 2,
-                  color: (opacity = 1) => `rgba(255,0,0,${opacity})`, // optional
-                },
-                {
-                  data: [0, 0, 0, 0, 0, 0, aggregateSavings],
-                  strokeWidth: 2,
-                  color: (opacity = 1) => `rgba(0,0,102, ${opacity})`, // optional
-                },
-              ],
-              legend: ['Max', 'Your 3a'],
-            }}
-            width={Dimensions.get('window').width - 1}
-            height={200}
-            chartConfig={{
-              backgroundColor: `${COLORS.GREY}`,
-              backgroundGradientFrom: `${COLORS.GREY}`,
-              backgroundGradientTo: `${COLORS.GREY}`,
-              decimalPlaces: 0,
-              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-              style: {
-                borderRadius: 16,
-              },
-            }}
-          />
-          <Spacer x={2} />
-          <Flex row align={'center'}>
-            <Heading6 onPress={() => navigation?.navigate('finance-analytics' as never)}>
-              Go to Analytics view
-            </Heading6>
-            <Spacer x={2} />
-            <FontAwesome name={'arrow-right'} size={18} color={COLORS.PRIMARY} />
+          <Flex>
+            <Input
+              placeholder={'Category'}
+              onChangeText={setReason}
+              value={reason}
+              maxLength={20}
+              minHeight={50}
+            />
           </Flex>
-        </Container>
-      </ScrollView>
-    </>
+        </FormContainer>
+        <Spacer x={3} />
+        <Button
+          small
+          fullWidth
+          disabled={loading || !amount || !reason}
+          onPress={onAddSpending}
+          buttonType={'black'}
+          onLayout={(e) => setButtonPosition(e.nativeEvent.layout.y)}>
+          Track Spending
+        </Button>
+        <Spacer x={2} />
+        {spendings.length > 0 && (
+          <>
+            <Spacer x={2} />
+            <FinanceHistory preview={3} />
+            <Spacer x={3} />
+            <DetailsContainer row justify={'flex-end'}>
+              <TouchableOpacity onPress={() => navigation?.navigate('finance-analytics' as never)}>
+                <Flex row align={'center'}>
+                  <Regular color={COLORS.DARK_GREY}>See more</Regular>
+                  <Spacer x={0.5} />
+                  <MaterialCommunityIcons color={COLORS.DARK_GREY} name={'arrow-right'} size={18} />
+                </Flex>
+              </TouchableOpacity>
+            </DetailsContainer>
+          </>
+        )}
+
+        <Spacer
+          x={
+            spendings.length === 0
+              ? 40
+              : spendings.length === 1
+              ? 25
+              : spendings.length === 2
+              ? 20
+              : 15
+          }
+        />
+      </Container>
+    </PluginScreenLayout>
   )
 }
 

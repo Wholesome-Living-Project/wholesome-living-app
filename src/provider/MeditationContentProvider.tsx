@@ -34,7 +34,7 @@ const useProvideMeditate = (): MeditationContentType => {
       if (!user?.id) return
 
       try {
-        await api.meditationApi.meditationPost({
+        await api.meditationApi.meditationPost(user.id, {
           meditationTime: meditationTime,
           endTime: getUnixTime(),
         })
@@ -49,7 +49,7 @@ const useProvideMeditate = (): MeditationContentType => {
     if (!user?.id) return
     try {
       const { data } = await api.meditationApi.meditationGet()
-      //@ts-ignore
+      // @ts-ignore
       setMeditations(data)
     } catch (e) {
       console.log(e)

@@ -1,8 +1,8 @@
 import React, { Fragment, ReactNode } from 'react'
 import { ScrollView } from 'react-native'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../api/openapi'
-import { useUser } from '../../hooks/useUser'
+import { SettingsPluginName } from '../../../api/openapi'
+import { useOnboarding } from '../../provider/OnboardingProvider'
 import { Heading4 } from '../../theme/typography'
 import Spacer from '../ui/Spacer'
 import FinanceDetailedBanner from './plugins/FinanceDetailedBanner'
@@ -14,28 +14,28 @@ const StyledScrollView = styled(ScrollView)`
   width: 100%;
 `
 
-const Cards: { [key in UserPluginName]: ReactNode } = {
-  [UserPluginName.PluginNameFinance]: <FinanceDetailedBanner />,
-  [UserPluginName.PluginNameMeditation]: <MeditateDetailedBanner />,
-  [UserPluginName.PluginNameElevator]: <RunDetailedBanner />,
+const Cards: { [key in SettingsPluginName]: ReactNode } = {
+  [SettingsPluginName.PluginNameFinance]: <FinanceDetailedBanner />,
+  [SettingsPluginName.PluginNameMeditation]: <MeditateDetailedBanner />,
+  [SettingsPluginName.PluginNameElevator]: <RunDetailedBanner />,
 }
 
 const PluginCards = () => {
-  const { user } = useUser()
+  const { chosenPlugins } = useOnboarding()
 
   return (
     <Fragment>
       <SectionTitleContainer>
         <Heading4>Your Plugins</Heading4>
       </SectionTitleContainer>
+      <Spacer x={1} />
       <StyledScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {user?.plugins?.map((plugin) => (
+        {chosenPlugins.map((plugin) => (
           <Fragment key={plugin}>
             <Spacer x={2} />
             {Cards[plugin]}
           </Fragment>
         ))}
-        <Spacer x={2} />
       </StyledScrollView>
     </Fragment>
   )
