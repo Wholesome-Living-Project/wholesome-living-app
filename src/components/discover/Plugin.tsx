@@ -1,9 +1,11 @@
 import { useRootNavigation } from 'expo-router'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components'
-import { PluginType } from '../../helpers/pluginList'
-import { Regular } from '../../theme/typography'
+import { SettingsPluginName } from '../../../api/openapi'
+import { PLUGINS } from '../../helpers/pluginList'
+import { Body } from '../../theme/typography'
+import Spacer from '../ui/Spacer'
 import PluginBanner from './PluginBanner'
 
 const Container = styled(TouchableOpacity)`
@@ -12,18 +14,20 @@ const Container = styled(TouchableOpacity)`
 `
 
 type Props = {
-  plugin: PluginType
+  plugin: SettingsPluginName
   onPress?: () => void
 }
 
 const Plugin = ({ plugin, onPress }: Props) => {
-  const { title, color, icon, faIcon, materialIcon, ionIcon } = plugin
+  console.log(plugin)
   const navigation = useRootNavigation()
+  const title = useMemo(() => (plugin ? PLUGINS[plugin].title : ''), [plugin])
 
   return (
-    <Container onPress={onPress ?? (() => navigation?.navigate(plugin.route as never))}>
-      <PluginBanner {...plugin} size={60} />
-      <Regular center>{title}</Regular>
+    <Container onPress={onPress ?? (() => navigation?.navigate(PLUGINS[plugin].route as never))}>
+      <PluginBanner plugin={plugin ?? 'meditation'} size={60} />
+      <Spacer x={0.3} />
+      {title && <Body center>{title}</Body>}
     </Container>
   )
 }

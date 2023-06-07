@@ -25,7 +25,8 @@ export const SECONDARY_TINTS = {
 export const COLORS = {
   WHITE: '#fbfbff',
   BLACK: '#292929',
-  GREY: '#EFF5F5',
+  GREY: '#e1e1e1',
+  DARK_GREY: '#757575',
   RED: 'red',
   PRIMARY: PRIMARY_TINTS['500'],
   SECONDARY: SECONDARY_TINTS['700'],
@@ -38,11 +39,17 @@ export const COLORS = {
 
 export const EXTRA_COLORS = {
   PURPLE: '#8A84E2',
+  PURPLE_LIGHT: '#9891ec',
   MAUVE: '#9898d7',
+  MAUVE_LIGHT: '#9b9bec',
   BLUE: '#64b4ec',
+  BLUE_LIGHT: '#99cef8',
   SUNSET: '#ff9179',
+  SUNSET_LIGHT: '#ffb7a8',
   JORDY: '#5791da',
+  JORDY_LIGHT: '#a5cdff',
   FINA: '#7457af',
+  FINA_LIGHT: '#a081e1',
 }
 
 export const SPACING = 8

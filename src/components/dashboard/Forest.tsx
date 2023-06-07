@@ -1,19 +1,17 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../api/openapi'
 import useHaptics from '../../hooks/useHaptics'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useLevels } from '../../provider/LevelProvider'
-import { IO_COMPONENT_WIDTH_PERCENT, SPACING } from '../../theme/theme'
-import { Heading4 } from '../../theme/typography'
+import { SPACING } from '../../theme/theme'
 import PluginBanner from '../discover/PluginBanner'
 import { levelModalRef } from '../refs/modal-refs'
 import ExperienceBar from '../ui/ExperienceBar'
 import { Flex } from '../ui/Flex'
 import Spacer from '../ui/Spacer'
 import { Background, levelComponents } from './Levels'
-import { SectionTitleContainer } from './SharedStyles'
 
 const Wrapper = styled(View)<{ width: number }>`
   height: 250px;
@@ -43,22 +41,14 @@ const ExperienceContainer = styled(Flex)`
   width: 100%;
 `
 
-// TODO change with actual plugin levels
-const levels = [6, 2]
-
 const Forest = () => {
   const { windowWidth } = useWindowDimensions()
   const { doMediumFeedback } = useHaptics()
   // TODO: also add plugins which dont have a level yet at level 1 from Onboarding added plugins!
   const { experienceMap, levelMap, setCurrentlyInspectedPlugin } = useLevels()
-  const width = useMemo(() => windowWidth * IO_COMPONENT_WIDTH_PERCENT, [windowWidth])
 
   return (
     <>
-      <SectionTitleContainer>
-        <Heading4>Your Garden</Heading4>
-      </SectionTitleContainer>
-      <Spacer x={1} />
       <Wrapper width={windowWidth}>
         <Background source={require('../../../assets/images/background_small.jpg')} />
         <Scroller horizontal>
@@ -68,7 +58,7 @@ const Forest = () => {
                 <LevelContainer key={index} width={130} align={'center'} column>
                   <ExperienceContainer align={'center'} column>
                     <PluginBanner plugin={key as SettingsPluginName} size={30} />
-                    <Spacer x={0.5} />
+                    <Spacer x={1} />
                     <ExperienceBar
                       progress={(100 / 50) * (experienceMap?.meditation ?? 0)}
                       size={'small'}

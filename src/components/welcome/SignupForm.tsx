@@ -150,7 +150,7 @@ const SignupForm = () => {
         errorMsg={errors.password}
       />
       <Spacer x={4} />
-      <Button buttonType={'primary'} disabled={buttonDisabled} onPress={() => submit()}>
+      <Button buttonType={'black'} disabled={buttonDisabled} onPress={() => submit()}>
         Submit
       </Button>
       <Spacer x={2} />

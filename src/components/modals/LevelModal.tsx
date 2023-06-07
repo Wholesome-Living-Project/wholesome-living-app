@@ -54,7 +54,7 @@ const LevelModal = () => {
             experience={currentlyInspectedPlugin ? experienceMap?.[currentlyInspectedPlugin] : 0}
           />
           <Spacer x={4} />
-          <Button buttonType={'black'} onPress={() => levelModalRef.current?.close()}>
+          <Button small buttonType={'black'} onPress={() => levelModalRef.current?.close()}>
             close
           </Button>
         </Container>

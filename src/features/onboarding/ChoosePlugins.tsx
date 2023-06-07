@@ -95,7 +95,7 @@ const ChoosePlugins = () => {
                   <Flex>
                     <OpacityWrapper active={chosenPlugins?.includes(plugin.plugin)}>
                       <Plugin
-                        plugin={plugin}
+                        plugin={plugin.plugin}
                         onPress={() =>
                           plugin.plugin &&
                           (chosenPlugins?.includes(plugin.plugin)

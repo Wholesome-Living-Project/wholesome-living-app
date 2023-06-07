@@ -2,14 +2,15 @@ import React from 'react'
 import { Image, View } from 'react-native'
 import styled from 'styled-components'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
-import { COLORS } from '../../theme/theme'
-import { Heading2 } from '../../theme/typography'
 import Spacer from '../ui/Spacer'
-import BrushSvg from './BrushSvg'
 
 const AbsoluteContainer = styled(View)`
   position: absolute;
   top: 0;
+`
+
+const Logo = styled(Image)`
+  width: 320px;
 `
 
 const StyledImage = styled(Image)<{ width: number; height: number }>`
@@ -36,16 +37,15 @@ const Landing = () => {
     <>
       <AbsoluteContainer>
         <StyledImage
-          source={require('../../../assets/images/woman_productive_full_size.jpg')}
+          source={require('../../../assets/images/meditation_full_size_1.jpg')}
           width={windowWidth}
           height={windowHeight}
         />
       </AbsoluteContainer>
       <Spacer x={15} />
       <TitleWrapper>
-        <BrushSvg />
         <TitleContainer>
-          <Heading2 color={COLORS.WHITE}>Wholesome Living</Heading2>
+          <Logo source={require('../../../assets/images/logo.png')} resizeMode={'contain'} />
         </TitleContainer>
       </TitleWrapper>
     </>

@@ -13,24 +13,24 @@ import useKeyboard from '../../hooks/useKeyboard'
 import { useFinance } from '../../provider/FinanceContentProvider'
 import { useLevels } from '../../provider/LevelProvider'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
-import { Heading4, Heading6 } from '../../theme/typography'
+import { Body, Heading4, Heading6, Regular } from '../../theme/typography'
 import PluginScreenLayout from './PluginScreenLayout'
 
 const Container = styled(Flex)`
   position: relative;
   border-radius: ${OUTER_BORDER_RADIUS}px;
-  padding: ${SPACING * 4}px;
+  padding: ${SPACING * 3}px;
 `
 const DetailsContainer = styled(Flex)`
   width: 100%;
 `
 
-const FormContainer = styled(Flex)`
-  width: 100%;
+const FormContainer = styled(Flex)<{ width?: number }>`
+  width: ${(p) => p.width ?? 100}%;
 `
 
 const Finance = () => {
-  const { saveSpending, getSpendings, aggregateSavings } = useFinance()
+  const { saveSpending, getSpendings, spendings } = useFinance()
   const [amount, setAmount] = useState('')
   const [reason, setReason] = useState('')
   const [loading, setLoading] = useState(false)
@@ -60,7 +60,7 @@ const Finance = () => {
     }
     await saveSpending({
       amount: Number(amount),
-      spendingTime: 1685089324,
+      spendingTime: new Date().getTime() / 1000,
       description: reason,
     })
     setAmount('')
@@ -72,17 +72,30 @@ const Finance = () => {
 
   return (
     <PluginScreenLayout plugin={SettingsPluginName.PluginNameFinance} ref={scrollRef}>
-      <Container align={'center'}>
-        <Heading4>Track your spendings</Heading4>
+      <Container>
+        <Heading4>Invest in yourself</Heading4>
+        <Body color={COLORS.DARK_GREY}>
+          Make the tree grow by tracking your expenditures! We will track all your expenditures and
+          notify you at the end of the month how much you spent and how much you should invest
+          according to your chosen strategy.
+        </Body>
         <Spacer x={2} />
-        <FormContainer column flex={1}>
-          <Heading6>Amount</Heading6>
-          <Flex row>
+        <Flex row align={'flex-end'}>
+          <Body>Your current strategy: </Body>
+          <Heading6>Round up</Heading6>
+        </Flex>
+        <Spacer x={4} />
+        <Heading4>Track your expenditures</Heading4>
+        <Spacer x={1} />
+        <FormContainer column flex={1} width={60}>
+          <Body color={COLORS.DARK_GREY}>How much did you spend?</Body>
+          <Spacer x={1} />
+          <Flex row align={'center'}>
             <Input
               value={amount}
               onChangeText={setAmount}
               keyboardType={'numeric'}
-              placeholder={'Spendings'}
+              placeholder={'Amount'}
               maxLength={6}
               minHeight={50}
             />
@@ -90,18 +103,20 @@ const Finance = () => {
             <Heading4 color={COLORS.BLACK}>CHF</Heading4>
           </Flex>
         </FormContainer>
-        <FormContainer column flex={1}>
+        <Spacer x={3} />
+        <FormContainer column flex={1} width={85}>
+          <Body color={COLORS.DARK_GREY}>
+            Try to label similar categories the same for consistent feedback .
+          </Body>
+          <Spacer x={1} />
           <Flex>
-            <Heading6>Comment</Heading6>
-            <Flex>
-              <Input
-                placeholder={'Reason'}
-                onChangeText={setReason}
-                value={reason}
-                maxLength={20}
-                minHeight={50}
-              />
-            </Flex>
+            <Input
+              placeholder={'Category'}
+              onChangeText={setReason}
+              value={reason}
+              maxLength={20}
+              minHeight={50}
+            />
           </Flex>
         </FormContainer>
         <Spacer x={3} />
@@ -115,17 +130,34 @@ const Finance = () => {
           Track Spending
         </Button>
         <Spacer x={2} />
-        <DetailsContainer row justify={'flex-end'}>
-          <TouchableOpacity onPress={() => navigation?.navigate('finance-analytics' as never)}>
-            <Flex row align={'center'}>
-              <Heading6>See details</Heading6>
-              <Spacer x={0.5} />
-              <MaterialCommunityIcons name={'arrow-right'} size={18} color={COLORS.BLACK} />
-            </Flex>
-          </TouchableOpacity>
-        </DetailsContainer>
-        <FinanceHistory preview={3} />
-        <Spacer x={20} />
+        {spendings.length > 0 && (
+          <>
+            <Spacer x={2} />
+            <FinanceHistory preview={3} />
+            <Spacer x={3} />
+            <DetailsContainer row justify={'flex-end'}>
+              <TouchableOpacity onPress={() => navigation?.navigate('finance-analytics' as never)}>
+                <Flex row align={'center'}>
+                  <Regular color={COLORS.DARK_GREY}>See more</Regular>
+                  <Spacer x={0.5} />
+                  <MaterialCommunityIcons color={COLORS.DARK_GREY} name={'arrow-right'} size={18} />
+                </Flex>
+              </TouchableOpacity>
+            </DetailsContainer>
+          </>
+        )}
+
+        <Spacer
+          x={
+            spendings.length === 0
+              ? 40
+              : spendings.length === 1
+              ? 25
+              : spendings.length === 2
+              ? 20
+              : 15
+          }
+        />
       </Container>
     </PluginScreenLayout>
   )

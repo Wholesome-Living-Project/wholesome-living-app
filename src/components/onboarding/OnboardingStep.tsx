@@ -19,7 +19,7 @@ const Wrapper = styled(Flex)`
 `
 
 const Footer = styled(Flex)`
-  padding: 0 ${SPACING * 2}px;
+  padding: 0 ${SPACING * 2}px ${SPACING * 3}px;
   position: absolute;
   bottom: 30px;
   width: 100%;
@@ -80,7 +80,7 @@ const OnboardingStep = ({
       </Flex>
       <Footer>
         <Button
-          buttonColor={plugin ? PLUGINS[plugin]?.color : COLORS.PRIMARY}
+          buttonColor={plugin ? PLUGINS[plugin]?.color : COLORS.BLACK}
           onPress={() => {
             onPressPrimary?.()
             nextStep

@@ -10,7 +10,7 @@ import { PLUGINS } from '../../helpers/pluginList'
 import { COLORS, SPACING } from '../../theme/theme'
 
 const PluginContainer = styled(View)<{ color?: string }>`
-  box-shadow: 0 6px 8px ${alpha(0.5, COLORS.PRIMARY)};
+  box-shadow: 2px 2px 4px ${alpha(0.3, COLORS.DARK_GREY)};
 `
 
 const Gradient = styled(LinearGradient)<{ size?: number }>`
@@ -28,6 +28,7 @@ type Props = {
 
 const PluginBanner = ({ plugin, size }: Props) => {
   const color = useMemo(() => PLUGINS[plugin].color, [plugin])
+  const colorLight = useMemo(() => PLUGINS[plugin].colorLight, [plugin])
   const icon = useMemo(() => PLUGINS[plugin].icon, [plugin])
   const faIcon = useMemo(() => PLUGINS[plugin].faIcon, [plugin])
   const materialIcon = useMemo(() => PLUGINS[plugin].materialIcon, [plugin])
@@ -36,8 +37,9 @@ const PluginBanner = ({ plugin, size }: Props) => {
   return (
     <PluginContainer>
       <Gradient
-        colors={[color ?? COLORS.PRIMARY, color ? alpha(0.6, color) : alpha(0.6, COLORS.PRIMARY)]}
-        start={{ x: 0.1, y: 0.4 }}
+        colors={[color ?? COLORS.PRIMARY, colorLight ? colorLight : COLORS.PRIMARY]}
+        start={{ x: 0.5, y: 0.3 }}
+        end={{ x: 0.9, y: 0.7 }}
         size={size}>
         {icon && (
           <MaterialCommunityIcons size={size ? size * 0.5 : 30} color={COLORS.WHITE} name={icon} />
