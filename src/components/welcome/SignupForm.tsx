@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { Keyboard, Platform, View } from 'react-native'
-import { useNextRouter } from 'solito/build/router/use-next-router'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { Keyboard } from 'react-native'
 import styled from 'styled-components/native'
+import { validateEmail, validateName, validatePassword } from '../../helpers/validateFields'
 import { useAuthentication } from '../../provider/AuthenticationProvider'
 import { COLORS, OUTER_BORDER_RADIUS } from '../../theme/theme'
 import { Heading3 } from '../../theme/typography'
@@ -9,21 +9,12 @@ import Button from '../ui/Button'
 import { ComponentWidthWeb } from '../ui/ComponentWidthWeb'
 import Input from '../ui/Input'
 import Spacer from '../ui/Spacer'
-import { validateEmail, validateName, validatePassword } from '../../helpers/validateFields'
 
 const Wrapper = styled(ComponentWidthWeb)`
   padding: 10px 30px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
   flex: 1;
 `
-
-// maybe not needed anymore
-const NameWrapper = styled(View)`
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-`
-
 
 type ValidationErrors = {
   firstName?: string
@@ -37,38 +28,11 @@ const SignupForm = () => {
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [dateOfBirth, setDateOfBirth] = useState('01.02.1993')
-  const router = useNextRouter()
+  const [dateOfBirth, _] = useState('01.02.1993')
   const { createUserWithEmailAndPassword } = useAuthentication()
 
   const [buttonDisabled, setButtonDisabled] = useState(false)
   const [errors, setErrors] = useState<ValidationErrors>({})
-
-  useEffect(() => {
-    setButtonDisabled(isOneEmpty)
-  }, [email, password, firstName, lastName])
-
-  const isOneEmpty = () =>
-    !(Boolean(email) && Boolean(password) && Boolean(firstName) && Boolean(lastName))
-
-  const submit = useCallback(async () => {
-    if (!validateAll()){
-      return
-    }
-
-    try {
-      await createUserWithEmailAndPassword({
-        email,
-        password,
-        dateOfBirth,
-        firstName,
-        lastName,
-      }).then(() => Platform.OS === 'web' && router?.push('/'))
-      Keyboard.dismiss()
-    } catch (err) {
-      console.log(err)
-    }
-  }, [createUserWithEmailAndPassword, dateOfBirth, email, firstName, lastName, password, router])
 
   const validateAll = useCallback(() => {
     const err: ValidationErrors = {}
@@ -91,7 +55,43 @@ const SignupForm = () => {
 
     setErrors(err)
     return !Boolean(err.firstName || err.lastName || err.email || err.password)
-  }, [email, firstName, lastName, password, errors])
+  }, [email, firstName, lastName, password])
+
+  const isOneEmpty = useMemo(
+    () => !email || !password || !firstName || !lastName,
+    [email, password, firstName, lastName]
+  )
+
+  const submit = useCallback(async () => {
+    if (!validateAll()) {
+      return
+    }
+
+    try {
+      await createUserWithEmailAndPassword({
+        email,
+        password,
+        dateOfBirth,
+        firstName,
+        lastName,
+      })
+      Keyboard.dismiss()
+    } catch (err) {
+      console.log(err)
+    }
+  }, [
+    createUserWithEmailAndPassword,
+    dateOfBirth,
+    email,
+    firstName,
+    lastName,
+    password,
+    validateAll,
+  ])
+
+  useEffect(() => {
+    setButtonDisabled(isOneEmpty)
+  }, [email, password, firstName, lastName, isOneEmpty])
 
   return (
     <Wrapper maxWidthWeb={300}>
@@ -100,21 +100,39 @@ const SignupForm = () => {
       <Input
         placeholder={'First Name'}
         value={firstName}
-        onChangeText={(text) => setFirstName(text)}
+        onChangeText={(text) => {
+          setFirstName(text)
+          if (validateName(text))
+            setErrors((st: ValidationErrors) => {
+              return { ...st, firstName: undefined }
+            })
+        }}
         errorMsg={errors.firstName}
       />
       <Spacer x={1} />
       <Input
         placeholder={'Last Name'}
         value={lastName}
-        onChangeText={(text) => setLastName(text)}
+        onChangeText={(text) => {
+          setLastName(text)
+          if (validateName(text))
+            setErrors((st: ValidationErrors) => {
+              return { ...st, lastName: undefined }
+            })
+        }}
         errorMsg={errors.lastName}
       />
       <Spacer x={3} />
       <Input
         placeholder={'Email'}
         value={email}
-        onChangeText={(text) => setEmail(text)}
+        onChangeText={(text) => {
+          setEmail(text)
+          if (validateEmail(text))
+            setErrors((st: ValidationErrors) => {
+              return { ...st, email: undefined }
+            })
+        }}
         errorMsg={errors.email}
       />
       <Spacer x={1} />
@@ -122,7 +140,13 @@ const SignupForm = () => {
         placeholder={'Password'}
         value={password}
         secureTextEntry
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={(text) => {
+          setPassword(text)
+          if (validatePassword(text))
+            setErrors((st: ValidationErrors) => {
+              return { ...st, password: undefined }
+            })
+        }}
         errorMsg={errors.password}
       />
       <Spacer x={4} />

@@ -31,7 +31,7 @@ const SignInModal = () => {
 
   useEffect(() => {
     if (keyboardOpen) {
-      setModalHeight(80)
+      setModalHeight(90)
     } else {
       setModalHeight(75)
     }

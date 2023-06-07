@@ -1,14 +1,14 @@
 import BottomSheet from 'axelra-react-native-bottom-sheet'
+import { Flex } from 'axelra-react-native-flex'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Keyboard, Platform, TouchableOpacity } from 'react-native'
 import useKeyboard from '../../hooks/useKeyboard'
 import { useModal } from '../../hooks/useModal'
+import { COLORS } from '../../theme/theme'
+import { Body } from '../../theme/typography'
 import { signInModalRef, signUpModalRef } from '../refs/modal-refs'
 import { BottomSheetViewFlex } from '../ui/BottomSheetViewFlex'
 import SignupForm from './SignupForm'
-import { Flex } from 'axelra-react-native-flex'
-import { Body } from '../../theme/typography'
-import { COLORS } from '../../theme/theme'
 
 const SignUpModal = () => {
   const [modalHeight, setModalHeight] = useState(75)
@@ -29,7 +29,7 @@ const SignUpModal = () => {
 
   useEffect(() => {
     if (keyboardOpen) {
-      setModalHeight(85)
+      setModalHeight(95)
     } else {
       setModalHeight(75)
     }
