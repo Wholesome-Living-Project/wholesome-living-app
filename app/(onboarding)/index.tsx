@@ -1,1 +1,1 @@
-export { default } from '../../src/features/onboarding/Chat'
+export { default } from '../../src/features/onboarding/ChoosePlugins'
