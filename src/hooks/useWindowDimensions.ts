@@ -10,6 +10,6 @@ export const useWindowDimensions = () => {
       windowWidth: width,
       windowHeight: height,
     }),
-    []
+    [height, width]
   )
 }

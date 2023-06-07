@@ -49,6 +49,7 @@ const useProvideMeditate = (): MeditationContentType => {
     if (!user?.id) return
     try {
       const { data } = await api.meditationApi.meditationGet()
+      //@ts-ignore
       setMeditations(data)
     } catch (e) {
       console.log(e)

@@ -24,6 +24,7 @@ ios/wholesomeliving.xcodeproj/project.xcworkspace
 
 # Android/IntelliJ
 #
+android
 build/
 .idea
 .gradle

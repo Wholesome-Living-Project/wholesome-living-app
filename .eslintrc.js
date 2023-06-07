@@ -1,17 +1,10 @@
 module.exports = {
-  plugins: [
-    '@typescript-eslint/eslint-plugin',
-    '10x',
-    'prettier',
-    'eslint-plugin-no-inline-styles',
-    'react-hooks',
-  ],
+  plugins: ['@typescript-eslint/eslint-plugin', '10x', 'prettier', 'react-hooks'],
   parser: '@babel/eslint-parser',
   extends: ['plugin:import/typescript'],
   rules: {
     indent: 'off',
     'react/display-name': 'off',
-    'no-inline-styles/no-inline-styles': 2,
     'require-atomic-updates': 'off',
     '10x/no-full-import': 'error',
     '10x/auto-import': [
