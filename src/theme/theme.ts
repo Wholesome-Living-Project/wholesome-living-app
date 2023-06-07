@@ -26,6 +26,7 @@ export const COLORS = {
   WHITE: '#fbfbff',
   BLACK: '#292929',
   GREY: '#EFF5F5',
+  RED: 'red',
   PRIMARY: PRIMARY_TINTS['500'],
   SECONDARY: SECONDARY_TINTS['700'],
   CTA: '#DE3163',
