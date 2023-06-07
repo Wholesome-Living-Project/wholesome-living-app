@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { alpha } from 'axelra-react-native-utilities'
 import React, { useEffect, useMemo } from 'react'
 import { Image, ScrollView, View } from 'react-native'
@@ -12,7 +12,7 @@ import { PLUGIN_COLORS } from '../../helpers/pluginList'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useFinance } from '../../provider/FinanceContentProvider'
 import { CHART_COLORS, COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
-import { Heading1, Heading4, Heading5, Heading6 } from '../../theme/typography'
+import { Heading4 } from '../../theme/typography'
 import ChartContainer from './ChartContainer'
 
 const IMAGE_HEIGHT = 320
@@ -129,13 +129,13 @@ const FinanceAnalytics = () => {
                   {
                     data: Object.values(spendingsByDate).reverse() as number[],
                     colors: [
-                      () => PLUGIN_COLORS.finance,
-                      () => PLUGIN_COLORS.finance,
-                      () => PLUGIN_COLORS.finance,
-                      () => PLUGIN_COLORS.finance,
-                      () => PLUGIN_COLORS.finance,
-                      () => PLUGIN_COLORS.finance,
-                      () => PLUGIN_COLORS.finance,
+                      () => PLUGIN_COLORS.finance ?? COLORS.PRIMARY,
+                      () => PLUGIN_COLORS.finance ?? COLORS.PRIMARY,
+                      () => PLUGIN_COLORS.finance ?? COLORS.PRIMARY,
+                      () => PLUGIN_COLORS.finance ?? COLORS.PRIMARY,
+                      () => PLUGIN_COLORS.finance ?? COLORS.PRIMARY,
+                      () => PLUGIN_COLORS.finance ?? COLORS.PRIMARY,
+                      () => PLUGIN_COLORS.finance ?? COLORS.PRIMARY,
                     ],
                   },
                 ],
@@ -201,18 +201,11 @@ const FinanceAnalytics = () => {
             />
           </ChartContainer>
           <Spacer x={4} />
-          <Heading5></Heading5>
-          <Spacer x={2} />
-
           <ChartContainer
             chartType={'Line chart'}
             title={'Your Savings'}
-            icon={<Ionicons name={'pie-chart'} size={22} color={PLUGIN_COLORS.finance} />}
-            description={
-              'This pie chart shows how much you spent (in CHF) on what category. Try to use the same names for categories to show them here aggregated.'
-            }>
-            <Heading1>{aggregateSavings} CHF</Heading1>
-            <Spacer x={1} />
+            icon={<AntDesign name={'linechart'} size={22} color={PLUGIN_COLORS.finance} />}
+            description={'This line chart shows how much you saved (in CHF) per month.'}>
             <LineChart
               withHorizontalLabels={true}
               withVerticalLabels={true}
@@ -227,7 +220,7 @@ const FinanceAnalytics = () => {
                   {
                     data: [0, 0, 0, 0, 0, aggregateSavings],
                     strokeWidth: 2,
-                    color: () => PLUGIN_COLORS.finance, // optional
+                    color: () => PLUGIN_COLORS.finance ?? COLORS.PRIMARY, // optional
                   },
                 ],
                 legend: ['Max', 'Your 3a'],
@@ -262,8 +255,7 @@ const FinanceAnalytics = () => {
               }}
             />
           </ChartContainer>
-          <Heading6>Spendings History</Heading6>
-          <Spacer x={2} />
+          <Spacer x={6} />
           <FinanceHistory />
           <Spacer x={4} />
         </Container>
