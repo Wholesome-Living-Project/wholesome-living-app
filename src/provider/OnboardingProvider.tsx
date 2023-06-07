@@ -1,9 +1,19 @@
-import React, { createContext, PropsWithChildren, useCallback, useContext, useState } from 'react'
-import { SettingsNotificationType, SettingsStrategyType } from '../../api/openapi'
+import React, {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+import {
+  SettingsGetSettingsResponse,
+  SettingsNotificationType,
+  SettingsPluginName,
+  SettingsStrategyType,
+} from '../../api/openapi'
 import { api } from '../../api/requests'
 import { useUser } from '../hooks/useUser'
-import React, { createContext, PropsWithChildren, useContext, useState } from 'react'
-import { SettingsPluginName } from '../../api/openapi'
 
 type OnboardingType = {
   chosenPlugins: SettingsPluginName[]
@@ -40,6 +50,7 @@ type OnboardingType = {
   setNotificationPeriod: (st: SettingsNotificationType) => void
   notificationFrequency: number
   setNotificationFrequency: (st: number) => void
+  settings: SettingsGetSettingsResponse | undefined
 }
 
 const OnboardingContext = createContext<OnboardingType>({} as OnboardingType)
@@ -47,6 +58,7 @@ const OnboardingContext = createContext<OnboardingType>({} as OnboardingType)
 export const useOnboarding = () => useContext(OnboardingContext)
 
 const useProvideOnboarding = (): OnboardingType => {
+  const [settings, setSettings] = useState<SettingsGetSettingsResponse>()
   const [chosenPlugins, setChosenPlugins] = useState<SettingsPluginName[]>([])
   const [chosenPluginSteps, setChosenPluginSteps] = useState<string[]>([])
   const [visitedOnboardingSteps, setVisitedOnboardingSteps] = useState<string[]>([])
@@ -180,6 +192,31 @@ const useProvideOnboarding = (): OnboardingType => {
     user?.id,
   ])
 
+  const getSettings = useCallback(async () => {
+    console.log('gettings settings')
+    if (!user?.id) return
+    try {
+      const { data } = await api.settingsApi.settingsGet(user.id)
+      if (data) {
+        setSettings(data)
+        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
+        // data.enabledPlugins&&set(data.enabledPlugins)
+        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
+        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
+        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
+        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
+        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
+        // data.enabledPlugins&&setChosenPlugins(data.enabledPlugins)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }, [user?.id])
+
+  useEffect(() => {
+    getSettings()
+  }, [getSettings])
+
   return {
     chosenPlugins,
     setChosenPlugins,
@@ -215,6 +252,7 @@ const useProvideOnboarding = (): OnboardingType => {
     setNotificationPeriod,
     notificationFrequency,
     setNotificationFrequency,
+    settings,
   }
 }
 

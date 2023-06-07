@@ -9,15 +9,15 @@ import SafeScreenProvider from './SafeScreenProvider'
 export const Providers = ({ children }: PropsWithChildren) => {
   return (
     <AuthenticationProvider>
-      <FinanceProvider>
-        <LevelProvider>
-          <MeditationProvider>
-            <OnboardingProvider>
+      <OnboardingProvider>
+        <FinanceProvider>
+          <LevelProvider>
+            <MeditationProvider>
               <SafeScreenProvider>{children}</SafeScreenProvider>
-            </OnboardingProvider>
-          </MeditationProvider>
-        </LevelProvider>
-      </FinanceProvider>
+            </MeditationProvider>
+          </LevelProvider>
+        </FinanceProvider>
+      </OnboardingProvider>
     </AuthenticationProvider>
   )
 }

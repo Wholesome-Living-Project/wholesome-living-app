@@ -51,7 +51,7 @@ export const Background = styled(Image)`
 `
 
 export const levelComponents = [
-  <Seed source={require('../../../assets/images/levels/seed_small.png')} />,
+  <Seed source={require('../../../assets/images/levels_raw/seed_small.png')} />,
   <Sprout source={require('../../../assets/images/levels_raw/sprout_small.png')} />,
   <Sapling source={require('../../../assets/images/levels_raw/sapling_small.png')} />,
   <Small source={require('../../../assets/images/levels_raw/small_small.png')} />,

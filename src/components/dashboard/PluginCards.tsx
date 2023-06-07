@@ -2,7 +2,6 @@ import React, { Fragment, ReactNode } from 'react'
 import { ScrollView } from 'react-native'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../api/openapi'
-import { useUser } from '../../hooks/useUser'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { Heading4 } from '../../theme/typography'
 import Spacer from '../ui/Spacer'
@@ -22,8 +21,7 @@ const Cards: { [key in SettingsPluginName]: ReactNode } = {
 }
 
 const PluginCards = () => {
-  const { user } = useUser()
-  const { chosenPlugins } = useOnboarding()
+  const { settings } = useOnboarding()
 
   return (
     <Fragment>
@@ -31,7 +29,7 @@ const PluginCards = () => {
         <Heading4>Your Plugins</Heading4>
       </SectionTitleContainer>
       <StyledScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {chosenPlugins.map((plugin) => (
+        {settings?.enabledPlugins?.map((plugin) => (
           <Fragment key={plugin}>
             <Spacer x={2} />
             {Cards[plugin]}

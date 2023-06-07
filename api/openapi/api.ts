@@ -46,6 +46,12 @@ export interface FinanceCreateSpendingRequest {
      * @type {number}
      * @memberof FinanceCreateSpendingRequest
      */
+    'saving'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceCreateSpendingRequest
+     */
     'spendingTime'?: number;
 }
 /**
@@ -73,6 +79,24 @@ export interface FinanceGetInvestmentResponse {
      * @memberof FinanceGetInvestmentResponse
      */
     'amount'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'saving'?: number;
     /**
      * 
      * @type {number}
