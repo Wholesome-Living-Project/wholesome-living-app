@@ -8,7 +8,6 @@ import Spacer from '../../components/ui/Spacer'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useChat } from '../../provider/ChatProvider'
 import { COLORS, EXTRA_COLORS, SPACING } from '../../theme/theme'
-import { Heading6 } from '../../theme/typography'
 
 const StyledScrollView = styled(ScrollView)`
   height: 70%;
@@ -31,20 +30,34 @@ const Message = styled(Flex)<{ isUser: boolean }>`
   padding: ${SPACING * 2}px;
   margin-bottom: ${SPACING}px;
   width: 300px;
-  margin-right: ${(p) => (p.isUser ? 0 : 'auto')};
-  margin-left: ${(p) => (p.isUser ? 'auto' : 0)};
+  margin-right: ${(p) => (p.isUser ? '10px' : 'auto')};
+  margin-left: ${(p) => (p.isUser ? 'auto' : '10px')};
+  border: solid ${COLORS.PRIMARY};
+  flex: 1;
+`
+
+const ChatText = styled(Text)`
+  word-break: break-all;
 `
 
 const Chat = () => {
   const { windowHeight } = useWindowDimensions()
-  const { sendMessage, messages } = useChat()
+  const { sendMessage, messages, setMessages } = useChat()
   const [message, setMessage] = useState('')
 
   const onSend = useCallback(() => {
+    setMessages([
+      ...messages,
+      {
+        content: message,
+        role: 'user',
+      },
+    ])
+
     sendMessage(message)
 
     setMessage('')
-  }, [message, sendMessage])
+  }, [message, messages, sendMessage, setMessages])
 
   if (!messages) return
 
@@ -53,13 +66,18 @@ const Chat = () => {
       <Flex>
         <Spacer x={4} />
         <StyledScrollView>
-          {messages.map((m, i) => (
-            <Message key={i} isUser={m.role === 'user'} row align={'center'}>
-              <Heading6>{m.role === 'user' ? 'You' : 'Assistant'}</Heading6>
-              <Spacer x={2} />
-              <Text>{m.content}</Text>
-            </Message>
-          ))}
+          {messages.map((m, i) => {
+            if (m.role === 'system') return
+            return (
+              <Message
+                key={i}
+                isUser={m.role === 'user'}
+                column
+                align={m.role === 'user' ? 'flex-end' : 'flex-start'}>
+                <ChatText>{m.content}</ChatText>
+              </Message>
+            )
+          })}
         </StyledScrollView>
       </Flex>
       <Footer row>

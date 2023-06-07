@@ -19,6 +19,11 @@ export type Message = {
 const useProvideChat = (): ChatType => {
   const [messages, setMessages] = useState<Message[]>([
     {
+      role: 'system',
+      content:
+        'As a friendly habit formation consultant, your goal is to help users discover a specific easily performed, and trackable habit. Use fewer than 5 concise questions to gather essential user information. Guide them through identifying the tiny habit and conditions for nuding and notification. Consider various trackable data for conditions and determine which data the user is willing to share. Summarize and end the conversation by saying you will send a notification when conditions are met. Limit your response to 20 words or less.',
+    },
+    {
       content: 'hey',
       role: 'assistant',
     },
