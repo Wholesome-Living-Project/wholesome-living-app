@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { Keyboard } from 'react-native'
+import { Alert, Keyboard } from 'react-native'
 import styled from 'styled-components/native'
 import { validateEmail, validateName, validatePassword } from '../../helpers/validateFields'
 import { useAuthentication } from '../../provider/AuthenticationProvider'
@@ -68,7 +68,7 @@ const SignupForm = () => {
     }
 
     try {
-      await createUserWithEmailAndPassword({
+      let user = await createUserWithEmailAndPassword({
         email,
         password,
         dateOfBirth,
@@ -76,8 +76,14 @@ const SignupForm = () => {
         lastName,
       })
       Keyboard.dismiss()
+
+      if (!user){
+        Alert.alert("SignUp", "Email is already in use")
+      }
+
     } catch (err) {
       console.log(err)
+      Alert.alert("SignUp", "Something went wrong during SignUp")
     }
   }, [
     createUserWithEmailAndPassword,
