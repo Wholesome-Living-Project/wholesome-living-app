@@ -3,7 +3,7 @@ import Constants from 'expo-constants'
 import React, { createContext, PropsWithChildren, useCallback, useContext, useState } from 'react'
 
 type ChatType = {
-  sendMessage: (message: string) => void
+  sendMessage: (message: string) => Promise<string>
   messages: Message[]
   setMessages: (st: Message[]) => void
 }
