@@ -4,7 +4,6 @@ import DashboardHeader from '../../components/dashboard/DashboardHeader'
 import Discover from '../../components/dashboard/Discover'
 import Forest from '../../components/dashboard/Forest'
 import PluginCards from '../../components/dashboard/PluginCards'
-import LevelModal from '../../components/modals/LevelModal'
 import Spacer from '../../components/ui/Spacer'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { COLORS } from '../../theme/theme'
@@ -29,7 +28,6 @@ export function DashboardScreen() {
         <Discover />
         <Spacer x={25} />
       </ScrollView>
-      <LevelModal />
     </View>
   )
 }

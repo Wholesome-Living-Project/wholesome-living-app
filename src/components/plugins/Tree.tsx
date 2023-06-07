@@ -11,10 +11,6 @@ const Container = styled(Flex)`
   width: 100%;
 `
 
-const StyledImage = styled(Image)`
-  width: 100%;
-`
-
 const LevelComponent = styled(Flex)`
   position: absolute;
   width: 100px;
@@ -32,6 +28,7 @@ type Props = {
   experience?: number
   level?: number
   experienceToNextLevel?: number
+  max?: number
 }
 
 const levelAssets = [
@@ -43,16 +40,26 @@ const levelAssets = [
   require('../../../assets/images/levels/big_small.png'),
 ]
 
-const Tree = ({ height, experience = 0, level = 1, experienceToNextLevel = 15 }: Props) => {
+const Tree = ({
+  height,
+  experience = 0,
+  level = 1,
+  experienceToNextLevel = 50,
+  max = 6,
+}: Props) => {
   return (
     <Container style={{ height }} row justify={'center'} align={'center'}>
       <Image source={levelAssets[level - 1]} style={{ width: 300, height: 300 }} />
       <LevelComponent>
         <Regular color={COLORS.WHITE}>Level {level}</Regular>
-        <ExperienceBar progress={(100 / experienceToNextLevel) * experience} />
-        <Caption color={COLORS.WHITE}>
-          Exp: {clamp(experience, 0, experienceToNextLevel)}/{experienceToNextLevel}
-        </Caption>
+        <ExperienceBar progress={(100 / experienceToNextLevel) * experience} max={max <= level} />
+        {max > level ? (
+          <Caption color={COLORS.WHITE}>
+            Exp: {clamp(experience, 0, experienceToNextLevel)}/{experienceToNextLevel}
+          </Caption>
+        ) : (
+          <Caption color={COLORS.WHITE}>Well done!</Caption>
+        )}
       </LevelComponent>
     </Container>
   )

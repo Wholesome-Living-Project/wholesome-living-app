@@ -2,9 +2,9 @@ import React, { Fragment, useMemo } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../api/openapi'
-import { PLUGINS } from '../../helpers/pluginList'
 import useHaptics from '../../hooks/useHaptics'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
+import { useLevels } from '../../provider/LevelProvider'
 import { IO_COMPONENT_WIDTH_PERCENT, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
 import { Heading4 } from '../../theme/typography'
 import PluginBanner from '../discover/PluginBanner'
@@ -50,6 +50,8 @@ const levels = [6, 2]
 const Forest = () => {
   const { windowWidth } = useWindowDimensions()
   const { doMediumFeedback } = useHaptics()
+  // TODO: also add plugins which dont have a level yet at level 1 from Onboarding added plugins!
+  const { experienceMap, levelMap, setCurrentlyInspectedPlugin } = useLevels()
   const width = useMemo(() => windowWidth * IO_COMPONENT_WIDTH_PERCENT, [windowWidth])
 
   return (
@@ -61,27 +63,29 @@ const Forest = () => {
         <Background source={require('../../../assets/images/background_small.jpg')} />
         <Scroller horizontal>
           <LevelsContainer row align={'flex-end'}>
-            {levels.map((level, index) => (
-              <LevelContainer key={index} width={130} align={'center'} column>
-                <ExperienceContainer align={'center'} column>
-                  <PluginBanner
-                    plugin={SettingsPluginName.PluginNameMeditation}
-                    title={''}
-                    size={30}
-                    icon={PLUGINS[SettingsPluginName.PluginNameMeditation].icon}
-                  />
-                  <Spacer x={0.5} />
-                  <ExperienceBar progress={20} size={'small'} />
-                </ExperienceContainer>
-                <TouchableOpacity
-                  onPress={async () => {
-                    await doMediumFeedback()
-                    levelModalRef.current?.expand()
-                  }}>
-                  {levelComponents[level - 1]}
-                </TouchableOpacity>
-              </LevelContainer>
-            ))}
+            {levelMap &&
+              Object.keys(levelMap).map((key, index) => (
+                <LevelContainer key={index} width={130} align={'center'} column>
+                  <ExperienceContainer align={'center'} column>
+                    <PluginBanner plugin={key as SettingsPluginName} size={30} />
+                    <Spacer x={0.5} />
+                    <ExperienceBar
+                      progress={(100 / 50) * (experienceMap?.meditation ?? 0)}
+                      size={'small'}
+                      max={levelMap[key] >= 6}
+                      center
+                    />
+                  </ExperienceContainer>
+                  <TouchableOpacity
+                    onPress={async () => {
+                      setCurrentlyInspectedPlugin(key as SettingsPluginName)
+                      await doMediumFeedback()
+                      levelModalRef.current?.expand()
+                    }}>
+                    {levelComponents[Math.max(levelMap[key] - 1, 0)]}
+                  </TouchableOpacity>
+                </LevelContainer>
+              ))}
           </LevelsContainer>
         </Scroller>
       </Wrapper>

@@ -2,10 +2,11 @@ import { FontAwesome, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@e
 import { alpha } from 'axelra-react-native-utilities'
 
 import { LinearGradient } from 'expo-linear-gradient'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components'
-import { PluginType } from '../../helpers/pluginList'
+import { SettingsPluginName } from '../../../api/openapi'
+import { PLUGINS } from '../../helpers/pluginList'
 import { COLORS, SPACING } from '../../theme/theme'
 
 const PluginContainer = styled(View)<{ color?: string }>`
@@ -20,18 +21,22 @@ const Gradient = styled(LinearGradient)<{ size?: number }>`
   align-items: center;
 `
 
-const PluginBanner = ({
-  color,
-  icon,
-  faIcon,
-  materialIcon,
-  ionIcon,
-  size,
-}: PluginType & { size?: number }) => {
+type Props = {
+  plugin: SettingsPluginName
+  size?: number
+}
+
+const PluginBanner = ({ plugin, size }: Props) => {
+  const color = useMemo(() => PLUGINS[plugin].color, [plugin])
+  const icon = useMemo(() => PLUGINS[plugin].icon, [plugin])
+  const faIcon = useMemo(() => PLUGINS[plugin].faIcon, [plugin])
+  const materialIcon = useMemo(() => PLUGINS[plugin].materialIcon, [plugin])
+  const ionIcon = useMemo(() => PLUGINS[plugin].ionIcon, [plugin])
+
   return (
     <PluginContainer>
       <Gradient
-        colors={[color ?? COLORS.PRIMARY, color ? alpha(0.6, color) : COLORS.PRIMARY]}
+        colors={[color ?? COLORS.PRIMARY, color ? alpha(0.6, color) : alpha(0.6, COLORS.PRIMARY)]}
         start={{ x: 0.1, y: 0.4 }}
         size={size}>
         {icon && (

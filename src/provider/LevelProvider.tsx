@@ -14,6 +14,8 @@ type LevelContentType = {
   levelMap?: { [key in SettingsPluginName]: number }
   experienceMap?: { [key in SettingsPluginName]: number }
   getLevels: () => Promise<void>
+  currentlyInspectedPlugin?: SettingsPluginName
+  setCurrentlyInspectedPlugin: (plugin: SettingsPluginName) => void
 }
 
 const LevelContext = createContext<LevelContentType>({} as LevelContentType)
@@ -23,6 +25,7 @@ export const useLevels = () => useContext(LevelContext)
 const useProvideLevels = (): LevelContentType => {
   const [levelMap, setLevelMap] = useState<{ [key in SettingsPluginName]: number }>()
   const [experienceMap, setExperienceMap] = useState<{ [key in SettingsPluginName]: number }>()
+  const [currentlyInspectedPlugin, setCurrentlyInspectedPlugin] = useState<SettingsPluginName>()
 
   const { user } = useUser()
   const getLevels = useCallback(async () => {
@@ -30,7 +33,7 @@ const useProvideLevels = (): LevelContentType => {
       if (!user?.id) return
       console.log(user?.id)
       const { data } = await api.levelApi.progressGet(user?.id)
-      setLevelMap(data.experience as { [key in SettingsPluginName]: number })
+      setLevelMap(data.level as { [key in SettingsPluginName]: number })
       setExperienceMap(data.experienceToNewLevel as { [key in SettingsPluginName]: number })
     } catch (e) {
       console.log(e)
@@ -41,7 +44,13 @@ const useProvideLevels = (): LevelContentType => {
     getLevels()
   }, [getLevels])
 
-  return { experienceMap, levelMap, getLevels }
+  return {
+    experienceMap,
+    levelMap,
+    getLevels,
+    currentlyInspectedPlugin,
+    setCurrentlyInspectedPlugin,
+  }
 }
 
 export const LevelProvider = ({ children }: PropsWithChildren) => {

@@ -52,7 +52,6 @@ const SigninForm = () => {
 
     try {
       await signInWithEmailAndPassword({ email, password })
-
       Keyboard.dismiss()
       signInModalRef.current?.close()
     } catch (err) {
@@ -91,7 +90,7 @@ const SigninForm = () => {
         errorMsg={errors.password}
       />
       <Spacer x={4} />
-      <Button buttonType={'primary'} disabled={buttonDisabled} onPress={() => submit()}>
+      <Button buttonType={'primary'} disabled={buttonDisabled} onPress={submit}>
         Submit
       </Button>
       <Spacer x={2} />

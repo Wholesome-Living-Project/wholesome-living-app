@@ -1,6 +1,7 @@
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
+import LevelModal from '../../src/components/modals/LevelModal'
 import BackButton from '../../src/components/ui/BackButton'
 import { COLORS } from '../../src/theme/theme'
 
@@ -52,6 +53,8 @@ export default function Layout() {
           }}
         />
       </Stack>
+
+      <LevelModal />
       <StatusBar style={'dark'} />
     </>
   )

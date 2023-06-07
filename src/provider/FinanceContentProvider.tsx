@@ -50,7 +50,7 @@ const useProvideFinance = (): FinanceContentType => {
     try {
       const { data } = await api.financeApi.financeGet(user?.id)
       // @ts-ignore
-      setSpendings(data)
+      setSpendings(data.reverse())
     } catch (e) {
       console.log(e)
     }

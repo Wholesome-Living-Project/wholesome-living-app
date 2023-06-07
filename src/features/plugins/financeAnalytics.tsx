@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react'
 import { Dimensions, Image, ScrollView, View } from 'react-native'
-import { BarChart, PieChart } from 'react-native-chart-kit'
+import { BarChart, LineChart, PieChart } from 'react-native-chart-kit'
 import styled from 'styled-components'
 import FinanceHistory from '../../components/dashboard/plugins/FinanceHistory'
 import { Flex } from '../../components/ui/Flex'
 import Spacer from '../../components/ui/Spacer'
-import { PLUGINS } from '../../helpers/pluginList'
 import { useFinance } from '../../provider/FinanceContentProvider'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
-import { Heading1, Heading4, Heading6 } from '../../theme/typography'
+import { Heading1, Heading4, Heading5, Heading6 } from '../../theme/typography'
 
 const IMAGE_HEIGHT = 320
 const ImageContainer = styled(View)`
@@ -34,7 +33,7 @@ const Container = styled(Flex)`
 `
 
 const FinanceAnalytics = () => {
-  const { getSpendings, aggregatedSpendings } = useFinance()
+  const { getSpendings, aggregatedSpendings, aggregateSavings } = useFinance()
 
   useEffect(() => {
     getSpendings()
@@ -46,7 +45,7 @@ const FinanceAnalytics = () => {
         <StyledImage source={require('../../../assets/images/woman_saving_money_analytics.png')} />
         <Flex column>
           <Spacer x={15} />
-          <Heading1 color={COLORS.WHITE}>{PLUGINS.finance.title}</Heading1>
+          <Heading1 color={COLORS.WHITE}>Analytics</Heading1>
         </Flex>
       </ImageContainer>
       <ScrollView>
@@ -54,7 +53,7 @@ const FinanceAnalytics = () => {
         <Container align={'center'}>
           <Heading4>Your Analytics</Heading4>
           <Spacer x={4} />
-          <Heading6>Daily Spendings</Heading6>
+          <Heading6>Daily Spending</Heading6>
           <Spacer x={2} />
           <BarChart
             data={{
@@ -133,6 +132,43 @@ const FinanceAnalytics = () => {
             absolute //for the absolute number remove if you want percentage
           />
           <Spacer x={4} />
+          <Heading5>Your Savings</Heading5>
+          <Spacer x={2} />
+          <Heading1>{aggregateSavings} CHF</Heading1>
+          <Spacer x={1} />
+
+          <LineChart
+            withHorizontalLabels={true}
+            withVerticalLabels={true}
+            data={{
+              labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov'],
+              datasets: [
+                {
+                  data: [7056, 7056, 7056, 7056, 7056, 7056, 7056],
+                  strokeWidth: 2,
+                  color: (opacity = 1) => `rgba(255,0,0,${opacity})`, // optional
+                },
+                {
+                  data: [0, 0, 0, 0, 0, 0, aggregateSavings],
+                  strokeWidth: 2,
+                  color: (opacity = 1) => `rgba(0,0,102, ${opacity})`, // optional
+                },
+              ],
+              legend: ['Max', 'Your 3a'],
+            }}
+            width={Dimensions.get('window').width - 1}
+            height={200}
+            chartConfig={{
+              backgroundColor: `${COLORS.GREY}`,
+              backgroundGradientFrom: `${COLORS.GREY}`,
+              backgroundGradientTo: `${COLORS.GREY}`,
+              decimalPlaces: 0,
+              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              style: {
+                borderRadius: 16,
+              },
+            }}
+          />
           <Heading6>Spendings History</Heading6>
           <Spacer x={2} />
           <FinanceHistory />

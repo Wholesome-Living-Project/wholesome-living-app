@@ -7,17 +7,20 @@ import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 import { useUser } from '../../hooks/useUser'
 import { COLORS, SPACING } from '../../theme/theme'
-import { Heading4 } from '../../theme/typography'
+import { Heading4, Heading5 } from '../../theme/typography'
 import { Flex } from '../ui/Flex'
 import Spacer from '../ui/Spacer'
 
 const Wrapper = styled(Animated.View)`
   width: 100%;
   background: ${COLORS.WHITE};
-  padding: ${SPACING * 4}px ${SPACING * 2}px ${SPACING * 2}px;
   position: relative;
   z-index: 2;
   overflow: hidden;
+`
+
+const Container = styled(Flex)`
+  padding: ${SPACING * 4}px ${SPACING * 2}px ${SPACING * 2}px;
 `
 
 const ProfileImage = styled(View)`
@@ -28,7 +31,7 @@ const ProfileImage = styled(View)`
   position: relative;
 `
 
-const CompactText = styled(Heading4)`
+const CompactText = styled(Heading5)`
   margin: 0;
   font-weight: 400;
 `
@@ -81,34 +84,36 @@ const DashboardHeader = ({ showFull }: Props) => {
   return (
     <Wrapper style={animatedStyle}>
       <Spacer x={Platform.OS === 'android' ? 0 : 4} />
-      <Flex row justify={'space-between'}>
-        <TouchableIcon onPress={() => navigation?.navigate('settings')}>
-          <FontAwesome name={'bars'} size={22} color={COLORS.BLACK} />
-        </TouchableIcon>
-        <TouchableIcon>
-          <FontAwesome name={'bell'} size={22} color={COLORS.BLACK} />
-        </TouchableIcon>
-      </Flex>
-      <Spacer x={2} />
-      <Flex row align={'center'}>
-        <ProfileImage>
-          <AbsoluteImageContainer>
-            <StyledImage
-              source={require('../../../assets/images/woman_productive_full_size.jpg')}
-              width={50}
-            />
-          </AbsoluteImageContainer>
-        </ProfileImage>
-        <Spacer x={2} />
-        <Flex column>
-          <CompactText color={COLORS.BLACK}>Welcome back</CompactText>
-          <CompactHeading color={COLORS.BLACK}>
-            {user?.firstName} {user?.lastName}
-          </CompactHeading>
+      <Container>
+        <Flex row justify={'space-between'}>
+          <TouchableIcon onPress={() => navigation?.navigate('settings')}>
+            <FontAwesome name={'bars'} size={22} color={COLORS.BLACK} />
+          </TouchableIcon>
+          <TouchableIcon>
+            <FontAwesome name={'bell'} size={22} color={COLORS.BLACK} />
+          </TouchableIcon>
         </Flex>
-      </Flex>
-      <Spacer x={2} />
-      <Divider orientation={'horizontal'} />
+        <Spacer x={2} />
+        <Flex row align={'center'}>
+          <ProfileImage>
+            <AbsoluteImageContainer>
+              <StyledImage
+                source={require('../../../assets/images/woman_productive_full_size.jpg')}
+                width={50}
+              />
+            </AbsoluteImageContainer>
+          </ProfileImage>
+          <Spacer x={2} />
+          <Flex column>
+            <CompactText color={COLORS.BLACK}>Welcome back</CompactText>
+            <CompactHeading color={COLORS.BLACK}>
+              {user?.firstName} {user?.lastName}
+            </CompactHeading>
+          </Flex>
+        </Flex>
+        <Spacer x={2} />
+        <Divider orientation={'horizontal'} />
+      </Container>
     </Wrapper>
   )
 }
