@@ -27,25 +27,21 @@ export const useFinance = () => useContext(FinanceContext)
 const useProvideFinance = (): FinanceContentType => {
   const [spendings, setSpendings] = useState<FinanceGetInvestmentResponse[]>([])
   const { user } = useUser()
-  const { settings } = useOnboarding()
+  const { selectedStrategy, roundUpNumber } = useOnboarding()
 
   const getSaving = useCallback(
     (amount: number) => {
-      console.log(settings)
-      if (!settings?.finance?.strategy || !settings.finance.strategyAmount) return 0
-      switch (settings?.finance.strategy) {
+      if (!selectedStrategy || !roundUpNumber) return 0
+      switch (selectedStrategy) {
         case 'Percent':
-          return amount * (settings.finance.strategyAmount / 100)
+          return amount * (roundUpNumber / 100)
         case 'Plus':
-          return settings.finance.strategyAmount
+          return roundUpNumber
         default:
-          return (
-            Math.ceil(amount / settings.finance.strategyAmount) * settings.finance.strategyAmount -
-            amount
-          )
+          return Math.ceil(amount / roundUpNumber) * roundUpNumber - amount
       }
     },
-    [settings]
+    [roundUpNumber, selectedStrategy]
   )
 
   const saveSpending = useCallback(

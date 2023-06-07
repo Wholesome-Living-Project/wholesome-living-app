@@ -1,13 +1,6 @@
 import axios from 'axios'
 import Constants from 'expo-constants'
-import React, {
-  createContext,
-  PropsWithChildren,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import React, { createContext, PropsWithChildren, useCallback, useContext, useState } from 'react'
 
 type ChatType = {
   sendMessage: (message: string) => void
@@ -24,13 +17,12 @@ export type Message = {
   role: 'user' | 'assistant' | 'system'
 }
 const useProvideChat = (): ChatType => {
-  const [messages, setMessages] = useState<Message[]>([])
-
-  useEffect(() => {
-    // Access the updated state value
-    console.log(messages)
-    // Perform further operations with the updated state value
-  }, [messages])
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      content: 'hey',
+      role: 'assistant',
+    },
+  ])
 
   const sendMessage = useCallback(
     async (message: string) => {

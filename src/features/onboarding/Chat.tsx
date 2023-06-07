@@ -7,7 +7,6 @@ import Input from '../../components/ui/Input'
 import Spacer from '../../components/ui/Spacer'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useChat } from '../../provider/ChatProvider'
-import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS, EXTRA_COLORS, SPACING } from '../../theme/theme'
 import { Heading6 } from '../../theme/typography'
 
@@ -38,8 +37,7 @@ const Message = styled(Flex)<{ isUser: boolean }>`
 
 const Chat = () => {
   const { windowHeight } = useWindowDimensions()
-  const { chosenPluginSteps } = useOnboarding()
-  const { sendMessage, messages, setMessages } = useChat()
+  const { sendMessage, messages } = useChat()
   const [message, setMessage] = useState('')
 
   const onSend = useCallback(() => {
@@ -47,6 +45,8 @@ const Chat = () => {
 
     setMessage('')
   }, [message, sendMessage])
+
+  if (!messages) return
 
   return (
     <Flex style={{ height: windowHeight }} column justify={'space-between'}>
