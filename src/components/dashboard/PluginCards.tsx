@@ -28,6 +28,7 @@ const PluginCards = () => {
       <SectionTitleContainer>
         <Heading4>Your Plugins</Heading4>
       </SectionTitleContainer>
+      <Spacer x={1} />
       <StyledScrollView horizontal showsHorizontalScrollIndicator={false}>
         {chosenPlugins.map((plugin) => (
           <Fragment key={plugin}>
@@ -35,7 +36,6 @@ const PluginCards = () => {
             {Cards[plugin]}
           </Fragment>
         ))}
-        <Spacer x={2} />
       </StyledScrollView>
     </Fragment>
   )
