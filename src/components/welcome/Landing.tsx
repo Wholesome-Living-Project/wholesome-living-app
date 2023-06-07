@@ -1,7 +1,6 @@
 import React from 'react'
-import { Image, View, Dimensions} from 'react-native'
+import { Image, StatusBar, View } from 'react-native'
 import styled from 'styled-components'
-import { StatusBar } from 'react-native'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { COLORS } from '../../theme/theme'
 import { Heading2 } from '../../theme/typography'
