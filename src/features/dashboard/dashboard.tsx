@@ -24,7 +24,9 @@ export function DashboardScreen() {
         onScroll={(event) => setScrollY(event.nativeEvent.contentOffset.y)}
         scrollEventThrottle={16}>
         <Forest />
+        <Spacer x={2} />
         <PluginCards />
+        <Spacer x={2} />
         <Discover />
         <Spacer x={25} />
       </ScrollView>

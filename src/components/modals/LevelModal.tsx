@@ -1,11 +1,12 @@
 import BottomSheet from 'axelra-react-native-bottom-sheet'
 import React, { useCallback } from 'react'
-import { Keyboard, Platform } from 'react-native'
+import { Image, Keyboard, Platform } from 'react-native'
 import styled from 'styled-components'
 import { useModal } from '../../hooks/useModal'
 import { useLevels } from '../../provider/LevelProvider'
 import { SPACING } from '../../theme/theme'
-import { Heading4 } from '../../theme/typography'
+import { Heading3 } from '../../theme/typography'
+import PluginBanner from '../discover/PluginBanner'
 import Tree from '../plugins/Tree'
 import { levelModalRef } from '../refs/modal-refs'
 import { BottomSheetViewFlex } from '../ui/BottomSheetViewFlex'
@@ -16,6 +17,10 @@ import Spacer from '../ui/Spacer'
 const Container = styled(Flex)`
   padding: ${SPACING * 2}px ${SPACING * 3}px;
   min-height: 900px;
+`
+
+const AbsoluteImage = styled(Image)`
+  position: absolute;
 `
 
 const LevelModal = () => {
@@ -37,7 +42,12 @@ const LevelModal = () => {
       {...modalProps}>
       <BottomSheetViewFlex flex={1} justify={'center'} column>
         <Container>
-          <Heading4>Your current Meditation level</Heading4>
+          <Flex row justify={'space-between'}>
+            <Heading3>Meditation</Heading3>
+            {currentlyInspectedPlugin && (
+              <PluginBanner plugin={currentlyInspectedPlugin} size={50} />
+            )}
+          </Flex>
           <Tree
             height={350}
             level={currentlyInspectedPlugin ? levelMap?.[currentlyInspectedPlugin] : 1}

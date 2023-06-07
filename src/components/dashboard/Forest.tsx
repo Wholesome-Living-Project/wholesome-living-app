@@ -1,11 +1,11 @@
-import React, { Fragment, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../api/openapi'
 import useHaptics from '../../hooks/useHaptics'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useLevels } from '../../provider/LevelProvider'
-import { IO_COMPONENT_WIDTH_PERCENT, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
+import { IO_COMPONENT_WIDTH_PERCENT, SPACING } from '../../theme/theme'
 import { Heading4 } from '../../theme/typography'
 import PluginBanner from '../discover/PluginBanner'
 import { levelModalRef } from '../refs/modal-refs'
@@ -20,7 +20,6 @@ const Wrapper = styled(View)<{ width: number }>`
   width: ${(p) => p.width}px;
   overflow: hidden;
   position: relative;
-  border-radius: ${OUTER_BORDER_RADIUS}px;
 `
 
 const LevelsContainer = styled(Flex)`
@@ -55,11 +54,12 @@ const Forest = () => {
   const width = useMemo(() => windowWidth * IO_COMPONENT_WIDTH_PERCENT, [windowWidth])
 
   return (
-    <Fragment>
+    <>
       <SectionTitleContainer>
         <Heading4>Your Garden</Heading4>
       </SectionTitleContainer>
-      <Wrapper width={width}>
+      <Spacer x={1} />
+      <Wrapper width={windowWidth}>
         <Background source={require('../../../assets/images/background_small.jpg')} />
         <Scroller horizontal>
           <LevelsContainer row align={'flex-end'}>
@@ -89,7 +89,7 @@ const Forest = () => {
           </LevelsContainer>
         </Scroller>
       </Wrapper>
-    </Fragment>
+    </>
   )
 }
 
