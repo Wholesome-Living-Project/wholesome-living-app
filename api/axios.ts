@@ -5,8 +5,6 @@ import { getCurrentUser } from '../src/auth/auth'
 
 const { manifest } = Constants
 
-//let baseURL = `http://${manifest?.debuggerHost?.split(':').shift()}:8080`
-
 const baseURL =
   Constants.manifest?.extra?.BACKEND_ENV === 'PROD'
     ? 'https://wholesome-living-backend-production.up.railway.app'

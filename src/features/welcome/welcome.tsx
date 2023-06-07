@@ -9,7 +9,6 @@ import Landing from '../../components/welcome/Landing'
 import SignInModal from '../../components/welcome/SignInModal'
 import SignUpModal from '../../components/welcome/SignUpModal'
 import { COLORS } from '../../theme/theme'
-import { Heading5 } from '../../theme/typography'
 
 const Footer = styled(View)`
   display: flex;
@@ -28,14 +27,15 @@ function WelcomeScreen() {
       <Landing />
       <Footer>
         <Button
-          buttonType={'primary'}
+          buttonType={'cta'}
           fullWidth
+          color={COLORS.WHITE}
           onPress={() => {
             openSignInModal()
           }}>
-          <Heading5 color={COLORS.SECONDARY}>Start living</Heading5> wholesome
+          Start your journey
         </Button>
-        <Spacer x={3} />
+        <Spacer x={7} />
       </Footer>
       <SignInModal />
       <SignUpModal />

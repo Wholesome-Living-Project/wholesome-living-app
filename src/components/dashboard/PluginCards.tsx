@@ -1,7 +1,7 @@
 import React, { Fragment, ReactNode } from 'react'
 import { ScrollView } from 'react-native'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../api/openapi'
+import { SettingsPluginName } from '../../../api/openapi'
 import { useUser } from '../../hooks/useUser'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { Heading4 } from '../../theme/typography'
@@ -15,10 +15,10 @@ const StyledScrollView = styled(ScrollView)`
   width: 100%;
 `
 
-const Cards: { [key in UserPluginName]: ReactNode } = {
-  [UserPluginName.PluginNameFinance]: <FinanceDetailedBanner />,
-  [UserPluginName.PluginNameMeditation]: <MeditateDetailedBanner />,
-  [UserPluginName.PluginNameElevator]: <RunDetailedBanner />,
+const Cards: { [key in SettingsPluginName]: ReactNode } = {
+  [SettingsPluginName.PluginNameFinance]: <FinanceDetailedBanner />,
+  [SettingsPluginName.PluginNameMeditation]: <MeditateDetailedBanner />,
+  [SettingsPluginName.PluginNameElevator]: <RunDetailedBanner />,
 }
 
 const PluginCards = () => {

@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Keyboard, View } from 'react-native'
 import styled from 'styled-components/native'
+import { validateEmail, validatePassword } from '../../helpers/validateFields'
 import { useAuthentication } from '../../provider/AuthenticationProvider'
 import { COLORS } from '../../theme/theme'
 import { Heading4 } from '../../theme/typography'
@@ -12,37 +13,84 @@ import Spacer from '../ui/Spacer'
 const Wrapper = styled(View)`
   padding: 10px 30px;
 `
+type ValidationErrors = {
+  email?: string
+  password?: string
+}
 
 const SigninForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { signInWithEmailAndPassword } = useAuthentication()
 
+  const [buttonDisabled, setButtonDisabled] = useState(false)
+  const [errors, setErrors] = useState<ValidationErrors>({})
+
+  useEffect(() => {
+    setButtonDisabled(!(Boolean(email) && Boolean(password)))
+  }, [email, password])
+
+  const validateAll = useCallback(() => {
+    const err: ValidationErrors = {}
+
+    if (!validateEmail(email)) {
+      err.email = 'Please enter a valid email address.'
+    }
+
+    if (!validatePassword(password)) {
+      err.password = 'Please enter a valid password (min. 8 letters).'
+    }
+
+    setErrors(err)
+    return !Boolean(err.email || err.password)
+  }, [email, password])
+
   const submit = useCallback(async () => {
+    if (!validateAll()) {
+      return
+    }
+
     try {
       await signInWithEmailAndPassword({ email, password })
-
       Keyboard.dismiss()
       signInModalRef.current?.close()
     } catch (err) {
       console.log(err)
     }
-  }, [email, password, signInWithEmailAndPassword])
+  }, [email, password, signInWithEmailAndPassword, validateAll])
 
   return (
     <Wrapper>
       <Heading4 color={COLORS.BLACK}>Login</Heading4>
       <Spacer x={3} />
-      <Input placeholder={'Email'} value={email} onChangeText={(text) => setEmail(text)} />
+      <Input
+        placeholder={'Email'}
+        value={email}
+        onChangeText={(text) => {
+          setEmail(text)
+          if (validateEmail(text))
+            setErrors((st: ValidationErrors) => {
+              return { ...st, email: undefined }
+            })
+        }}
+        errorMsg={errors.email}
+      />
       <Spacer x={2} />
       <Input
         placeholder={'Password'}
         value={password}
         secureTextEntry
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={(text) => {
+          setPassword(text)
+          if (validatePassword(text))
+            setErrors((st: ValidationErrors) => {
+              return { ...st, password: undefined }
+            })
+        }}
+        errorMsg={errors.password}
       />
       <Spacer x={4} />
-      <Button fullWidth onPress={() => submit()}>
+      <Button buttonType={'black'} disabled={buttonDisabled} onPress={submit}>
         Submit
       </Button>
       <Spacer x={2} />

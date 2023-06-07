@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { Text, View } from 'react-native'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../../api/openapi'
+import { SettingsPluginName } from '../../../../api/openapi'
 import { getFormattedTimer } from '../../../helpers/getFormattedTimer'
 import { COLORS } from '../../../theme/theme'
 import { Regular } from '../../../theme/typography'
@@ -46,7 +46,7 @@ const MeditateDetailedBanner = () => {
   return (
     <PluginDetailedBanner
       content={<Content />}
-      plugin={UserPluginName.PluginNameMeditation}
+      plugin={SettingsPluginName.PluginNameMeditation}
       backgroundImage={require('../../../../assets/images/woman_meditation.jpg')}
     />
   )

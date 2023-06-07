@@ -4,7 +4,7 @@ import React, { PropsWithChildren, useMemo } from 'react'
 import { Button as NativeButton, ScrollView } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../api/openapi'
+import { SettingsPluginName } from '../../../api/openapi'
 import { PLUGINS } from '../../helpers/pluginList'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useOnboarding } from '../../provider/OnboardingProvider'
@@ -19,7 +19,7 @@ const Wrapper = styled(Flex)`
 `
 
 const Footer = styled(Flex)`
-  padding: 0 ${SPACING * 2}px;
+  padding: 0 ${SPACING * 2}px ${SPACING * 3}px;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -40,7 +40,7 @@ type Props = {
   secondaryText?: string
   infoText?: string
   primaryDisabled?: boolean
-  plugin?: UserPluginName
+  plugin?: SettingsPluginName
   secondaryDisabled?: boolean
   nextStep?: string
   canSkip?: boolean
@@ -84,7 +84,7 @@ const OnboardingStep = ({
       </Flex>
       <Footer>
         <Button
-          buttonColor={plugin ? PLUGINS[plugin]?.color : COLORS.PRIMARY}
+          buttonColor={plugin ? PLUGINS[plugin]?.color : COLORS.BLACK}
           onPress={() => {
             onPressPrimary?.()
             nextStep

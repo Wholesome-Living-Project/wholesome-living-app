@@ -7,7 +7,7 @@ import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { COLORS, IO_COMPONENT_WIDTH_PERCENT, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
 import { Heading5 } from '../../theme/typography'
 
-type ButtonType = 'cta' | 'primary' | 'secondary'
+type ButtonType = 'cta' | 'primary' | 'secondary' | 'black'
 
 type ButtonProps = {
   small?: boolean
@@ -40,16 +40,20 @@ const StyledButton = styled(TouchableOpacity)<ButtonProps>`
         ? alpha(0.4, COLORS.CTA)
         : p.buttonType === 'secondary'
         ? alpha(0.4, COLORS.SECONDARY)
+        : p.buttonType === 'black'
+        ? alpha(0.4, COLORS.BLACK)
         : alpha(0.4, COLORS.PRIMARY)
       : p.buttonType === 'cta'
       ? COLORS.CTA
       : p.buttonType === 'secondary'
       ? COLORS.SECONDARY
+      : p.buttonType === 'black'
+      ? COLORS.BLACK
       : COLORS.PRIMARY};
 
 
 
-  padding: ${(p) => (p.small ? SPACING / 2 : SPACING)}px
+  padding: ${(p) => (p.small ? SPACING : SPACING * 1.5)}px
   ${(p) => (p.small ? SPACING * 1.5 : SPACING * 2)}px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
   justify-content: center;

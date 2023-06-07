@@ -3,7 +3,8 @@ import { Picker } from '@react-native-picker/picker'
 import React from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components'
-import { SettingsNotificationType, UserPluginName } from '../../../../api/openapi'
+import { SettingsPluginName } from '../../../../api/openapi'
+import { SettingsNotificationType } from '../../../../api/openapi'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
 import { Flex } from '../../../components/ui/Flex'
 import Spacer from '../../../components/ui/Spacer'
@@ -32,7 +33,7 @@ const Goal = () => {
   return (
     <OnboardingStep
       primaryText={'Continue'}
-      plugin={UserPluginName.PluginNameMeditation}
+      plugin={SettingsPluginName.PluginNameMeditation}
       onPressPrimary={() => {}}>
       <View>
         <Heading4>Choose your goal</Heading4>

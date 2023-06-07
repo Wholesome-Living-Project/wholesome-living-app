@@ -3,7 +3,7 @@ import React from 'react'
 import { Switch, View } from 'react-native'
 import { Divider } from 'react-native-elements'
 import styled from 'styled-components'
-import { SettingsNotificationType, UserPluginName } from '../../../../api/openapi'
+import { SettingsNotificationType, SettingsPluginName } from '../../../../api/openapi'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
 import { Flex } from '../../../components/ui/Flex'
 import Spacer from '../../../components/ui/Spacer'
@@ -36,7 +36,7 @@ const Notifications = () => {
   return (
     <OnboardingStep
       primaryText={'Continue'}
-      plugin={UserPluginName.PluginNameFinance}
+      plugin={SettingsPluginName.PluginNameFinance}
       onPressPrimary={() => {
         setFinanceSettings()
       }}>
