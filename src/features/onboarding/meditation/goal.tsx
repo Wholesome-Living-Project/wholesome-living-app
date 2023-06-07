@@ -84,31 +84,31 @@ const Goal = () => {
                   (new Date(selectedGoalTime).getMinutes() === 1 ? 'minute' : 'minutes')}
               </Light>
             )
-            : 
+            :
             <Heading5>{" " + formatTimeMeditation(sliderValue)}</Heading5>
           }
         </Light>
         <PickerBackground>
-          {Platform.OS === "ios" &&
+          {Platform.OS === "ios" ?
             <DateTimePicker
               mode={'countdown'}
               value={new Date(selectedGoalTime)}
               display={'spinner'}
               onChange={(_, date) => setSelectedGoalTime(date?.getTime() ?? new Date().getTime())}
+            /> :
+            <Slider
+              style={{ width: "100%", height: 50 }}
+              minimumValue={1}
+              maximumValue={70}
+              value={sliderValue}
+              step={1}
+              onValueChange={setSliderValue}
+              onSlidingComplete={setSliderValue}
+              thumbTintColor={EXTRA_COLORS.BLUE}
+              minimumTrackTintColor={EXTRA_COLORS.BLUE}
+              maximumTrackTintColor="#000000"
             />
           }
-          <Slider
-            style={{ width: "100%", height: 50 }}
-            minimumValue={1}
-            maximumValue={70}
-            value={sliderValue}
-            step={1}
-            onValueChange={setSliderValue}
-            onSlidingComplete={setSliderValue}
-            thumbTintColor={EXTRA_COLORS.BLUE}
-            minimumTrackTintColor={EXTRA_COLORS.BLUE}
-            maximumTrackTintColor="#000000"
-          />
         </PickerBackground>
       </View>
     </OnboardingStep>
