@@ -83,6 +83,7 @@ const Goal = () => {
         <PickerBackground>
           <DateTimePicker
             mode={'countdown'}
+            textColor={COLORS.BLACK}
             value={new Date(selectedGoalTime)}
             display={'spinner'}
             onChange={(_, date) => setSelectedGoalTime(date?.getTime() ?? new Date().getTime())}
