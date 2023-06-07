@@ -1,7 +1,7 @@
 import { alpha } from 'axelra-react-native-utilities'
 import { useSegments } from 'expo-router'
 import React, { PropsWithChildren, useMemo } from 'react'
-import { Button as NativeButton, Platform, ScrollView } from 'react-native'
+import { Button as NativeButton, StatusBar, Platform, ScrollView } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../api/openapi'
@@ -75,7 +75,7 @@ const OnboardingStep = ({
   }, [chosenPluginSteps, currentRoute])
 
   return (
-    <Flex style={{ height: windowHeight }} column justify={'space-between'}>
+    <Flex style={{ height: windowHeight + (StatusBar.currentHeight || 0) }} column justify={'space-between'}>
       <Flex>
         <OnboardingStepHeader plugin={plugin} />
         <StyledScrollView>
