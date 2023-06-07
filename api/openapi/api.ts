@@ -126,26 +126,39 @@ export interface MeditationCreateMeditationResponse {
 export interface MeditationGetMeditationResponse {
     /**
      * 
-     * @type {number}
+     * @type {Array<MeditationMeditationDB>}
      * @memberof MeditationGetMeditationResponse
+     */
+    'meditations'?: Array<MeditationMeditationDB>;
+}
+/**
+ * 
+ * @export
+ * @interface MeditationMeditationDB
+ */
+export interface MeditationMeditationDB {
+    /**
+     * 
+     * @type {number}
+     * @memberof MeditationMeditationDB
      */
     'endTime'?: number;
     /**
      * 
      * @type {string}
-     * @memberof MeditationGetMeditationResponse
+     * @memberof MeditationMeditationDB
      */
     'id'?: string;
     /**
      * 
      * @type {number}
-     * @memberof MeditationGetMeditationResponse
+     * @memberof MeditationMeditationDB
      */
     'meditationTime'?: number;
     /**
      * 
      * @type {string}
-     * @memberof MeditationGetMeditationResponse
+     * @memberof MeditationMeditationDB
      */
     'userId'?: string;
 }
@@ -160,13 +173,13 @@ export interface ProgressResponse {
      * @type {{ [key: string]: number; }}
      * @memberof ProgressResponse
      */
-    'experience'?: { [key: string]: number; };
+    'experienceToNewLevel'?: { [key: string]: number; };
     /**
      * 
      * @type {{ [key: string]: number; }}
      * @memberof ProgressResponse
      */
-    'experienceToNewLevel'?: { [key: string]: number; };
+    'level'?: { [key: string]: number; };
 }
 /**
  * 
