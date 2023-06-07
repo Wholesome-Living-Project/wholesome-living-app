@@ -24,7 +24,7 @@ const Footer = styled(Flex)`
   bottom: 0;
   width: 100%;
   background-color: ${COLORS.WHITE};
-  padding: ${SPACING * 2}px;
+  padding: ${SPACING * 3}px ${SPACING * 2}px ${SPACING * 5}px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
 `
@@ -53,7 +53,7 @@ const OnboardingStep = ({
   secondaryText,
   infoText,
   secondaryDisabled,
-  canSkip = true,
+  canSkip = false,
   nextStep,
   primaryDisabled,
   plugin,

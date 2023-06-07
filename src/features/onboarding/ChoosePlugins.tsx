@@ -42,8 +42,8 @@ const ChoosePlugins = () => {
 
   const addPlugin = useCallback(
     (plugin: SettingsPluginName) => {
-      const route = PLUGINS[plugin].onboardingRoute
-      const steps = PLUGINS[plugin].onboardingSubRoutes
+      const route = PLUGINS[plugin]?.onboardingRoute
+      const steps = PLUGINS[plugin]?.onboardingSubRoutes
       const stepArray = steps?.map((step) => route + '/' + step)
 
       setChosenPlugins([...chosenPlugins, plugin])
@@ -54,8 +54,8 @@ const ChoosePlugins = () => {
 
   const removePlugin = useCallback(
     (plugin: string) => {
-      const route = PLUGINS[plugin].onboardingRoute
-      const steps = PLUGINS[plugin].onboardingSubRoutes
+      const route = PLUGINS[plugin]?.onboardingRoute
+      const steps = PLUGINS[plugin]?.onboardingSubRoutes
       const stepArray = steps?.map((step) => route + '/' + step)
 
       const newChosenPluginSteps = chosenPluginSteps.filter((step) => !stepArray?.includes(step))

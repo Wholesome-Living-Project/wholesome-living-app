@@ -15,6 +15,7 @@ import { Regular } from '../../theme/typography'
 
 const StyledScrollView = styled(ScrollView)<{ height: number }>`
   height: ${(p) => p.height}px;
+  margin-top: ${SPACING * 2}px;
   position: relative;
 `
 
@@ -114,10 +115,14 @@ const Chat = () => {
       <Footer
         bottom={keyboardOpen ? keyboardHeight : 0}
         onLayout={(e) => {
-          const height = e.nativeEvent?.layout.height
-          height && setFooterHeight(height)
+          try {
+            const { height } = e.nativeEvent.layout
+            height && setFooterHeight(height)
+          } catch (e) {
+            console.log(e)
+          }
         }}>
-        {messages.length <= 12 ? (
+        {messages.length <= 2 ? (
           <>
             <Input
               value={message}

@@ -4,7 +4,6 @@ import { Dimensions, FlatList, TouchableOpacity, View } from 'react-native'
 import { Divider } from 'react-native-elements'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
-import { SafeArea } from '../../components/ui/SafeArea'
 import Spacer from '../../components/ui/Spacer'
 import { useUser } from '../../hooks/useUser'
 import { useAuthentication } from '../../provider/AuthenticationProvider'
@@ -15,7 +14,7 @@ import type { IonIconType } from '../../types/IonIcon'
 const HORIZONTAL_PADDING = SPACING * 2
 
 const StyledList = styled(FlatList)`
-  background-color: ${COLORS.GREY};
+  background-color: ${COLORS.WHITE};
 `
 
 const ListItem = styled(View)<{ width: number }>`
@@ -36,6 +35,7 @@ const ListItemContent = styled(View)`
 
 const UserProfile = styled(View)<{ width: number }>`
   height: 100px;
+  margin-top: ${SPACING * 2}px;
   width: ${(p) => p.width}px;
   display: flex;
   flex-direction: row;
@@ -78,39 +78,37 @@ export const SettingsScreen = () => {
   const { signOutUser } = useAuthentication()
 
   return (
-    <SafeArea>
-      <StyledList
-        data={SETTINGS}
-        renderItem={({ item }) => {
-          return <Setting {...(item as never as SettingsType)} />
-        }}
-        ItemSeparatorComponent={() => <Divider width={0.7} color={COLORS.PRIMARY} />}
-        ListFooterComponent={
-          <>
-            <Divider width={0.7} color={COLORS.PRIMARY} />
-            <Spacer x={8} />
-            <Setting
-              name={'Logout'}
-              icon={'exit-outline'}
-              onPress={async () => {
-                await signOutUser()
-              }}
-            />
-          </>
-        }
-        ListHeaderComponent={() => (
-          <UserProfile width={windowWidth}>
-            <ProfileImage />
-            <Spacer x={2} />
-            <UserInfoContainer>
-              <EmailText>{user?.email}</EmailText>
-              <Spacer x={1} />
-              <NameText>{user?.firstName}</NameText>
-            </UserInfoContainer>
-          </UserProfile>
-        )}
-      />
-    </SafeArea>
+    <StyledList
+      data={SETTINGS}
+      renderItem={({ item }) => {
+        return <Setting {...(item as never as SettingsType)} />
+      }}
+      ItemSeparatorComponent={() => <Divider width={0.7} color={COLORS.PRIMARY} />}
+      ListFooterComponent={
+        <>
+          <Divider width={0.7} color={COLORS.PRIMARY} />
+          <Spacer x={8} />
+          <Setting
+            name={'Logout'}
+            icon={'exit-outline'}
+            onPress={async () => {
+              await signOutUser()
+            }}
+          />
+        </>
+      }
+      ListHeaderComponent={() => (
+        <UserProfile width={windowWidth}>
+          <ProfileImage />
+          <Spacer x={2} />
+          <UserInfoContainer>
+            <EmailText>{user?.email}</EmailText>
+            <Spacer x={1} />
+            <NameText>{user?.firstName}</NameText>
+          </UserInfoContainer>
+        </UserProfile>
+      )}
+    />
   )
 }
 
