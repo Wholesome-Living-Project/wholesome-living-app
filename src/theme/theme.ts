@@ -52,6 +52,8 @@ export const EXTRA_COLORS = {
   FINA_LIGHT: '#a081e1',
 }
 
+export const CHART_COLORS = ['#33cbb0', '#c4ef88', '#b00d9d', '#09a3be', '#989898']
+
 export const SPACING = 8
 
 export const BACKGROUND_PADDING = 4 * SPACING

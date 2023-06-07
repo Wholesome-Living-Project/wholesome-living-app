@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons'
+import { alpha } from 'axelra-react-native-utilities'
 import React, { useEffect, useMemo } from 'react'
 import { Image, ScrollView, View } from 'react-native'
 import { BarChart, LineChart, PieChart } from 'react-native-chart-kit'
@@ -10,7 +11,7 @@ import { getLast7Days } from '../../helpers/datesHelper'
 import { PLUGIN_COLORS } from '../../helpers/pluginList'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useFinance } from '../../provider/FinanceContentProvider'
-import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
+import { CHART_COLORS, COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
 import { Heading1, Heading4, Heading5, Heading6 } from '../../theme/typography'
 import ChartContainer from './ChartContainer'
 
@@ -45,7 +46,6 @@ const FinanceAnalytics = () => {
   const spendingsByDate = useMemo(() => {
     // Initiate an empty object to store the aggregates
     let aggregates: { [date: string]: number } = {}
-
     const dates = getLast7Days()
 
     // Initialize all dates with 0
@@ -63,9 +63,47 @@ const FinanceAnalytics = () => {
       }
     })
 
-    return aggregates
+    let dayNames = {}
+
+    for (let date in aggregates) {
+      let day = new Date(date)
+      let dayName = day.toLocaleDateString('en-US', { weekday: 'short' }) // Change 'en-US' to your preferred locale if needed
+      dayNames[dayName] = aggregates[date]
+    }
+
+    return dayNames
   }, [spendings])
-  console.log(spendingsByDate)
+
+  const spendingsByCategory = useMemo(() => {
+    let categoryCounts: { [description: string]: number } = {}
+
+    // Aggregate descriptions
+    spendings.forEach((investment) => {
+      if (investment.description) {
+        if (categoryCounts.hasOwnProperty(investment.description)) {
+          categoryCounts[investment.description.toLowerCase()] += investment.amount ?? 0
+        } else {
+          categoryCounts[investment.description.toLowerCase()] = investment.amount ?? 0
+        }
+      }
+    })
+
+    // Convert object to array and sort it in descending order by count
+    let sortedCategories = Object.keys(categoryCounts)
+      .map((description) => ({ description, count: categoryCounts[description] }))
+      .sort((a, b) => (b.count && a.count ? b.count - a.count : 1))
+
+    // If there are more than topN categories, aggregate the rest into an "Other" category
+    if (sortedCategories.length > 4) {
+      let otherCount = sortedCategories
+        .slice(4)
+        .reduce((total, category) => total + (category.count ?? 0), 0)
+      sortedCategories = sortedCategories.slice(0, 4)
+      sortedCategories.push({ description: 'other', count: otherCount })
+    }
+
+    return sortedCategories
+  }, [spendings])
 
   useEffect(() => {
     getSpendings()
@@ -82,14 +120,14 @@ const FinanceAnalytics = () => {
             title={'Daily Spending'}
             icon={<Ionicons name={'bar-chart'} size={22} color={PLUGIN_COLORS.finance} />}
             description={
-              'This bar chart shows how much you spent each day in the last week. The more you spend the more you will have to invest to balance things out.'
+              'The bar chart shows how much you spent each day in the last week. The more you spend the more you will have to invest to balance things out.'
             }>
             <BarChart
               data={{
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Today', 'Sat', 'Sun'],
+                labels: Object.keys(spendingsByDate).reverse(),
                 datasets: [
                   {
-                    data: [140, 250, 100, aggregatedSpendings, 0, 0, 0],
+                    data: Object.values(spendingsByDate).reverse() as number[],
                     colors: [
                       () => PLUGIN_COLORS.finance,
                       () => PLUGIN_COLORS.finance,
@@ -134,39 +172,16 @@ const FinanceAnalytics = () => {
             title={'Spending By Category'}
             icon={<Ionicons name={'pie-chart'} size={22} color={PLUGIN_COLORS.finance} />}
             description={
-              'This pie chart shows how much you spent on what category. Try to use the same names for categories to show them here aggregated.'
+              'This pie chart shows how much you spent (in CHF) on what category. Try to use the same names for categories to show them here aggregated.'
             }>
             <PieChart
-              data={[
-                {
-                  name: 'Food',
-                  population: 210,
-                  color: `${COLORS.CTA}`,
-                  legendFontColor: '#7F7F7F',
-                  legendFontSize: 15,
-                },
-                {
-                  name: 'Clothes',
-                  population: 150,
-                  color: `${COLORS.TAB_BAR_ICONS}`,
-                  legendFontColor: '#7F7F7F',
-                  legendFontSize: 15,
-                },
-                {
-                  name: 'Transport',
-                  population: 100,
-                  color: `${COLORS.PRIMARY}`,
-                  legendFontColor: '#7F7F7F',
-                  legendFontSize: 15,
-                },
-                {
-                  name: 'Utilities',
-                  population: 600,
-                  color: '#7F7F7F',
-                  legendFontColor: '#7F7F7F',
-                  legendFontSize: 15,
-                },
-              ]}
+              data={spendingsByCategory.map((category, index) => ({
+                name: category.description,
+                population: category.count,
+                color: CHART_COLORS[index],
+                legendFontColor: '#7F7F7F',
+                legendFontSize: 15,
+              }))}
               width={windowWidth - SPACING * 6}
               height={220}
               chartConfig={{
@@ -186,43 +201,67 @@ const FinanceAnalytics = () => {
             />
           </ChartContainer>
           <Spacer x={4} />
-          <Heading5>Your Savings</Heading5>
+          <Heading5></Heading5>
           <Spacer x={2} />
-          <Heading1>{aggregateSavings} CHF</Heading1>
-          <Spacer x={1} />
 
-          <LineChart
-            withHorizontalLabels={true}
-            withVerticalLabels={true}
-            data={{
-              labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep', 'Nov'],
-              datasets: [
-                {
-                  data: [7056, 7056, 7056, 7056, 7056, 7056, 7056],
-                  strokeWidth: 2,
-                  color: (opacity = 1) => `rgba(255,0,0,${opacity})`, // optional
+          <ChartContainer
+            chartType={'Line chart'}
+            title={'Your Savings'}
+            icon={<Ionicons name={'pie-chart'} size={22} color={PLUGIN_COLORS.finance} />}
+            description={
+              'This pie chart shows how much you spent (in CHF) on what category. Try to use the same names for categories to show them here aggregated.'
+            }>
+            <Heading1>{aggregateSavings} CHF</Heading1>
+            <Spacer x={1} />
+            <LineChart
+              withHorizontalLabels={true}
+              withVerticalLabels={true}
+              data={{
+                labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep'],
+                datasets: [
+                  {
+                    data: [7056, 3000, 7056, 7056, 7056, 7056],
+                    strokeWidth: 2,
+                    color: () => COLORS.PRIMARY, // optional
+                  },
+                  {
+                    data: [0, 0, 0, 0, 0, aggregateSavings],
+                    strokeWidth: 2,
+                    color: () => PLUGIN_COLORS.finance, // optional
+                  },
+                ],
+                legend: ['Max', 'Your 3a'],
+              }}
+              width={windowWidth - SPACING * 10}
+              height={240}
+              yAxisSuffix={''}
+              withInnerLines={false}
+              chartConfig={{
+                backgroundColor: '#e26a00',
+                backgroundGradientFrom: '#fb8c00',
+                fillShadowGradientFrom: COLORS.PRIMARY,
+                fillShadowGradientFromOpacity: 0.3,
+                fillShadowGradientTo: alpha(1, COLORS.WHITE),
+                backgroundGradientTo: '#ffa726',
+                backgroundGradientToOpacity: 0,
+                backgroundGradientFromOpacity: 0,
+                decimalPlaces: 0,
+                color: () => COLORS.BLACK,
+                labelColor: () => COLORS.BLACK,
+                style: {
+                  borderRadius: 16,
                 },
-                {
-                  data: [0, 0, 0, 0, 0, 0, aggregateSavings],
-                  strokeWidth: 2,
-                  color: (opacity = 1) => `rgba(0,0,102, ${opacity})`, // optional
+                propsForDots: {
+                  r: '5',
                 },
-              ],
-              legend: ['Max', 'Your 3a'],
-            }}
-            width={windowWidth - SPACING * 6}
-            height={200}
-            chartConfig={{
-              backgroundColor: `${COLORS.WHITE}`,
-              backgroundGradientFrom: `${COLORS.WHITE}`,
-              backgroundGradientTo: `${COLORS.WHITE}`,
-              decimalPlaces: 0,
-              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-              style: {
+              }}
+              bezier
+              style={{
+                marginVertical: 8,
                 borderRadius: 16,
-              },
-            }}
-          />
+              }}
+            />
+          </ChartContainer>
           <Heading6>Spendings History</Heading6>
           <Spacer x={2} />
           <FinanceHistory />

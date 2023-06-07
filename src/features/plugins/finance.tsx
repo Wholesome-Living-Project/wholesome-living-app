@@ -58,9 +58,11 @@ const Finance = () => {
 
       return
     }
+
+    console.log(Math.floor(new Date().getTime() / 1000))
     await saveSpending({
       amount: Number(amount),
-      spendingTime: new Date().getTime() / 1000,
+      spendingTime: Math.floor(new Date().getTime() / 1000),
       description: reason,
     })
     setAmount('')
@@ -123,7 +125,7 @@ const Finance = () => {
         <Button
           small
           fullWidth
-          disabled={loading}
+          disabled={loading || !amount || !reason}
           onPress={onAddSpending}
           buttonType={'black'}
           onLayout={(e) => setButtonPosition(e.nativeEvent.layout.y)}>
