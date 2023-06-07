@@ -152,6 +152,25 @@ export interface MeditationGetMeditationResponse {
 /**
  * 
  * @export
+ * @interface ProgressResponse
+ */
+export interface ProgressResponse {
+    /**
+     * 
+     * @type {{ [key: string]: number; }}
+     * @memberof ProgressResponse
+     */
+    'experience'?: { [key: string]: number; };
+    /**
+     * 
+     * @type {{ [key: string]: number; }}
+     * @memberof ProgressResponse
+     */
+    'experienceToNewLevel'?: { [key: string]: number; };
+}
+/**
+ * 
+ * @export
  * @interface SettingsCreateInvestmentResponse
  */
 export interface SettingsCreateInvestmentResponse {
@@ -1091,7 +1110,7 @@ export const ProgressApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async progressGet(userId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async progressGet(userId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProgressResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.progressGet(userId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1112,7 +1131,7 @@ export const ProgressApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        progressGet(userId: string, options?: any): AxiosPromise<void> {
+        progressGet(userId: string, options?: any): AxiosPromise<ProgressResponse> {
             return localVarFp.progressGet(userId, options).then((request) => request(axios, basePath));
         },
     };

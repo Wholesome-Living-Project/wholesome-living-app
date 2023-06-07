@@ -7,6 +7,7 @@ import PluginCards from '../../components/dashboard/PluginCards'
 import LevelModal from '../../components/modals/LevelModal'
 import Spacer from '../../components/ui/Spacer'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
+import { COLORS } from '../../theme/theme'
 
 export function DashboardScreen() {
   const { windowHeight } = useWindowDimensions()
@@ -19,6 +20,7 @@ export function DashboardScreen() {
         contentContainerStyle={{ alignItems: 'center' }}
         style={{
           height: windowHeight,
+          backgroundColor: COLORS.WHITE,
         }}
         onScroll={(event) => setScrollY(event.nativeEvent.contentOffset.y)}
         scrollEventThrottle={16}>

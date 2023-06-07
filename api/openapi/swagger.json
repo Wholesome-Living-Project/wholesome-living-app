@@ -219,7 +219,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/progress.Response"
+                        }
                     }
                 }
             }
@@ -752,6 +755,29 @@
                 },
                 "userId": {
                     "type": "string"
+                }
+            }
+        },
+        "progress.Experience": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "number"
+            }
+        },
+        "progress.ExperienceToNewLevel": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "number"
+            }
+        },
+        "progress.Response": {
+            "type": "object",
+            "properties": {
+                "experience": {
+                    "$ref": "#/definitions/progress.Experience"
+                },
+                "experienceToNewLevel": {
+                    "$ref": "#/definitions/progress.ExperienceToNewLevel"
                 }
             }
         },

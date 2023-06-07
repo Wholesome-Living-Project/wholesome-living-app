@@ -22,6 +22,7 @@ export type PluginType = {
   plugin?: SettingsPluginName
   onboardingRoute?: string
   onboardingSubRoutes?: string[]
+  image: any
 }
 
 export const PLUGINS: { [key in SettingsPluginName]: PluginType } = {
@@ -33,6 +34,7 @@ export const PLUGINS: { [key in SettingsPluginName]: PluginType } = {
     route: 'meditation',
     onboardingRoute: 'meditation',
     onboardingSubRoutes: ['goal', 'notifications'],
+    image: require('../../assets/images/woman_meditation.jpg'),
   },
   finance: {
     title: 'Finance',
@@ -42,6 +44,7 @@ export const PLUGINS: { [key in SettingsPluginName]: PluginType } = {
     route: 'finance',
     onboardingRoute: 'finance',
     onboardingSubRoutes: ['strategy', 'notifications'],
+    image: require('../../assets/images/man_saving_money.jpg'),
   },
   elevator: {
     title: 'Stairs',
@@ -51,5 +54,6 @@ export const PLUGINS: { [key in SettingsPluginName]: PluginType } = {
     route: 'elevator',
     onboardingRoute: 'elevator',
     onboardingSubRoutes: ['notifications'],
+    image: require('../../assets/images/man_walking_stairs.jpg'),
   },
 }

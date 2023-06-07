@@ -11,7 +11,7 @@ export default function Layout() {
       <Stack
         initialRouteName={'index'}
         screenOptions={{
-          headerLeft: ({ canGoBack }) => canGoBack && <BackButton color={COLORS.WHITE} />,
+          headerLeft: ({ canGoBack }) => canGoBack && <BackButton color={COLORS.BLACK} />,
         }}>
         <Stack.Screen
           name={'index'}
@@ -52,7 +52,7 @@ export default function Layout() {
           }}
         />
       </Stack>
-      <StatusBar style={'light'} />
+      <StatusBar style={'dark'} />
     </>
   )
 }

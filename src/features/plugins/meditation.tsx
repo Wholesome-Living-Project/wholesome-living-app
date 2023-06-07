@@ -1,21 +1,14 @@
 import React, { useCallback, useEffect } from 'react'
-import { Image, ScrollView, Text } from 'react-native'
+import { Text } from 'react-native'
 import styled from 'styled-components'
+import { SettingsPluginName } from '../../../api/openapi'
 import MeditationHistory from '../../components/dashboard/plugins/MeditationHistory'
 import Timer from '../../components/plugins/meditation/Timer'
-import Tree from '../../components/plugins/Tree'
 import { Flex } from '../../components/ui/Flex'
 import Spacer from '../../components/ui/Spacer'
 import { useMeditate } from '../../provider/MeditationContentProvider'
 import { OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
-
-const IMAGE_HEIGHT = 290
-
-const StyledImage = styled(Image)`
-  width: 100%;
-  height: ${IMAGE_HEIGHT}px;
-  position: absolute;
-`
+import PluginScreenLayout from './PluginScreenLayout'
 
 const Container = styled(Flex)`
   position: relative;
@@ -39,18 +32,15 @@ const Meditation = () => {
   )
 
   return (
-    <ScrollView>
-      <StyledImage source={require('../../../assets/images/woman_meditation.jpg')} />
-      <Spacer x={10} />
-      <Tree height={IMAGE_HEIGHT} experience={3} level={6} experienceToNextLevel={15} />
+    <PluginScreenLayout plugin={SettingsPluginName.PluginNameMeditation}>
       <Container align={'center'}>
-        <Text>Unmute phone to hear a sound when you're done</Text>
+        <Text>Unmute to hear a sound once the timer runs out</Text>
         <Spacer x={2} />
         <Timer onTimerEnded={onMeditationEnded} />
         <Spacer x={4} />
         <MeditationHistory />
       </Container>
-    </ScrollView>
+    </PluginScreenLayout>
   )
 }
 

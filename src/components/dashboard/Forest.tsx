@@ -5,7 +5,7 @@ import { SettingsPluginName } from '../../../api/openapi'
 import { PLUGINS } from '../../helpers/pluginList'
 import useHaptics from '../../hooks/useHaptics'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
-import { IO_COMPONENT_WIDTH_PERCENT, SPACING } from '../../theme/theme'
+import { IO_COMPONENT_WIDTH_PERCENT, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
 import { Heading4 } from '../../theme/typography'
 import PluginBanner from '../discover/PluginBanner'
 import { levelModalRef } from '../refs/modal-refs'
@@ -20,6 +20,7 @@ const Wrapper = styled(View)<{ width: number }>`
   width: ${(p) => p.width}px;
   overflow: hidden;
   position: relative;
+  border-radius: ${OUTER_BORDER_RADIUS}px;
 `
 
 const LevelsContainer = styled(Flex)`

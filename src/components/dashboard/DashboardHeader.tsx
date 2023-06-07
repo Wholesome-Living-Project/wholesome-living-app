@@ -1,18 +1,19 @@
 import { FontAwesome } from '@expo/vector-icons'
 import React, { useEffect } from 'react'
-import { Image, Platform, View } from 'react-native'
+import { Image, Platform, TouchableOpacity, View } from 'react-native'
+import { Divider } from 'react-native-elements'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 import { useUser } from '../../hooks/useUser'
 import { COLORS, SPACING } from '../../theme/theme'
-import { Heading4, Label } from '../../theme/typography'
+import { Heading4 } from '../../theme/typography'
 import { Flex } from '../ui/Flex'
 import Spacer from '../ui/Spacer'
 
 const Wrapper = styled(Animated.View)`
   width: 100%;
-  background: ${COLORS.PRIMARY};
+  background: ${COLORS.WHITE};
   padding: ${SPACING * 4}px ${SPACING * 2}px ${SPACING * 2}px;
   position: relative;
   z-index: 2;
@@ -25,6 +26,11 @@ const ProfileImage = styled(View)`
   border-radius: 100px;
   background: ${COLORS.WHITE};
   position: relative;
+`
+
+const CompactText = styled(Heading4)`
+  margin: 0;
+  font-weight: 400;
 `
 
 const CompactHeading = styled(Heading4)`
@@ -40,6 +46,12 @@ const StyledImage = styled(Image)<{ width: number }>`
   width: 50px;
   height: 100%;
   border-radius: 100px;
+`
+
+const TouchableIcon = styled(TouchableOpacity)`
+  width: 30px;
+  justify-content: center;
+  flex-direction: row;
 `
 
 type Props = {
@@ -70,13 +82,12 @@ const DashboardHeader = ({ showFull }: Props) => {
     <Wrapper style={animatedStyle}>
       <Spacer x={Platform.OS === 'android' ? 0 : 4} />
       <Flex row justify={'space-between'}>
-        <FontAwesome
-          name={'bars'}
-          size={22}
-          color={COLORS.WHITE}
-          onPress={() => navigation?.navigate('settings')}
-        />
-        <FontAwesome name={'bell'} size={22} color={COLORS.WHITE} />
+        <TouchableIcon onPress={() => navigation?.navigate('settings')}>
+          <FontAwesome name={'bars'} size={22} color={COLORS.BLACK} />
+        </TouchableIcon>
+        <TouchableIcon>
+          <FontAwesome name={'bell'} size={22} color={COLORS.BLACK} />
+        </TouchableIcon>
       </Flex>
       <Spacer x={2} />
       <Flex row align={'center'}>
@@ -90,12 +101,14 @@ const DashboardHeader = ({ showFull }: Props) => {
         </ProfileImage>
         <Spacer x={2} />
         <Flex column>
-          <CompactHeading color={COLORS.WHITE}>Welcome back</CompactHeading>
-          <Label color={COLORS.WHITE}>
+          <CompactText color={COLORS.BLACK}>Welcome back</CompactText>
+          <CompactHeading color={COLORS.BLACK}>
             {user?.firstName} {user?.lastName}
-          </Label>
+          </CompactHeading>
         </Flex>
       </Flex>
+      <Spacer x={2} />
+      <Divider orientation={'horizontal'} />
     </Wrapper>
   )
 }
