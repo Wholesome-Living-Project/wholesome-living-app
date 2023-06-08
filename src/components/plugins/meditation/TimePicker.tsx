@@ -1,6 +1,9 @@
 import DateTimePicker from '@react-native-community/datetimepicker'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Platform } from 'react-native'
+import Slider from '@react-native-community/slider';
+import { formatTimeMeditation } from '../../../helpers/formatTimeMeditation'
+import { EXTRA_COLORS } from '../../../theme/theme'
 
 type Props = {
   difference: number
@@ -8,41 +11,45 @@ type Props = {
 }
 const TimePicker = ({ setDifference, difference }: Props) => {
   const [time, setTime] = useState(new Date())
-  const hours = useMemo(() => time.getHours(), [time])
-  const minutes = useMemo(() => time.getMinutes(), [time])
-  const seconds = useMemo(() => time.getSeconds(), [time])
+
+  const [sliderValue, setSliderValue] = useState()
 
   useEffect(() => {
     setTime(new Date())
   }, [])
 
-  return (
-    <DateTimePicker
-      value={Platform.OS === 'android' ? new Date(0, 0, 0, hours, minutes, seconds) : time}
-      mode={Platform.OS === 'ios' ? 'countdown' : 'time'}
-      display={'spinner'}
-      onChange={(_, t) => {
-        if (t) {
-          const difference =
-            Platform.OS === 'ios'
-              ? t.getMinutes() * 60 + t.getHours() * 3600
-              : t.getMinutes() -
-                new Date().getMinutes() +
-                t.getHours() * 60 -
-                new Date().getHours() * 60
-
-          setTime(t)
-          if (difference) {
-            if (difference > 0) {
-              setDifference(difference)
-            } else {
-              setDifference(24 * 60 - difference * -1)
+  return ( Platform.OS === "ios" ?
+        <DateTimePicker
+          value={time}
+          mode={'countdown'}
+          display={'spinner'}
+          onChange={(_, t) => {
+            if (t) {
+              const difference = t.getMinutes() * 60 + t.getHours() * 3600
+              setTime(t)
+              if (difference) {
+                if (difference > 0) {
+                  setDifference(difference)
+                } else {
+                  setDifference(24 * 60 - difference * -1)
+                }
+              }
             }
-          }
-        }
-      }}
-    />
-  )
+          }}
+        /> :
+        <Slider
+          style={{ width: "100%", height: 50 }}
+          minimumValue={1}
+          maximumValue={70}
+          value={sliderValue}
+          step={1}
+          onValueChange={setSliderValue}
+          onSlidingComplete={setSliderValue}
+          thumbTintColor={EXTRA_COLORS.BLUE}
+          minimumTrackTintColor={EXTRA_COLORS.BLUE}
+          maximumTrackTintColor="#000000"
+        />
+    )
 }
 
 export default TimePicker
