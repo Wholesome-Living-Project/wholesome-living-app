@@ -30,7 +30,7 @@ const PluginScreenLayout = forwardRef<ScrollView, Props>(({ children, plugin }, 
 
   return (
     <ScrollView ref={ref}>
-      <StyledImage source={PLUGINS[plugin].image} />
+      <StyledImage source={PLUGINS[plugin].image} blurRadius={5} />
       <Spacer x={10} />
 
       <Tree
