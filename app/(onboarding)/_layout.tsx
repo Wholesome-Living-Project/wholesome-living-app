@@ -8,7 +8,9 @@ import { COLORS } from '../../src/theme/theme'
 export default function Layout() {
   return (
     <>
-      <Stack initialRouteName={'index'} screenOptions={{ headerShown: false }}>
+      <Stack
+        initialRouteName={'index'}
+        screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}>
         <Stack.Screen name={'index'} />
         <Stack.Screen name={'choose-plugins'} />
         <Stack.Screen

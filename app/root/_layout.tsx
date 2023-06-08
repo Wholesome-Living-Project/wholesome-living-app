@@ -15,6 +15,7 @@ export default function Layout() {
         initialRouteName={'index'}
         screenOptions={{
           headerLeft: ({ canGoBack }) => canGoBack && <BackButton color={COLORS.BLACK} />,
+          headerTitleAlign: 'center',
         }}>
         <Stack.Screen
           name={'index'}

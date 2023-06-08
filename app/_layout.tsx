@@ -7,7 +7,9 @@ import { Providers } from '../src/provider/Providers'
 export default function Layout() {
   return (
     <Providers>
-      <Stack initialRouteName={'(onboarding)'} screenOptions={{ headerShown: false }}>
+      <Stack
+        initialRouteName={'(onboarding)'}
+        screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}>
         <Stack.Screen name={'(auth)/welcome'} />
         <Stack.Screen name={'(onboarding)'} />
         <Stack.Screen name={'root'} />
