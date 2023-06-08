@@ -52,7 +52,7 @@ const Forest = () => {
     const newLevelMap = { ...levelMap }
     for (const plugin of chosenPlugins) {
       if (Object.keys(newLevelMap).includes(plugin)) continue
-      newLevelMap[plugin] = 5
+      newLevelMap[plugin] = 0
     }
     return newLevelMap
   }, [chosenPlugins, levelMap])
@@ -70,7 +70,7 @@ const Forest = () => {
                     <PluginBanner plugin={key as SettingsPluginName} size={30} />
                     <Spacer x={1} />
                     <ExperienceBar
-                      progress={(100 / 50) * (experienceMap?.meditation ?? 0)}
+                      progress={(100 / 50) * (experienceMap?.[key as SettingsPluginName] ?? 0)}
                       size={'small'}
                       max={adjustedLevelMap[key] >= 6}
                       center
@@ -82,7 +82,7 @@ const Forest = () => {
                       await doMediumFeedback()
                       levelModalRef.current?.expand()
                     }}>
-                    {levelComponents[Math.max(adjustedLevelMap[key] - 1, 0)]}
+                    {levelComponents[Math.max(adjustedLevelMap[key], 0)]}
                   </TouchableOpacity>
                 </LevelContainer>
               ))}

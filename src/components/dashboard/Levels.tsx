@@ -57,4 +57,5 @@ export const levelComponents = [
   <Small source={require('../../../assets/images/levels_raw/small_small.png')} />,
   <Middle source={require('../../../assets/images/levels_raw/middle_small.png')} />,
   <Big source={require('../../../assets/images/levels_raw/big_small.png')} />,
+  <Big source={require('../../../assets/images/levels_raw/gold.png')} />,
 ]

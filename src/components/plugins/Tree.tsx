@@ -38,20 +38,21 @@ const levelAssets = [
   require('../../../assets/images/levels/small_small.png'),
   require('../../../assets/images/levels/middle_small.png'),
   require('../../../assets/images/levels/big_small.png'),
+  require('../../../assets/images/levels/gold_gold_border.png'),
 ]
 
 const Tree = ({
   height,
   experience = 0,
-  level = 1,
+  level = 0,
   experienceToNextLevel = 50,
   max = 6,
 }: Props) => {
   return (
     <Container style={{ height }} row justify={'center'} align={'center'}>
-      <Image source={levelAssets[level - 1]} style={{ width: 300, height: 300 }} />
+      <Image source={levelAssets[level]} style={{ width: 300, height: 300 }} />
       <LevelComponent>
-        <Regular color={COLORS.WHITE}>Level {level}</Regular>
+        <Regular color={COLORS.WHITE}>Level {level + 1}</Regular>
         <ExperienceBar progress={(100 / experienceToNextLevel) * experience} max={max <= level} />
         {max > level ? (
           <Caption color={COLORS.WHITE}>

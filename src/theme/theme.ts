@@ -35,6 +35,8 @@ export const COLORS = {
   HEADER: '#D6E4E5',
   TAB_BAR: SECONDARY_TINTS['300'],
   TAB_BAR_ICONS: PRIMARY_TINTS['600'],
+  GOLD: '#ffce19',
+  LIGHT_GOLD: '#ffeec2',
 }
 
 export const EXTRA_COLORS = {

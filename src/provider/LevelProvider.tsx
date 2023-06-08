@@ -31,7 +31,6 @@ const useProvideLevels = (): LevelContentType => {
   const getLevels = useCallback(async () => {
     try {
       if (!user?.id) return
-      console.log(user?.id)
       const { data } = await api.levelApi.progressGet(user?.id)
       setLevelMap(data.level as { [key in SettingsPluginName]: number })
       setExperienceMap(data.experienceToNewLevel as { [key in SettingsPluginName]: number })
