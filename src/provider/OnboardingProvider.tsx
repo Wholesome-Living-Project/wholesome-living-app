@@ -49,6 +49,7 @@ type OnboardingType = {
   setNotificationPeriod: (st: SettingsNotificationType) => void
   notificationFrequency: number
   setNotificationFrequency: (st: number) => void
+  getSettings: () => void
 }
 
 const OnboardingContext = createContext<OnboardingType>({} as OnboardingType)
@@ -195,6 +196,7 @@ const useProvideOnboarding = (): OnboardingType => {
     try {
       const { data } = await api.settingsApi.settingsGet(user.id)
       if (data) {
+        console.log('got settings', data)
         data.enabledPlugins && setChosenPlugins(data.enabledPlugins)
 
         data.meditation?.meditationTimeGoal &&
@@ -266,6 +268,7 @@ const useProvideOnboarding = (): OnboardingType => {
     setNotificationPeriod,
     notificationFrequency,
     setNotificationFrequency,
+    getSettings,
   }
 }
 

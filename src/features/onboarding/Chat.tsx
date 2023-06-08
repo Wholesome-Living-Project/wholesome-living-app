@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
-import { KeyboardAvoidingView, LogBox, ScrollView, Text } from 'react-native'
+import { ActivityIndicator, KeyboardAvoidingView, LogBox, ScrollView, Text } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 import Button from '../../components/ui/Button'
@@ -55,10 +55,10 @@ const ChatText = styled(Text)`
 `
 
 const Chat = () => {
-  const { sendMessage, messages, setMessages } = useChat()
+  const { sendMessage, messages, setMessages, generateSettings } = useChat()
   const [message, setMessage] = useState('')
   const { keyboardOpen, keyboardHeight } = useKeyboard()
-
+  const [loading, setLoading] = useState(false)
   const scrollRef = useRef<ScrollView | null>(null)
   const { windowHeight } = useWindowDimensions()
   const [footerHeight, setFooterHeight] = useState(0)
@@ -76,6 +76,13 @@ const Chat = () => {
     setMessage('')
     await sendMessage(message)
   }, [message, messages, sendMessage, setMessages])
+
+  const onContinue = useCallback(async () => {
+    setLoading(true)
+    await generateSettings()
+    setLoading(false)
+    navigation?.navigate('choose-plugins')
+  }, [generateSettings, navigation])
 
   useEffect(() => {
     if (!messages) return
@@ -141,8 +148,8 @@ const Chat = () => {
             </Flex>
           </>
         ) : (
-          <Button onPress={() => navigation?.navigate('choose-plugins')} fullWidth>
-            continue
+          <Button onPress={onContinue} disabled={loading} fullWidth>
+            {loading ? <ActivityIndicator></ActivityIndicator> : <Text>continue</Text>}
           </Button>
         )}
       </Footer>
