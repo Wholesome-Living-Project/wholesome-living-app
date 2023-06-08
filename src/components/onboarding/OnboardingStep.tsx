@@ -1,7 +1,7 @@
 import { alpha } from 'axelra-react-native-utilities'
 import { useSegments } from 'expo-router'
 import React, { PropsWithChildren, useMemo } from 'react'
-import { Button as NativeButton, ScrollView } from 'react-native'
+import { Button as NativeButton, StatusBar, Platform, ScrollView } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../api/openapi'
@@ -74,7 +74,7 @@ const OnboardingStep = ({
   }, [chosenPluginSteps, currentRoute])
 
   return (
-    <Flex style={{ height: windowHeight }} column justify={'space-between'}>
+    <Flex style={{ height: windowHeight + (StatusBar.currentHeight || 0) }} column justify={'space-between'}>
       <Flex>
         <OnboardingStepHeader plugin={plugin} />
         <StyledScrollView>
@@ -89,8 +89,8 @@ const OnboardingStep = ({
             nextStep
               ? navigation?.navigate(nextStep)
               : foundNextStep
-              ? navigation?.navigate(foundNextStep)
-              : navigation?.navigate('root')
+                ? navigation?.navigate(foundNextStep)
+                : navigation?.navigate('root')
           }}
           disabled={primaryDisabled}>
           {primaryText}
@@ -119,10 +119,10 @@ const OnboardingStep = ({
               nextStep
                 ? navigation?.navigate(nextStep)
                 : foundNextStep
-                ? navigation?.navigate(foundNextStep)
-                : navigation?.navigate('root')
+                  ? navigation?.navigate(foundNextStep)
+                  : navigation?.navigate('root')
             }}
-            color={alpha(0.8, COLORS.BLACK)}
+            color={Platform.OS === "ios" ? alpha(0.2, COLORS.BLACK) : "grey"}
           />
         )}
       </Footer>

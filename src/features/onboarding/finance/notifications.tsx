@@ -14,8 +14,13 @@ import { Heading4, Light, Regular } from '../../../theme/typography'
 const NotificationOption = styled(Flex)`
   padding: ${SPACING}px ${SPACING * 2}px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
-  background: ${COLORS.WHITE};
+  background: ${COLORS.BACKGROUND_GREY};
   margin-bottom: ${SPACING}px;
+`
+
+const PickerBackground = styled(Flex)`
+  background: ${COLORS.BACKGROUND_GREY};
+  border-radius: ${OUTER_BORDER_RADIUS}px;
 `
 
 const StyledPicker = styled(Picker)`
@@ -55,30 +60,33 @@ const Notifications = () => {
             }}
           />
         </NotificationOption>
+        <Spacer x={2} />
         <Light>
           I want to be reminded to save every{' '}
           <Light weight={'600'}>
-            {notificationFrequency}{' '}
-            {notificationFrequency === 1 ? notificationPeriod.slice(0, -1) : notificationPeriod}
+            {notificationFrequency > 1 && notificationFrequency + " "}
+            {notificationFrequency > 1 ? notificationPeriod + "s" : notificationPeriod}
           </Light>
         </Light>
         <NotificationOption row justify={'space-between'}>
           <Flex justify={'space-between'} column>
             <Regular color={COLORS.PRIMARY}>Remind me to save</Regular>
             <Flex row>
-              <StyledPicker
-                selectedValue={notificationFrequency}
-                onValueChange={(itemValue: number) => setNotificationFrequency(itemValue)}>
-                <Picker.Item label="1" value={1} />
-                <Picker.Item label="2" value={2} />
-                <Picker.Item label="3" value={3} />
-                <Picker.Item label="4" value={4} />
-                <Picker.Item label="5" value={5} />
-                <Picker.Item label="6" value={6} />
-                <Picker.Item label="7" value={7} />
-                <Picker.Item label="8" value={8} />
-                <Picker.Item label="9" value={9} />
-              </StyledPicker>
+              <PickerBackground>
+                <StyledPicker
+                  selectedValue={notificationFrequency}
+                  onValueChange={(itemValue: number) => setNotificationFrequency(itemValue)}>
+                  <Picker.Item label="1" value={1} />
+                  <Picker.Item label="2" value={2} />
+                  <Picker.Item label="3" value={3} />
+                  <Picker.Item label="4" value={4} />
+                  <Picker.Item label="5" value={5} />
+                  <Picker.Item label="6" value={6} />
+                  <Picker.Item label="7" value={7} />
+                  <Picker.Item label="8" value={8} />
+                  <Picker.Item label="9" value={9} />
+                </StyledPicker>
+              </PickerBackground>
               <StyledPicker
                 selectedValue={notificationPeriod}
                 onValueChange={(itemValue: SettingsNotificationType) =>
@@ -86,10 +94,7 @@ const Notifications = () => {
                 }>
                 <Picker.Item label={notificationFrequency === 1 ? 'Day' : 'Days'} value="Day" />
                 <Picker.Item label={notificationFrequency === 1 ? 'Week' : 'Weeks'} value="Week" />
-                <Picker.Item
-                  label={notificationFrequency === 1 ? 'Month' : 'Months'}
-                  value="Month"
-                />
+                <Picker.Item label={notificationFrequency === 1 ? 'Month' : 'Months'} value="Month" />
               </StyledPicker>
             </Flex>
           </Flex>

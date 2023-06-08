@@ -78,7 +78,7 @@ const useProvideOnboarding = (): OnboardingType => {
   const [selectedGoalTime, setSelectedGoalTime] = useState(1)
   const [selectedGoalNumber, setSelectedGoalNumber] = useState(1)
   const [selectedGoalPeriod, setSelectedGoalPeriod] = useState<SettingsNotificationType>(
-    SettingsNotificationType.NotificationTypeWeek
+    SettingsNotificationType.NotificationTypeDay
   )
   const [meditateReminderNotification, setMeditateReminderNotification] = useState(false)
 
@@ -90,7 +90,7 @@ const useProvideOnboarding = (): OnboardingType => {
   const [roundUpNumber, setRoundUpNumber] = useState(5)
   const [savingGoal, setSavingGoal] = useState<string>('')
   const [notificationPeriod, setNotificationPeriod] = useState<SettingsNotificationType>(
-    SettingsNotificationType.NotificationTypeWeek
+    SettingsNotificationType.NotificationTypeDay
   )
   const [notificationFrequency, setNotificationFrequency] = useState<number>(1)
   // elevator

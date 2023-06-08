@@ -35,7 +35,7 @@ const OnboardingStepHeader = ({ plugin }: Props) => {
       <Container row justify={'space-between'} align={'center'}>
         <BackButton color={COLORS.WHITE} size={'md'} />
         <Heading4 color={COLORS.WHITE}>{title}</Heading4>
-        <PluginBanner {...PLUGINS[plugin]} size={45} />
+        <PluginBanner plugin={plugin} size={45} />
       </Container>
     </LinearGradient>
   )

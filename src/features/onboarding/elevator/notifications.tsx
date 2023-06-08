@@ -13,7 +13,7 @@ import { Heading4, Light, Regular } from '../../../theme/typography'
 const NotificationOption = styled(Flex)`
   padding: ${SPACING}px ${SPACING * 2}px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
-  background: ${COLORS.WHITE};
+  background: ${COLORS.BACKGROUND_GREY};
   margin-bottom: ${SPACING}px;
 `
 
