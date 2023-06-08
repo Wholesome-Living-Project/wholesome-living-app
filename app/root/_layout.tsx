@@ -52,8 +52,7 @@ export default function Layout() {
           name={'settings'}
           options={{
             title: '',
-            headerShown: false,
-            presentation: 'modal',
+            animation: 'slide_from_bottom',
           }}
         />
       </Stack>
