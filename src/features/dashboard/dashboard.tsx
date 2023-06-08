@@ -31,7 +31,6 @@ export function DashboardScreen() {
         <Discover />
         <Spacer x={3} />
         <AcademyBanner />
-        <Spacer x={25} />
       </ScrollView>
     </View>
   )

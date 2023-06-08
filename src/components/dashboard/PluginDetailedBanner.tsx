@@ -10,7 +10,7 @@ import { Heading5 } from '../../theme/typography'
 import PluginBanner from '../discover/PluginBanner'
 import Spacer from '../ui/Spacer'
 
-const BANNER_SIZE = 200
+const BANNER_SIZE = 220
 
 const Wrapper = styled(TouchableOpacity)<{ width: number }>`
   height: ${BANNER_SIZE}px;

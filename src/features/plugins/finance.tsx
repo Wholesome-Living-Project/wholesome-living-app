@@ -87,7 +87,7 @@ const Finance = () => {
           <Heading6>Round up</Heading6>
         </Flex>
         <Spacer x={4} />
-        <Heading4>Track your expenditures</Heading4>
+        <Heading4>Track your expenses</Heading4>
         <Spacer x={1} />
         <FormContainer column flex={1} width={60}>
           <Body color={COLORS.DARK_GREY}>How much did you spend?</Body>
@@ -106,7 +106,7 @@ const Finance = () => {
           </Flex>
         </FormContainer>
         <Spacer x={2} />
-        <FormContainer column flex={1} width={85}>
+        <FormContainer column flex={1}>
           <Flex>
             <Input
               placeholder={'Category'}
@@ -129,7 +129,7 @@ const Finance = () => {
           onPress={onAddSpending}
           buttonType={'black'}
           onLayout={(e) => setButtonPosition(e.nativeEvent.layout.y)}>
-          Track Spending
+          Track Expense
         </Button>
         <Spacer x={2} />
         {spendings.length > 0 && (
