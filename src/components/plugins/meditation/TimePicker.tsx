@@ -12,7 +12,7 @@ type Props = {
 const TimePicker = ({ setDifference, difference }: Props) => {
   const [time, setTime] = useState(new Date())
 
-  const [sliderValue, setSliderValue] = useState()
+  const [sliderValue, setSliderValue] = useState(2)
 
   useEffect(() => {
     setTime(new Date())
@@ -43,8 +43,8 @@ const TimePicker = ({ setDifference, difference }: Props) => {
           maximumValue={70}
           value={sliderValue}
           step={1}
-          onValueChange={setSliderValue}
-          onSlidingComplete={setSliderValue}
+          onValueChange={(value) => setSliderValue(value)}
+          onSlidingStart={(value) => {console.log("slide", value)}}
           thumbTintColor={EXTRA_COLORS.BLUE}
           minimumTrackTintColor={EXTRA_COLORS.BLUE}
           maximumTrackTintColor="#000000"
