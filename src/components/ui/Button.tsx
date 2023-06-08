@@ -74,7 +74,7 @@ const Button = ({
   maxWidth,
   link,
   buttonColor,
-  buttonType,
+  buttonType = 'black',
   children,
   ...rest
 }: Props) => {

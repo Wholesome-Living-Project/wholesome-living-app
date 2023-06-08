@@ -16,6 +16,7 @@ export default function Layout() {
         <Stack.Screen
           name={'chat'}
           options={{
+            gestureEnabled: false,
             title: 'Coach',
             headerShown: true,
             headerLeft: ({ canGoBack }) => canGoBack && <BackButton color={COLORS.BLACK} />,

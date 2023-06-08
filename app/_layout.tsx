@@ -12,7 +12,7 @@ export default function Layout() {
         screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}>
         <Stack.Screen name={'(auth)/welcome'} />
         <Stack.Screen name={'(onboarding)'} />
-        <Stack.Screen name={'root'} />
+        <Stack.Screen name={'root'} options={{ gestureEnabled: false }} />
       </Stack>
       <TimePickerModal title={'Until what time do you want to mediate?'} />
     </Providers>

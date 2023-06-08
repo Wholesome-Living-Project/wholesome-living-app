@@ -2,6 +2,7 @@ import BottomSheet from 'axelra-react-native-bottom-sheet'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Keyboard, Platform } from 'react-native'
 import styled from 'styled-components'
+import TimePicker from '../../../components/plugins/meditation/TimePicker'
 import { useModal } from '../../../hooks/useModal'
 import { useMeditate } from '../../../provider/MeditationContentProvider'
 import { Heading5 } from '../../../theme/typography'
@@ -10,8 +11,6 @@ import { BottomSheetViewFlex } from '../../ui/BottomSheetViewFlex'
 import Button from '../../ui/Button'
 import { Flex } from '../../ui/Flex'
 import Spacer from '../../ui/Spacer'
-import TimePicker from '../../../components/plugins/meditation/TimePicker'
-import { ScrollView } from 'react-native-gesture-handler'
 
 const BASE_MODAL_HEIGHT = 50
 const ADD_KEYBARD_HEIGHT = 30

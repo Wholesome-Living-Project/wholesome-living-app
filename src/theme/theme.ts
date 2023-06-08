@@ -29,7 +29,7 @@ export const COLORS = {
   DARK_GREY: '#757575',
   RED: 'red',
   PRIMARY: PRIMARY_TINTS['500'],
-  SECONDARY: '#eeeeee',
+  SECONDARY: SECONDARY_TINTS['700'],
   CTA: '#DE3163',
   BACKGROUND_GREY: '#eaeaea',
   HEADER: '#D6E4E5',

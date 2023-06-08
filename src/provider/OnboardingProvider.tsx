@@ -52,6 +52,7 @@ type OnboardingType = {
   getSettings: () => void
   setCoach: (st: number) => void
   coach: number
+  loading: boolean
 }
 
 const OnboardingContext = createContext<OnboardingType>({} as OnboardingType)
@@ -73,6 +74,7 @@ const useProvideOnboarding = (): OnboardingType => {
   const [chosenPluginSteps, setChosenPluginSteps] = useState<string[]>([])
   const [visitedOnboardingSteps, setVisitedOnboardingSteps] = useState<string[]>([])
   const [finishedPlugins, setFinishedPlugins] = useState<SettingsPluginName[]>([])
+  const [loading, setLoading] = useState(false)
 
   // meditation goal
   const [selectedGoalTime, setSelectedGoalTime] = useState(1)
@@ -206,6 +208,7 @@ const useProvideOnboarding = (): OnboardingType => {
 
   const getSettings = useCallback(async () => {
     console.log('gettings settings')
+    setLoading(true)
     if (!user?.id) return
     try {
       const { data } = await api.settingsApi.settingsGet(user.id)
@@ -240,6 +243,8 @@ const useProvideOnboarding = (): OnboardingType => {
       }
     } catch (e) {
       console.log(e)
+    } finally {
+      setLoading(false)
     }
   }, [user?.id])
 
@@ -285,6 +290,7 @@ const useProvideOnboarding = (): OnboardingType => {
     getSettings,
     setCoach,
     coach,
+    loading,
   }
 }
 

@@ -20,6 +20,7 @@ export default function Layout() {
         <Stack.Screen
           name={'index'}
           options={{
+            gestureEnabled: false,
             headerShown: false,
           }}
         />
