@@ -139,13 +139,15 @@ const Chat = () => {
                         </Flex>
                       )}
                     </MessageHeader>
-                    <Message
-                      isUser={m.role === 'user'}
-                      column
-                      align={'center'}
-                      maxWidth={windowWidth * 0.65}>
-                      <ChatText isUser={m.role === 'user'}>{m.content}</ChatText>
-                    </Message>
+                    <Flex column justify={'flex-end'} flex={1}>
+                      <Message
+                        isUser={m.role === 'user'}
+                        column
+                        align={'center'}
+                        maxWidth={windowWidth * 0.65}>
+                        <ChatText isUser={m.role === 'user'}>{m.content}</ChatText>
+                      </Message>
+                    </Flex>
                   </Flex>
                 </Fragment>
               )
