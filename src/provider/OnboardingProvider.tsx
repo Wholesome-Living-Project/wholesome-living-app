@@ -53,6 +53,8 @@ type OnboardingType = {
   setCoach: (st: number) => void
   coach: number
   loading: boolean
+  setClosedLevelExplanation: (st: boolean) => void
+  closedLevelExplanation: boolean
 }
 
 const OnboardingContext = createContext<OnboardingType>({} as OnboardingType)
@@ -75,6 +77,7 @@ const useProvideOnboarding = (): OnboardingType => {
   const [visitedOnboardingSteps, setVisitedOnboardingSteps] = useState<string[]>([])
   const [finishedPlugins, setFinishedPlugins] = useState<SettingsPluginName[]>([])
   const [loading, setLoading] = useState(false)
+  const [closedLevelExplanation, setClosedLevelExplanation] = useState(false)
 
   // meditation goal
   const [selectedGoalTime, setSelectedGoalTime] = useState(1)
@@ -291,6 +294,8 @@ const useProvideOnboarding = (): OnboardingType => {
     setCoach,
     coach,
     loading,
+    setClosedLevelExplanation,
+    closedLevelExplanation,
   }
 }
 

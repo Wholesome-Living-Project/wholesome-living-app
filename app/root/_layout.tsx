@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import PluginBanner from '../../src/components/discover/PluginBanner'
 import LevelModal from '../../src/components/modals/LevelModal'
+import LevelExplanationModal from '../../src/components/modals/LevelsExplanationModal'
 import BackButton from '../../src/components/ui/BackButton'
 import { PLUGINS } from '../../src/helpers/pluginList'
 import { COLORS } from '../../src/theme/theme'
@@ -58,6 +59,7 @@ export default function Layout() {
       </Stack>
 
       <LevelModal />
+      <LevelExplanationModal />
       <StatusBar style={'dark'} />
     </>
   )
