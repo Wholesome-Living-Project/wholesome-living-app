@@ -5,6 +5,7 @@ import { Divider } from 'react-native-elements'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 import Spacer from '../../components/ui/Spacer'
+import useDataResetter from '../../hooks/useDataResetter'
 import { useUser } from '../../hooks/useUser'
 import { useAuthentication } from '../../provider/AuthenticationProvider'
 import { COLORS, SPACING } from '../../theme/theme'
@@ -76,6 +77,7 @@ export const SettingsScreen = () => {
   const windowWidth = Dimensions.get('window').width
   const { user } = useUser()
   const { signOutUser } = useAuthentication()
+  const { resetAppData } = useDataResetter()
 
   return (
     <StyledList
@@ -93,6 +95,7 @@ export const SettingsScreen = () => {
             icon={'exit-outline'}
             onPress={async () => {
               await signOutUser()
+              resetAppData()
             }}
           />
         </>

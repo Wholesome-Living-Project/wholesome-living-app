@@ -23,7 +23,7 @@ const useProtectedRoute = (user: FullUserType) => {
       // Redirect away from the sign-in page.
       chosenPlugins ? router.replace('root') : router.replace('/(onboarding)')
     }
-  }, [user.user?.firebaseUID, segments, router])
+  }, [user.user?.firebaseUID, segments, router, chosenPlugins])
 }
 
 const SafeScreenProvider = ({ children }: PropsWithChildren) => {
