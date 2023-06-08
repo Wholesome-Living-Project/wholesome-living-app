@@ -27,7 +27,7 @@ const JustifiedText = styled(Body)`
 
 const PensionScreen = () => (
   <Background>
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <SectionTitleContainer>
         <Heading4>Pension</Heading4>
         <Spacer x={2} />
@@ -52,7 +52,7 @@ const PensionScreen = () => (
 
 const FinanceScreen = () => (
   <Background>
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <SectionTitleContainer>
         <Heading4>Finance</Heading4>
         <Spacer x={2} />
@@ -81,7 +81,7 @@ const FinanceScreen = () => (
 
 const AntiAgingScreen = () => (
   <Background>
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <SectionTitleContainer>
         <Heading4>Anti-Aging</Heading4>
         <Spacer x={2} />

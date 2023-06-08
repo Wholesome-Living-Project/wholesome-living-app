@@ -17,6 +17,7 @@ export function DashboardScreen() {
     <View>
       <DashboardHeader />
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{ alignItems: 'center' }}
         style={{
           height: windowHeight,
@@ -31,6 +32,7 @@ export function DashboardScreen() {
         <Discover />
         <Spacer x={3} />
         <AcademyBanner />
+        <Spacer x={22} />
       </ScrollView>
     </View>
   )

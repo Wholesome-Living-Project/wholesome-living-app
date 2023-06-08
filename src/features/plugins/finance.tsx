@@ -85,7 +85,7 @@ const Finance = () => {
         </Body>
         <Spacer x={2} />
         <Flex row align={'flex-end'}>
-          <Body>Your current strategy: </Body>
+          <Regular>Your current strategy: </Regular>
           <Heading6>
             {selectedStrategy === 'Plus'
               ? 'Fixed'

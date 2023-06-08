@@ -82,10 +82,13 @@ const useProvideFinance = (): FinanceContentType => {
   const aggregateSavings = useMemo(() => {
     let savings = 0
     spendings.forEach((spending) => {
-      spending.amount && getSaving(spending.amount)
+      const saving = spending.saving
+      if (saving) {
+        savings += saving
+      }
     })
     return savings
-  }, [getSaving, spendings])
+  }, [spendings])
 
   useEffect(() => {
     getSpendings()
