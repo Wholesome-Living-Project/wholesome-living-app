@@ -2,6 +2,7 @@ import React from 'react'
 import { Image, TouchableOpacity } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
+import useHaptics from '../../hooks/useHaptics'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
 import { Heading4, Regular } from '../../theme/typography'
 import { Flex } from '../ui/Flex'
@@ -28,8 +29,13 @@ const BackgroundImage = styled(Image)`
 
 const AcademyBanner = () => {
   const navigation = useNavigation()
+  const { doMediumFeedback } = useHaptics()
   return (
-    <TouchableOpacity onPress={() => navigation?.navigate('settings', { screen: 'academy' })}>
+    <TouchableOpacity
+      onPress={async () => {
+        await doMediumFeedback()
+        navigation?.navigate('settings', { screen: 'academy' })
+      }}>
       <Padder row justify={'center'} align={'center'}>
         <BackgroundImage source={require('../../../assets/images/academy.jpg')} />
         <Container>

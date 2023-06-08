@@ -36,6 +36,7 @@ const PluginCards = () => {
             {Cards[plugin]}
           </Fragment>
         ))}
+        <Spacer x={2} />
       </StyledScrollView>
     </Fragment>
   )

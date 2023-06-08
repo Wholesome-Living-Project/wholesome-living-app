@@ -42,7 +42,7 @@ export const PLUGINS: { [key in SettingsPluginName]: PluginType } = {
     route: 'meditation',
     onboardingRoute: 'meditation',
     onboardingSubRoutes: ['goal', 'notifications'],
-    image: require('../../assets/images/woman_meditation.jpg'),
+    image: require('../../assets/images/woman_meditating_2.jpg'),
   },
   finance: {
     title: 'Invest',

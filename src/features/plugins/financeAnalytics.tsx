@@ -1,7 +1,7 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { alpha } from 'axelra-react-native-utilities'
 import React, { useEffect, useMemo } from 'react'
-import { Image, ScrollView, View } from 'react-native'
+import { ScrollView } from 'react-native'
 import { BarChart, LineChart, PieChart } from 'react-native-chart-kit'
 import styled from 'styled-components'
 import FinanceHistory from '../../components/dashboard/plugins/FinanceHistory'
@@ -15,22 +15,6 @@ import { CHART_COLORS, COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/
 import { Heading4 } from '../../theme/typography'
 import ChartContainer from './ChartContainer'
 
-const IMAGE_HEIGHT = 320
-const ImageContainer = styled(View)`
-  position: absolute;
-  width: 100%;
-  height: ${IMAGE_HEIGHT}px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`
-
-const StyledImage = styled(Image)`
-  width: 100%;
-  height: ${IMAGE_HEIGHT}px;
-  position: absolute;
-`
-
 const Container = styled(Flex)`
   position: relative;
   background-color: ${COLORS.WHITE};
@@ -39,7 +23,7 @@ const Container = styled(Flex)`
 `
 
 const FinanceAnalytics = () => {
-  const { getSpendings, aggregatedSpendings, aggregateSavings, spendings } = useFinance()
+  const { getSpendings, aggregateSavings, spendings } = useFinance()
 
   const { windowWidth } = useWindowDimensions()
 

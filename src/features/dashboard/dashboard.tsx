@@ -28,7 +28,6 @@ export function DashboardScreen() {
         <Forest />
         <Spacer x={3} />
         <PluginCards />
-        <Spacer x={3} />
         <Discover />
         <Spacer x={3} />
         <AcademyBanner />

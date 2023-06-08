@@ -98,19 +98,15 @@ const Finance = () => {
               onChangeText={setAmount}
               keyboardType={'numeric'}
               placeholder={'Amount'}
-              maxLength={6}
+              maxLength={4}
               minHeight={50}
             />
             <Spacer x={2} />
             <Heading4 color={COLORS.BLACK}>CHF</Heading4>
           </Flex>
         </FormContainer>
-        <Spacer x={3} />
+        <Spacer x={2} />
         <FormContainer column flex={1} width={85}>
-          <Body color={COLORS.DARK_GREY}>
-            Try to label similar categories the same for consistent feedback .
-          </Body>
-          <Spacer x={1} />
           <Flex>
             <Input
               placeholder={'Category'}
@@ -121,7 +117,11 @@ const Finance = () => {
             />
           </Flex>
         </FormContainer>
-        <Spacer x={3} />
+        <Spacer x={2} />
+        <Body color={COLORS.DARK_GREY}>
+          Try to label similar categories the same for consistent feedback
+        </Body>
+        <Spacer x={1} />
         <Button
           small
           fullWidth

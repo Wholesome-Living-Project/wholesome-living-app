@@ -3,6 +3,7 @@ import { Text, View } from 'react-native'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../../api/openapi'
 import { getFormattedTimer } from '../../../helpers/getFormattedTimer'
+import { PLUGINS } from '../../../helpers/pluginList'
 import { COLORS } from '../../../theme/theme'
 import { Regular } from '../../../theme/typography'
 import PluginDetailedBanner from '../PluginDetailedBanner'
@@ -47,7 +48,7 @@ const MeditateDetailedBanner = () => {
     <PluginDetailedBanner
       content={<Content />}
       plugin={SettingsPluginName.PluginNameMeditation}
-      backgroundImage={require('../../../../assets/images/woman_meditation.jpg')}
+      backgroundImage={PLUGINS.meditation.image}
     />
   )
 }

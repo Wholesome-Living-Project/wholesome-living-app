@@ -10,9 +10,11 @@ import { Heading5 } from '../../theme/typography'
 import PluginBanner from '../discover/PluginBanner'
 import Spacer from '../ui/Spacer'
 
+const BANNER_SIZE = 200
+
 const Wrapper = styled(TouchableOpacity)<{ width: number }>`
-  height: 200px;
-  width: 200px;
+  height: ${BANNER_SIZE}px;
+  width: ${BANNER_SIZE}px;
   overflow: hidden;
   position: relative;
 `
@@ -42,7 +44,7 @@ const AbsoluteImageContainer = styled(View)`
 `
 
 const StyledImage = styled(Image)<{ width: number }>`
-  width: 200px;
+  width: ${BANNER_SIZE}px;
   height: 100%;
 
   border-radius: ${OUTER_BORDER_RADIUS}px;
@@ -53,8 +55,6 @@ type Props = {
   content?: React.ReactNode
   backgroundImage?: ImageSourcePropType
 }
-
-// TODO use animated API for animating pressable in a separate component
 
 const PluginDetailedBanner = ({ content, plugin, backgroundImage }: Props) => {
   const { windowWidth } = useWindowDimensions()

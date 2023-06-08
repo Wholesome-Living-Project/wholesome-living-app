@@ -25,9 +25,9 @@ export default function Layout() {
         <Stack.Screen
           name={'meditation'}
           options={{
-            title: '',
-            headerTransparent: true,
+            title: PLUGINS.meditation?.title,
             statusBarTranslucent: true,
+            headerRight: () => <PluginBanner plugin={'meditation'} size={28} />,
           }}
         />
         <Stack.Screen
@@ -42,7 +42,7 @@ export default function Layout() {
           name={'finance-analytics'}
           options={{
             title: 'Invest',
-
+            statusBarTranslucent: true,
             headerRight: () => <PluginBanner plugin={'finance'} size={28} />,
           }}
         />

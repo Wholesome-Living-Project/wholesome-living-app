@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../api/openapi'
 import useHaptics from '../../hooks/useHaptics'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useLevels } from '../../provider/LevelProvider'
+import { useOnboarding } from '../../provider/OnboardingProvider'
 import { SPACING } from '../../theme/theme'
 import PluginBanner from '../discover/PluginBanner'
 import { levelModalRef } from '../refs/modal-refs'
@@ -44,8 +45,17 @@ const ExperienceContainer = styled(Flex)`
 const Forest = () => {
   const { windowWidth } = useWindowDimensions()
   const { doMediumFeedback } = useHaptics()
-  // TODO: also add plugins which dont have a level yet at level 1 from Onboarding added plugins!
   const { experienceMap, levelMap, setCurrentlyInspectedPlugin } = useLevels()
+  const { chosenPlugins } = useOnboarding()
+
+  const adjustedLevelMap = useMemo(() => {
+    const newLevelMap = { ...levelMap }
+    for (const plugin of chosenPlugins) {
+      if (Object.keys(newLevelMap).includes(plugin)) continue
+      newLevelMap[plugin] = 5
+    }
+    return newLevelMap
+  }, [chosenPlugins, levelMap])
 
   return (
     <>
@@ -53,8 +63,8 @@ const Forest = () => {
         <Background source={require('../../../assets/images/background_small.jpg')} />
         <Scroller horizontal>
           <LevelsContainer row align={'flex-end'}>
-            {levelMap &&
-              Object.keys(levelMap).map((key, index) => (
+            {adjustedLevelMap &&
+              Object.keys(adjustedLevelMap).map((key, index) => (
                 <LevelContainer key={index} width={130} align={'center'} column>
                   <ExperienceContainer align={'center'} column>
                     <PluginBanner plugin={key as SettingsPluginName} size={30} />
@@ -62,7 +72,7 @@ const Forest = () => {
                     <ExperienceBar
                       progress={(100 / 50) * (experienceMap?.meditation ?? 0)}
                       size={'small'}
-                      max={levelMap[key] >= 6}
+                      max={adjustedLevelMap[key] >= 6}
                       center
                     />
                   </ExperienceContainer>
@@ -72,7 +82,7 @@ const Forest = () => {
                       await doMediumFeedback()
                       levelModalRef.current?.expand()
                     }}>
-                    {levelComponents[Math.max(levelMap[key] - 1, 0)]}
+                    {levelComponents[Math.max(adjustedLevelMap[key] - 1, 0)]}
                   </TouchableOpacity>
                 </LevelContainer>
               ))}
