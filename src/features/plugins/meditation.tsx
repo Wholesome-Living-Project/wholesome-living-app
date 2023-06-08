@@ -31,7 +31,7 @@ const Meditation = () => {
       await getMeditations()
       await getLevels()
     },
-    [getMeditations, saveMeditation]
+    [getLevels, getMeditations, saveMeditation]
   )
 
   return (
