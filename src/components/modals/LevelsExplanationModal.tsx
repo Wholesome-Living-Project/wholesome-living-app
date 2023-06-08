@@ -8,7 +8,7 @@ import { useOnboarding } from '../../provider/OnboardingProvider'
 import { SPACING } from '../../theme/theme'
 import { Body, Heading4, Heading6 } from '../../theme/typography'
 import { levelComponents } from '../dashboard/Levels'
-import { levelExplanationModalRef, levelModalRef } from '../refs/modal-refs'
+import { levelExplanationModalRef } from '../refs/modal-refs'
 import { BottomSheetViewFlex } from '../ui/BottomSheetViewFlex'
 import Button from '../ui/Button'
 import { Flex } from '../ui/Flex'
@@ -62,7 +62,10 @@ const LevelExplanationModal = () => {
             you take towards your goal is a step in the right direction. Try to reach Max Level!
           </Body>
           <Spacer x={4} />
-          <Button small buttonType={'black'} onPress={() => levelModalRef.current?.close()}>
+          <Button
+            small
+            buttonType={'black'}
+            onPress={() => levelExplanationModalRef.current?.close()}>
             understood
           </Button>
         </Container>
