@@ -10,7 +10,7 @@ const StyledView = styled(View)<BackgroundProps>`
   flex: 1;
   padding: ${BACKGROUND_PADDING}px;
   justify-content: ${(p) => (p.bottom ? 'flex-end' : p.center ? 'center' : 'flex-start')};
-  align-items: ${(p) => (p.horizontalCenter ? 'center' : 'unset')};
+  align-items: ${(p) => (p.horizontalCenter ? 'center' : 'flex-start')};
 `
 type BackgroundProps = { center?: boolean; bottom?: boolean; horizontalCenter?: boolean }
 type Props = BackgroundProps & PropsWithChildren
