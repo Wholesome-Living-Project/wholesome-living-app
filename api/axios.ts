@@ -10,8 +10,6 @@ let baseURL =
     ? 'https://wholesome-living-backend-production.up.railway.app'
     : `http://${manifest?.debuggerHost?.split(':').shift()}:8080`
 
-baseURL = 'http://192.168.8.112:8080'
-
 export const axiosInstance = axios.create({
   baseURL,
   timeout: 15000,
