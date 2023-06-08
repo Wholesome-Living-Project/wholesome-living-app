@@ -20,7 +20,7 @@ const Container = styled(Flex)`
 `
 
 const LevelExplanationModal = () => {
-  const modalProps = useModal({ snapPoints: [`60%`] })
+  const modalProps = useModal({ snapPoints: [`65%`] })
   const { setClosedLevelExplanation } = useOnboarding()
 
   const onModalClose = useCallback(() => {

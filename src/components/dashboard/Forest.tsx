@@ -1,3 +1,4 @@
+import { FontAwesome5 } from '@expo/vector-icons'
 import React, { useMemo } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
@@ -6,9 +7,9 @@ import useHaptics from '../../hooks/useHaptics'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useLevels } from '../../provider/LevelProvider'
 import { useOnboarding } from '../../provider/OnboardingProvider'
-import { SPACING } from '../../theme/theme'
+import { COLORS, SPACING } from '../../theme/theme'
 import PluginBanner from '../discover/PluginBanner'
-import { levelModalRef } from '../refs/modal-refs'
+import { levelExplanationModalRef, levelModalRef } from '../refs/modal-refs'
 import ExperienceBar from '../ui/ExperienceBar'
 import { Flex } from '../ui/Flex'
 import Spacer from '../ui/Spacer'
@@ -40,6 +41,13 @@ const ExperienceContainer = styled(Flex)`
   position: relative;
   top: 20px;
   width: 100%;
+`
+
+const InfoButton = styled(TouchableOpacity)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: ${SPACING}px ${SPACING * 1.5}px;
 `
 
 const Forest = () => {
@@ -88,6 +96,9 @@ const Forest = () => {
               ))}
           </LevelsContainer>
         </Scroller>
+        <InfoButton onPress={() => levelExplanationModalRef.current?.expand()}>
+          <FontAwesome5 name="question-circle" size={22} color={COLORS.BLACK} />
+        </InfoButton>
       </Wrapper>
     </>
   )
