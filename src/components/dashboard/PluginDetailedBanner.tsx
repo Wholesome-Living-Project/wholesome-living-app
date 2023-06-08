@@ -1,3 +1,4 @@
+import { alpha } from 'axelra-react-native-utilities'
 import { useRootNavigation } from 'expo-router'
 import React, { useMemo } from 'react'
 import { Image, ImageSourcePropType, TouchableOpacity, View } from 'react-native'
@@ -23,6 +24,7 @@ const Container = styled(View)`
   flex: 1;
   padding: ${SPACING * 3}px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
+  background: ${alpha(0.2, COLORS.BLACK)};
 `
 
 const ContentWrapper = styled(View)`
