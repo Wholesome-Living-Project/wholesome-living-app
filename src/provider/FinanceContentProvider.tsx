@@ -59,7 +59,7 @@ const useProvideFinance = (): FinanceContentType => {
         console.log(e)
       }
     },
-    [user?.id]
+    [getSaving, user?.id]
   )
 
   const getSpendings = useCallback(async () => {
