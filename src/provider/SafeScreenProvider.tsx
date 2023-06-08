@@ -1,10 +1,12 @@
 import { useRouter, useSegments } from 'expo-router'
 import React, { PropsWithChildren, useEffect } from 'react'
 import { FullUserType, useUser } from '../hooks/useUser'
+import { useOnboarding } from './OnboardingProvider'
 
 const useProtectedRoute = (user: FullUserType) => {
   const segments = useSegments()
   const router = useRouter()
+  const { chosenPlugins } = useOnboarding()
 
   useEffect(() => {
     const inAuthGroup = segments[0] === '(auth)'
@@ -19,7 +21,7 @@ const useProtectedRoute = (user: FullUserType) => {
       router.replace('/welcome')
     } else if (user.user?.firebaseUID && inAuthGroup) {
       // Redirect away from the sign-in page.
-      router.replace('/(onboarding)')
+      chosenPlugins ? router.replace('root') : router.replace('/(onboarding)')
     }
   }, [user.user?.firebaseUID, segments, router])
 }
