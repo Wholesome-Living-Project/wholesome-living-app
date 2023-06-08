@@ -84,12 +84,9 @@ const Notifications = () => {
                 onValueChange={(itemValue: SettingsNotificationType) =>
                   setNotificationPeriod(itemValue)
                 }>
-                <Picker.Item label={notificationFrequency === 1 ? 'Day' : 'Days'} value="Day" />
-                <Picker.Item label={notificationFrequency === 1 ? 'Week' : 'Weeks'} value="Week" />
-                <Picker.Item
-                  label={notificationFrequency === 1 ? 'Month' : 'Months'}
-                  value="Month"
-                />
+                <Picker.Item label={notificationFrequency === 1 ? 'Day' : 'Days'} value="Days" />
+                <Picker.Item label={notificationFrequency === 1 ? 'Week' : 'Weeks'} value="Weeks" />
+                <Picker.Item label={notificationFrequency === 1 ? 'Month' : 'Months'} value="Months" />
               </StyledPicker>
             </Flex>
           </Flex>
