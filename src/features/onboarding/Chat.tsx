@@ -1,5 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, KeyboardAvoidingView, LogBox, ScrollView, Text } from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 import Button from '../../components/ui/Button'
@@ -39,19 +40,20 @@ const MessageHeader = styled(Flex)`
 `
 
 const Message = styled(Flex)<{ isUser: boolean }>`
-  background-color: ${(p) => (p.isUser ? EXTRA_COLORS.BLUE_LIGHT : COLORS.WHITE)};
-  border-radius: 20px;
+  background-color: ${(p) => (p.isUser ? EXTRA_COLORS.FINA : COLORS.WHITE)};
+  border-radius: 8px;
   padding: ${SPACING * 2}px;
   max-width: 320px;
   min-width: 60px;
   margin-right: ${(p) => (p.isUser ? `${SPACING}px` : 'auto')};
   margin-left: ${(p) => (p.isUser ? 'auto' : `${SPACING}px`)};
-  border: solid ${COLORS.PRIMARY};
+  border: solid ${COLORS.PRIMARY} 0.5px;
   flex: 1;
 `
 
-const ChatText = styled(Text)`
+const ChatText = styled(Text)<{ isUser: boolean }>`
   word-break: break-all;
+  color: ${(p) => (p.isUser ? COLORS.WHITE : 'black')};
 `
 
 const Chat = () => {
@@ -99,7 +101,6 @@ const Chat = () => {
   return (
     <Flex style={{ height: windowHeight }} column justify={'space-between'}>
       <Flex>
-        <Spacer x={4} />
         <StyledScrollView
           ref={scrollRef}
           height={windowHeight - (keyboardOpen ? keyboardHeight + footerHeight : footerHeight)}>
@@ -113,7 +114,7 @@ const Chat = () => {
                     <Regular>{m.role === 'user' ? 'You' : 'AI Bot'}</Regular>
                   </MessageHeader>
                   <Message isUser={m.role === 'user'} column align={'center'}>
-                    <ChatText>{m.content}</ChatText>
+                    <ChatText isUser={m.role === 'user'}>{m.content}</ChatText>
                   </Message>
                 </Fragment>
               )
@@ -143,7 +144,7 @@ const Chat = () => {
             <Spacer x={2} />
             <Flex>
               <Button onPress={onSend} small>
-                Send
+                <Ionicons name="arrow-up" color={'white'} size={25} />
               </Button>
             </Flex>
           </>
