@@ -12,6 +12,7 @@ export default function Layout() {
         headerStyle: { backgroundColor: COLORS.SECONDARY },
         headerTitleStyle: { color: COLORS.PRIMARY },
         headerLeft: ({ canGoBack }) => (canGoBack ? <BackButton /> : null),
+        headerTitleAlign: 'center',
       }}>
       <Stack.Screen name={'index'} options={{ headerShown: false }} />
       <Stack.Screen name={'personal'} options={{ title: 'Personal Information' }} />
