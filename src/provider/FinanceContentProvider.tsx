@@ -51,7 +51,7 @@ const useProvideFinance = (): FinanceContentType => {
       try {
         await api.financeApi.financePost(user?.id, {
           amount: spending.amount,
-          saving: 100,
+          saving: 93,
           description: spending.description,
           spendingTime: spending.spendingTime,
         })

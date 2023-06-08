@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
-import { KeyboardAvoidingView, ScrollView, Text } from 'react-native'
+import { KeyboardAvoidingView, LogBox, ScrollView, Text } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 import Button from '../../components/ui/Button'
@@ -12,6 +12,9 @@ import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useChat } from '../../provider/ChatProvider'
 import { COLORS, EXTRA_COLORS, SPACING } from '../../theme/theme'
 import { Regular } from '../../theme/typography'
+
+// Ignore specific warning messages
+LogBox.ignoreLogs(['This synthetic event is reused for performance reasons'])
 
 const StyledScrollView = styled(ScrollView)<{ height: number }>`
   height: ${(p) => p.height}px;
@@ -122,14 +125,13 @@ const Chat = () => {
             console.log(e)
           }
         }}>
-        {messages.length <= 2 ? (
+        {messages.length <= 12 ? (
           <>
             <Input
               value={message}
               onChangeText={(value: string) => setMessage(value)}
               placeholder={'Your message'}
               multiline
-              minHeight={80}
             />
             <Spacer x={2} />
             <Flex>
