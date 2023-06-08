@@ -12,6 +12,7 @@ import Spacer from '../../components/ui/Spacer'
 import useKeyboard from '../../hooks/useKeyboard'
 import { useFinance } from '../../provider/FinanceContentProvider'
 import { useLevels } from '../../provider/LevelProvider'
+import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
 import { Body, Heading4, Heading6, Regular } from '../../theme/typography'
 import PluginScreenLayout from './PluginScreenLayout'
@@ -38,6 +39,7 @@ const Finance = () => {
   const { keyboardOpen } = useKeyboard()
   const scrollRef = useRef<ScrollView | null>(null)
   const { getLevels } = useLevels()
+  const { selectedStrategy, roundUpNumber } = useOnboarding()
 
   useEffect(() => {
     if (keyboardOpen) {
@@ -84,7 +86,14 @@ const Finance = () => {
         <Spacer x={2} />
         <Flex row align={'flex-end'}>
           <Body>Your current strategy: </Body>
-          <Heading6>Round up</Heading6>
+          <Heading6>
+            {selectedStrategy === 'Plus'
+              ? 'Fixed'
+              : selectedStrategy === 'Round'
+              ? 'Round up by'
+              : 'Percentage'}{' '}
+            {roundUpNumber}
+          </Heading6>
         </Flex>
         <Spacer x={4} />
         <Heading4>Track your expenses</Heading4>

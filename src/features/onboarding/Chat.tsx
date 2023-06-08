@@ -166,7 +166,7 @@ const Chat = () => {
             console.log(e)
           }
         }}>
-        {messages.length <= 12 ? (
+        {messages.length <= 11 ? (
           <>
             <Input
               value={message}
