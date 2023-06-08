@@ -96,7 +96,21 @@ const OnboardingStep = ({
           disabled={primaryDisabled}>
           {primaryText}
         </Button>
-        <Spacer x={1} />
+        <Spacer x={2} />
+        <Button
+          onPress={() => {
+            onPressPrimary?.()
+            nextStep
+              ? navigation?.navigate(nextStep)
+              : foundNextStep
+              ? navigation?.navigate(foundNextStep)
+              : navigation?.navigate('root')
+          }}
+          buttonType={'secondary'}
+          disabled={primaryDisabled}>
+          {secondaryText}
+        </Button>
+        <Spacer x={0.5} />
         {canSkip && (
           <NativeButton
             title={'Skip'}

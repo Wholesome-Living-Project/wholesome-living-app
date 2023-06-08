@@ -1,5 +1,12 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, KeyboardAvoidingView, LogBox, ScrollView, Text } from 'react-native'
+import {
+  ActivityIndicator,
+  Image,
+  KeyboardAvoidingView,
+  LogBox,
+  ScrollView,
+  Text,
+} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
@@ -11,8 +18,9 @@ import Spacer from '../../components/ui/Spacer'
 import useKeyboard from '../../hooks/useKeyboard'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useChat } from '../../provider/ChatProvider'
-import { COLORS, EXTRA_COLORS, SPACING } from '../../theme/theme'
-import { Regular } from '../../theme/typography'
+import { coachProfiles, useOnboarding } from '../../provider/OnboardingProvider'
+import { COLORS, SPACING } from '../../theme/theme'
+import { Body } from '../../theme/typography'
 
 // Ignore specific warning messages
 LogBox.ignoreLogs(['This synthetic event is reused for performance reasons'])
@@ -24,30 +32,38 @@ const StyledScrollView = styled(ScrollView)<{ height: number }>`
 `
 
 const Footer = styled(KeyboardAvoidingView)<{ bottom: number }>`
-  padding: 0 ${SPACING * 2}px;
   position: absolute;
   bottom: ${(p) => p.bottom}px;
   width: 100%;
   background-color: ${COLORS.WHITE};
-  padding: ${SPACING * 3}px ${SPACING * 2}px ${SPACING * 6}px;
+  padding: ${SPACING * 3}px ${SPACING * 2}px ${SPACING * 17}px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   flex-direction: row;
+`
+
+const ProfileImage = styled(Image)`
+  width: 50px;
+  height: 50px;
 `
 
 const MessageHeader = styled(Flex)`
   padding: 0 ${SPACING * 1.5}px;
 `
 
-const Message = styled(Flex)<{ isUser: boolean }>`
-  background-color: ${(p) => (p.isUser ? EXTRA_COLORS.FINA : COLORS.WHITE)};
+const Message = styled(Flex)<{ isUser: boolean; maxWidth: number }>`
+  background-color: ${(p) => (p.isUser ? COLORS.PRIMARY : COLORS.WHITE)};
   border-radius: 8px;
+  position: relative;
   padding: ${SPACING * 2}px;
-  max-width: 320px;
+  max-width: ${(p) => p.maxWidth}px;
   min-width: 60px;
   margin-right: ${(p) => (p.isUser ? `${SPACING}px` : 'auto')};
   margin-left: ${(p) => (p.isUser ? 'auto' : `${SPACING}px`)};
+  margin-bottom: ${SPACING * 2}px;
   border: solid ${COLORS.PRIMARY} 0.5px;
+  border-bottom-left-radius: ${(p) => (p.isUser ? `${SPACING}px` : '0px')};
+  border-bottom-right-radius: ${(p) => (p.isUser ? '0px' : `${SPACING}px`)};
   flex: 1;
 `
 
@@ -62,8 +78,9 @@ const Chat = () => {
   const { keyboardOpen, keyboardHeight } = useKeyboard()
   const [loading, setLoading] = useState(false)
   const scrollRef = useRef<ScrollView | null>(null)
-  const { windowHeight } = useWindowDimensions()
+  const { windowHeight, windowWidth } = useWindowDimensions()
   const [footerHeight, setFooterHeight] = useState(0)
+  const { coach } = useOnboarding()
 
   const navigation = useNavigation()
 
@@ -101,21 +118,35 @@ const Chat = () => {
   return (
     <Flex style={{ height: windowHeight }} column justify={'space-between'}>
       <Flex>
+        <Spacer x={2} />
         <StyledScrollView
           ref={scrollRef}
           height={windowHeight - (keyboardOpen ? keyboardHeight + footerHeight : footerHeight)}>
           <KeyboardCloseHandleComponent>
-            <Spacer x={8} />
             {messages.map((m, i) => {
               if (m.role === 'system') return
               return (
                 <Fragment key={i}>
-                  <MessageHeader column align={m.role === 'user' ? 'flex-end' : 'flex-start'}>
-                    <Regular>{m.role === 'user' ? 'You' : 'AI Bot'}</Regular>
-                  </MessageHeader>
-                  <Message isUser={m.role === 'user'} column align={'center'}>
-                    <ChatText isUser={m.role === 'user'}>{m.content}</ChatText>
-                  </Message>
+                  <Flex row align={'flex-end'}>
+                    <MessageHeader
+                      column
+                      align={m.role === 'user' ? 'flex-end' : 'flex-start'}
+                      justify={'center'}>
+                      {m.role !== 'user' && (
+                        <Flex column align={'center'}>
+                          <ProfileImage source={coachProfiles[coach]} />
+                          <Body>{'Coach'}</Body>
+                        </Flex>
+                      )}
+                    </MessageHeader>
+                    <Message
+                      isUser={m.role === 'user'}
+                      column
+                      align={'center'}
+                      maxWidth={windowWidth * 0.65}>
+                      <ChatText isUser={m.role === 'user'}>{m.content}</ChatText>
+                    </Message>
+                  </Flex>
                 </Fragment>
               )
             })}
@@ -124,7 +155,7 @@ const Chat = () => {
         </StyledScrollView>
       </Flex>
       <Footer
-        bottom={keyboardOpen ? keyboardHeight : 0}
+        bottom={keyboardOpen ? keyboardHeight - SPACING * 2 : 0}
         onLayout={(e) => {
           try {
             const { height } = e.nativeEvent.layout
@@ -143,7 +174,7 @@ const Chat = () => {
             />
             <Spacer x={2} />
             <Flex>
-              <Button onPress={onSend} small>
+              <Button onPress={onSend} small buttonType={'black'}>
                 <Ionicons name="arrow-up" color={'white'} size={25} />
               </Button>
             </Flex>
