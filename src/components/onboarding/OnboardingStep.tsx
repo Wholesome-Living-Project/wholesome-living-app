@@ -19,7 +19,6 @@ const Wrapper = styled(Flex)`
 `
 
 const Footer = styled(Flex)`
-  padding: 0 ${SPACING * 2}px ${SPACING * 3}px;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -97,19 +96,21 @@ const OnboardingStep = ({
           {primaryText}
         </Button>
         <Spacer x={2} />
-        <Button
-          onPress={() => {
-            onPressPrimary?.()
-            nextStep
-              ? navigation?.navigate(nextStep)
-              : foundNextStep
-              ? navigation?.navigate(foundNextStep)
-              : navigation?.navigate('root')
-          }}
-          buttonType={'secondary'}
-          disabled={primaryDisabled}>
-          {secondaryText}
-        </Button>
+        {secondaryText && (
+          <Button
+            onPress={() => {
+              onPressPrimary?.()
+              nextStep
+                ? navigation?.navigate(nextStep)
+                : foundNextStep
+                ? navigation?.navigate(foundNextStep)
+                : navigation?.navigate('root')
+            }}
+            buttonType={'secondary'}
+            disabled={primaryDisabled}>
+            {secondaryText}
+          </Button>
+        )}
         <Spacer x={0.5} />
         {canSkip && (
           <NativeButton
