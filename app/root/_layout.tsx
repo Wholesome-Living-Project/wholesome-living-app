@@ -60,7 +60,7 @@ export default function Layout() {
 
       <LevelModal />
       <LevelExplanationModal />
-      <StatusBar style={'dark'} />
+      <StatusBar style={'auto'} />
     </>
   )
 }

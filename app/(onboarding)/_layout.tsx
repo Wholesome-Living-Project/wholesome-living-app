@@ -23,7 +23,7 @@ export default function Layout() {
           }}
         />
       </Stack>
-      <StatusBar style="dark" />
+      <StatusBar style="auto" />
     </>
   )
 }
