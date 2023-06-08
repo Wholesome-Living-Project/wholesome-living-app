@@ -1,19 +1,16 @@
 import React from 'react'
+import { FinanceGetInvestmentResponse } from '../../../../api/openapi'
 import ListItem, { ListItemActions } from './ListItem'
 
 type Props = {
-  spending: {
-    amount: number
-    date: number
-    text: string
-  }
+  spending: FinanceGetInvestmentResponse
 }
 const FinanceListItem = ({ spending }: Props) => {
-  const { amount, date, text } = spending
+  const { amount, spendingTime, description } = spending
   return (
     <ListItem
-      title={new Date(date ? date * 1000 : '').toLocaleDateString()}
-      content={`${amount} CHF - ${text}`}
+      title={new Date(spendingTime ? spendingTime * 1000 : '').toLocaleDateString()}
+      content={`${amount} CHF - ${description}`}
       possibleActions={ListItemActions.DELETE}
     />
   )

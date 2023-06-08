@@ -4,5 +4,5 @@ import { Flex } from '../ui/Flex'
 
 export const SectionTitleContainer = styled(Flex)`
   width: 100%;
-  padding: ${SPACING * 2}px;
+  padding: 0 ${SPACING * 2}px;
 `

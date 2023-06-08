@@ -7,18 +7,15 @@ import React, {
   useMemo,
   useState,
 } from 'react'
+import { FinanceCreateSpendingRequest, FinanceGetInvestmentResponse } from '../../api/openapi'
+import { api } from '../../api/requests'
 import { useUser } from '../hooks/useUser'
-
-type Spending = {
-  amount: number
-  date: number
-  text: string
-}
+import { useOnboarding } from './OnboardingProvider'
 
 type FinanceContentType = {
-  saveSpending: (Spending) => void
+  saveSpending: (spending: FinanceCreateSpendingRequest) => void
   getSpendings: () => void
-  spendings: Spending[]
+  spendings: FinanceGetInvestmentResponse[]
   aggregatedSpendings: number
   aggregateSavings: number
 }
@@ -28,28 +25,49 @@ const FinanceContext = createContext<FinanceContentType>({} as FinanceContentTyp
 export const useFinance = () => useContext(FinanceContext)
 
 const useProvideFinance = (): FinanceContentType => {
-  const [spendings, setSpendings] = useState<Spending[]>([])
+  const [spendings, setSpendings] = useState<FinanceGetInvestmentResponse[]>([])
   const { user } = useUser()
+  const { selectedStrategy, roundUpNumber } = useOnboarding()
+
+  const getSaving = useCallback(
+    (amount: number) => {
+      if (!selectedStrategy || !roundUpNumber) return 0
+      switch (selectedStrategy) {
+        case 'Percent':
+          return amount * (roundUpNumber / 100)
+        case 'Plus':
+          return roundUpNumber
+        default:
+          return Math.ceil(amount / roundUpNumber) * roundUpNumber - amount
+      }
+    },
+    [roundUpNumber, selectedStrategy]
+  )
 
   const saveSpending = useCallback(
-    async (sepending: Spending) => {
+    async (spending: FinanceCreateSpendingRequest) => {
       if (!user?.id) return
-      console.log('saving spending', sepending)
-
+      if (!spending.amount) return
       try {
-        // TODO send Data
-        setSpendings([sepending, ...spendings])
+        await api.financeApi.financePost(user?.id, {
+          amount: spending.amount,
+          saving: 100,
+          description: spending.description,
+          spendingTime: spending.spendingTime,
+        })
       } catch (e) {
         console.log(e)
       }
     },
-    [spendings, user?.id]
+    [user?.id]
   )
 
   const getSpendings = useCallback(async () => {
     if (!user?.id) return
     try {
-      // TODO get Data from api
+      const { data } = await api.financeApi.financeGet(user?.id)
+      // @ts-ignore
+      setSpendings(data.reverse())
     } catch (e) {
       console.log(e)
     }
@@ -57,17 +75,17 @@ const useProvideFinance = (): FinanceContentType => {
 
   const aggregatedSpendings = useMemo(() => {
     let dailySpendings = 0
-    spendings.forEach((spending) => (dailySpendings += spending.amount))
+    spendings.forEach((spending) => spending.amount && (dailySpendings += spending.amount))
     return dailySpendings
   }, [spendings])
 
   const aggregateSavings = useMemo(() => {
     let savings = 0
     spendings.forEach((spending) => {
-      savings += Math.ceil(spending.amount / 5) * 5 - spending.amount
+      spending.amount && getSaving(spending.amount)
     })
     return savings
-  }, [spendings])
+  }, [getSaving, spendings])
 
   useEffect(() => {
     getSpendings()

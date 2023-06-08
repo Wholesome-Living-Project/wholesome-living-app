@@ -5,7 +5,7 @@ import { Button as NativeButton, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
 import { displayTime } from '../../../helpers/timerHelpers'
 import { useMeditate } from '../../../provider/MeditationContentProvider'
-import { COLORS, OUTER_BORDER_RADIUS } from '../../../theme/theme'
+import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../../theme/theme'
 import { Heading1 } from '../../../theme/typography'
 import { meditateTimePickerModalRef } from '../../refs/modal-refs'
 import Button from '../../ui/Button'
@@ -20,6 +20,7 @@ const TimerContainer = styled(View)`
 
 const TimerBackground = styled(TouchableOpacity)`
   display: flex;
+  padding: ${SPACING}px ${SPACING * 2}px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -107,14 +108,16 @@ const Timer = ({ onTimerEnded }: Props) => {
         </TimerBackground>
         <Spacer x={4} />
         <Button
-          buttonType={isTimerStart ? 'cta' : 'primary'}
+          buttonType={isTimerStart ? 'cta' : 'black'}
           fullWidth
+          small
           disabled={timerIsZero}
           onPress={!isTimerStart ? startTimer : pauseTimer}>
           {!isTimerStart ? 'Start' : 'Stop'}
         </Button>
         <Spacer x={2} />
         <Button
+          small
           buttonType={'secondary'}
           disabled={timerDuration === timerDifference && !isTimerStart}
           fullWidth

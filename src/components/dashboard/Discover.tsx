@@ -1,9 +1,8 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useMemo } from 'react'
 import { FlatList } from 'react-native'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../api/openapi'
-import { PLUGINS, PluginType } from '../../helpers/pluginList'
-import { useUser } from '../../hooks/useUser'
+import { SettingsPluginName } from '../../../api/openapi'
+import { useOnboarding } from '../../provider/OnboardingProvider'
 import { Heading4 } from '../../theme/typography'
 import Plugin from '../discover/Plugin'
 import Spacer from '../ui/Spacer'
@@ -14,24 +13,26 @@ const StyledList = styled(FlatList)`
 `
 
 const Discover = () => {
-  const { user } = useUser()
+  const { chosenPlugins } = useOnboarding()
+
+  const unexploredPlugins = useMemo(() => {
+    return Object.values(SettingsPluginName).filter((p) => !chosenPlugins.includes(p))
+  }, [chosenPlugins])
 
   return (
     <Fragment>
       <SectionTitleContainer>
         <Heading4>Explore Plugins</Heading4>
       </SectionTitleContainer>
-
+      <Spacer x={1} />
       <StyledList
-        data={Object.values(PLUGINS).filter(
-          (plugin: PluginType) => !user?.plugins?.includes(plugin?.plugin as UserPluginName)
-        )}
+        data={unexploredPlugins}
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <Fragment>
             <Spacer x={2} />
-            <Plugin plugin={item as PluginType} />
+            <Plugin plugin={item as SettingsPluginName} />
             <Spacer x={0.5} />
           </Fragment>
         )}

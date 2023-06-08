@@ -3,7 +3,8 @@ import { Picker } from '@react-native-picker/picker'
 import React, { useCallback, useState } from 'react'
 import { Platform, View } from 'react-native'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../../api/openapi'
+import { SettingsPluginName } from '../../../../api/openapi'
+import { SettingsNotificationType } from '../../../../api/openapi'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
 import { Flex } from '../../../components/ui/Flex'
 import Spacer from '../../../components/ui/Spacer'
@@ -14,7 +15,7 @@ import Slider from '@react-native-community/slider';
 import { formatTimeMeditation } from '../../../helpers/formatTimeMeditation'
 
 const StyledPicker = styled(Picker)`
-  width: 150px;
+  width: 150px
 `
 const PickerBackground = styled(Flex)`
   background: ${COLORS.BACKGROUND_GREY};
@@ -36,8 +37,8 @@ const Goal = () => {
   return (
     <OnboardingStep
       primaryText={'Continue'}
-      plugin={UserPluginName.PluginNameMeditation}
-      onPressPrimary={() => { }}>
+      plugin={SettingsPluginName.PluginNameMeditation}
+      onPressPrimary={() => {}}>
       <View>
         <Heading4>Choose your goal</Heading4>
         <Light>
@@ -63,10 +64,12 @@ const Goal = () => {
           </StyledPicker>
           <StyledPicker
             selectedValue={selectedGoalPeriod}
-            onValueChange={(itemValue: string) => setSelectedGoalPeriod(itemValue)}>
-            <Picker.Item label={selectedGoalNumber === 1 ? 'Day' : 'Days'} value="days" />
-            <Picker.Item label={selectedGoalNumber === 1 ? 'Week' : 'Weeks'} value="weeks" />
-            <Picker.Item label={selectedGoalNumber === 1 ? 'Month' : 'Months'} value="months" />
+            onValueChange={(itemValue: SettingsNotificationType) =>
+              setSelectedGoalPeriod(itemValue)
+            }>
+            <Picker.Item label={selectedGoalNumber === 1 ? 'Day' : 'Days'} value="Day" />
+            <Picker.Item label={selectedGoalNumber === 1 ? 'Week' : 'Weeks'} value="Week" />
+            <Picker.Item label={selectedGoalNumber === 1 ? 'Month' : 'Months'} value="Month" />
           </StyledPicker>
         </PickerBackground>
         <Spacer x={3} />
@@ -111,6 +114,7 @@ const Goal = () => {
             />
           }
         </PickerBackground>
+        <Spacer x={8} />
       </View>
     </OnboardingStep>
   )

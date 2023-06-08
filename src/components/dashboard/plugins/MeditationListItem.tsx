@@ -1,10 +1,10 @@
 import React from 'react'
-import { MeditationGetMeditationResponse } from '../../../../api/openapi'
+import { MeditationMeditationDB } from '../../../../api/openapi'
 import { getFormattedTimer } from '../../../helpers/getFormattedTimer'
 import ListItem, { ListItemActions } from './ListItem'
 
 type Props = {
-  meditation: MeditationGetMeditationResponse
+  meditation: MeditationMeditationDB
 }
 const MeditationListItem = ({ meditation }: Props) => {
   const { meditationTime, endTime } = meditation

@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, View } from 'react-native'
 import { Divider } from 'react-native-elements'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../../api/openapi'
+import { SettingsPluginName } from '../../../../api/openapi'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
 import { Flex } from '../../../components/ui/Flex'
 import Spacer from '../../../components/ui/Spacer'
@@ -13,18 +13,21 @@ import { Heading4, Light, Regular } from '../../../theme/typography'
 const NotificationOption = styled(Flex)`
   padding: ${SPACING}px ${SPACING * 2}px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
-  background: ${COLORS.WHITE};
+  background: ${COLORS.BACKGROUND_GREY};
   margin-bottom: ${SPACING}px;
 `
 
 const Notifications = () => {
-  const { takeElevatorNotification, setTakeElevatorNotification } = useOnboarding()
+  const { takeElevatorNotification, setTakeElevatorNotification, setElevatorSettings } =
+    useOnboarding()
 
   return (
     <OnboardingStep
       primaryText={'Continue'}
-      plugin={UserPluginName.PluginNameElevator}
-      onPressPrimary={() => {}}>
+      plugin={SettingsPluginName.PluginNameElevator}
+      onPressPrimary={() => {
+        setElevatorSettings()
+      }}>
       <View>
         <Heading4>Notifications</Heading4>
         <Light>Get a push notification each time you do not take the stairs</Light>

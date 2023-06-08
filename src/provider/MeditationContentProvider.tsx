@@ -17,7 +17,7 @@ type MeditationContentType = {
   setTimerDifference: (st: number) => void
   saveMeditation: (meditationTime: number) => void
   getMeditations: () => void
-  meditations: MeditationGetMeditationResponse[]
+  meditations: MeditationGetMeditationResponse
 }
 
 const MeditateContext = createContext<MeditationContentType>({} as MeditationContentType)
@@ -26,7 +26,9 @@ export const useMeditate = () => useContext(MeditateContext)
 
 const useProvideMeditate = (): MeditationContentType => {
   const [timerDifference, setTimerDifference] = useState(60)
-  const [meditations, setMeditations] = useState<MeditationGetMeditationResponse[]>([])
+  const [meditations, setMeditations] = useState<MeditationGetMeditationResponse>({
+    meditations: [],
+  })
   const { user } = useUser()
 
   const saveMeditation = useCallback(
@@ -34,7 +36,7 @@ const useProvideMeditate = (): MeditationContentType => {
       if (!user?.id) return
 
       try {
-        await api.meditationApi.meditationPost({
+        await api.meditationApi.meditationPost(user.id, {
           meditationTime: meditationTime,
           endTime: getUnixTime(),
         })
@@ -49,7 +51,6 @@ const useProvideMeditate = (): MeditationContentType => {
     if (!user?.id) return
     try {
       const { data } = await api.meditationApi.meditationGet()
-      //@ts-ignore
       setMeditations(data)
     } catch (e) {
       console.log(e)

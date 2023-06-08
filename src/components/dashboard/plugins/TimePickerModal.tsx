@@ -10,6 +10,8 @@ import { BottomSheetViewFlex } from '../../ui/BottomSheetViewFlex'
 import Button from '../../ui/Button'
 import { Flex } from '../../ui/Flex'
 import Spacer from '../../ui/Spacer'
+import TimePicker from '../../../components/plugins/meditation/TimePicker'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const BASE_MODAL_HEIGHT = 50
 const ADD_KEYBARD_HEIGHT = 30
@@ -46,14 +48,15 @@ const TimePickerModal = ({ title }: Props) => {
     <BottomSheet
       ref={meditateTimePickerModalRef}
       index={-1}
-      enablePanDownToClose
+      enablePanDownToClose={false}
+      enableOverDrag={false}
       onClose={onModalClose}
       style={{ zIndex: 1000 }}
       {...modalProps}>
       <BottomSheetViewFlex flex={1} justify={'center'} column>
         <ContentWrapper>
           <Heading5>{title}</Heading5>
-          {/*<TimePicker difference={currentDifference} setDifference={setCurrentDifference} />*/}
+          <TimePicker difference={currentDifference} setDifference={setCurrentDifference} />
           <Spacer x={2} />
           <Button
             onPress={() => {

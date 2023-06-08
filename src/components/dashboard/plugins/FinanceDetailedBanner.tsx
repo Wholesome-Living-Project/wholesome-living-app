@@ -1,7 +1,8 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../../api/openapi'
+import { SettingsPluginName } from '../../../../api/openapi'
+import { PLUGINS } from '../../../helpers/pluginList'
 import { useFinance } from '../../../provider/FinanceContentProvider'
 import { COLORS } from '../../../theme/theme'
 import { Regular } from '../../../theme/typography'
@@ -31,8 +32,8 @@ const FinanceDetailedBanner = () => {
   return (
     <PluginDetailedBanner
       content={<Content />}
-      plugin={UserPluginName.PluginNameElevator}
-      backgroundImage={require('../../../../assets/images/man_saving_money.jpg')}
+      plugin={SettingsPluginName.PluginNameFinance}
+      backgroundImage={PLUGINS.finance.image}
     />
   )
 }

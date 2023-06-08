@@ -9,8 +9,8 @@ const MeditationHistory = () => {
 
   return (
     <Flex column>
-      {meditations.map((meditation, i) => (
-        <Fragment key={meditation.endTime}>
+      {meditations.meditations?.map((meditation, i) => (
+        <Fragment key={i}>
           <MeditationListItem meditation={meditation} />
           <Divider />
         </Fragment>

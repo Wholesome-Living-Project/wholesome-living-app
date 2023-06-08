@@ -26,38 +26,44 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
- * @interface FinanceCreateInvestmentRequest
+ * @interface FinanceCreateSpendingRequest
  */
-export interface FinanceCreateInvestmentRequest {
+export interface FinanceCreateSpendingRequest {
     /**
      * 
      * @type {number}
-     * @memberof FinanceCreateInvestmentRequest
+     * @memberof FinanceCreateSpendingRequest
      */
     'amount'?: number;
     /**
      * 
      * @type {string}
-     * @memberof FinanceCreateInvestmentRequest
+     * @memberof FinanceCreateSpendingRequest
      */
     'description'?: string;
     /**
      * 
      * @type {number}
-     * @memberof FinanceCreateInvestmentRequest
+     * @memberof FinanceCreateSpendingRequest
      */
-    'investmentTime'?: number;
+    'saving'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceCreateSpendingRequest
+     */
+    'spendingTime'?: number;
 }
 /**
  * 
  * @export
- * @interface FinanceCreateInvestmentResponse
+ * @interface FinanceCreateSpendingResponse
  */
-export interface FinanceCreateInvestmentResponse {
+export interface FinanceCreateSpendingResponse {
     /**
      * 
      * @type {string}
-     * @memberof FinanceCreateInvestmentResponse
+     * @memberof FinanceCreateSpendingResponse
      */
     'id'?: string;
 }
@@ -75,10 +81,28 @@ export interface FinanceGetInvestmentResponse {
     'amount'?: number;
     /**
      * 
+     * @type {string}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'id'?: string;
+    /**
+     * 
      * @type {number}
      * @memberof FinanceGetInvestmentResponse
      */
-    'investmentTime'?: number;
+    'saving'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'spendingTime'?: number;
     /**
      * 
      * @type {string}
@@ -126,28 +150,60 @@ export interface MeditationCreateMeditationResponse {
 export interface MeditationGetMeditationResponse {
     /**
      * 
-     * @type {number}
+     * @type {Array<MeditationMeditationDB>}
      * @memberof MeditationGetMeditationResponse
+     */
+    'meditations'?: Array<MeditationMeditationDB>;
+}
+/**
+ * 
+ * @export
+ * @interface MeditationMeditationDB
+ */
+export interface MeditationMeditationDB {
+    /**
+     * 
+     * @type {number}
+     * @memberof MeditationMeditationDB
      */
     'endTime'?: number;
     /**
      * 
      * @type {string}
-     * @memberof MeditationGetMeditationResponse
+     * @memberof MeditationMeditationDB
      */
     'id'?: string;
     /**
      * 
      * @type {number}
-     * @memberof MeditationGetMeditationResponse
+     * @memberof MeditationMeditationDB
      */
     'meditationTime'?: number;
     /**
      * 
      * @type {string}
-     * @memberof MeditationGetMeditationResponse
+     * @memberof MeditationMeditationDB
      */
     'userId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ProgressResponse
+ */
+export interface ProgressResponse {
+    /**
+     * 
+     * @type {{ [key: string]: number; }}
+     * @memberof ProgressResponse
+     */
+    'experienceToNewLevel'?: { [key: string]: number; };
+    /**
+     * 
+     * @type {{ [key: string]: number; }}
+     * @memberof ProgressResponse
+     */
+    'level'?: { [key: string]: number; };
 }
 /**
  * 
@@ -523,21 +579,6 @@ export interface UserCreateUserResponse {
 /**
  * 
  * @export
- * @enum {string}
- */
-
-export const UserPluginName = {
-    PluginNameMeditation: 'meditation',
-    PluginNameFinance: 'finance',
-    PluginNameElevator: 'elevator'
-} as const;
-
-export type UserPluginName = typeof UserPluginName[keyof typeof UserPluginName];
-
-
-/**
- * 
- * @export
  * @interface UserUpdateUserRequest
  */
 export interface UserUpdateUserRequest {
@@ -565,12 +606,6 @@ export interface UserUpdateUserRequest {
      * @memberof UserUpdateUserRequest
      */
     'lastName'?: string;
-    /**
-     * 
-     * @type {Array<UserPluginName>}
-     * @memberof UserUpdateUserRequest
-     */
-    'plugins'?: Array<UserPluginName>;
 }
 /**
  * 
@@ -614,12 +649,6 @@ export interface UserUserDB {
      * @memberof UserUserDB
      */
     'lastName'?: string;
-    /**
-     * 
-     * @type {Array<UserPluginName>}
-     * @memberof UserUserDB
-     */
-    'plugins'?: Array<UserPluginName>;
 }
 
 /**
@@ -681,14 +710,14 @@ export const FinanceApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Creates a new investment.
-         * @summary Create a investment.
+         * Creates a new spending.
+         * @summary Create a spending.
          * @param {string} userId User ID
-         * @param {FinanceCreateInvestmentRequest} investment investment to create
+         * @param {FinanceCreateSpendingRequest} investment spending to create
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        financePost: async (userId: string, investment: FinanceCreateInvestmentRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        financePost: async (userId: string, investment: FinanceCreateSpendingRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('financePost', 'userId', userId)
             // verify required parameter 'investment' is not null or undefined
@@ -748,14 +777,14 @@ export const FinanceApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Creates a new investment.
-         * @summary Create a investment.
+         * Creates a new spending.
+         * @summary Create a spending.
          * @param {string} userId User ID
-         * @param {FinanceCreateInvestmentRequest} investment investment to create
+         * @param {FinanceCreateSpendingRequest} investment spending to create
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async financePost(userId: string, investment: FinanceCreateInvestmentRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FinanceCreateInvestmentResponse>> {
+        async financePost(userId: string, investment: FinanceCreateSpendingRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FinanceCreateSpendingResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.financePost(userId, investment, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -783,14 +812,14 @@ export const FinanceApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.financeGet(userId, id, startTime, endTime, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates a new investment.
-         * @summary Create a investment.
+         * Creates a new spending.
+         * @summary Create a spending.
          * @param {string} userId User ID
-         * @param {FinanceCreateInvestmentRequest} investment investment to create
+         * @param {FinanceCreateSpendingRequest} investment spending to create
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        financePost(userId: string, investment: FinanceCreateInvestmentRequest, options?: any): AxiosPromise<FinanceCreateInvestmentResponse> {
+        financePost(userId: string, investment: FinanceCreateSpendingRequest, options?: any): AxiosPromise<FinanceCreateSpendingResponse> {
             return localVarFp.financePost(userId, investment, options).then((request) => request(axios, basePath));
         },
     };
@@ -819,15 +848,15 @@ export class FinanceApi extends BaseAPI {
     }
 
     /**
-     * Creates a new investment.
-     * @summary Create a investment.
+     * Creates a new spending.
+     * @summary Create a spending.
      * @param {string} userId User ID
-     * @param {FinanceCreateInvestmentRequest} investment investment to create
+     * @param {FinanceCreateSpendingRequest} investment spending to create
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FinanceApi
      */
-    public financePost(userId: string, investment: FinanceCreateInvestmentRequest, options?: AxiosRequestConfig) {
+    public financePost(userId: string, investment: FinanceCreateSpendingRequest, options?: AxiosRequestConfig) {
         return FinanceApiFp(this.configuration).financePost(userId, investment, options).then((request) => request(this.axios, this.basePath));
     }
 }
@@ -902,12 +931,14 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
         /**
          * Creates a new meditation.
          * @summary Create meditation.
+         * @param {string} userId User ID
          * @param {MeditationCreateMeditationRequest} meditation Meditation to create
-         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationPost: async (meditation: MeditationCreateMeditationRequest, userId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        meditationPost: async (userId: string, meditation: MeditationCreateMeditationRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('meditationPost', 'userId', userId)
             // verify required parameter 'meditation' is not null or undefined
             assertParamExists('meditationPost', 'meditation', meditation)
             const localVarPath = `/meditation`;
@@ -969,13 +1000,13 @@ export const MeditationApiFp = function(configuration?: Configuration) {
         /**
          * Creates a new meditation.
          * @summary Create meditation.
+         * @param {string} userId User ID
          * @param {MeditationCreateMeditationRequest} meditation Meditation to create
-         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async meditationPost(meditation: MeditationCreateMeditationRequest, userId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationCreateMeditationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationPost(meditation, userId, options);
+        async meditationPost(userId: string, meditation: MeditationCreateMeditationRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationCreateMeditationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationPost(userId, meditation, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1006,13 +1037,13 @@ export const MeditationApiFactory = function (configuration?: Configuration, bas
         /**
          * Creates a new meditation.
          * @summary Create meditation.
+         * @param {string} userId User ID
          * @param {MeditationCreateMeditationRequest} meditation Meditation to create
-         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationPost(meditation: MeditationCreateMeditationRequest, userId?: string, options?: any): AxiosPromise<MeditationCreateMeditationResponse> {
-            return localVarFp.meditationPost(meditation, userId, options).then((request) => request(axios, basePath));
+        meditationPost(userId: string, meditation: MeditationCreateMeditationRequest, options?: any): AxiosPromise<MeditationCreateMeditationResponse> {
+            return localVarFp.meditationPost(userId, meditation, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1044,14 +1075,122 @@ export class MeditationApi extends BaseAPI {
     /**
      * Creates a new meditation.
      * @summary Create meditation.
+     * @param {string} userId User ID
      * @param {MeditationCreateMeditationRequest} meditation Meditation to create
-     * @param {string} [userId] User ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeditationApi
      */
-    public meditationPost(meditation: MeditationCreateMeditationRequest, userId?: string, options?: AxiosRequestConfig) {
-        return MeditationApiFp(this.configuration).meditationPost(meditation, userId, options).then((request) => request(this.axios, this.basePath));
+    public meditationPost(userId: string, meditation: MeditationCreateMeditationRequest, options?: AxiosRequestConfig) {
+        return MeditationApiFp(this.configuration).meditationPost(userId, meditation, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * ProgressApi - axios parameter creator
+ * @export
+ */
+export const ProgressApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * fetch progress and level for a user.
+         * @summary Get progress nad level for a user.
+         * @param {string} userId User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        progressGet: async (userId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('progressGet', 'userId', userId)
+            const localVarPath = `/progress`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ProgressApi - functional programming interface
+ * @export
+ */
+export const ProgressApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ProgressApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * fetch progress and level for a user.
+         * @summary Get progress nad level for a user.
+         * @param {string} userId User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async progressGet(userId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProgressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.progressGet(userId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * ProgressApi - factory interface
+ * @export
+ */
+export const ProgressApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ProgressApiFp(configuration)
+    return {
+        /**
+         * fetch progress and level for a user.
+         * @summary Get progress nad level for a user.
+         * @param {string} userId User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        progressGet(userId: string, options?: any): AxiosPromise<ProgressResponse> {
+            return localVarFp.progressGet(userId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ProgressApi - object-oriented interface
+ * @export
+ * @class ProgressApi
+ * @extends {BaseAPI}
+ */
+export class ProgressApi extends BaseAPI {
+    /**
+     * fetch progress and level for a user.
+     * @summary Get progress nad level for a user.
+     * @param {string} userId User ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProgressApi
+     */
+    public progressGet(userId: string, options?: AxiosRequestConfig) {
+        return ProgressApiFp(this.configuration).progressGet(userId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

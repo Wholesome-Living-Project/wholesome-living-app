@@ -2,7 +2,7 @@ import { alpha } from 'axelra-react-native-utilities'
 import { LinearGradient } from 'expo-linear-gradient'
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import { UserPluginName } from '../../../api/openapi'
+import { SettingsPluginName } from '../../../api/openapi'
 import { PLUGINS } from '../../helpers/pluginList'
 import { COLORS, SPACING } from '../../theme/theme'
 import { Heading4 } from '../../theme/typography'
@@ -15,7 +15,7 @@ const Container = styled(Flex)`
 `
 
 type Props = {
-  plugin?: UserPluginName
+  plugin?: SettingsPluginName
 }
 
 const OnboardingStepHeader = ({ plugin }: Props) => {
@@ -35,7 +35,7 @@ const OnboardingStepHeader = ({ plugin }: Props) => {
       <Container row justify={'space-between'} align={'center'}>
         <BackButton color={COLORS.WHITE} size={'md'} />
         <Heading4 color={COLORS.WHITE}>{title}</Heading4>
-        <PluginBanner {...PLUGINS[plugin]} size={45} />
+        <PluginBanner plugin={plugin} size={45} />
       </Container>
     </LinearGradient>
   )
