@@ -29,7 +29,7 @@ const PluginScreenLayout = forwardRef<ScrollView, Props>(({ children, plugin }, 
   console.log(levelMap)
 
   return (
-    <ScrollView ref={ref}>
+    <ScrollView ref={ref} showsVerticalScrollIndicator={false}>
       <StyledImage source={PLUGINS[plugin].image} blurRadius={5} />
       <Spacer x={10} />
 

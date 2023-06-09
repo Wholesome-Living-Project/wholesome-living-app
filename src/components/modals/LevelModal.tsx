@@ -52,7 +52,7 @@ const LevelModal = () => {
             )}
           </Flex>
           <Tree
-            height={350}
+            height={290}
             level={
               currentlyInspectedPlugin && levelMap?.[currentlyInspectedPlugin]
                 ? levelMap?.[currentlyInspectedPlugin]
