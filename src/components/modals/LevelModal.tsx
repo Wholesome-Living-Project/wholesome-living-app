@@ -63,7 +63,7 @@ const LevelModal = () => {
           />
           <Spacer x={4} />
           <Button small buttonType={'black'} onPress={() => levelModalRef.current?.close()}>
-            Close
+            Minimize
           </Button>
         </Container>
       </BottomSheetViewFlex>

@@ -15,8 +15,12 @@ import { Flex } from '../ui/Flex'
 import Spacer from '../ui/Spacer'
 
 const Container = styled(Flex)`
-  padding: ${SPACING * 2}px ${SPACING * 3}px;
+  padding: ${SPACING * 2}px ${SPACING * 2}px;
   min-height: 900px;
+`
+
+const TreeContainer = styled(Flex)`
+  margin: 0 -${SPACING * 2}px;
 `
 
 const LevelExplanationModal = () => {
@@ -40,22 +44,22 @@ const LevelExplanationModal = () => {
       <BottomSheetViewFlex flex={1} justify={'center'} column>
         <Container>
           <Heading4>Level up your habits!</Heading4>
-          <Flex row justify={'space-between'} align={'flex-end'}>
+          <TreeContainer row justify={'space-between'} align={'flex-end'}>
             <Flex column align={'center'}>
               <Heading6>Lv. 1</Heading6>
               {levelComponents[0]}
             </Flex>
-            <FontAwesome5 name="arrow-right" size={20} color="black" />
+            <FontAwesome5 name="arrow-right" size={16} color="black" />
             <Flex column align={'center'}>
               <Heading6>Lv. 4</Heading6>
               {levelComponents[3]}
             </Flex>
-            <FontAwesome5 name="arrow-right" size={20} color="black" />
+            <FontAwesome5 name="arrow-right" size={16} color="black" />
             <Flex column align={'center'}>
               <Heading6>Lv. 7</Heading6>
               {levelComponents[6]}
             </Flex>
-          </Flex>
+          </TreeContainer>
           <Spacer x={3} />
           <Body color={COLORS.DARK_GREY}>
             For every habit you train, you will get experience and eventually level up. Every step
