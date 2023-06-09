@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ScrollView } from 'react-native'
+import { Platform, ScrollView } from 'react-native'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../api/openapi'
 import FinanceHistory from '../../components/dashboard/plugins/FinanceHistory'
@@ -151,11 +151,17 @@ const Finance = () => {
           <Spacer
             x={
               spendings.length === 0
-                ? 42
+                ? Platform.OS === 'android'
+                  ? 20
+                  : 42
                 : spendings.length === 1
-                ? 25
+                ? Platform.OS === 'android'
+                  ? 12
+                  : 25
                 : spendings.length === 2
-                ? 20
+                ? Platform.OS === 'android'
+                  ? 12
+                  : 20
                 : 15
             }
           />
