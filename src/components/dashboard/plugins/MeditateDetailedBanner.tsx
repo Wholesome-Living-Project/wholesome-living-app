@@ -25,9 +25,11 @@ const Content = () => {
 
   const computedTime = useMemo(() => {
     return getFormattedTimer(
-      meditations.meditations?.[meditations.meditations.length - 1]?.meditationTime || 0
+      //@ts-ignore
+      meditations?.[meditations.length - 1]?.meditationTime || 0
     )
-  }, [meditations.meditations])
+    //@ts-ignore
+  }, [meditations])
 
   return (
     <Wrapper>

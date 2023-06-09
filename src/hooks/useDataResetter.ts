@@ -1,27 +1,8 @@
 import { useCallback } from 'react'
 import { useOnboarding } from '../provider/OnboardingProvider'
 
-const UseDataResetter = () => {
-  const {
-    setCoach,
-    setChosenPlugins,
-    setUserPlugins,
-    setChosenPluginSteps,
-    setFinishedPlugins,
-    setVisitedOnboardingSteps,
-    setRoundUpNumber,
-    setTakeElevatorNotification,
-    setFinanceSaveReminderNotification,
-    setMeditateReminderNotification,
-    setNotificationFrequency,
-    setNotificationPeriod,
-    setSelectedGoalPeriod,
-    setSelectedGoalNumber,
-    setSelectedGoalTime,
-    setSelectedStrategy,
-    setElevatorSettings,
-    setSavingGoal,
-  } = useOnboarding()
+const useDataResetter = () => {
+  const { setChosenPlugins } = useOnboarding()
 
   // Add data to reset on logout here
   const resetAppData = useCallback(() => {
@@ -31,4 +12,4 @@ const UseDataResetter = () => {
   return { resetAppData }
 }
 
-export default UseDataResetter
+export default useDataResetter

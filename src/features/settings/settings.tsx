@@ -94,8 +94,12 @@ export const SettingsScreen = () => {
             name={'Logout'}
             icon={'exit-outline'}
             onPress={async () => {
-              await signOutUser()
-              resetAppData()
+              try {
+                await signOutUser()
+                resetAppData()
+              } catch (e) {
+                console.log(e)
+              }
             }}
           />
         </>

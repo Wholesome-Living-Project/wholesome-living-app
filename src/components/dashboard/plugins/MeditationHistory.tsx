@@ -24,7 +24,7 @@ const MeditationHistory = () => {
 
       {
         //@ts-ignore
-        meditations?.map((meditation, i) => (
+        meditations?.reverse().map((meditation, i) => (
           <Fragment key={i}>
             <MeditationListItem meditation={meditation} />
             <Divider />

@@ -60,7 +60,7 @@ const useProvideMeditate = (): MeditationContentType => {
         console.log(e)
       }
     },
-    [user?.id]
+    [addPlugin, chosenPlugins, user?.id]
   )
 
   const getMeditations = useCallback(async () => {
