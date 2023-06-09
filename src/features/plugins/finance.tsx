@@ -147,21 +147,15 @@ const Finance = () => {
           </>
         )}
 
-        {keyboardOpen && (
+        {keyboardOpen && Platform.OS === 'ios' && (
           <Spacer
             x={
               spendings.length === 0
-                ? Platform.OS === 'android'
-                  ? 20
-                  : 42
+                ? 42
                 : spendings.length === 1
-                ? Platform.OS === 'android'
-                  ? 12
-                  : 25
+                ? 25
                 : spendings.length === 2
-                ? Platform.OS === 'android'
-                  ? 12
-                  : 20
+                ? 20
                 : 15
             }
           />
