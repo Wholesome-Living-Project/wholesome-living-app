@@ -1,13 +1,12 @@
 import { FontAwesome5 } from '@expo/vector-icons'
 import BottomSheet from 'axelra-react-native-bottom-sheet'
 import React, { useCallback } from 'react'
-import { Keyboard, Platform } from 'react-native'
+import { Image, Keyboard, Platform } from 'react-native'
 import styled from 'styled-components'
 import { useModal } from '../../hooks/useModal'
-import { useOnboarding } from '../../provider/OnboardingProvider'
-import { SPACING } from '../../theme/theme'
-import { Body, Heading4, Heading6 } from '../../theme/typography'
-import { levelComponents } from '../dashboard/Levels'
+import { coachProfiles, useOnboarding } from '../../provider/OnboardingProvider'
+import { COLORS, SPACING } from '../../theme/theme'
+import { Body, Heading4, Regular } from '../../theme/typography'
 import { coachExplanationModalRef } from '../refs/modal-refs'
 import { BottomSheetViewFlex } from '../ui/BottomSheetViewFlex'
 import Button from '../ui/Button'
@@ -17,6 +16,16 @@ import Spacer from '../ui/Spacer'
 const Container = styled(Flex)`
   padding: ${SPACING * 2}px ${SPACING * 3}px;
   min-height: 900px;
+`
+
+const ProfileContainer = styled(Flex)`
+  width: 100%;
+  padding: ${SPACING * 2}px ${SPACING * 5}px;
+`
+
+const CoachProfile = styled(Image)`
+  width: 100px;
+  height: 100px;
 `
 
 const CoachExplanationModal = () => {
@@ -39,28 +48,22 @@ const CoachExplanationModal = () => {
       {...modalProps}>
       <BottomSheetViewFlex flex={1} justify={'center'} column>
         <Container>
-          <Heading4>Level up your habits!</Heading4>
-          <Flex row justify={'space-between'} align={'flex-end'}>
-            <Flex column align={'center'}>
-              <Heading6>Lv. 1</Heading6>
-              {levelComponents[0]}
-            </Flex>
-            <FontAwesome5 name="arrow-right" size={20} color="black" />
-            <Flex column align={'center'}>
-              <Heading6>Lv. 4</Heading6>
-              {levelComponents[3]}
-            </Flex>
-            <FontAwesome5 name="arrow-right" size={20} color="black" />
-            <Flex column align={'center'}>
-              <Heading6>Lv. 7</Heading6>
-              {levelComponents[6]}
-            </Flex>
-          </Flex>
-          <Spacer x={3} />
-          <Body>
-            For every habit you train, you will get experience and eventually level up. Every step
-            you take towards your goal is a step in the right direction. Try to reach Max Level!
+          <Heading4>Choose a coach</Heading4>
+          <Body color={COLORS.DARK_GREY}>
+            You can choose a coach to guide you through the onboarding process. This choice will not
+            impact your experience with the app, it is only cosmetic.
           </Body>
+          <Spacer x={2} />
+          <Flex row justify={'space-between'} align={'flex-end'}>
+            <ProfileContainer row justify={'space-between'} align={'center'}>
+              <CoachProfile source={coachProfiles[0]} />
+              <Flex column align={'center'}>
+                <Regular>swipe</Regular>
+                <FontAwesome5 name={'arrows-alt-h'} size={30}></FontAwesome5>
+              </Flex>
+              <CoachProfile source={coachProfiles[1]} />
+            </ProfileContainer>
+          </Flex>
           <Spacer x={4} />
           <Button
             small

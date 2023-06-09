@@ -5,7 +5,7 @@ import { Keyboard, Platform } from 'react-native'
 import styled from 'styled-components'
 import { useModal } from '../../hooks/useModal'
 import { useOnboarding } from '../../provider/OnboardingProvider'
-import { SPACING } from '../../theme/theme'
+import { COLORS, SPACING } from '../../theme/theme'
 import { Body, Heading4, Heading6 } from '../../theme/typography'
 import { levelComponents } from '../dashboard/Levels'
 import { levelExplanationModalRef } from '../refs/modal-refs'
@@ -57,7 +57,7 @@ const LevelExplanationModal = () => {
             </Flex>
           </Flex>
           <Spacer x={3} />
-          <Body>
+          <Body color={COLORS.DARK_GREY}>
             For every habit you train, you will get experience and eventually level up. Every step
             you take towards your goal is a step in the right direction. Try to reach Max Level!
           </Body>
