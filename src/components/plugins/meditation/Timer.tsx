@@ -82,7 +82,7 @@ const Timer = ({ onTimerEnded }: Props) => {
     setIsTimerStart(true)
     const interval = setInterval(() => setTimerDuration((st) => st - 1), 1000)
     setCountDownInterval(interval)
-  }, [setCountDownInterval, setIsTimerStart, setTimerDuration])
+  }, [])
 
   const pauseTimer = useCallback(() => {
     clearInterval(countDownInterval)

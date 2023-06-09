@@ -4,7 +4,7 @@ import React, { useCallback } from 'react'
 import { Image, Keyboard, Platform } from 'react-native'
 import styled from 'styled-components'
 import { useModal } from '../../hooks/useModal'
-import { coachProfiles, useOnboarding } from '../../provider/OnboardingProvider'
+import { coachProfiles } from '../../provider/OnboardingProvider'
 import { COLORS, SPACING } from '../../theme/theme'
 import { Body, Heading4, Regular } from '../../theme/typography'
 import { coachExplanationModalRef } from '../refs/modal-refs'
@@ -30,14 +30,12 @@ const CoachProfile = styled(Image)`
 
 const CoachExplanationModal = () => {
   const modalProps = useModal({ snapPoints: [`65%`] })
-  const { setClosedLevelExplanation } = useOnboarding()
 
   const onModalClose = useCallback(() => {
-    setClosedLevelExplanation(true)
     if (Platform.OS === 'ios') {
       Keyboard.dismiss()
     }
-  }, [setClosedLevelExplanation])
+  }, [])
 
   return (
     <BottomSheet
