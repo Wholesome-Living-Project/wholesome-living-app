@@ -52,7 +52,7 @@ const Tree = ({
     <Container style={{ height }} row justify={'center'} align={'center'}>
       <Image source={levelAssets[level]} style={{ width: 300, height: 300 }} />
       <LevelComponent>
-        <Regular color={COLORS.WHITE}>Level {level + 1}</Regular>
+        <Regular color={COLORS.WHITE}>Level {clamp(level + 1, 0, 7)}</Regular>
         <ExperienceBar progress={(100 / experienceToNextLevel) * experience} max={max <= level} />
         {max > level ? (
           <Caption color={COLORS.WHITE}>
