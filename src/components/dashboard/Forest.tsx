@@ -96,7 +96,11 @@ const Forest = () => {
               ))}
           </LevelsContainer>
         </Scroller>
-        <InfoButton onPress={() => levelExplanationModalRef.current?.expand()}>
+        <InfoButton
+          onPress={async () => {
+            await doMediumFeedback()
+            levelExplanationModalRef.current?.expand()
+          }}>
           <FontAwesome5 name="question-circle" size={22} color={COLORS.BLACK} />
         </InfoButton>
       </Wrapper>

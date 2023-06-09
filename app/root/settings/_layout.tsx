@@ -15,9 +15,12 @@ export default function Layout() {
         headerTitleAlign: 'center',
       }}>
       <Stack.Screen name={'index'} options={{ headerShown: false }} />
-      <Stack.Screen name={'personal'} options={{ title: 'Personal Information' }} />
-      <Stack.Screen name={'privacy'} options={{ title: 'Privacy' }} />
-      <Stack.Screen name={'security'} options={{ title: 'Security' }} />
+      <Stack.Screen
+        name={'personal'}
+        options={{ title: 'Personal Information', headerShown: false }}
+      />
+      <Stack.Screen name={'privacy'} options={{ title: 'Privacy', headerShown: false }} />
+      <Stack.Screen name={'security'} options={{ title: 'Security', headerShown: false }} />
       <Stack.Screen name={'academy'} options={{ title: 'Academy', headerShown: false }} />
     </Stack>
   )
