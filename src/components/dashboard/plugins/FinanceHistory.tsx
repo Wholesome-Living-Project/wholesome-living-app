@@ -32,6 +32,7 @@ const FinanceHistory = ({ preview }: Props) => {
             <Flex row align={'center'}>
               <Regular color={COLORS.CTA}>Details</Regular>
               <Spacer x={0.5} />
+              <MaterialCommunityIcons color={COLORS.CTA} name={'arrow-right'} size={18} />
             </Flex>
           </TouchableOpacity>
         )}
