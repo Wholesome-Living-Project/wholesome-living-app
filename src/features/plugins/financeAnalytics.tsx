@@ -197,7 +197,7 @@ const FinanceAnalytics = () => {
                 labels: ['Jan', 'Mar', 'May', 'Jul', 'Sep'],
                 datasets: [
                   {
-                    data: [7056, 3000, 7056, 7056, 7056, 7056],
+                    data: [7056, 7056, 7056, 7056, 7056, 7056],
                     strokeWidth: 2,
                     color: () => COLORS.PRIMARY, // optional
                   },

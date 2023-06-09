@@ -8,7 +8,7 @@ import { useOnboarding } from '../../provider/OnboardingProvider'
 import { SPACING } from '../../theme/theme'
 import { Body, Heading4, Heading6 } from '../../theme/typography'
 import { levelComponents } from '../dashboard/Levels'
-import { levelExplanationModalRef } from '../refs/modal-refs'
+import { coachExplanationModalRef } from '../refs/modal-refs'
 import { BottomSheetViewFlex } from '../ui/BottomSheetViewFlex'
 import Button from '../ui/Button'
 import { Flex } from '../ui/Flex'
@@ -19,7 +19,7 @@ const Container = styled(Flex)`
   min-height: 900px;
 `
 
-const LevelExplanationModal = () => {
+const CoachExplanationModal = () => {
   const modalProps = useModal({ snapPoints: [`65%`] })
   const { setClosedLevelExplanation } = useOnboarding()
 
@@ -32,7 +32,7 @@ const LevelExplanationModal = () => {
 
   return (
     <BottomSheet
-      ref={levelExplanationModalRef}
+      ref={coachExplanationModalRef}
       index={-1}
       enablePanDownToClose
       onClose={onModalClose}
@@ -65,7 +65,7 @@ const LevelExplanationModal = () => {
           <Button
             small
             buttonType={'black'}
-            onPress={() => levelExplanationModalRef.current?.close()}>
+            onPress={() => coachExplanationModalRef.current?.close()}>
             Understood
           </Button>
         </Container>
@@ -74,4 +74,4 @@ const LevelExplanationModal = () => {
   )
 }
 
-export default LevelExplanationModal
+export default CoachExplanationModal

@@ -1,7 +1,5 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { useRootNavigation } from 'expo-router'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ScrollView, TouchableOpacity } from 'react-native'
+import { ScrollView } from 'react-native'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../api/openapi'
 import FinanceHistory from '../../components/dashboard/plugins/FinanceHistory'
@@ -14,7 +12,7 @@ import { useFinance } from '../../provider/FinanceContentProvider'
 import { useLevels } from '../../provider/LevelProvider'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
-import { Body, Heading4, Heading6, Regular } from '../../theme/typography'
+import { Body, Heading1, Heading4, Heading6, Regular } from '../../theme/typography'
 import PluginScreenLayout from './PluginScreenLayout'
 
 const Container = styled(Flex)`
@@ -22,16 +20,13 @@ const Container = styled(Flex)`
   border-radius: ${OUTER_BORDER_RADIUS}px;
   padding: ${SPACING * 3}px;
 `
-const DetailsContainer = styled(Flex)`
-  width: 100%;
-`
 
 const FormContainer = styled(Flex)<{ width?: number }>`
   width: ${(p) => p.width ?? 100}%;
 `
 
 const Finance = () => {
-  const { saveSpending, getSpendings, spendings } = useFinance()
+  const { saveSpending, getSpendings, spendings, aggregateSavings } = useFinance()
   const [amount, setAmount] = useState('')
   const [reason, setReason] = useState('')
   const [loading, setLoading] = useState(false)
@@ -46,8 +41,6 @@ const Finance = () => {
       scrollRef.current?.scrollToEnd({ animated: true })
     }
   }, [buttonPosition, keyboardOpen])
-
-  const navigation = useRootNavigation()
 
   useEffect(() => {
     getSpendings()
@@ -79,9 +72,8 @@ const Finance = () => {
       <Container>
         <Heading4>Invest in yourself</Heading4>
         <Body color={COLORS.DARK_GREY}>
-          Make the tree grow by tracking your expenditures! We will track all your expenditures and
-          notify you at the end of the month how much you spent and how much you should invest
-          according to your chosen strategy.
+          We will track all your expenditures and notify you at the end of the month how much you
+          spent and how much you should invest according to your chosen strategy.
         </Body>
         <Spacer x={2} />
         <Flex row align={'flex-end'}>
@@ -95,6 +87,13 @@ const Finance = () => {
             {roundUpNumber}
           </Heading6>
         </Flex>
+        <Spacer x={4} />
+        <Heading4>Your Savings </Heading4>
+        <Body color={COLORS.DARK_GREY}>
+          This number reflects the amount you should save this month in order to make a difference
+          in your financial future.
+        </Body>
+        <Heading1>{aggregateSavings} CHF</Heading1>
         <Spacer x={4} />
         <Heading4>Track your expenses</Heading4>
         <Spacer x={1} />
@@ -145,16 +144,6 @@ const Finance = () => {
           <>
             <Spacer x={2} />
             <FinanceHistory preview={3} />
-            <Spacer x={3} />
-            <DetailsContainer row justify={'flex-end'}>
-              <TouchableOpacity onPress={() => navigation?.navigate('finance-analytics' as never)}>
-                <Flex row align={'center'}>
-                  <Regular color={COLORS.DARK_GREY}>See more</Regular>
-                  <Spacer x={0.5} />
-                  <MaterialCommunityIcons color={COLORS.DARK_GREY} name={'arrow-right'} size={18} />
-                </Flex>
-              </TouchableOpacity>
-            </DetailsContainer>
           </>
         )}
 

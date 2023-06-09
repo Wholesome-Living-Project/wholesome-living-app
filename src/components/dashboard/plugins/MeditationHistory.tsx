@@ -13,20 +13,20 @@ const ListTitle = styled(Heading4)`
 
 const MeditationHistory = () => {
   const { meditations } = useMeditate()
+
+  if (meditations?.meditations?.length === 0) return null
+
   return (
     <Flex column>
       <ListTitle>History</ListTitle>
       <Spacer x={1} />
 
-      {
-        // @ts-ignore
-        meditations?.map((meditation, i) => (
-          <Fragment key={i}>
-            <MeditationListItem meditation={meditation} />
-            <Divider />
-          </Fragment>
-        ))
-      }
+      {meditations?.meditations?.map((meditation, i) => (
+        <Fragment key={i}>
+          <MeditationListItem meditation={meditation} />
+          <Divider />
+        </Fragment>
+      ))}
     </Flex>
   )
 }
