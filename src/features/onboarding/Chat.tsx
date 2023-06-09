@@ -115,11 +115,12 @@ const Chat = () => {
 
   const showContinue = useMemo(() => {
     if (!messages[0]) return false
-    if (messages.length <= 11) return true
+    if (messages.length >= 11) return true
     if (
       messages[0].content.toLowerCase().includes('have a good day') ||
       messages[0].content.toLowerCase().includes('good luck') ||
-      messages[0].content.toLowerCase().includes('best of luck')
+      messages[0].content.toLowerCase().includes('best of luck') ||
+      messages[0].content.toLowerCase().includes('happy saving')
     ) {
       return true
     }
@@ -178,7 +179,7 @@ const Chat = () => {
             console.log(e)
           }
         }}>
-        <Flex column>
+        <Flex column flex={1}>
           <Flex row>
             <Input
               value={message}
