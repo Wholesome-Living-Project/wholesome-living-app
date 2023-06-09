@@ -7,10 +7,12 @@ import { Providers } from '../src/provider/Providers'
 export default function Layout() {
   return (
     <Providers>
-      <Stack initialRouteName={'(onboarding)'} screenOptions={{ headerShown: false }}>
+      <Stack
+        initialRouteName={'(onboarding)'}
+        screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}>
         <Stack.Screen name={'(auth)/welcome'} />
         <Stack.Screen name={'(onboarding)'} />
-        <Stack.Screen name={'root'} />
+        <Stack.Screen name={'root'} options={{ gestureEnabled: false }} />
       </Stack>
       <TimePickerModal title={'Until what time do you want to mediate?'} />
     </Providers>

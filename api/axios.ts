@@ -5,10 +5,11 @@ import { getCurrentUser } from '../src/auth/auth'
 
 const { manifest } = Constants
 
-const baseURL =
+let baseURL =
   Constants.manifest?.extra?.BACKEND_ENV === 'PROD'
     ? 'https://wholesome-living-backend-production.up.railway.app'
     : `http://${manifest?.debuggerHost?.split(':').shift()}:8080`
+
 export const axiosInstance = axios.create({
   baseURL,
   timeout: 15000,

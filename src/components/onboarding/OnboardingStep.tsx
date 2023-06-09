@@ -19,12 +19,11 @@ const Wrapper = styled(Flex)`
 `
 
 const Footer = styled(Flex)`
-  padding: 0 ${SPACING * 2}px ${SPACING * 3}px;
   position: absolute;
   bottom: 0;
   width: 100%;
   background-color: ${COLORS.WHITE};
-  padding: ${SPACING * 2}px;
+  padding: ${SPACING * 3}px ${SPACING * 2}px ${SPACING * 5}px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
 `
@@ -53,7 +52,7 @@ const OnboardingStep = ({
   secondaryText,
   infoText,
   secondaryDisabled,
-  canSkip = true,
+  canSkip = false,
   nextStep,
   primaryDisabled,
   plugin,
@@ -96,7 +95,23 @@ const OnboardingStep = ({
           disabled={primaryDisabled}>
           {primaryText}
         </Button>
-        <Spacer x={1} />
+        <Spacer x={2} />
+        {secondaryText && (
+          <Button
+            onPress={() => {
+              onPressPrimary?.()
+              nextStep
+                ? navigation?.navigate(nextStep)
+                : foundNextStep
+                ? navigation?.navigate(foundNextStep)
+                : navigation?.navigate('root')
+            }}
+            buttonType={'secondary'}
+            disabled={primaryDisabled}>
+            {secondaryText}
+          </Button>
+        )}
+        <Spacer x={0.5} />
         {canSkip && (
           <NativeButton
             title={'Skip'}

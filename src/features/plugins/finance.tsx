@@ -12,6 +12,7 @@ import Spacer from '../../components/ui/Spacer'
 import useKeyboard from '../../hooks/useKeyboard'
 import { useFinance } from '../../provider/FinanceContentProvider'
 import { useLevels } from '../../provider/LevelProvider'
+import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
 import { Body, Heading4, Heading6, Regular } from '../../theme/typography'
 import PluginScreenLayout from './PluginScreenLayout'
@@ -38,6 +39,7 @@ const Finance = () => {
   const { keyboardOpen } = useKeyboard()
   const scrollRef = useRef<ScrollView | null>(null)
   const { getLevels } = useLevels()
+  const { selectedStrategy, roundUpNumber } = useOnboarding()
 
   useEffect(() => {
     if (keyboardOpen) {
@@ -83,11 +85,18 @@ const Finance = () => {
         </Body>
         <Spacer x={2} />
         <Flex row align={'flex-end'}>
-          <Body>Your current strategy: </Body>
-          <Heading6>Round up</Heading6>
+          <Regular>Your current strategy: </Regular>
+          <Heading6>
+            {selectedStrategy === 'Plus'
+              ? 'Fixed'
+              : selectedStrategy === 'Round'
+              ? 'Round up by'
+              : 'Percentage'}{' '}
+            {roundUpNumber}
+          </Heading6>
         </Flex>
         <Spacer x={4} />
-        <Heading4>Track your expenditures</Heading4>
+        <Heading4>Track your expenses</Heading4>
         <Spacer x={1} />
         <FormContainer column flex={1} width={60}>
           <Body color={COLORS.DARK_GREY}>How much did you spend?</Body>
@@ -98,19 +107,15 @@ const Finance = () => {
               onChangeText={setAmount}
               keyboardType={'numeric'}
               placeholder={'Amount'}
-              maxLength={6}
+              maxLength={4}
               minHeight={50}
             />
             <Spacer x={2} />
             <Heading4 color={COLORS.BLACK}>CHF</Heading4>
           </Flex>
         </FormContainer>
-        <Spacer x={3} />
-        <FormContainer column flex={1} width={85}>
-          <Body color={COLORS.DARK_GREY}>
-            Try to label similar categories the same for consistent feedback .
-          </Body>
-          <Spacer x={1} />
+        <Spacer x={2} />
+        <FormContainer column flex={1}>
           <Flex>
             <Input
               placeholder={'Category'}
@@ -121,7 +126,11 @@ const Finance = () => {
             />
           </Flex>
         </FormContainer>
-        <Spacer x={3} />
+        <Spacer x={2} />
+        <Body color={COLORS.DARK_GREY}>
+          Try to label similar categories the same for consistent feedback
+        </Body>
+        <Spacer x={1} />
         <Button
           small
           fullWidth
@@ -129,7 +138,7 @@ const Finance = () => {
           onPress={onAddSpending}
           buttonType={'black'}
           onLayout={(e) => setButtonPosition(e.nativeEvent.layout.y)}>
-          Track Spending
+          Track Expense
         </Button>
         <Spacer x={2} />
         {spendings.length > 0 && (

@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import PluginBanner from '../../src/components/discover/PluginBanner'
 import LevelModal from '../../src/components/modals/LevelModal'
+import LevelExplanationModal from '../../src/components/modals/LevelsExplanationModal'
 import BackButton from '../../src/components/ui/BackButton'
 import { PLUGINS } from '../../src/helpers/pluginList'
 import { COLORS } from '../../src/theme/theme'
@@ -15,33 +16,36 @@ export default function Layout() {
         initialRouteName={'index'}
         screenOptions={{
           headerLeft: ({ canGoBack }) => canGoBack && <BackButton color={COLORS.BLACK} />,
+          headerTitleAlign: 'center',
         }}>
         <Stack.Screen
           name={'index'}
           options={{
+            gestureEnabled: false,
             headerShown: false,
           }}
         />
         <Stack.Screen
           name={'meditation'}
           options={{
-            title: '',
-            headerTransparent: true,
+            title: PLUGINS.meditation?.title,
             statusBarTranslucent: true,
+            headerRight: () => <PluginBanner plugin={'meditation'} size={28} />,
           }}
         />
         <Stack.Screen
           name={'finance'}
           options={{
-            title: PLUGINS.finance.title,
+            title: PLUGINS.finance?.title,
             statusBarTranslucent: true,
+            headerRight: () => <PluginBanner plugin={'finance'} size={28} />,
           }}
         />
         <Stack.Screen
           name={'finance-analytics'}
           options={{
             title: 'Invest',
-
+            statusBarTranslucent: true,
             headerRight: () => <PluginBanner plugin={'finance'} size={28} />,
           }}
         />
@@ -49,14 +53,14 @@ export default function Layout() {
           name={'settings'}
           options={{
             title: '',
-            headerShown: false,
-            presentation: 'modal',
+            animation: 'slide_from_bottom',
           }}
         />
       </Stack>
 
       <LevelModal />
-      <StatusBar style={'dark'} />
+      <LevelExplanationModal />
+      <StatusBar style={'auto'} />
     </>
   )
 }

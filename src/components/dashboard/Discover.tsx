@@ -19,10 +19,13 @@ const Discover = () => {
     return Object.values(SettingsPluginName).filter((p) => !chosenPlugins.includes(p))
   }, [chosenPlugins])
 
+  if (unexploredPlugins.length === 0) return null
+
   return (
     <Fragment>
+      <Spacer x={3} />
       <SectionTitleContainer>
-        <Heading4>Explore Plugins</Heading4>
+        <Heading4>Explore New Habits</Heading4>
       </SectionTitleContainer>
       <Spacer x={1} />
       <StyledList

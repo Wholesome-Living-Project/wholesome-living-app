@@ -1,13 +1,15 @@
-import React from 'react'
+import { FontAwesome5 } from '@expo/vector-icons'
+import React, { useMemo } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../api/openapi'
 import useHaptics from '../../hooks/useHaptics'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useLevels } from '../../provider/LevelProvider'
-import { SPACING } from '../../theme/theme'
+import { useOnboarding } from '../../provider/OnboardingProvider'
+import { COLORS, SPACING } from '../../theme/theme'
 import PluginBanner from '../discover/PluginBanner'
-import { levelModalRef } from '../refs/modal-refs'
+import { levelExplanationModalRef, levelModalRef } from '../refs/modal-refs'
 import ExperienceBar from '../ui/ExperienceBar'
 import { Flex } from '../ui/Flex'
 import Spacer from '../ui/Spacer'
@@ -41,11 +43,27 @@ const ExperienceContainer = styled(Flex)`
   width: 100%;
 `
 
+const InfoButton = styled(TouchableOpacity)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: ${SPACING}px ${SPACING * 1.5}px;
+`
+
 const Forest = () => {
   const { windowWidth } = useWindowDimensions()
   const { doMediumFeedback } = useHaptics()
-  // TODO: also add plugins which dont have a level yet at level 1 from Onboarding added plugins!
   const { experienceMap, levelMap, setCurrentlyInspectedPlugin } = useLevels()
+  const { chosenPlugins } = useOnboarding()
+
+  const adjustedLevelMap = useMemo(() => {
+    const newLevelMap = { ...levelMap }
+    for (const plugin of chosenPlugins) {
+      if (Object.keys(newLevelMap).includes(plugin)) continue
+      newLevelMap[plugin] = 0
+    }
+    return newLevelMap
+  }, [chosenPlugins, levelMap])
 
   return (
     <>
@@ -53,16 +71,16 @@ const Forest = () => {
         <Background source={require('../../../assets/images/background_small.jpg')} />
         <Scroller horizontal>
           <LevelsContainer row align={'flex-end'}>
-            {levelMap &&
-              Object.keys(levelMap).map((key, index) => (
+            {adjustedLevelMap &&
+              Object.keys(adjustedLevelMap).map((key, index) => (
                 <LevelContainer key={index} width={130} align={'center'} column>
                   <ExperienceContainer align={'center'} column>
                     <PluginBanner plugin={key as SettingsPluginName} size={30} />
                     <Spacer x={1} />
                     <ExperienceBar
-                      progress={(100 / 50) * (experienceMap?.meditation ?? 0)}
+                      progress={(100 / 50) * (experienceMap?.[key as SettingsPluginName] ?? 0)}
                       size={'small'}
-                      max={levelMap[key] >= 6}
+                      max={adjustedLevelMap[key] >= 6}
                       center
                     />
                   </ExperienceContainer>
@@ -72,12 +90,19 @@ const Forest = () => {
                       await doMediumFeedback()
                       levelModalRef.current?.expand()
                     }}>
-                    {levelComponents[Math.max(levelMap[key] - 1, 0)]}
+                    {levelComponents[Math.max(adjustedLevelMap[key], 0)]}
                   </TouchableOpacity>
                 </LevelContainer>
               ))}
           </LevelsContainer>
         </Scroller>
+        <InfoButton
+          onPress={async () => {
+            await doMediumFeedback()
+            levelExplanationModalRef.current?.expand()
+          }}>
+          <FontAwesome5 name="question-circle" size={22} color={COLORS.BLACK} />
+        </InfoButton>
       </Wrapper>
     </>
   )

@@ -1,3 +1,4 @@
+import { alpha } from 'axelra-react-native-utilities'
 import { useRootNavigation } from 'expo-router'
 import React, { useMemo } from 'react'
 import { Image, ImageSourcePropType, TouchableOpacity, View } from 'react-native'
@@ -10,9 +11,11 @@ import { Heading5 } from '../../theme/typography'
 import PluginBanner from '../discover/PluginBanner'
 import Spacer from '../ui/Spacer'
 
+const BANNER_SIZE = 220
+
 const Wrapper = styled(TouchableOpacity)<{ width: number }>`
-  height: 200px;
-  width: 200px;
+  height: ${BANNER_SIZE}px;
+  width: ${BANNER_SIZE}px;
   overflow: hidden;
   position: relative;
 `
@@ -21,6 +24,7 @@ const Container = styled(View)`
   flex: 1;
   padding: ${SPACING * 3}px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
+  background: ${alpha(0.2, COLORS.BLACK)};
 `
 
 const ContentWrapper = styled(View)`
@@ -42,7 +46,7 @@ const AbsoluteImageContainer = styled(View)`
 `
 
 const StyledImage = styled(Image)<{ width: number }>`
-  width: 200px;
+  width: ${BANNER_SIZE}px;
   height: 100%;
 
   border-radius: ${OUTER_BORDER_RADIUS}px;
@@ -53,8 +57,6 @@ type Props = {
   content?: React.ReactNode
   backgroundImage?: ImageSourcePropType
 }
-
-// TODO use animated API for animating pressable in a separate component
 
 const PluginDetailedBanner = ({ content, plugin, backgroundImage }: Props) => {
   const { windowWidth } = useWindowDimensions()

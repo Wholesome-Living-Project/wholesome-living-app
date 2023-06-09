@@ -1,1 +1,1 @@
-export { default } from '../../src/features/onboarding/ChoosePlugins'
+export { default } from '../../src/features/onboarding/OnboardingStart'

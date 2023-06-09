@@ -49,9 +49,25 @@ type OnboardingType = {
   setNotificationPeriod: (st: SettingsNotificationType) => void
   notificationFrequency: number
   setNotificationFrequency: (st: number) => void
+  getSettings: () => void
+  setCoach: (st: number) => void
+  coach: number
+  loading: boolean
+  setClosedLevelExplanation: (st: boolean) => void
+  closedLevelExplanation: boolean
 }
 
 const OnboardingContext = createContext<OnboardingType>({} as OnboardingType)
+
+export const coachImages = [
+  require('../../assets/images/coach_man.jpg'),
+  require('../../assets/images/coach_woman.jpg'),
+]
+
+export const coachProfiles = [
+  require('../../assets/images/coach_man_profile.png'),
+  require('../../assets/images/coach_woman_profile.png'),
+]
 
 export const useOnboarding = () => useContext(OnboardingContext)
 
@@ -60,6 +76,8 @@ const useProvideOnboarding = (): OnboardingType => {
   const [chosenPluginSteps, setChosenPluginSteps] = useState<string[]>([])
   const [visitedOnboardingSteps, setVisitedOnboardingSteps] = useState<string[]>([])
   const [finishedPlugins, setFinishedPlugins] = useState<SettingsPluginName[]>([])
+  const [loading, setLoading] = useState(false)
+  const [closedLevelExplanation, setClosedLevelExplanation] = useState(false)
 
   // meditation goal
   const [selectedGoalTime, setSelectedGoalTime] = useState(1)
@@ -82,6 +100,8 @@ const useProvideOnboarding = (): OnboardingType => {
   const [notificationFrequency, setNotificationFrequency] = useState<number>(1)
   // elevator
   const [takeElevatorNotification, setTakeElevatorNotification] = useState(false)
+
+  const [coach, setCoach] = useState<number>(0)
 
   const { user } = useUser()
 
@@ -191,10 +211,12 @@ const useProvideOnboarding = (): OnboardingType => {
 
   const getSettings = useCallback(async () => {
     console.log('gettings settings')
+    setLoading(true)
     if (!user?.id) return
     try {
       const { data } = await api.settingsApi.settingsGet(user.id)
       if (data) {
+        console.log('got settings', data)
         data.enabledPlugins && setChosenPlugins(data.enabledPlugins)
 
         data.meditation?.meditationTimeGoal &&
@@ -224,6 +246,8 @@ const useProvideOnboarding = (): OnboardingType => {
       }
     } catch (e) {
       console.log(e)
+    } finally {
+      setLoading(false)
     }
   }, [user?.id])
 
@@ -266,6 +290,12 @@ const useProvideOnboarding = (): OnboardingType => {
     setNotificationPeriod,
     notificationFrequency,
     setNotificationFrequency,
+    getSettings,
+    setCoach,
+    coach,
+    loading,
+    setClosedLevelExplanation,
+    closedLevelExplanation,
   }
 }
 

@@ -53,8 +53,13 @@ const LevelModal = () => {
           </Flex>
           <Tree
             height={350}
-            level={currentlyInspectedPlugin ? levelMap?.[currentlyInspectedPlugin] : 1}
+            level={
+              currentlyInspectedPlugin && levelMap?.[currentlyInspectedPlugin]
+                ? levelMap?.[currentlyInspectedPlugin]
+                : 0
+            }
             experience={currentlyInspectedPlugin ? experienceMap?.[currentlyInspectedPlugin] : 0}
+            experienceToNextLevel={50}
           />
           <Spacer x={4} />
           <Button small buttonType={'black'} onPress={() => levelModalRef.current?.close()}>

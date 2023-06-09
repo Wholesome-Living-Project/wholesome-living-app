@@ -26,15 +26,17 @@ type Props = { plugin: SettingsPluginName } & PropsWithChildren
 const PluginScreenLayout = forwardRef<ScrollView, Props>(({ children, plugin }, ref) => {
   const { levelMap, experienceMap } = useLevels()
 
+  console.log(levelMap)
+
   return (
     <ScrollView ref={ref}>
-      <StyledImage source={PLUGINS[plugin].image} />
+      <StyledImage source={PLUGINS[plugin].image} blurRadius={5} />
       <Spacer x={10} />
 
       <Tree
         height={IMAGE_HEIGHT}
         experience={experienceMap?.[plugin] ?? 0}
-        level={levelMap?.[plugin] && levelMap?.[plugin] > 0 ? levelMap?.[plugin] : 1}
+        level={levelMap?.[plugin] && levelMap?.[plugin] > 0 ? levelMap?.[plugin] : 0}
         experienceToNextLevel={50}
       />
       {children}

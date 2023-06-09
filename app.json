@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "wholesome-living",
+    "slug": "wholesome-living",
+    "version": "1.0.0",
+    "sdkVersion": "47.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "android": {
+      "package": "com.anonymous.wholesomeliving"
+    }
+  }
+}

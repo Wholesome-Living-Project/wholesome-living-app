@@ -6,6 +6,7 @@ import MeditationHistory from '../../components/dashboard/plugins/MeditationHist
 import Timer from '../../components/plugins/meditation/Timer'
 import { Flex } from '../../components/ui/Flex'
 import Spacer from '../../components/ui/Spacer'
+import { useLevels } from '../../provider/LevelProvider'
 import { useMeditate } from '../../provider/MeditationContentProvider'
 import { OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
 import PluginScreenLayout from './PluginScreenLayout'
@@ -18,6 +19,7 @@ const Container = styled(Flex)`
 
 const Meditation = () => {
   const { saveMeditation, getMeditations } = useMeditate()
+  const { getLevels } = useLevels()
 
   useEffect(() => {
     getMeditations()
@@ -27,8 +29,9 @@ const Meditation = () => {
     async (time: number) => {
       await saveMeditation(time)
       await getMeditations()
+      await getLevels()
     },
-    [getMeditations, saveMeditation]
+    [getLevels, getMeditations, saveMeditation]
   )
 
   return (

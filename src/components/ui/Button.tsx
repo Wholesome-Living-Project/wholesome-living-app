@@ -39,14 +39,14 @@ const StyledButton = styled(TouchableOpacity)<ButtonProps>`
       ? p.buttonType === 'cta'
         ? alpha(0.4, COLORS.CTA)
         : p.buttonType === 'secondary'
-        ? alpha(0.4, COLORS.SECONDARY)
+        ? alpha(0.4, COLORS.PRIMARY)
         : p.buttonType === 'black'
         ? alpha(0.4, COLORS.BLACK)
         : alpha(0.4, COLORS.PRIMARY)
       : p.buttonType === 'cta'
       ? COLORS.CTA
       : p.buttonType === 'secondary'
-      ? COLORS.SECONDARY
+      ? COLORS.WHITE
       : p.buttonType === 'black'
       ? COLORS.BLACK
       : COLORS.PRIMARY};
@@ -74,7 +74,7 @@ const Button = ({
   maxWidth,
   link,
   buttonColor,
-  buttonType,
+  buttonType = 'black',
   children,
   ...rest
 }: Props) => {
@@ -92,7 +92,7 @@ const Button = ({
     }
 
     if (buttonType === 'secondary') {
-      baseColor = COLORS.PRIMARY
+      baseColor = COLORS.BLACK
     }
 
     if (!baseColor) baseColor = COLORS.PRIMARY

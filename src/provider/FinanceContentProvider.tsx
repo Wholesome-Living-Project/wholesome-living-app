@@ -51,7 +51,7 @@ const useProvideFinance = (): FinanceContentType => {
       try {
         await api.financeApi.financePost(user?.id, {
           amount: spending.amount,
-          saving: 100,
+          saving: getSaving(spending.amount),
           description: spending.description,
           spendingTime: spending.spendingTime,
         })
@@ -59,7 +59,7 @@ const useProvideFinance = (): FinanceContentType => {
         console.log(e)
       }
     },
-    [user?.id]
+    [getSaving, user?.id]
   )
 
   const getSpendings = useCallback(async () => {
@@ -82,10 +82,13 @@ const useProvideFinance = (): FinanceContentType => {
   const aggregateSavings = useMemo(() => {
     let savings = 0
     spendings.forEach((spending) => {
-      spending.amount && getSaving(spending.amount)
+      const saving = spending.saving
+      if (saving) {
+        savings += saving
+      }
     })
     return savings
-  }, [getSaving, spendings])
+  }, [spendings])
 
   useEffect(() => {
     getSpendings()

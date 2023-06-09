@@ -26,7 +26,7 @@ const PluginCards = () => {
   return (
     <Fragment>
       <SectionTitleContainer>
-        <Heading4>Your Plugins</Heading4>
+        <Heading4>Your Habits</Heading4>
       </SectionTitleContainer>
       <Spacer x={1} />
       <StyledScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -36,6 +36,7 @@ const PluginCards = () => {
             {Cards[plugin]}
           </Fragment>
         ))}
+        <Spacer x={2} />
       </StyledScrollView>
     </Fragment>
   )

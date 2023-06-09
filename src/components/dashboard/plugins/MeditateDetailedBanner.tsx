@@ -3,6 +3,8 @@ import { Text, View } from 'react-native'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../../api/openapi'
 import { getFormattedTimer } from '../../../helpers/getFormattedTimer'
+import { PLUGINS } from '../../../helpers/pluginList'
+import { useMeditate } from '../../../provider/MeditationContentProvider'
 import { COLORS } from '../../../theme/theme'
 import { Regular } from '../../../theme/typography'
 import PluginDetailedBanner from '../PluginDetailedBanner'
@@ -10,17 +12,6 @@ import PluginDetailedBanner from '../PluginDetailedBanner'
 type MeditationType = {
   time: number
 }
-const MEDITATION_DATA: MeditationType[] = [
-  {
-    time: 30,
-  },
-  {
-    time: 50,
-  },
-  {
-    time: 89,
-  },
-]
 
 const Wrapper = styled(View)`
   display: flex;
@@ -30,9 +21,13 @@ const Wrapper = styled(View)`
 `
 
 const Content = () => {
+  const { meditations } = useMeditate()
+
   const computedTime = useMemo(() => {
-    return getFormattedTimer(MEDITATION_DATA[MEDITATION_DATA.length - 1]?.time)
-  }, [])
+    return getFormattedTimer(
+      meditations.meditations?.[meditations.meditations.length - 1]?.meditationTime || 0
+    )
+  }, [meditations.meditations])
 
   return (
     <Wrapper>
@@ -47,7 +42,7 @@ const MeditateDetailedBanner = () => {
     <PluginDetailedBanner
       content={<Content />}
       plugin={SettingsPluginName.PluginNameMeditation}
-      backgroundImage={require('../../../../assets/images/woman_meditation.jpg')}
+      backgroundImage={PLUGINS.meditation.image}
     />
   )
 }
