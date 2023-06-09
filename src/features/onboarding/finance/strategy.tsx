@@ -2,15 +2,15 @@ import { Picker } from '@react-native-picker/picker'
 import React from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components'
-import { SettingsStrategyType, SettingsPluginName } from '../../../../api/openapi'
+import { SettingsPluginName, SettingsStrategyType } from '../../../../api/openapi'
 import OnboardingStep from '../../../components/onboarding/OnboardingStep'
-import Input from '../../../components/ui/Input'
 import { Flex } from '../../../components/ui/Flex'
+import Input from '../../../components/ui/Input'
 import Spacer from '../../../components/ui/Spacer'
+import useKeyboard from '../../../hooks/useKeyboard'
 import { useOnboarding } from '../../../provider/OnboardingProvider'
+import { COLORS, OUTER_BORDER_RADIUS } from '../../../theme/theme'
 import { Heading4, Heading5, Light } from '../../../theme/typography'
-import { Divider } from 'react-native-elements'
-import { COLORS, EXTRA_COLORS, OUTER_BORDER_RADIUS } from '../../../theme/theme'
 
 const PickerBackground = styled(Flex)`
   background: ${COLORS.BACKGROUND_GREY};
@@ -26,18 +26,18 @@ const Strategy = () => {
     setSavingGoal,
     savingGoal,
   } = useOnboarding()
-
+  const { keyboardOpen } = useKeyboard()
   return (
     <OnboardingStep
       primaryText={'Continue'}
       plugin={SettingsPluginName.PluginNameFinance}
-      onPressPrimary={() => { }}>
+      onPressPrimary={() => {}}>
       <View>
         <Heading4>Choose your saving strategy</Heading4>
         <Light>
           Round up your spending to the next chosen multiple and put the difference into your 3a.
-          Plus one: save 1 CHF everytime you spend something.
-          Percent: save a fixed percentage of all your spendings.
+          Plus one: save 1 CHF everytime you spend something. Percent: save a fixed percentage of
+          all your spendings.
         </Light>
         <Spacer x={1} />
         <PickerBackground>
@@ -56,6 +56,7 @@ const Strategy = () => {
         {selectedStrategy === 'Round' && (
           <>
             <Light>Round up your spendings to the next multiple of </Light>
+            <Spacer x={1} />
             <PickerBackground>
               <Picker
                 selectedValue={roundUpNumber}
@@ -71,6 +72,7 @@ const Strategy = () => {
         {selectedStrategy === 'Percent' && (
           <>
             <Light>How much percent of your spendings do you want to save?</Light>
+            <Spacer x={1} />
             <PickerBackground>
               <Picker
                 selectedValue={roundUpNumber}
@@ -85,6 +87,7 @@ const Strategy = () => {
             </PickerBackground>
           </>
         )}
+        <Spacer x={4} />
 
         <Heading5>What is your saving goal?</Heading5>
         <Light>
@@ -92,17 +95,15 @@ const Strategy = () => {
           You can change this later in the settings.
         </Light>
         <Spacer x={1} />
-        <PickerBackground>
-          <Input
-            placeholder={'CHF'}
-            keyboardType={'numeric'}
-            value={savingGoal || ''}
-            onChangeText={(value: string) => {
-              setSavingGoal(value)
-            }}
-          />
-        </PickerBackground>
-        <Spacer x={8} />
+        <Input
+          placeholder={'CHF'}
+          keyboardType={'numeric'}
+          value={savingGoal || ''}
+          onChangeText={(value: string) => {
+            setSavingGoal(value)
+          }}
+        />
+        {keyboardOpen && <Spacer x={22} />}
       </View>
     </OnboardingStep>
   )

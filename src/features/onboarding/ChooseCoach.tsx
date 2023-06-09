@@ -37,15 +37,15 @@ const ButtonContainer = styled(Flex)`
 const Arrow = styled(Ionicons)<{ right?: boolean }>`
   position: absolute;
   top: 400px;
-  left: ${({ right }) => (right ? 'auto' : `${SPACING}px`)};
-  right: ${({ right }) => (right ? `${SPACING}px` : `auto`)};
+  left: ${({ right }) => (right ? 'auto' : `${SPACING * 1.5}px`)};
+  right: ${({ right }) => (right ? `${SPACING * 1.5}px` : `auto`)};
 `
 
 const InfoButton = styled(TouchableOpacity)`
   position: absolute;
   top: 50px;
   right: 0;
-  padding: ${SPACING * 2}px ${SPACING * 4}px;
+  padding: ${SPACING * 2}px ${SPACING * 2.7}px;
 `
 
 const ChooseCoach = () => {
@@ -101,7 +101,7 @@ const ChooseCoach = () => {
           await doMediumFeedback()
           coachExplanationModalRef.current?.expand()
         }}>
-        <FontAwesome5 name="question-circle" size={25} color={COLORS.BLACK} />
+        <FontAwesome5 name="question-circle" size={25} color={COLORS.WHITE} />
       </InfoButton>
       <ButtonContainer>
         <Button
@@ -110,7 +110,7 @@ const ChooseCoach = () => {
             navigation?.navigate('chat')
             setCoach(currentSlide)
           }}>
-          Choose this Coach
+          Choose {currentSlide === 0 ? 'Gabriel' : 'Aurora'}
         </Button>
         <Spacer x={2} />
         <Button

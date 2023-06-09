@@ -38,7 +38,7 @@ const Finance = () => {
 
   useEffect(() => {
     if (keyboardOpen) {
-      scrollRef.current?.scrollToEnd({ animated: true })
+      setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 100)
     }
   }, [buttonPosition, keyboardOpen])
 
@@ -147,17 +147,19 @@ const Finance = () => {
           </>
         )}
 
-        <Spacer
-          x={
-            spendings.length === 0
-              ? 40
-              : spendings.length === 1
-              ? 25
-              : spendings.length === 2
-              ? 20
-              : 15
-          }
-        />
+        {keyboardOpen && (
+          <Spacer
+            x={
+              spendings.length === 0
+                ? 42
+                : spendings.length === 1
+                ? 25
+                : spendings.length === 2
+                ? 20
+                : 15
+            }
+          />
+        )}
       </Container>
     </PluginScreenLayout>
   )

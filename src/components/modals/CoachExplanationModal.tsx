@@ -56,12 +56,20 @@ const CoachExplanationModal = () => {
           <Spacer x={2} />
           <Flex row justify={'space-between'} align={'flex-end'}>
             <ProfileContainer row justify={'space-between'} align={'center'}>
-              <CoachProfile source={coachProfiles[0]} />
+              <Flex column align={'center'}>
+                <CoachProfile source={coachProfiles[0]} />
+                <Spacer x={0.5} />
+                <Body>Gabriel</Body>
+              </Flex>
               <Flex column align={'center'}>
                 <Regular>swipe</Regular>
                 <FontAwesome5 name={'arrows-alt-h'} size={30}></FontAwesome5>
               </Flex>
-              <CoachProfile source={coachProfiles[1]} />
+              <Flex column align={'center'}>
+                <CoachProfile source={coachProfiles[1]} />
+                <Spacer x={0.5} />
+                <Body>Aurora</Body>
+              </Flex>
             </ProfileContainer>
           </Flex>
           <Spacer x={4} />
