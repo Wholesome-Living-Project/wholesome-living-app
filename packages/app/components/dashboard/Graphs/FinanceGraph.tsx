@@ -25,6 +25,8 @@ const MS_TO_SECONDS = 1000
 
 const FinanceGraph = () => {
   const [data, setData] = useState([])
+  const [strategy, setStrategy] = useState(null)
+  const [strategyAmount, setStrategyAmount] = useState(null)
   const [error, setError] = useState(null)
   const userId = 'X2GE989qgBdlp2ESSrXWi3Cn4Au1'
 
@@ -36,26 +38,45 @@ const FinanceGraph = () => {
       ])
 
       if (investmentResponse.data && settingsResponse.data) {
-        const transformedFinanceData = investmentResponse.data.map((item) => ({
-          ...item,
-          spendingTime: new Date(item.spendingTime * MS_TO_SECONDS).toISOString().slice(0, 10),
-        }))
+        const { strategy, strategyAmount } = settingsResponse.data.finance
+        setStrategy(strategy)
+        setStrategyAmount(strategyAmount)
+
+        const transformedFinanceData = investmentResponse.data.map((item) => {
+          let investedAmount = 0
+
+          if (strategy === 'Round') {
+            const roundedAmount = Math.ceil(item.amount / strategyAmount) * strategyAmount
+            investedAmount = roundedAmount - item.amount
+          }
+
+          return {
+            ...item,
+            investedAmount,
+            spendingTime: new Date(item.spendingTime * MS_TO_SECONDS).toISOString().slice(0, 10),
+          }
+        })
 
         transformedFinanceData.sort((a, b) => new Date(a.spendingTime) - new Date(b.spendingTime))
 
-        const settingsData = settingsResponse.data
+        let totalInvestedAmount = 0
 
         const monthlyData = transformedFinanceData.reduce((accumulator, item) => {
           const month = item.spendingTime.slice(0, 7)
-          accumulator[month] = (accumulator[month] || 0) + item.amount
+          totalInvestedAmount += item.investedAmount
+          accumulator[month] = {
+            investedAmount: totalInvestedAmount,
+          }
           return accumulator
         }, {})
 
-        const combinedData = Object.entries(monthlyData).map(([spendingTime, amount]) => ({
-          spendingTime,
-          amount,
-          investmentGoal: settingsData.finance.investmentGoal,
-        }))
+        const combinedData = Object.entries(monthlyData).map(
+          ([spendingTime, { investedAmount }]) => ({
+            spendingTime,
+            investedAmount,
+            investmentGoal: settingsResponse.data.finance.investmentGoal,
+          })
+        )
 
         setData(combinedData)
         console.log('Fetched combined data:', combinedData)
@@ -78,7 +99,7 @@ const FinanceGraph = () => {
   }, [])
 
   const [opacity, setOpacity] = useState({
-    amount: 1,
+    investedAmount: 1,
     investmentGoal: 1,
   })
 
@@ -93,18 +114,28 @@ const FinanceGraph = () => {
   }, [])
 
   const legendLabels = {
-    amount: 'Invested Amount',
+    investedAmount: 'Invested Amount',
     investmentGoal: 'Investment Goal',
   }
 
   return (
     <Container>
       <h5>Track your investment progress</h5>
+      {strategy && strategyAmount && (
+        <p>
+          Strategy: {strategy} ({strategyAmount})
+        </p>
+      )}
       {error && <p>Error: {error.message}</p>}
       <div style={{ width: '100%', height: '200px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-            <Line type="monotone" dataKey="amount" stroke="#d66ef0" name={legendLabels.amount} />
+            <Line
+              type="monotone"
+              dataKey="investedAmount"
+              stroke="#ff7300"
+              name={legendLabels.investedAmount}
+            />
             <Line
               type="monotone"
               dataKey="investmentGoal"
