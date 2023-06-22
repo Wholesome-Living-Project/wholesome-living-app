@@ -26,7 +26,7 @@ const MS_TO_SECONDS = 1000
 const FinanceGraph = () => {
   const [data, setData] = useState([])
   const [error, setError] = useState(null)
-  const userId = 'RafaelDubach'
+  const userId = 'X2GE989qgBdlp2ESSrXWi3Cn4Au1'
 
   const fetchData = async () => {
     try {

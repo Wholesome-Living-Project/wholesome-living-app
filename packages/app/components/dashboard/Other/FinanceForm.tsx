@@ -134,7 +134,7 @@ const FinanceForm: React.FC = () => {
     setValidationErrors({})
 
     // Make the API call to submit the data
-    const userId = 'RafaelDubach' // Replace with the actual user ID
+    const userId = 'X2GE989qgBdlp2ESSrXWi3Cn4Au1' // Replace with the actual user ID
     axios
       .get('http://127.0.0.1:8080/finance', {
         headers: {

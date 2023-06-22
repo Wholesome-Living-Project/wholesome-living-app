@@ -26,7 +26,7 @@ const MS_TO_SECONDS = 1000
 const MeditationGraph = () => {
   const [data, setData] = useState([])
   const [error, setError] = useState<Error | null>(null) // Explicitly specify the type as Error
-  const userId = 'RafaelDubach'
+  const userId = 'X2GE989qgBdlp2ESSrXWi3Cn4Au1'
 
   const fetchData = async () => {
     try {

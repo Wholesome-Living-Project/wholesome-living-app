@@ -26,6 +26,93 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
+ * @interface FinanceCreateSpendingRequest
+ */
+export interface FinanceCreateSpendingRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceCreateSpendingRequest
+     */
+    'amount'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof FinanceCreateSpendingRequest
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceCreateSpendingRequest
+     */
+    'saving'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceCreateSpendingRequest
+     */
+    'spendingTime'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface FinanceCreateSpendingResponse
+ */
+export interface FinanceCreateSpendingResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof FinanceCreateSpendingResponse
+     */
+    'id'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface FinanceGetInvestmentResponse
+ */
+export interface FinanceGetInvestmentResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'amount'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'saving'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'spendingTime'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof FinanceGetInvestmentResponse
+     */
+    'userId'?: string;
+}
+/**
+ * 
+ * @export
  * @interface MeditationCreateMeditationRequest
  */
 export interface MeditationCreateMeditationRequest {
@@ -58,65 +145,387 @@ export interface MeditationCreateMeditationResponse {
 /**
  * 
  * @export
- * @interface MeditationGet200ResponseInner
+ * @interface MeditationGetMeditationResponse
  */
-export interface MeditationGet200ResponseInner {
+export interface MeditationGetMeditationResponse {
+    /**
+     * 
+     * @type {Array<MeditationMeditationDB>}
+     * @memberof MeditationGetMeditationResponse
+     */
+    'meditations'?: Array<MeditationMeditationDB>;
+}
+/**
+ * 
+ * @export
+ * @interface MeditationMeditationDB
+ */
+export interface MeditationMeditationDB {
     /**
      * 
      * @type {number}
-     * @memberof MeditationGet200ResponseInner
+     * @memberof MeditationMeditationDB
      */
     'endTime'?: number;
     /**
      * 
      * @type {string}
-     * @memberof MeditationGet200ResponseInner
+     * @memberof MeditationMeditationDB
      */
     'id'?: string;
     /**
      * 
      * @type {number}
-     * @memberof MeditationGet200ResponseInner
+     * @memberof MeditationMeditationDB
      */
     'meditationTime'?: number;
     /**
      * 
      * @type {string}
-     * @memberof MeditationGet200ResponseInner
+     * @memberof MeditationMeditationDB
      */
     'userId'?: string;
 }
 /**
  * 
  * @export
- * @interface MeditationGetMeditationResponse
+ * @interface ProgressResponse
  */
-export interface MeditationGetMeditationResponse {
+export interface ProgressResponse {
     /**
      * 
-     * @type {number}
-     * @memberof MeditationGetMeditationResponse
+     * @type {{ [key: string]: number; }}
+     * @memberof ProgressResponse
      */
-    'endTime'?: number;
+    'experienceToNewLevel'?: { [key: string]: number; };
+    /**
+     * 
+     * @type {{ [key: string]: number; }}
+     * @memberof ProgressResponse
+     */
+    'level'?: { [key: string]: number; };
+}
+/**
+ * 
+ * @export
+ * @interface SettingsCreateInvestmentResponse
+ */
+export interface SettingsCreateInvestmentResponse {
     /**
      * 
      * @type {string}
-     * @memberof MeditationGetMeditationResponse
+     * @memberof SettingsCreateInvestmentResponse
      */
     'id'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SettingsCreateSettingsRequest
+ */
+export interface SettingsCreateSettingsRequest {
+    /**
+     * 
+     * @type {SettingsElevatorSettings}
+     * @memberof SettingsCreateSettingsRequest
+     */
+    'elevator'?: SettingsElevatorSettings;
+    /**
+     * A list with the Plugins that the user has enabled.
+     * @type {Array<SettingsPluginName>}
+     * @memberof SettingsCreateSettingsRequest
+     */
+    'enabledPlugins'?: Array<SettingsPluginName>;
+    /**
+     * 
+     * @type {SettingsCreateSettingsRequestFinance}
+     * @memberof SettingsCreateSettingsRequest
+     */
+    'finance'?: SettingsCreateSettingsRequestFinance;
+    /**
+     * 
+     * @type {SettingsCreateSettingsRequestMeditation}
+     * @memberof SettingsCreateSettingsRequest
+     */
+    'meditation'?: SettingsCreateSettingsRequestMeditation;
+}
+/**
+ * The user\'s settings for the finance plugin.
+ * @export
+ * @interface SettingsCreateSettingsRequestFinance
+ */
+export interface SettingsCreateSettingsRequestFinance {
     /**
      * 
      * @type {number}
-     * @memberof MeditationGetMeditationResponse
+     * @memberof SettingsCreateSettingsRequestFinance
      */
-    'meditationTime'?: number;
+    'amountNotifications'?: number;
+    /**
+     * The user\'s investment goal.
+     * @type {number}
+     * @memberof SettingsCreateSettingsRequestFinance
+     */
+    'investmentGoal'?: number;
+    /**
+     * The user\'s investment time goal.
+     * @type {number}
+     * @memberof SettingsCreateSettingsRequestFinance
+     */
+    'investmentTimeGoal'?: number;
     /**
      * 
-     * @type {string}
-     * @memberof MeditationGetMeditationResponse
+     * @type {boolean}
+     * @memberof SettingsCreateSettingsRequestFinance
      */
-    'userId'?: string;
+    'notifications'?: boolean;
+    /**
+     * 
+     * @type {SettingsNotificationType}
+     * @memberof SettingsCreateSettingsRequestFinance
+     */
+    'periodNotifications'?: SettingsNotificationType;
+    /**
+     * 
+     * @type {SettingsStrategyType}
+     * @memberof SettingsCreateSettingsRequestFinance
+     */
+    'strategy'?: SettingsStrategyType;
+    /**
+     * 
+     * @type {number}
+     * @memberof SettingsCreateSettingsRequestFinance
+     */
+    'strategyAmount'?: number;
 }
+
+
+/**
+ * The user\'s settings for the meditation plugin.
+ * @export
+ * @interface SettingsCreateSettingsRequestMeditation
+ */
+export interface SettingsCreateSettingsRequestMeditation {
+    /**
+     * 
+     * @type {number}
+     * @memberof SettingsCreateSettingsRequestMeditation
+     */
+    'amountNotifications'?: number;
+    /**
+     * The user\'s meditation time goal.
+     * @type {number}
+     * @memberof SettingsCreateSettingsRequestMeditation
+     */
+    'meditationTimeGoal'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SettingsCreateSettingsRequestMeditation
+     */
+    'notifications'?: boolean;
+    /**
+     * 
+     * @type {SettingsNotificationType}
+     * @memberof SettingsCreateSettingsRequestMeditation
+     */
+    'periodNotifications'?: SettingsNotificationType;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface SettingsElevatorSettings
+ */
+export interface SettingsElevatorSettings {
+    /**
+     * 
+     * @type {number}
+     * @memberof SettingsElevatorSettings
+     */
+    'amountNotifications'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SettingsElevatorSettings
+     */
+    'goal'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SettingsElevatorSettings
+     */
+    'notifications'?: boolean;
+    /**
+     * 
+     * @type {SettingsNotificationType}
+     * @memberof SettingsElevatorSettings
+     */
+    'periodNotifications'?: SettingsNotificationType;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface SettingsFinanceSettings
+ */
+export interface SettingsFinanceSettings {
+    /**
+     * 
+     * @type {number}
+     * @memberof SettingsFinanceSettings
+     */
+    'amountNotifications'?: number;
+    /**
+     * The user\'s investment goal.
+     * @type {number}
+     * @memberof SettingsFinanceSettings
+     */
+    'investmentGoal'?: number;
+    /**
+     * The user\'s investment time goal.
+     * @type {number}
+     * @memberof SettingsFinanceSettings
+     */
+    'investmentTimeGoal'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SettingsFinanceSettings
+     */
+    'notifications'?: boolean;
+    /**
+     * 
+     * @type {SettingsNotificationType}
+     * @memberof SettingsFinanceSettings
+     */
+    'periodNotifications'?: SettingsNotificationType;
+    /**
+     * 
+     * @type {SettingsStrategyType}
+     * @memberof SettingsFinanceSettings
+     */
+    'strategy'?: SettingsStrategyType;
+    /**
+     * 
+     * @type {number}
+     * @memberof SettingsFinanceSettings
+     */
+    'strategyAmount'?: number;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface SettingsGetSettingsResponse
+ */
+export interface SettingsGetSettingsResponse {
+    /**
+     * 
+     * @type {SettingsElevatorSettings}
+     * @memberof SettingsGetSettingsResponse
+     */
+    'elevator'?: SettingsElevatorSettings;
+    /**
+     * A list with the Plugins that the user has enabled.
+     * @type {Array<SettingsPluginName>}
+     * @memberof SettingsGetSettingsResponse
+     */
+    'enabledPlugins'?: Array<SettingsPluginName>;
+    /**
+     * 
+     * @type {SettingsCreateSettingsRequestFinance}
+     * @memberof SettingsGetSettingsResponse
+     */
+    'finance'?: SettingsCreateSettingsRequestFinance;
+    /**
+     * 
+     * @type {SettingsCreateSettingsRequestMeditation}
+     * @memberof SettingsGetSettingsResponse
+     */
+    'meditation'?: SettingsCreateSettingsRequestMeditation;
+}
+/**
+ * 
+ * @export
+ * @interface SettingsMeditationSettings
+ */
+export interface SettingsMeditationSettings {
+    /**
+     * 
+     * @type {number}
+     * @memberof SettingsMeditationSettings
+     */
+    'amountNotifications'?: number;
+    /**
+     * The user\'s meditation time goal.
+     * @type {number}
+     * @memberof SettingsMeditationSettings
+     */
+    'meditationTimeGoal'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SettingsMeditationSettings
+     */
+    'notifications'?: boolean;
+    /**
+     * 
+     * @type {SettingsNotificationType}
+     * @memberof SettingsMeditationSettings
+     */
+    'periodNotifications'?: SettingsNotificationType;
+}
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const SettingsNotificationType = {
+    NotificationTypeDay: 'Day',
+    NotificationTypeMonth: 'Month',
+    NotificationTypeWeek: 'Week'
+} as const;
+
+export type SettingsNotificationType = typeof SettingsNotificationType[keyof typeof SettingsNotificationType];
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const SettingsPluginName = {
+    PluginNameFinance: 'finance',
+    PluginNameMeditation: 'meditation',
+    PluginNameElevator: 'elevator'
+} as const;
+
+export type SettingsPluginName = typeof SettingsPluginName[keyof typeof SettingsPluginName];
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const SettingsStrategyType = {
+    StrategyTypeRound: 'Round',
+    StrategyTypePlus: 'Plus',
+    StrategyTypePercent: 'Percent'
+} as const;
+
+export type SettingsStrategyType = typeof SettingsStrategyType[keyof typeof SettingsStrategyType];
+
+
 /**
  * 
  * @export
@@ -170,20 +579,6 @@ export interface UserCreateUserResponse {
 /**
  * 
  * @export
- * @enum {string}
- */
-
-export const UserPluginType = {
-    PluginTypeMeditation: 'meditation',
-    PluginTypeWorkout: 'workout'
-} as const;
-
-export type UserPluginType = typeof UserPluginType[keyof typeof UserPluginType];
-
-
-/**
- * 
- * @export
  * @interface UserUpdateUserRequest
  */
 export interface UserUpdateUserRequest {
@@ -211,12 +606,6 @@ export interface UserUpdateUserRequest {
      * @memberof UserUpdateUserRequest
      */
     'lastName'?: string;
-    /**
-     * 
-     * @type {Array<UserPluginType>}
-     * @memberof UserUpdateUserRequest
-     */
-    'plugins'?: Array<UserPluginType>;
 }
 /**
  * 
@@ -260,29 +649,28 @@ export interface UserUserDB {
      * @memberof UserUserDB
      */
     'lastName'?: string;
-    /**
-     * 
-     * @type {Array<UserPluginType>}
-     * @memberof UserUserDB
-     */
-    'plugins'?: Array<UserPluginType>;
 }
 
 /**
- * MeditationApi - axios parameter creator
+ * FinanceApi - axios parameter creator
  * @export
  */
-export const MeditationApiAxiosParamCreator = function (configuration?: Configuration) {
+export const FinanceApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * fetch all meditation sessions of a user.
-         * @summary Get all meditation session
-         * @param {string} [userId] User ID
+         * Query Investments with the user ID, start time and end time.
+         * @summary Query Investments with the user ID, start time and end time.
+         * @param {string} userId User ID
+         * @param {string} [id] investment ID
+         * @param {number} [startTime] start time
+         * @param {number} [endTime] end time
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationGet: async (userId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/meditation`;
+        financeGet: async (userId: string, id?: string, startTime?: number, endTime?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('financeGet', 'userId', userId)
+            const localVarPath = `/finance`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -293,6 +681,18 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (startTime !== undefined) {
+                localVarQueryParameter['startTime'] = startTime;
+            }
+
+            if (endTime !== undefined) {
+                localVarQueryParameter['endTime'] = endTime;
+            }
 
             if (userId != null) {
                 localVarHeaderParameter['userId'] = String(userId);
@@ -310,20 +710,178 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * fetch a single meditation session.
-         * @summary Get a meditation session
-         * @param {string} id Meditation ID
+         * Creates a new spending.
+         * @summary Create a spending.
          * @param {string} userId User ID
+         * @param {FinanceCreateSpendingRequest} investment spending to create
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationIdGet: async (id: string, userId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('meditationIdGet', 'id', id)
+        financePost: async (userId: string, investment: FinanceCreateSpendingRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
-            assertParamExists('meditationIdGet', 'userId', userId)
-            const localVarPath = `/meditation/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            assertParamExists('financePost', 'userId', userId)
+            // verify required parameter 'investment' is not null or undefined
+            assertParamExists('financePost', 'investment', investment)
+            const localVarPath = `/finance`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(investment, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * FinanceApi - functional programming interface
+ * @export
+ */
+export const FinanceApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = FinanceApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Query Investments with the user ID, start time and end time.
+         * @summary Query Investments with the user ID, start time and end time.
+         * @param {string} userId User ID
+         * @param {string} [id] investment ID
+         * @param {number} [startTime] start time
+         * @param {number} [endTime] end time
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async financeGet(userId: string, id?: string, startTime?: number, endTime?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FinanceGetInvestmentResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.financeGet(userId, id, startTime, endTime, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Creates a new spending.
+         * @summary Create a spending.
+         * @param {string} userId User ID
+         * @param {FinanceCreateSpendingRequest} investment spending to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async financePost(userId: string, investment: FinanceCreateSpendingRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FinanceCreateSpendingResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.financePost(userId, investment, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * FinanceApi - factory interface
+ * @export
+ */
+export const FinanceApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = FinanceApiFp(configuration)
+    return {
+        /**
+         * Query Investments with the user ID, start time and end time.
+         * @summary Query Investments with the user ID, start time and end time.
+         * @param {string} userId User ID
+         * @param {string} [id] investment ID
+         * @param {number} [startTime] start time
+         * @param {number} [endTime] end time
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        financeGet(userId: string, id?: string, startTime?: number, endTime?: number, options?: any): AxiosPromise<FinanceGetInvestmentResponse> {
+            return localVarFp.financeGet(userId, id, startTime, endTime, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates a new spending.
+         * @summary Create a spending.
+         * @param {string} userId User ID
+         * @param {FinanceCreateSpendingRequest} investment spending to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        financePost(userId: string, investment: FinanceCreateSpendingRequest, options?: any): AxiosPromise<FinanceCreateSpendingResponse> {
+            return localVarFp.financePost(userId, investment, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * FinanceApi - object-oriented interface
+ * @export
+ * @class FinanceApi
+ * @extends {BaseAPI}
+ */
+export class FinanceApi extends BaseAPI {
+    /**
+     * Query Investments with the user ID, start time and end time.
+     * @summary Query Investments with the user ID, start time and end time.
+     * @param {string} userId User ID
+     * @param {string} [id] investment ID
+     * @param {number} [startTime] start time
+     * @param {number} [endTime] end time
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FinanceApi
+     */
+    public financeGet(userId: string, id?: string, startTime?: number, endTime?: number, options?: AxiosRequestConfig) {
+        return FinanceApiFp(this.configuration).financeGet(userId, id, startTime, endTime, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Creates a new spending.
+     * @summary Create a spending.
+     * @param {string} userId User ID
+     * @param {FinanceCreateSpendingRequest} investment spending to create
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FinanceApi
+     */
+    public financePost(userId: string, investment: FinanceCreateSpendingRequest, options?: AxiosRequestConfig) {
+        return FinanceApiFp(this.configuration).financePost(userId, investment, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * MeditationApi - axios parameter creator
+ * @export
+ */
+export const MeditationApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Fetch one or multiple meditation sessions.
+         * @summary Get meditation sessions
+         * @param {string} [id] Meditation ID
+         * @param {number} [startTime] start time
+         * @param {number} [endTime] end time
+         * @param {number} [durationStart] duration start time
+         * @param {number} [durationEnd] duration end time
+         * @param {string} [userId] User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        meditationGet: async (id?: string, startTime?: number, endTime?: number, durationStart?: number, durationEnd?: number, userId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/meditation`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -334,6 +892,26 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (startTime !== undefined) {
+                localVarQueryParameter['startTime'] = startTime;
+            }
+
+            if (endTime !== undefined) {
+                localVarQueryParameter['endTime'] = endTime;
+            }
+
+            if (durationStart !== undefined) {
+                localVarQueryParameter['durationStart'] = durationStart;
+            }
+
+            if (durationEnd !== undefined) {
+                localVarQueryParameter['durationEnd'] = durationEnd;
+            }
 
             if (userId != null) {
                 localVarHeaderParameter['userId'] = String(userId);
@@ -353,12 +931,14 @@ export const MeditationApiAxiosParamCreator = function (configuration?: Configur
         /**
          * Creates a new meditation.
          * @summary Create meditation.
+         * @param {string} userId User ID
          * @param {MeditationCreateMeditationRequest} meditation Meditation to create
-         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationPost: async (meditation: MeditationCreateMeditationRequest, userId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        meditationPost: async (userId: string, meditation: MeditationCreateMeditationRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('meditationPost', 'userId', userId)
             // verify required parameter 'meditation' is not null or undefined
             assertParamExists('meditationPost', 'meditation', meditation)
             const localVarPath = `/meditation`;
@@ -402,38 +982,31 @@ export const MeditationApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = MeditationApiAxiosParamCreator(configuration)
     return {
         /**
-         * fetch all meditation sessions of a user.
-         * @summary Get all meditation session
+         * Fetch one or multiple meditation sessions.
+         * @summary Get meditation sessions
+         * @param {string} [id] Meditation ID
+         * @param {number} [startTime] start time
+         * @param {number} [endTime] end time
+         * @param {number} [durationStart] duration start time
+         * @param {number} [durationEnd] duration end time
          * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async meditationGet(userId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MeditationGet200ResponseInner>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationGet(userId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * fetch a single meditation session.
-         * @summary Get a meditation session
-         * @param {string} id Meditation ID
-         * @param {string} userId User ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async meditationIdGet(id: string, userId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationGetMeditationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationIdGet(id, userId, options);
+        async meditationGet(id?: string, startTime?: number, endTime?: number, durationStart?: number, durationEnd?: number, userId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationGetMeditationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationGet(id, startTime, endTime, durationStart, durationEnd, userId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Creates a new meditation.
          * @summary Create meditation.
+         * @param {string} userId User ID
          * @param {MeditationCreateMeditationRequest} meditation Meditation to create
-         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async meditationPost(meditation: MeditationCreateMeditationRequest, userId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationCreateMeditationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationPost(meditation, userId, options);
+        async meditationPost(userId: string, meditation: MeditationCreateMeditationRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MeditationCreateMeditationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.meditationPost(userId, meditation, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -447,36 +1020,30 @@ export const MeditationApiFactory = function (configuration?: Configuration, bas
     const localVarFp = MeditationApiFp(configuration)
     return {
         /**
-         * fetch all meditation sessions of a user.
-         * @summary Get all meditation session
+         * Fetch one or multiple meditation sessions.
+         * @summary Get meditation sessions
+         * @param {string} [id] Meditation ID
+         * @param {number} [startTime] start time
+         * @param {number} [endTime] end time
+         * @param {number} [durationStart] duration start time
+         * @param {number} [durationEnd] duration end time
          * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationGet(userId?: string, options?: any): AxiosPromise<Array<MeditationGet200ResponseInner>> {
-            return localVarFp.meditationGet(userId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * fetch a single meditation session.
-         * @summary Get a meditation session
-         * @param {string} id Meditation ID
-         * @param {string} userId User ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        meditationIdGet(id: string, userId: string, options?: any): AxiosPromise<MeditationGetMeditationResponse> {
-            return localVarFp.meditationIdGet(id, userId, options).then((request) => request(axios, basePath));
+        meditationGet(id?: string, startTime?: number, endTime?: number, durationStart?: number, durationEnd?: number, userId?: string, options?: any): AxiosPromise<MeditationGetMeditationResponse> {
+            return localVarFp.meditationGet(id, startTime, endTime, durationStart, durationEnd, userId, options).then((request) => request(axios, basePath));
         },
         /**
          * Creates a new meditation.
          * @summary Create meditation.
+         * @param {string} userId User ID
          * @param {MeditationCreateMeditationRequest} meditation Meditation to create
-         * @param {string} [userId] User ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        meditationPost(meditation: MeditationCreateMeditationRequest, userId?: string, options?: any): AxiosPromise<MeditationCreateMeditationResponse> {
-            return localVarFp.meditationPost(meditation, userId, options).then((request) => request(axios, basePath));
+        meditationPost(userId: string, meditation: MeditationCreateMeditationRequest, options?: any): AxiosPromise<MeditationCreateMeditationResponse> {
+            return localVarFp.meditationPost(userId, meditation, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -489,41 +1056,888 @@ export const MeditationApiFactory = function (configuration?: Configuration, bas
  */
 export class MeditationApi extends BaseAPI {
     /**
-     * fetch all meditation sessions of a user.
-     * @summary Get all meditation session
+     * Fetch one or multiple meditation sessions.
+     * @summary Get meditation sessions
+     * @param {string} [id] Meditation ID
+     * @param {number} [startTime] start time
+     * @param {number} [endTime] end time
+     * @param {number} [durationStart] duration start time
+     * @param {number} [durationEnd] duration end time
      * @param {string} [userId] User ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeditationApi
      */
-    public meditationGet(userId?: string, options?: AxiosRequestConfig) {
-        return MeditationApiFp(this.configuration).meditationGet(userId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * fetch a single meditation session.
-     * @summary Get a meditation session
-     * @param {string} id Meditation ID
-     * @param {string} userId User ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MeditationApi
-     */
-    public meditationIdGet(id: string, userId: string, options?: AxiosRequestConfig) {
-        return MeditationApiFp(this.configuration).meditationIdGet(id, userId, options).then((request) => request(this.axios, this.basePath));
+    public meditationGet(id?: string, startTime?: number, endTime?: number, durationStart?: number, durationEnd?: number, userId?: string, options?: AxiosRequestConfig) {
+        return MeditationApiFp(this.configuration).meditationGet(id, startTime, endTime, durationStart, durationEnd, userId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Creates a new meditation.
      * @summary Create meditation.
+     * @param {string} userId User ID
      * @param {MeditationCreateMeditationRequest} meditation Meditation to create
-     * @param {string} [userId] User ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeditationApi
      */
-    public meditationPost(meditation: MeditationCreateMeditationRequest, userId?: string, options?: AxiosRequestConfig) {
-        return MeditationApiFp(this.configuration).meditationPost(meditation, userId, options).then((request) => request(this.axios, this.basePath));
+    public meditationPost(userId: string, meditation: MeditationCreateMeditationRequest, options?: AxiosRequestConfig) {
+        return MeditationApiFp(this.configuration).meditationPost(userId, meditation, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * ProgressApi - axios parameter creator
+ * @export
+ */
+export const ProgressApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * fetch progress and level for a user.
+         * @summary Get progress nad level for a user.
+         * @param {string} userId User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        progressGet: async (userId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('progressGet', 'userId', userId)
+            const localVarPath = `/progress`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ProgressApi - functional programming interface
+ * @export
+ */
+export const ProgressApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ProgressApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * fetch progress and level for a user.
+         * @summary Get progress nad level for a user.
+         * @param {string} userId User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async progressGet(userId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProgressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.progressGet(userId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * ProgressApi - factory interface
+ * @export
+ */
+export const ProgressApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ProgressApiFp(configuration)
+    return {
+        /**
+         * fetch progress and level for a user.
+         * @summary Get progress nad level for a user.
+         * @param {string} userId User ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        progressGet(userId: string, options?: any): AxiosPromise<ProgressResponse> {
+            return localVarFp.progressGet(userId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ProgressApi - object-oriented interface
+ * @export
+ * @class ProgressApi
+ * @extends {BaseAPI}
+ */
+export class ProgressApi extends BaseAPI {
+    /**
+     * fetch progress and level for a user.
+     * @summary Get progress nad level for a user.
+     * @param {string} userId User ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProgressApi
+     */
+    public progressGet(userId: string, options?: AxiosRequestConfig) {
+        return ProgressApiFp(this.configuration).progressGet(userId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * SettingsApi - axios parameter creator
+ * @export
+ */
+export const SettingsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Delete settings for a user.
+         * @summary Delete settings of a user.
+         * @param {string} userId User ID
+         * @param {string} [plugin] Plugin name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsDelete: async (userId: string, plugin?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('settingsDelete', 'userId', userId)
+            const localVarPath = `/settings`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (plugin !== undefined) {
+                localVarQueryParameter['plugin'] = plugin;
+            }
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Creates settings for a user for the elevator Plugin.
+         * @summary Create settings for the elevator plugin.
+         * @param {string} userId User ID
+         * @param {SettingsElevatorSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsElevatorPost: async (userId: string, settings: SettingsElevatorSettings, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('settingsElevatorPost', 'userId', userId)
+            // verify required parameter 'settings' is not null or undefined
+            assertParamExists('settingsElevatorPost', 'settings', settings)
+            const localVarPath = `/settings/elevator`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(settings, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update settings for the elevator Plugin.
+         * @summary Update settings for the elevator Plugin.
+         * @param {string} userId User ID
+         * @param {SettingsElevatorSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsElevatorPut: async (userId: string, settings: SettingsElevatorSettings, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('settingsElevatorPut', 'userId', userId)
+            // verify required parameter 'settings' is not null or undefined
+            assertParamExists('settingsElevatorPut', 'settings', settings)
+            const localVarPath = `/settings/elevator`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(settings, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Creates settings for a user for the finance Plugin.
+         * @summary Create settings for the finance plugin.
+         * @param {string} userId User ID
+         * @param {SettingsFinanceSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsFinancePost: async (userId: string, settings: SettingsFinanceSettings, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('settingsFinancePost', 'userId', userId)
+            // verify required parameter 'settings' is not null or undefined
+            assertParamExists('settingsFinancePost', 'settings', settings)
+            const localVarPath = `/settings/finance`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(settings, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update settings for a user for onr Plugin.
+         * @summary updateFinanceSettings settings for the finance plugin.
+         * @param {string} userId User ID
+         * @param {SettingsFinanceSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsFinancePut: async (userId: string, settings: SettingsFinanceSettings, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('settingsFinancePut', 'userId', userId)
+            // verify required parameter 'settings' is not null or undefined
+            assertParamExists('settingsFinancePut', 'settings', settings)
+            const localVarPath = `/settings/finance`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(settings, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * fetch settings for a user.
+         * @summary Get settings for a user.
+         * @param {string} userId User ID
+         * @param {string} [plugin] Plugin name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsGet: async (userId: string, plugin?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('settingsGet', 'userId', userId)
+            const localVarPath = `/settings`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (plugin !== undefined) {
+                localVarQueryParameter['plugin'] = plugin;
+            }
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Creates settings for the meditation plugin
+         * @summary Create settings for the meditation Plugin.
+         * @param {string} userId User ID
+         * @param {SettingsMeditationSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsMeditationPost: async (userId: string, settings: SettingsMeditationSettings, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('settingsMeditationPost', 'userId', userId)
+            // verify required parameter 'settings' is not null or undefined
+            assertParamExists('settingsMeditationPost', 'settings', settings)
+            const localVarPath = `/settings/meditation`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(settings, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update settings for a user
+         * @summary Update settings for the meditation Plugin.
+         * @param {string} userId User ID
+         * @param {SettingsMeditationSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsMeditationPut: async (userId: string, settings: SettingsMeditationSettings, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('settingsMeditationPut', 'userId', userId)
+            // verify required parameter 'settings' is not null or undefined
+            assertParamExists('settingsMeditationPut', 'settings', settings)
+            const localVarPath = `/settings/meditation`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(settings, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Creates settings for a user.
+         * @summary Create onboarding in backend, set settings.
+         * @param {string} userId User ID
+         * @param {SettingsCreateSettingsRequest} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsPost: async (userId: string, settings: SettingsCreateSettingsRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('settingsPost', 'userId', userId)
+            // verify required parameter 'settings' is not null or undefined
+            assertParamExists('settingsPost', 'settings', settings)
+            const localVarPath = `/settings`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (userId != null) {
+                localVarHeaderParameter['userId'] = String(userId);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(settings, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SettingsApi - functional programming interface
+ * @export
+ */
+export const SettingsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SettingsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Delete settings for a user.
+         * @summary Delete settings of a user.
+         * @param {string} userId User ID
+         * @param {string} [plugin] Plugin name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsDelete(userId: string, plugin?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsDelete(userId, plugin, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Creates settings for a user for the elevator Plugin.
+         * @summary Create settings for the elevator plugin.
+         * @param {string} userId User ID
+         * @param {SettingsElevatorSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsElevatorPost(userId: string, settings: SettingsElevatorSettings, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsElevatorPost(userId, settings, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Update settings for the elevator Plugin.
+         * @summary Update settings for the elevator Plugin.
+         * @param {string} userId User ID
+         * @param {SettingsElevatorSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsElevatorPut(userId: string, settings: SettingsElevatorSettings, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsElevatorPut(userId, settings, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Creates settings for a user for the finance Plugin.
+         * @summary Create settings for the finance plugin.
+         * @param {string} userId User ID
+         * @param {SettingsFinanceSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsFinancePost(userId: string, settings: SettingsFinanceSettings, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsFinancePost(userId, settings, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Update settings for a user for onr Plugin.
+         * @summary updateFinanceSettings settings for the finance plugin.
+         * @param {string} userId User ID
+         * @param {SettingsFinanceSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsFinancePut(userId: string, settings: SettingsFinanceSettings, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsFinancePut(userId, settings, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * fetch settings for a user.
+         * @summary Get settings for a user.
+         * @param {string} userId User ID
+         * @param {string} [plugin] Plugin name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsGet(userId: string, plugin?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SettingsGetSettingsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsGet(userId, plugin, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Creates settings for the meditation plugin
+         * @summary Create settings for the meditation Plugin.
+         * @param {string} userId User ID
+         * @param {SettingsMeditationSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsMeditationPost(userId: string, settings: SettingsMeditationSettings, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsMeditationPost(userId, settings, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Update settings for a user
+         * @summary Update settings for the meditation Plugin.
+         * @param {string} userId User ID
+         * @param {SettingsMeditationSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsMeditationPut(userId: string, settings: SettingsMeditationSettings, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsMeditationPut(userId, settings, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Creates settings for a user.
+         * @summary Create onboarding in backend, set settings.
+         * @param {string} userId User ID
+         * @param {SettingsCreateSettingsRequest} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsPost(userId: string, settings: SettingsCreateSettingsRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SettingsCreateInvestmentResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsPost(userId, settings, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * SettingsApi - factory interface
+ * @export
+ */
+export const SettingsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SettingsApiFp(configuration)
+    return {
+        /**
+         * Delete settings for a user.
+         * @summary Delete settings of a user.
+         * @param {string} userId User ID
+         * @param {string} [plugin] Plugin name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsDelete(userId: string, plugin?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.settingsDelete(userId, plugin, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates settings for a user for the elevator Plugin.
+         * @summary Create settings for the elevator plugin.
+         * @param {string} userId User ID
+         * @param {SettingsElevatorSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsElevatorPost(userId: string, settings: SettingsElevatorSettings, options?: any): AxiosPromise<void> {
+            return localVarFp.settingsElevatorPost(userId, settings, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update settings for the elevator Plugin.
+         * @summary Update settings for the elevator Plugin.
+         * @param {string} userId User ID
+         * @param {SettingsElevatorSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsElevatorPut(userId: string, settings: SettingsElevatorSettings, options?: any): AxiosPromise<void> {
+            return localVarFp.settingsElevatorPut(userId, settings, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates settings for a user for the finance Plugin.
+         * @summary Create settings for the finance plugin.
+         * @param {string} userId User ID
+         * @param {SettingsFinanceSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsFinancePost(userId: string, settings: SettingsFinanceSettings, options?: any): AxiosPromise<void> {
+            return localVarFp.settingsFinancePost(userId, settings, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update settings for a user for onr Plugin.
+         * @summary updateFinanceSettings settings for the finance plugin.
+         * @param {string} userId User ID
+         * @param {SettingsFinanceSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsFinancePut(userId: string, settings: SettingsFinanceSettings, options?: any): AxiosPromise<void> {
+            return localVarFp.settingsFinancePut(userId, settings, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * fetch settings for a user.
+         * @summary Get settings for a user.
+         * @param {string} userId User ID
+         * @param {string} [plugin] Plugin name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsGet(userId: string, plugin?: string, options?: any): AxiosPromise<SettingsGetSettingsResponse> {
+            return localVarFp.settingsGet(userId, plugin, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates settings for the meditation plugin
+         * @summary Create settings for the meditation Plugin.
+         * @param {string} userId User ID
+         * @param {SettingsMeditationSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsMeditationPost(userId: string, settings: SettingsMeditationSettings, options?: any): AxiosPromise<void> {
+            return localVarFp.settingsMeditationPost(userId, settings, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update settings for a user
+         * @summary Update settings for the meditation Plugin.
+         * @param {string} userId User ID
+         * @param {SettingsMeditationSettings} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsMeditationPut(userId: string, settings: SettingsMeditationSettings, options?: any): AxiosPromise<void> {
+            return localVarFp.settingsMeditationPut(userId, settings, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates settings for a user.
+         * @summary Create onboarding in backend, set settings.
+         * @param {string} userId User ID
+         * @param {SettingsCreateSettingsRequest} settings onboarding to create
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsPost(userId: string, settings: SettingsCreateSettingsRequest, options?: any): AxiosPromise<SettingsCreateInvestmentResponse> {
+            return localVarFp.settingsPost(userId, settings, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * SettingsApi - object-oriented interface
+ * @export
+ * @class SettingsApi
+ * @extends {BaseAPI}
+ */
+export class SettingsApi extends BaseAPI {
+    /**
+     * Delete settings for a user.
+     * @summary Delete settings of a user.
+     * @param {string} userId User ID
+     * @param {string} [plugin] Plugin name
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public settingsDelete(userId: string, plugin?: string, options?: AxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).settingsDelete(userId, plugin, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Creates settings for a user for the elevator Plugin.
+     * @summary Create settings for the elevator plugin.
+     * @param {string} userId User ID
+     * @param {SettingsElevatorSettings} settings onboarding to create
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public settingsElevatorPost(userId: string, settings: SettingsElevatorSettings, options?: AxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).settingsElevatorPost(userId, settings, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update settings for the elevator Plugin.
+     * @summary Update settings for the elevator Plugin.
+     * @param {string} userId User ID
+     * @param {SettingsElevatorSettings} settings onboarding to create
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public settingsElevatorPut(userId: string, settings: SettingsElevatorSettings, options?: AxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).settingsElevatorPut(userId, settings, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Creates settings for a user for the finance Plugin.
+     * @summary Create settings for the finance plugin.
+     * @param {string} userId User ID
+     * @param {SettingsFinanceSettings} settings onboarding to create
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public settingsFinancePost(userId: string, settings: SettingsFinanceSettings, options?: AxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).settingsFinancePost(userId, settings, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update settings for a user for onr Plugin.
+     * @summary updateFinanceSettings settings for the finance plugin.
+     * @param {string} userId User ID
+     * @param {SettingsFinanceSettings} settings onboarding to create
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public settingsFinancePut(userId: string, settings: SettingsFinanceSettings, options?: AxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).settingsFinancePut(userId, settings, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * fetch settings for a user.
+     * @summary Get settings for a user.
+     * @param {string} userId User ID
+     * @param {string} [plugin] Plugin name
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public settingsGet(userId: string, plugin?: string, options?: AxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).settingsGet(userId, plugin, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Creates settings for the meditation plugin
+     * @summary Create settings for the meditation Plugin.
+     * @param {string} userId User ID
+     * @param {SettingsMeditationSettings} settings onboarding to create
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public settingsMeditationPost(userId: string, settings: SettingsMeditationSettings, options?: AxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).settingsMeditationPost(userId, settings, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update settings for a user
+     * @summary Update settings for the meditation Plugin.
+     * @param {string} userId User ID
+     * @param {SettingsMeditationSettings} settings onboarding to create
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public settingsMeditationPut(userId: string, settings: SettingsMeditationSettings, options?: AxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).settingsMeditationPut(userId, settings, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Creates settings for a user.
+     * @summary Create onboarding in backend, set settings.
+     * @param {string} userId User ID
+     * @param {SettingsCreateSettingsRequest} settings onboarding to create
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SettingsApi
+     */
+    public settingsPost(userId: string, settings: SettingsCreateSettingsRequest, options?: AxiosRequestConfig) {
+        return SettingsApiFp(this.configuration).settingsPost(userId, settings, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
