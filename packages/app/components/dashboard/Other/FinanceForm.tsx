@@ -179,7 +179,7 @@ const FinanceForm: React.FC = () => {
     <Container>
       <FormContainer onSubmit={handleSubmit}>
         <FormGroup>
-          <Label htmlFor="amount">Invested Amount</Label>
+          <Label htmlFor="amount">Spent Amount</Label>
           <Input
             type="number"
             id="amount"
@@ -205,7 +205,7 @@ const FinanceForm: React.FC = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label htmlFor="spendingTime">Investment Time</Label>
+          <Label htmlFor="spendingTime">Time</Label>
           <DatePicker
             id="spendingTime"
             name="spendingTime"
