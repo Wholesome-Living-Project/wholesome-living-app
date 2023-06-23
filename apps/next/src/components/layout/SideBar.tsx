@@ -9,7 +9,7 @@ import OptionalLink from '../OptionalLink'
 const FullWidthContainer = styled(Flex)`
   z-index: 10;
   height: ${HEADER_HEIGHT}px;
-  background-color: ${COLORS.SIDEBAR};
+  background-color: ${COLORS.WHITE};
   border-radius: ${OUTER_BORDER_RADIUS}px;
   //flex-direction: column;
   position: absolute;
@@ -68,8 +68,8 @@ type RouteType = { link: string; text: string }
 const routes: RouteType[] = [
   { link: '/', text: 'Home' },
   { link: '/settings', text: 'Settings' },
-  { link: '/discover', text: 'Discover' },
-  { link: '/dashboard', text: 'Dashboard' },
+  { link: '/meditation', text: 'Meditation' },
+  { link: '/finance', text: 'Finance' },
 ]
 
 const SideBar = () => {

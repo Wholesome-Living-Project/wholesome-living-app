@@ -1,7 +1,5 @@
 import FinanceView from 'app/components/dashboard/Views/FinanceView'
-import MeditationView from 'app/components/dashboard/Views/MeditationView'
 import PluginList from 'app/components/discover/web/PluginList'
-import Spacer from 'app/components/ui/Spacer'
 import { COLORS, FILTER_HEIGHT, OUTER_BORDER_RADIUS } from 'app/theme/theme'
 import { Col, Flex, SPACING } from 'axelra-styled-bootstrap-grid'
 import styled from 'styled-components'
@@ -32,7 +30,7 @@ const PluginContentContainer = styled(Flex)`
   padding: ${SPACING * 1.5}px;
 `
 
-const Dashboard = () => {
+const Finance = () => {
   return (
     <FlexContainer>
       <Col xs={12} md={4}>
@@ -43,10 +41,8 @@ const Dashboard = () => {
         </FilterContainer>
       </Col>
       <FinanceView />
-      <Spacer x={40} />
-      <MeditationView />
     </FlexContainer>
   )
 }
 
-export default Dashboard
+export default Finance
