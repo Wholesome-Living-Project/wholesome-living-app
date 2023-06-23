@@ -48,6 +48,10 @@ const FinanceGraph = () => {
           if (strategy === 'Round') {
             const roundedAmount = Math.ceil(item.amount / strategyAmount) * strategyAmount
             investedAmount = roundedAmount - item.amount
+          } else if (strategy === 'Plus') {
+            investedAmount = 1
+          } else if (strategy === 'Percent') {
+            investedAmount = Number((item.amount * (strategyAmount / 100)).toFixed(2))
           }
 
           return {
@@ -63,7 +67,7 @@ const FinanceGraph = () => {
 
         const monthlyData = transformedFinanceData.reduce((accumulator, item) => {
           const month = item.spendingTime.slice(0, 7)
-          totalInvestedAmount += item.investedAmount
+          totalInvestedAmount = Number((totalInvestedAmount + item.investedAmount).toFixed(2))
           accumulator[month] = {
             investedAmount: totalInvestedAmount,
           }

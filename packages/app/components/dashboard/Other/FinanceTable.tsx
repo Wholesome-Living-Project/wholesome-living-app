@@ -9,11 +9,11 @@ const TableContainer = styled.div`
   padding: 2em;
   border-radius: 12px;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Ensure the rounded corners are applied */
+  overflow: hidden;
 `
 
 const TableWrapper = styled.div`
-  max-height: 500px; /* Adjust this value based on your needs */
+  max-height: 500px;
   overflow-y: auto;
 `
 
@@ -21,7 +21,7 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   border-radius: 12px;
-  overflow: hidden; /* Ensure the rounded corners are applied */
+  overflow: hidden;
 `
 
 const TableHeader = styled.th`
@@ -42,26 +42,48 @@ const TableCell = styled.td`
 `
 
 const FinanceTable = () => {
-  const [data, setData] = useState<{ amount: number; description: string; spendingTime: number }[]>(
-    []
-  )
+  const [data, setData] = useState([])
+  const [strategy, setStrategy] = useState(null)
+  const [strategyAmount, setStrategyAmount] = useState(null)
   const [error, setError] = useState('')
+  const userId = 'X2GE989qgBdlp2ESSrXWi3Cn4Au1'
 
-  const convertHexToDate = (timestamp: number) => {
-    const date = new Date(timestamp * 1000) // Multiply by 1000 to convert to milliseconds
-    return date.toLocaleDateString() // Use toLocaleDateString() to display only the date
+  const convertHexToDate = (timestamp) => {
+    const date = new Date(timestamp * 1000)
+    return date.toLocaleDateString()
   }
 
   const fetchData = async () => {
     try {
-      const userId = 'X2GE989qgBdlp2ESSrXWi3Cn4Au1' // Replace with the actual user ID
-      const response = await axios.get('http://127.0.0.1:8080/finance', {
-        headers: {
-          userId: userId,
-        },
-      })
-      if (response.data) {
-        setData(response.data)
+      const [investmentResponse, settingsResponse] = await Promise.all([
+        axios.get('http://127.0.0.1:8080/finance', { headers: { userId } }),
+        axios.get('http://127.0.0.1:8080/settings', { headers: { userId } }),
+      ])
+
+      if (investmentResponse.data && settingsResponse.data) {
+        const { strategy, strategyAmount } = settingsResponse.data.finance
+        setStrategy(strategy)
+        setStrategyAmount(strategyAmount)
+
+        const transformedFinanceData = investmentResponse.data.map((item) => {
+          let investedAmount = 0
+
+          if (strategy === 'Round') {
+            const roundedAmount = Math.ceil(item.amount / strategyAmount) * strategyAmount
+            investedAmount = roundedAmount - item.amount
+          } else if (strategy === 'Plus') {
+            investedAmount = 1
+          } else if (strategy === 'Percent') {
+            investedAmount = Number((item.amount * (strategyAmount / 100)).toFixed(2))
+          }
+
+          return {
+            ...item,
+            investedAmount: Number(investedAmount.toFixed(2)),
+          }
+        })
+
+        setData(transformedFinanceData)
       } else {
         setError('Response data is missing')
       }
@@ -73,10 +95,10 @@ const FinanceTable = () => {
   useEffect(() => {
     fetchData()
 
-    const interval = setInterval(fetchData, 5000) // Fetch data every 5 seconds
+    const interval = setInterval(fetchData, 5000)
 
     return () => {
-      clearInterval(interval) // Clean up the interval when the component unmounts
+      clearInterval(interval)
     }
   }, [])
 
@@ -90,6 +112,7 @@ const FinanceTable = () => {
             <thead>
               <tr>
                 <TableHeader>Amount</TableHeader>
+                <TableHeader>Invested Amount</TableHeader>
                 <TableHeader>Description</TableHeader>
                 <TableHeader>Investment Time</TableHeader>
               </tr>
@@ -98,6 +121,7 @@ const FinanceTable = () => {
               {data.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell>{item.amount}</TableCell>
+                  <TableCell>{item.investedAmount}</TableCell>
                   <TableCell>{item.description}</TableCell>
                   <TableCell>{convertHexToDate(item.spendingTime)}</TableCell>
                 </TableRow>
