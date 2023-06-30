@@ -139,7 +139,7 @@ const FinanceAnalytics = () => {
                 backgroundGradientTo: COLORS.WHITE,
                 backgroundGradientFromOpacity: 0,
                 backgroundGradientToOpacity: 0,
-                barPercentage: 0.8,
+                barPercentage: 0.6,
                 decimalPlaces: 0,
                 color: () => COLORS.DARK_GREY,
                 strokeWidth: 2,
@@ -167,7 +167,7 @@ const FinanceAnalytics = () => {
                 legendFontSize: 15,
               }))}
               width={windowWidth - SPACING * 6}
-              height={220}
+              height={190}
               chartConfig={{
                 backgroundColor: '#1cc910',
                 backgroundGradientFrom: '#eff3ff',
