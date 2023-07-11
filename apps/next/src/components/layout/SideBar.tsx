@@ -67,7 +67,7 @@ const MenuItem = ({ link, children, onPress }: MenuItemProps) => (
 type RouteType = { link: string; text: string }
 const routes: RouteType[] = [
   { link: '/', text: 'Home' },
-  { link: '/settings', text: 'Settings' },
+  // { link: '/settings', text: 'Settings' },
   { link: '/meditation', text: 'Meditation' },
   { link: '/finance', text: 'Finance' },
 ]
