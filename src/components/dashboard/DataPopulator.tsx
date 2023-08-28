@@ -4,9 +4,17 @@ import Button from '../ui/Button';
 import { api } from '../../../api/requests';
 import React from 'react';
 import {SettingsCreateSettingsRequest, SettingsNotificationType} from "../../../api/openapi";
+import {useFinance} from "../../provider/FinanceContentProvider";
+import {useLevels} from "../../provider/LevelProvider";
+import {useMeditate} from "../../provider/MeditationContentProvider";
+import {useAuthentication} from "../../provider/AuthenticationProvider";
 
 const DataPopulator = () => {
   const { user } = useUser();
+  const {getSpendings} = useFinance();
+  const {getLevels} = useLevels();
+  const {getMeditations} = useMeditate();
+  const {getUser} = useAuthentication();
 
   const settingsData: SettingsCreateSettingsRequest = useMemo(() => ({
     elevator: {
@@ -18,7 +26,7 @@ const DataPopulator = () => {
     enabledPlugins: ["finance", "meditation", "elevator"],
     finance: {
       amountNotifications: 0,
-      investmentGoal: 45,
+      investmentGoal: 600,
       investmentTimeGoal: 10,
       notifications: true,
       periodNotifications: "Day" as SettingsNotificationType,
@@ -27,7 +35,7 @@ const DataPopulator = () => {
     },
     meditation: {
       amountNotifications: 0,
-      meditationTimeGoal: 2000,
+      meditationTimeGoal: 170000,
       notifications: true,
       periodNotifications: "Day" as SettingsNotificationType,
     },
@@ -328,7 +336,16 @@ const DataPopulator = () => {
   }, [user?.id, financeDataArray]);
 
   const handlePopulateData = async () => {
-    await Promise.all([populateSettings(), populateMeditation(), populateFinance()]);
+    //await Promise.all([populateSettings(), populateMeditation(), populateFinance()]);
+    await Promise.all([populateSettings()]);
+    await Promise.all([populateMeditation()]);
+    await Promise.all([populateFinance()]);
+    await Promise.all([getSpendings()]);
+    await Promise.all([getMeditations()]);
+    await Promise.all([getUser()]);
+    await Promise.all([getLevels()]);
+
+    //await Promise.all([getSpendings(), getMeditations(), getUser(), getLevels()])
     alert('Data has been populated!');
   };
 
