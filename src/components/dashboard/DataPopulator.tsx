@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useUser } from '../../hooks/useUser';
 import Button from '../ui/Button';
 import { api } from '../../../api/requests';
@@ -8,14 +8,14 @@ import {SettingsCreateSettingsRequest, SettingsNotificationType} from "../../../
 const DataPopulator = () => {
   const { user } = useUser();
 
-  const settingsData: SettingsCreateSettingsRequest = {
+  const settingsData: SettingsCreateSettingsRequest = useMemo(() => ({
     elevator: {
       amountNotifications: 0,
       goal: 10,
       notifications: true,
       periodNotifications: "Day" as SettingsNotificationType,
     },
-    enabledPlugins: ["finance", "meditation"],
+    enabledPlugins: ["finance", "meditation", "elevator"],
     finance: {
       amountNotifications: 0,
       investmentGoal: 45,
@@ -31,9 +31,9 @@ const DataPopulator = () => {
       notifications: true,
       periodNotifications: "Day" as SettingsNotificationType,
     },
-  };
+  }), []);
 
-  const meditationDataArray = [
+  const meditationDataArray = useMemo(() => [
     { endTime: 1672445500, meditationTime: 1395 },
     { endTime: 1672618430, meditationTime: 1338 },
     { endTime: 1672704670, meditationTime: 1496 },
@@ -88,9 +88,9 @@ const DataPopulator = () => {
     { endTime: 1690416883, meditationTime: 1412 },
     { endTime: 1690503052, meditationTime: 1633 },
     { endTime: 1690762430, meditationTime: 1505 }
-  ];
+  ], []);
 
-  const financeDataArray = [
+  const financeDataArray = useMemo(() => [
     {
       amount: 218,
       description: 'Electronics',
@@ -289,16 +289,21 @@ const DataPopulator = () => {
       saving: 8,
       spendingTime: 1690502400
     }
-  ];
+  ], []);
 
   const populateSettings = useCallback(async () => {
     if (!user?.id) return;
     try {
+      // First, delete the existing settings
+      await api.settingsApi.settingsDelete(user.id);
+
+      // Then, create new settings
       await api.settingsApi.settingsPost(user.id, settingsData);
     } catch (e) {
       console.log(e);
     }
   }, [user?.id, settingsData]);
+
 
   const populateMeditation = useCallback(async () => {
     if (!user?.id) return;
