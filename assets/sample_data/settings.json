@@ -1,0 +1,26 @@
+{
+  "elevator": {
+    "amountNotifications": 0,
+    "goal": 0,
+    "notifications": true,
+    "periodNotifications": "Day"
+  },
+  "enabledPlugins": [
+    "finance"
+  ],
+  "finance": {
+    "amountNotifications": 0,
+    "investmentGoal": 0,
+    "investmentTimeGoal": 0,
+    "notifications": true,
+    "periodNotifications": "Day",
+    "strategy": "Round",
+    "strategyAmount": 0
+  },
+  "meditation": {
+    "amountNotifications": 0,
+    "meditationTimeGoal": 0,
+    "notifications": true,
+    "periodNotifications": "Day"
+  }
+}

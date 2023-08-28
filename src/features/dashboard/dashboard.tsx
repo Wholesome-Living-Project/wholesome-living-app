@@ -12,6 +12,7 @@ import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useLevels } from '../../provider/LevelProvider'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS } from '../../theme/theme'
+import DataPopulator from "../../components/dashboard/DataPopulator";
 
 export function DashboardScreen() {
   const { windowHeight } = useWindowDimensions()
@@ -43,6 +44,7 @@ export function DashboardScreen() {
         <Discover />
         <Spacer x={3} />
         <AcademyBanner />
+        <DataPopulator/>
         <Spacer x={22} />
       </ScrollView>
     </View>
