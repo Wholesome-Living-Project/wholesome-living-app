@@ -298,7 +298,7 @@ const DataPopulator = () => {
     } catch (e) {
       console.log(e);
     }
-  }, [user?.id]);
+  }, [user?.id, settingsData]);
 
   const populateMeditation = useCallback(async () => {
     if (!user?.id) return;
@@ -309,7 +309,7 @@ const DataPopulator = () => {
     } catch (e) {
       console.log(e);
     }
-  }, [user?.id]);
+  }, [user?.id, meditationDataArray]);
 
   const populateFinance = useCallback(async () => {
     if (!user?.id) return;
@@ -320,7 +320,7 @@ const DataPopulator = () => {
     } catch (e) {
       console.log(e);
     }
-  }, [user?.id]);
+  }, [user?.id, financeDataArray]);
 
   const handlePopulateData = async () => {
     await Promise.all([populateSettings(), populateMeditation(), populateFinance()]);
