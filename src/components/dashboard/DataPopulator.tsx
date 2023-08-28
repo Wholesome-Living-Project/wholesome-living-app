@@ -1,18 +1,15 @@
-import { useCallback } from 'react'
+import React, { useCallback } from 'react'
+import { api } from '../../../api/requests'
 import { useUser } from '../../hooks/useUser'
 import Button from '../ui/Button'
-import { api } from "../../../api/requests";
-import React from 'react';
 
 const DataPopulator = () => {
+  const { user } = useUser()
 
-  const { user } = useUser();
-
-  const fetchPayload = async (filename: string) => {
+  const fetchPayload = useCallback(async (filename: string) => {
     const response = await fetch(`/sample_data/${filename}.json`)
-    const data = await response.json()
-    return data
-  }
+    return await response.json()
+  }, [])
 
   const populateSettings = useCallback(async () => {
     if (!user?.id) return
@@ -23,7 +20,7 @@ const DataPopulator = () => {
     } catch (e) {
       console.log(e)
     }
-  }, [user?.id])
+  }, [fetchPayload, user?.id])
 
   const populateMeditation = useCallback(async () => {
     if (!user?.id) return
@@ -34,7 +31,7 @@ const DataPopulator = () => {
     } catch (e) {
       console.log(e)
     }
-  }, [user?.id])
+  }, [fetchPayload, user?.id])
 
   const populateFinance = useCallback(async () => {
     if (!user?.id) return
@@ -45,19 +42,19 @@ const DataPopulator = () => {
     } catch (e) {
       console.log(e)
     }
-  }, [user?.id])
+  }, [fetchPayload, user?.id])
 
   const handlePopulateData = async () => {
-    await Promise.all([
-      populateSettings(),
-      populateMeditation(),
-      populateFinance(),
-    ])
-    console.log("Pressed")
+    await Promise.all([populateSettings(), populateMeditation(), populateFinance()])
+    console.log('Pressed')
     alert('Data has been populated!')
   }
 
-  return <Button small buttonType={'black'} onPress={handlePopulateData}>Populate Data</Button>
+  return (
+    <Button small buttonType={'black'} onPress={handlePopulateData}>
+      Populate Data
+    </Button>
+  )
 }
 
 export default DataPopulator
