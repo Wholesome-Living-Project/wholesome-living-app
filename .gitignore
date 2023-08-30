@@ -84,3 +84,5 @@ dist/
 .turbo
 build/**
 .env
+eas.json
+eas.json
