@@ -17,6 +17,9 @@ export default {
       buildNumber: '1.0.1',
       icon: './icon.png',
     },
+    android: {
+      package: 'com.wholesomeliving.app',
+    },
     extra: {
       FIREBASE_API_KEY: process.env['FIREBASE_API_KEY'],
       FIREBASE_AUTH_DOMAIN: process.env['FIREBASE_AUTH_DOMAIN'],
