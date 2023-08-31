@@ -13,11 +13,12 @@ import { useUser } from '../hooks/useUser'
 import { useOnboarding } from './OnboardingProvider'
 
 type FinanceContentType = {
-  saveSpending: (spending: FinanceCreateSpendingRequest) => void
-  getSpendings: () => void
+  saveSpending: (spending: FinanceCreateSpendingRequest) => Promise<void>
+  getSpendings: () => Promise<void>
   spendings: FinanceGetInvestmentResponse[]
   aggregatedSpendings: number
   aggregateSavings: number
+  resetFinanceData: () => void
 }
 
 const FinanceContext = createContext<FinanceContentType>({} as FinanceContentType)
@@ -43,6 +44,10 @@ const useProvideFinance = (): FinanceContentType => {
     },
     [roundUpNumber, selectedStrategy]
   )
+
+  const resetFinanceData = useCallback(async () => {
+    setSpendings([])
+  }, [])
 
   const saveSpending = useCallback(
     async (spending: FinanceCreateSpendingRequest) => {
@@ -94,7 +99,14 @@ const useProvideFinance = (): FinanceContentType => {
     getSpendings()
   }, [getSpendings])
 
-  return { saveSpending, getSpendings, spendings, aggregateSavings, aggregatedSpendings }
+  return {
+    saveSpending,
+    getSpendings,
+    spendings,
+    aggregateSavings,
+    aggregatedSpendings,
+    resetFinanceData,
+  }
 }
 
 export const FinanceProvider = ({ children }: PropsWithChildren) => {

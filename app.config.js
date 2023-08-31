@@ -4,17 +4,17 @@ export default {
   expo: {
     name: 'Wholesome Living',
     slug: 'wholesome-living',
-    version: '1.0.1',
+    version: '1.0.2',
     scheme: 'wholesome-living',
     platforms: ['ios', 'android'],
     orientation: 'portrait',
     splash: {
-      image: './assets/images/splash.png',
+      image: './assets/images/auto-splash.png',
     },
     icon: './icon.png',
     ios: {
       bundleIdentifier: 'com.wholesome-living',
-      buildNumber: '1.0.1',
+      buildNumber: '1.0.2',
       icon: './icon.png',
     },
     android: {

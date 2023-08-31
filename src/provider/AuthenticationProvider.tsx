@@ -1,16 +1,23 @@
-import React, { createContext, PropsWithChildren, useCallback, useContext, useState } from 'react'
+import React, {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { UserUpdateUserRequest, UserUserDB } from '../../api/openapi'
 import { api } from '../../api/requests'
 import { signIn, signOut, signUp } from '../auth/auth'
 import { useAuth } from '../hooks/useAuth'
-import { useEffectOnce } from '../hooks/useEffectOnce'
 
 export type UserType = { firebaseUID: string } & UserUserDB
 type AuthenticationType = {
   user: UserType | null
   loading: boolean
-  getUser: () => void
+  getUser: () => Promise<UserType | undefined>
   patchUser: (request: UserUpdateUserRequest) => Promise<UserType | undefined>
   signOutUser: () => void
   signInWithEmailAndPassword: ({
@@ -111,6 +118,9 @@ const useProvideAuth = (): AuthenticationType => {
             dateOfBirth,
             id: creds.data.user.uid,
           })
+          if (creds.data?.user.uid) {
+            await AsyncStorage.setItem('userData', creds.data.user.uid)
+          }
         } else if (creds.message === 'Firebase: Error (auth/email-already-in-use).') {
           console.log('email already in use.')
           const existing = await signIn(email, password)
@@ -124,6 +134,8 @@ const useProvideAuth = (): AuthenticationType => {
               dateOfBirth,
               id: existing.user.uid,
             })
+
+            await AsyncStorage.setItem('userData', existing?.user.uid)
           }
         }
       } catch (e) {
@@ -139,40 +151,45 @@ const useProvideAuth = (): AuthenticationType => {
     try {
       await signOut()
       setUser(null)
+      await AsyncStorage.removeItem('userData')
     } catch (e) {
       /* do nothing as user is probably not logged in */
     } finally {
       setUser(null)
+      await AsyncStorage.removeItem('userData')
     }
   }, [])
 
   const signInWithEmailAndPassword = useCallback(
     async ({ email, password }: { email: string; password: string }) => {
       const fbUser = await signIn(email, password)
+      if (fbUser?.user.uid) await AsyncStorage.setItem('userData', fbUser?.user.uid)
+
       return getUser(fbUser?.user.uid)
     },
     [getUser]
   )
 
   const getInitialUser = useCallback(async () => {
+    const id = await AsyncStorage.getItem('userData')
     // if user has not been initialized yet (via firebase) we do not create it on app start
-    if (!currentFirebaseUser?.uid) return
+    if (!id) return
 
     try {
       setLoading(true)
-      await getUser(currentFirebaseUser?.uid)
+      await getUser(id)
     } catch (e) {
       console.log(e)
     } finally {
       setLoading(false)
     }
-  }, [currentFirebaseUser?.uid, getUser])
+  }, [getUser])
 
   const deleteAccount = useCallback(async () => {
     try {
       await api.userApi.usersPut({
-        firstName: 'anonymous',
-        email: 'anonymous',
+        firstName: `anonymous`,
+        email: `anonymous@${user?.id}.com`,
         lastName: 'anonymous',
         dateOfBirth: '2000-01-01',
       })
@@ -180,11 +197,11 @@ const useProvideAuth = (): AuthenticationType => {
     } catch (e) {
       console.log(e)
     }
-  }, [signOutUser])
+  }, [signOutUser, user?.id])
 
-  useEffectOnce(() => {
+  useEffect(() => {
     getInitialUser()
-  })
+  }, [getInitialUser])
 
   return {
     user,

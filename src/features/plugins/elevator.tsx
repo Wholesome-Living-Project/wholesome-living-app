@@ -33,9 +33,9 @@ const Elevator = () => {
   } = useElevator()
   const { windowWidth } = useWindowDimensions()
 
-  const addSessions = useCallback(() => {
-    saveElevatorSession({ stairs: false, amountStairs: 0, heightGain: 30 })
-    getElevatorSessions()
+  const addSessions = useCallback(async () => {
+    await saveElevatorSession({ stairs: true, amountStairs: 5, heightGain: 40 })
+    await getElevatorSessions()
   }, [getElevatorSessions, saveElevatorSession])
 
   useEffect(() => {
@@ -153,6 +153,7 @@ const Elevator = () => {
                 backgroundColor="transparent"
               />
             </ChartContainer>
+            <Spacer x={8} />
           </>
         )}
       </Container>

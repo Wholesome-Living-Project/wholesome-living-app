@@ -2,12 +2,13 @@ import BottomSheet from 'axelra-react-native-bottom-sheet'
 import React, { useCallback } from 'react'
 import { Keyboard, Platform } from 'react-native'
 import styled from 'styled-components'
+import useDataResetter from '../../hooks/useDataResetter'
 import { useModal } from '../../hooks/useModal'
 import { useAuthentication } from '../../provider/AuthenticationProvider'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS, SPACING } from '../../theme/theme'
 import { Body, Heading4 } from '../../theme/typography'
-import { deleteAccountModalRef, levelExplanationModalRef } from '../refs/modal-refs'
+import { deleteAccountModalRef } from '../refs/modal-refs'
 import { BottomSheetViewFlex } from '../ui/BottomSheetViewFlex'
 import Button from '../ui/Button'
 import { Flex } from '../ui/Flex'
@@ -22,6 +23,7 @@ const DeleteAccountModal = () => {
   const modalProps = useModal({ snapPoints: [`50%`] })
   const { setClosedLevelExplanation } = useOnboarding()
   const { deleteAccount } = useAuthentication()
+  const { resetAppData } = useDataResetter()
 
   const onModalClose = useCallback(() => {
     setClosedLevelExplanation(true)
@@ -29,6 +31,12 @@ const DeleteAccountModal = () => {
       Keyboard.dismiss()
     }
   }, [setClosedLevelExplanation])
+
+  const deleteUserAccount = useCallback(async () => {
+    await deleteAccount()
+    resetAppData()
+    deleteAccountModalRef.current?.close()
+  }, [deleteAccount, resetAppData])
 
   return (
     <BottomSheet
@@ -45,15 +53,12 @@ const DeleteAccountModal = () => {
             I hereby confirm that I want to delete my account and all the data connected with it.
           </Body>
           <Spacer x={4} />
-          <Button small buttonType={'black'} buttonColor={COLORS.RED} onPress={deleteAccount}>
+          <Button small buttonType={'black'} buttonColor={COLORS.RED} onPress={deleteUserAccount}>
             Delete Account
           </Button>
           <Spacer x={2} />
 
-          <Button
-            small
-            buttonType={'black'}
-            onPress={() => levelExplanationModalRef.current?.close()}>
+          <Button small buttonType={'black'} onPress={() => deleteAccountModalRef.current?.close()}>
             Cancel
           </Button>
         </Container>

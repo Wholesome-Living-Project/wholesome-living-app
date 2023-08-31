@@ -13,13 +13,14 @@ import { api } from '../../api/requests'
 import { useUser } from '../hooks/useUser'
 
 type ElevatorContentType = {
-  saveElevatorSession: (elevatorSession: ElevatorCreateElevatorRequest) => void
-  getElevatorSessions: () => void
+  saveElevatorSession: (elevatorSession: ElevatorCreateElevatorRequest) => Promise<void>
+  getElevatorSessions: () => Promise<void>
   elevatorSessions: ElevatorElevatorDB[]
   dailyStairs: { [key: string]: number }
   totalStairs: number
   totalElevation: number
   walkedElevation: number
+  resetElevatorData: () => void
 }
 
 const ElevatorContext = createContext<ElevatorContentType>({} as ElevatorContentType)
@@ -68,6 +69,10 @@ const useProvideElevator = (): ElevatorContentType => {
       console.log(e)
     }
   }, [user?.id])
+
+  const resetElevatorData = useCallback(async () => {
+    setElevatorSessions([])
+  }, [])
 
   useEffect(() => {
     getElevatorSessions()
@@ -127,6 +132,7 @@ const useProvideElevator = (): ElevatorContentType => {
     totalStairs,
     totalElevation,
     walkedElevation,
+    resetElevatorData,
   }
 }
 

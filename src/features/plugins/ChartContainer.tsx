@@ -9,7 +9,7 @@ import { Caption, Heading6, Light } from '../../theme/typography'
 const Container = styled(Flex)`
   border-radius: ${INNER_BORDER_RADIUS}px;
   border: 1px solid ${COLORS.GREY};
-  padding: ${SPACING * 2}px;
+  padding: ${SPACING * 1.2}px;
 `
 
 const ChartIconBorder = styled(Flex)`
@@ -18,11 +18,6 @@ const ChartIconBorder = styled(Flex)`
   width: 40px;
   background: ${alpha(0.1, COLORS.DARK_GREY)};
   padding: ${SPACING / 2}px;
-`
-
-const ChartHeader = styled(Flex)`
-  border-bottom-width: 1px;
-  border-bottom-color: ${COLORS.GREY};
 `
 
 type Props = {

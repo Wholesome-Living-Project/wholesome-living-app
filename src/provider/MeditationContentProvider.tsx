@@ -16,8 +16,9 @@ type MeditationContentType = {
   timerDifference: number
   setTimerDifference: (st: number) => void
   saveMeditation: (meditationTime: number) => void
-  getMeditations: () => void
+  getMeditations: () => Promise<void>
   meditations: MeditationMeditationDB[]
+  resetMeditationData: () => void
 }
 
 const MeditateContext = createContext<MeditationContentType>({} as MeditationContentType)
@@ -49,6 +50,10 @@ const useProvideMeditate = (): MeditationContentType => {
     [user?.id]
   )
 
+  const resetMeditationData = useCallback(async () => {
+    setMeditations([])
+  }, [])
+
   const getMeditations = useCallback(async () => {
     if (!user?.id) return
     try {
@@ -63,7 +68,14 @@ const useProvideMeditate = (): MeditationContentType => {
     getMeditations()
   }, [getMeditations])
 
-  return { timerDifference, setTimerDifference, saveMeditation, getMeditations, meditations }
+  return {
+    timerDifference,
+    setTimerDifference,
+    saveMeditation,
+    getMeditations,
+    meditations,
+    resetMeditationData,
+  }
 }
 
 export const MeditationProvider = ({ children }: PropsWithChildren) => {
