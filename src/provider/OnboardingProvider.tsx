@@ -42,7 +42,7 @@ type OnboardingType = {
   setElevatorSettings: () => void
   setFinanceSettings: () => void
   setMeditationSettings: () => void
-  setUserPlugins: () => void
+  setUserPlugins: () => Promise<void>
   savingGoal: string
   setSavingGoal: (st: string) => void
   notificationPeriod: SettingsNotificationType

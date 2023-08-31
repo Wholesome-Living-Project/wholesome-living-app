@@ -16,7 +16,7 @@ import DataPopulator from "../../components/dashboard/DataPopulator";
 
 export function DashboardScreen() {
   const { windowHeight } = useWindowDimensions()
-  const { experienceMap, levelMap } = useLevels()
+  const { experienceMap, levelMap, getLevels } = useLevels()
   const { closedLevelExplanation } = useOnboarding()
 
   useEffect(() => {
@@ -24,6 +24,10 @@ export function DashboardScreen() {
       setTimeout(() => levelExplanationModalRef.current?.expand(), 1000)
     }
   }, [closedLevelExplanation, experienceMap, levelMap])
+
+  useEffect(() => {
+    getLevels()
+  }, [getLevels])
 
   return (
     <View>

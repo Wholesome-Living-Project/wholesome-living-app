@@ -52,7 +52,7 @@ const LevelModal = () => {
             )}
           </Flex>
           <Tree
-            height={350}
+            height={290}
             level={
               currentlyInspectedPlugin && levelMap?.[currentlyInspectedPlugin]
                 ? levelMap?.[currentlyInspectedPlugin]
@@ -63,7 +63,7 @@ const LevelModal = () => {
           />
           <Spacer x={4} />
           <Button small buttonType={'black'} onPress={() => levelModalRef.current?.close()}>
-            close
+            Minimize
           </Button>
         </Container>
       </BottomSheetViewFlex>

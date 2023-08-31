@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react'
 
-import { MeditationGetMeditationResponse } from '../../api/openapi'
+import { MeditationMeditationDB } from '../../api/openapi'
 import { api } from '../../api/requests'
 import { getUnixTime } from '../helpers/getUnixTime'
 import { useUser } from '../hooks/useUser'
@@ -17,7 +17,7 @@ type MeditationContentType = {
   setTimerDifference: (st: number) => void
   saveMeditation: (meditationTime: number) => void
   getMeditations: () => void
-  meditations: MeditationGetMeditationResponse
+  meditations: MeditationMeditationDB[]
 }
 
 const MeditateContext = createContext<MeditationContentType>({} as MeditationContentType)
@@ -26,9 +26,11 @@ export const useMeditate = () => useContext(MeditateContext)
 
 const useProvideMeditate = (): MeditationContentType => {
   const [timerDifference, setTimerDifference] = useState(60)
-  const [meditations, setMeditations] = useState<MeditationGetMeditationResponse>({
-    meditations: [],
-  })
+
+  const [meditations, setMeditations] = useState<MeditationMeditationDB[]>(
+    //@ts-ignore
+    []
+  )
   const { user } = useUser()
 
   const saveMeditation = useCallback(

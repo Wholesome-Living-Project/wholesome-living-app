@@ -1,11 +1,12 @@
 import { alpha } from 'axelra-react-native-utilities'
 import { useSegments } from 'expo-router'
-import React, { PropsWithChildren, useMemo } from 'react'
-import { Button as NativeButton, StatusBar, Platform, ScrollView } from 'react-native'
+import React, { PropsWithChildren, useEffect, useMemo, useRef } from 'react'
+import { Button as NativeButton, Platform, ScrollView, StatusBar } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
 import { SettingsPluginName } from '../../../api/openapi'
 import { PLUGINS } from '../../helpers/pluginList'
+import useKeyboard from '../../hooks/useKeyboard'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS, SPACING } from '../../theme/theme'
@@ -73,11 +74,21 @@ const OnboardingStep = ({
     if (ind < chosenPluginSteps.length) return chosenPluginSteps[ind]
   }, [chosenPluginSteps, currentRoute])
 
+  const { keyboardOpen } = useKeyboard()
+  const scrollRef = useRef<ScrollView>(null)
+
+  useEffect(() => {
+    keyboardOpen && setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 100)
+  }, [keyboardOpen])
+
   return (
-    <Flex style={{ height: windowHeight + (StatusBar.currentHeight || 0) }} column justify={'space-between'}>
+    <Flex
+      style={{ height: windowHeight + (StatusBar.currentHeight || 0) }}
+      column
+      justify={'space-between'}>
       <Flex>
         <OnboardingStepHeader plugin={plugin} />
-        <StyledScrollView>
+        <StyledScrollView ref={scrollRef}>
           <Wrapper column>{children}</Wrapper>
         </StyledScrollView>
       </Flex>
@@ -89,8 +100,8 @@ const OnboardingStep = ({
             nextStep
               ? navigation?.navigate(nextStep)
               : foundNextStep
-                ? navigation?.navigate(foundNextStep)
-                : navigation?.navigate('root')
+              ? navigation?.navigate(foundNextStep)
+              : navigation?.navigate('root')
           }}
           disabled={primaryDisabled}>
           {primaryText}
@@ -107,7 +118,7 @@ const OnboardingStep = ({
                 : navigation?.navigate('root')
             }}
             buttonType={'secondary'}
-            disabled={primaryDisabled}>
+            disabled={secondaryDisabled}>
             {secondaryText}
           </Button>
         )}
@@ -119,10 +130,10 @@ const OnboardingStep = ({
               nextStep
                 ? navigation?.navigate(nextStep)
                 : foundNextStep
-                  ? navigation?.navigate(foundNextStep)
-                  : navigation?.navigate('root')
+                ? navigation?.navigate(foundNextStep)
+                : navigation?.navigate('root')
             }}
-            color={Platform.OS === "ios" ? alpha(0.2, COLORS.BLACK) : "grey"}
+            color={Platform.OS === 'ios' ? alpha(0.2, COLORS.BLACK) : 'grey'}
           />
         )}
       </Footer>

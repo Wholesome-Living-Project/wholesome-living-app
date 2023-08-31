@@ -1,22 +1,16 @@
-import { Ionicons } from '@expo/vector-icons'
-import { alpha } from 'axelra-react-native-utilities'
-import React, { useRef, useState } from 'react'
+import { FontAwesome5, Ionicons } from '@expo/vector-icons'
+import React, { useEffect, useRef, useState } from 'react'
 import { FlatList, Image, ImageSourcePropType, TouchableOpacity } from 'react-native'
 import { useNavigation } from 'solito/build/router/use-navigation'
 import styled from 'styled-components'
+import { coachExplanationModalRef } from '../../components/refs/modal-refs'
 import Button from '../../components/ui/Button'
 import { Flex } from '../../components/ui/Flex'
 import Spacer from '../../components/ui/Spacer'
+import useHaptics from '../../hooks/useHaptics'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { coachImages, useOnboarding } from '../../provider/OnboardingProvider'
-import { COLORS, OUTER_BORDER_RADIUS, SPACING } from '../../theme/theme'
-
-const WelcomeContainer = styled(Flex)`
-  margin: ${SPACING * 8}px 0 ${SPACING * 2}px;
-  padding: ${SPACING * 2}px;
-  background: ${alpha(0.7, COLORS.WHITE)};
-  border-radius: ${OUTER_BORDER_RADIUS}px;
-`
+import { COLORS, SPACING } from '../../theme/theme'
 
 const StyledImage = styled(Image)<{ width?: number; height?: number }>`
   padding: ${SPACING * 2}px;
@@ -43,16 +37,28 @@ const ButtonContainer = styled(Flex)`
 const Arrow = styled(Ionicons)<{ right?: boolean }>`
   position: absolute;
   top: 400px;
-  left: ${({ right }) => (right ? 'auto' : `${SPACING}px`)};
-  right: ${({ right }) => (right ? `${SPACING}px` : `auto`)};
+  left: ${({ right }) => (right ? 'auto' : `${SPACING * 1.5}px`)};
+  right: ${({ right }) => (right ? `${SPACING * 1.5}px` : `auto`)};
 `
 
-const OnboardingStart = () => {
+const InfoButton = styled(TouchableOpacity)`
+  position: absolute;
+  top: 50px;
+  right: 0;
+  padding: ${SPACING * 2}px ${SPACING * 2.7}px;
+`
+
+const ChooseCoach = () => {
   const { windowWidth, windowHeight } = useWindowDimensions()
   const navigation = useNavigation()
   const [currentSlide, setCurrentSlide] = useState<number>(0)
   const listRef = useRef<FlatList>(null)
   const { setCoach } = useOnboarding()
+  const { doMediumFeedback } = useHaptics()
+
+  useEffect(() => {
+    coachExplanationModalRef.current?.expand()
+  }, [])
 
   return (
     <>
@@ -90,7 +96,13 @@ const OnboardingStart = () => {
           <Arrow name={'chevron-forward-circle'} right color={COLORS.WHITE} size={50} />
         </TouchableOpacity>
       )}
-
+      <InfoButton
+        onPress={async () => {
+          await doMediumFeedback()
+          coachExplanationModalRef.current?.expand()
+        }}>
+        <FontAwesome5 name="question-circle" size={25} color={COLORS.WHITE} />
+      </InfoButton>
       <ButtonContainer>
         <Button
           buttonType={'black'}
@@ -98,11 +110,9 @@ const OnboardingStart = () => {
             navigation?.navigate('chat')
             setCoach(currentSlide)
           }}>
-          Choose Coach
+          Choose {currentSlide === 0 ? 'Gabriel' : 'Aurora'}
         </Button>
-
         <Spacer x={2} />
-
         <Button
           small
           color={COLORS.WHITE}
@@ -115,4 +125,4 @@ const OnboardingStart = () => {
   )
 }
 
-export default OnboardingStart
+export default ChooseCoach

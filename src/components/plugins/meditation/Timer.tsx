@@ -40,13 +40,9 @@ const IconPad = styled(TouchableOpacity)`
 type Props = {
   onTimerEnded: (time: number) => void
 }
-const minsToSecs = (mins: number) => (
-  mins * 60
-)
+const minsToSecs = (mins: number) => mins * 60
 
-const secsToMins = (mins: number) => (
-  Math.trunc(mins / 60)
-)
+const secsToMins = (mins: number) => Math.trunc(mins / 60)
 
 const Timer = ({ onTimerEnded }: Props) => {
   const [isTimerStart, setIsTimerStart] = useState(false)
@@ -75,9 +71,10 @@ const Timer = ({ onTimerEnded }: Props) => {
   }, [])
 
   useEffect(() => {
-    return sound ? () => {
-      sound.unloadAsync()
-    }
+    return sound
+      ? () => {
+          sound.unloadAsync()
+        }
       : undefined
   }, [sound])
 
@@ -85,7 +82,7 @@ const Timer = ({ onTimerEnded }: Props) => {
     setIsTimerStart(true)
     const interval = setInterval(() => setTimerDuration((st) => st - 1), 1000)
     setCountDownInterval(interval)
-  }, [setCountDownInterval, setIsTimerStart, setTimerDuration])
+  }, [])
 
   const pauseTimer = useCallback(() => {
     clearInterval(countDownInterval)
@@ -109,9 +106,9 @@ const Timer = ({ onTimerEnded }: Props) => {
     if (timerIsZero) {
       pauseTimer()
       handleTimerAtZero()
-      onTimerEnded(timerDuration)
+      onTimerEnded(timerDifference)
     }
-  }, [pauseTimer, handleTimerAtZero, timerDuration, onTimerEnded, timerIsZero])
+  }, [pauseTimer, handleTimerAtZero, timerDuration, onTimerEnded, timerIsZero, timerDifference])
 
   const openTimePicker = useCallback(() => {
     meditateTimePickerModalRef.current?.expand()
@@ -124,29 +121,31 @@ const Timer = ({ onTimerEnded }: Props) => {
   return (
     <>
       <TimerContainer>
-        {!showSlider ?
+        {!showSlider ? (
           <Flex row justify="center" align="center">
-            <TimerBackground onPress={() => {
-              setTimerHistory(timerDuration)
-              setTempTimer(timerDuration)
-              setShowSlider(true)
-            }}>
+            <TimerBackground
+              onPress={() => {
+                setTimerHistory(timerDuration)
+                setTempTimer(timerDuration)
+                setShowSlider(true)
+              }}>
               <Heading1>{displayTime(timerDuration)}</Heading1>
             </TimerBackground>
-            <IconPad onPress={() => {
-              setTimerHistory(timerDuration)
-              setTempTimer(timerDuration)
-              setShowSlider(true)
-            }}>
+            <IconPad
+              onPress={() => {
+                setTimerHistory(timerDuration)
+                setTempTimer(timerDuration)
+                setShowSlider(true)
+              }}>
               <Feather name="settings" size={24} color="black" />
             </IconPad>
           </Flex>
-          :
+        ) : (
           <>
             <Heading3>{formatTimeMeditation(secsToMins(timerTemp))}</Heading3>
             <Flex row>
               <Slider
-                style={{ width: "100%", height: 50 }}
+                style={{ width: '100%', height: 50 }}
                 minimumValue={minsToSecs(1)}
                 maximumValue={minsToSecs(70)}
                 value={timerTemp}
@@ -158,9 +157,9 @@ const Timer = ({ onTimerEnded }: Props) => {
               />
             </Flex>
           </>
-        }
+        )}
         <Spacer x={4} />
-        {!showSlider ?
+        {!showSlider ? (
           <>
             <Button
               buttonType={isTimerStart ? 'cta' : 'black'}
@@ -184,14 +183,14 @@ const Timer = ({ onTimerEnded }: Props) => {
             <NativeButton
               title={"I'm finished"}
               color={COLORS.PRIMARY}
-              disabled={!isTimerStart && timerDuration === timerDifference}
+              disabled={(!isTimerStart && timerDuration === timerDifference) || timerIsZero}
               onPress={() => {
                 onTimerEnded(timerDifference - timerDuration)
                 resetTimer()
               }}
             />
           </>
-          :
+        ) : (
           <>
             <Button
               buttonType={'black'}
@@ -216,7 +215,7 @@ const Timer = ({ onTimerEnded }: Props) => {
             </Button>
             <Spacer x={2} />
           </>
-        }
+        )}
       </TimerContainer>
     </>
   )

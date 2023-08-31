@@ -9,5 +9,6 @@ export const signUpModalRef = createRef<BottomSheet>()
 export const meditateTimePickerModalRef = createRef<BottomSheet>()
 export const levelModalRef = createRef<BottomSheet>()
 export const levelExplanationModalRef = createRef<BottomSheet>()
+export const coachExplanationModalRef = createRef<BottomSheet>()
 
 export const deleteAccountModalRef = createRef<BottomSheet>()

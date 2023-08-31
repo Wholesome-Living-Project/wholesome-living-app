@@ -17,6 +17,11 @@ const Container = styled(Flex)`
   padding: ${SPACING * 4}px;
 `
 
+const MeditationHistoryContainer = styled(Flex)`
+  position: relative;
+  padding: ${SPACING * 4}px;
+`
+
 const Meditation = () => {
   const { saveMeditation, getMeditations } = useMeditate()
   const { getLevels } = useLevels()
@@ -41,7 +46,9 @@ const Meditation = () => {
         <Spacer x={2} />
         <Timer onTimerEnded={onMeditationEnded} />
         <Spacer x={4} />
-        <MeditationHistory />
+        <MeditationHistoryContainer>
+          <MeditationHistory />
+        </MeditationHistoryContainer>
       </Container>
     </PluginScreenLayout>
   )

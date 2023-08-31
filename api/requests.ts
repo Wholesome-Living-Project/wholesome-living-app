@@ -1,5 +1,13 @@
 import { axiosInstance } from './axios'
-import { Configuration, FinanceApi, MeditationApi, ProgressApi, UsersApi, SettingsApi } from './openapi'
+import {
+  Configuration,
+  ElevatorApi,
+  FinanceApi,
+  MeditationApi,
+  ProgressApi,
+  SettingsApi,
+  UsersApi,
+} from './openapi'
 
 const openApiConfig = new Configuration()
 
@@ -9,4 +17,5 @@ export const api = {
   settingsApi: new SettingsApi(openApiConfig, '', axiosInstance),
   financeApi: new FinanceApi(openApiConfig, '', axiosInstance),
   levelApi: new ProgressApi(openApiConfig, '', axiosInstance),
+  elevatorApi: new ElevatorApi(openApiConfig, '', axiosInstance),
 }
