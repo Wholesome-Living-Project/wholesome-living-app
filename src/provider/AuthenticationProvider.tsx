@@ -33,6 +33,7 @@ type AuthenticationType = {
     lastName: string
     dateOfBirth: string
   }) => Promise<UserType | undefined>
+  deleteAccount: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthenticationType>({} as AuthenticationType)
@@ -167,6 +168,20 @@ const useProvideAuth = (): AuthenticationType => {
     }
   }, [currentFirebaseUser?.uid, getUser])
 
+  const deleteAccount = useCallback(async () => {
+    try {
+      await api.userApi.usersPut({
+        firstName: 'anonymous',
+        email: 'anonymous',
+        lastName: 'anonymous',
+        dateOfBirth: '2000-01-01',
+      })
+      await signOutUser()
+    } catch (e) {
+      console.log(e)
+    }
+  }, [signOutUser])
+
   useEffectOnce(() => {
     getInitialUser()
   })
@@ -179,6 +194,7 @@ const useProvideAuth = (): AuthenticationType => {
     signOutUser,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
+    deleteAccount,
   }
 }
 

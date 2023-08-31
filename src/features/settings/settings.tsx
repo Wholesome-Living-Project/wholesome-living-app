@@ -68,9 +68,9 @@ type SettingsType = {
   icon?: IonIconType
 }
 const SETTINGS: SettingsType[] = [
-  { name: 'Personal Information', route: 'personal', icon: 'person-outline' },
+  /*{ name: 'Account', route: 'personal', icon: 'person-outline' },
   { name: 'Privacy', route: 'privacy', icon: 'lock-closed-outline' },
-  { name: 'Security', route: 'security', icon: 'key-outline' },
+  { name: 'Security', route: 'security', icon: 'key-outline' },*/
   { name: 'Academy', route: 'academy', icon: 'school-outline' },
 ]
 export const SettingsScreen = () => {

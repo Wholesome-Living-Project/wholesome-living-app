@@ -77,13 +77,12 @@ const SignupForm = () => {
       })
       Keyboard.dismiss()
 
-      if (!user){
-        Alert.alert("SignUp", "Email is already in use")
+      if (!user) {
+        Alert.alert('SignUp', 'Email is already in use')
       }
-
     } catch (err) {
       console.log(err)
-      Alert.alert("SignUp", "Something went wrong during SignUp")
+      Alert.alert('SignUp', 'Something went wrong during SignUp')
     }
   }, [
     createUserWithEmailAndPassword,
@@ -132,6 +131,7 @@ const SignupForm = () => {
       <Input
         placeholder={'Email'}
         value={email}
+        textContentType={'emailAddress'}
         onChangeText={(text) => {
           setEmail(text)
           if (validateEmail(text))

@@ -10,8 +10,8 @@ export default function Layout() {
       <Stack
         initialRouteName={'(onboarding)'}
         screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}>
-        <Stack.Screen name={'(auth)/welcome'} />
-        <Stack.Screen name={'(onboarding)'} />
+        <Stack.Screen name={'(auth)/welcome'} options={{ gestureEnabled: false }} />
+        <Stack.Screen name={'(onboarding)'} options={{ gestureEnabled: false }} />
         <Stack.Screen name={'root'} options={{ gestureEnabled: false }} />
       </Stack>
       <TimePickerModal title={'Until what time do you want to mediate?'} />
