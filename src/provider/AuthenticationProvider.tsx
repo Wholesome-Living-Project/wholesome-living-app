@@ -8,9 +8,10 @@ import React, {
 } from 'react'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Alert } from 'react-native'
 import { UserUpdateUserRequest, UserUserDB } from '../../api/openapi'
 import { api } from '../../api/requests'
-import { signIn, signOut, signUp } from '../auth/auth'
+import { deleteUserAccount, signIn, signOut, signUp } from '../auth/auth'
 import { useAuth } from '../hooks/useAuth'
 
 export type UserType = { firebaseUID: string } & UserUserDB
@@ -149,9 +150,9 @@ const useProvideAuth = (): AuthenticationType => {
 
   const signOutUser = useCallback(async () => {
     try {
+      await AsyncStorage.removeItem('userData')
       await signOut()
       setUser(null)
-      await AsyncStorage.removeItem('userData')
     } catch (e) {
       /* do nothing as user is probably not logged in */
     } finally {
@@ -193,9 +194,14 @@ const useProvideAuth = (): AuthenticationType => {
         lastName: 'anonymous',
         dateOfBirth: '2000-01-01',
       })
+      await AsyncStorage.removeItem('userData')
+      await deleteUserAccount()
       await signOutUser()
+      Alert.alert('User successfully deleted')
     } catch (e) {
       console.log(e)
+    } finally {
+      await AsyncStorage.removeItem('userData')
     }
   }, [signOutUser, user?.id])
 

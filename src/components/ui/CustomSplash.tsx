@@ -4,8 +4,6 @@ import styled from 'styled-components'
 import { COLORS } from '../../theme/theme'
 import { FadeIn } from './FadeIn'
 
-const SplashImage = styled(FadeIn)``
-
 const StyledImage = styled(Animated.Image)`
   width: 100%;
   height: 100%;
@@ -14,8 +12,8 @@ const StyledImage = styled(Animated.Image)`
 
 export const CustomSplash = () => {
   return (
-    <SplashImage duration={300} background={COLORS.WHITE} justify="center" align="center">
+    <FadeIn duration={300} background={COLORS.WHITE} justify="center" align="center">
       <StyledImage source={require('../../../assets/images/splash.png')} />
-    </SplashImage>
+    </FadeIn>
   )
 }
