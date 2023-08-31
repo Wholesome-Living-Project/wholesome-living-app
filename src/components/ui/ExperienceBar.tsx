@@ -14,7 +14,7 @@ import { Flex } from './Flex'
 type Size = 'small' | 'medium' | 'large'
 
 const ExperienceBackground = styled(Flex)<{ size: Size }>`
-  width: ${(p) => (p.size === 'small' ? 50 : p.size === 'large' ? 100 : 80)}%;
+  width: ${(p) => (p.size === 'small' ? 50 : p.size === 'large' ? 100 : 100)}%;
   height: ${(p) => (p.size === 'small' ? 12 : p.size === 'large' ? 14 : 12)}px;
   background: ${COLORS.BLACK};
   border-radius: ${OUTER_BORDER_RADIUS}px;
@@ -32,7 +32,7 @@ const MaxTag = styled(Caption)<{ size: Size }>`
   margin: 0;
   position: absolute;
   font-size: ${(p) => (p.size === 'small' ? 7 : p.size === 'large' ? 12 : 7)}px;
-  width: ${(p) => (p.size === 'small' ? 50 : p.size === 'large' ? 100 : 80)}%;
+  width: ${(p) => (p.size === 'small' ? 50 : p.size === 'large' ? 100 : 100)}%;
 `
 
 const Container = styled(Flex)<{ size: Size }>`

@@ -48,7 +48,7 @@ const DashboardHeader = () => {
             <FontAwesome name={'bars'} size={22} color={COLORS.BLACK} />
           </TouchableIcon>
           <Logo source={require('../../../assets/images/logo.png')} resizeMode={'contain'} />
-          <TouchableIcon>
+          <TouchableIcon onPress={() => navigation?.navigate('notifications')}>
             <FontAwesome name={'bell'} size={22} color={COLORS.BLACK} />
           </TouchableIcon>
         </Flex>

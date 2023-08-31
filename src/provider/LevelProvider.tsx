@@ -16,6 +16,7 @@ type LevelContentType = {
   getLevels: () => Promise<void>
   currentlyInspectedPlugin?: SettingsPluginName
   setCurrentlyInspectedPlugin: (plugin: SettingsPluginName) => void
+  resetLevelData: () => void
 }
 
 const LevelContext = createContext<LevelContentType>({} as LevelContentType)
@@ -39,6 +40,11 @@ const useProvideLevels = (): LevelContentType => {
     }
   }, [user?.id])
 
+  const resetLevelData = useCallback(async () => {
+    setLevelMap(undefined)
+    setExperienceMap(undefined)
+  }, [])
+
   useEffect(() => {
     getLevels()
   }, [getLevels])
@@ -49,6 +55,7 @@ const useProvideLevels = (): LevelContentType => {
     getLevels,
     currentlyInspectedPlugin,
     setCurrentlyInspectedPlugin,
+    resetLevelData,
   }
 }
 

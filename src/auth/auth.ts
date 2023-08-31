@@ -1,5 +1,6 @@
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   NextOrObserver,
   onAuthStateChanged as onAuthStateChangedFirebase,
   signInWithEmailAndPassword,
@@ -31,10 +32,30 @@ const signUp = async (email: string, password: string) => {
   }
 }
 
+const deleteUserAccount = async () => {
+  try {
+    const user = auth.currentUser
+    if (user) {
+      await deleteUser(user)
+      return { data: undefined, message: 'success' }
+    }
+  } catch (err: any) {
+    return { data: undefined, message: err.message ?? '' }
+  }
+}
+
 const onAuthStateChanged = (callback: NextOrObserver<User>) => {
   return onAuthStateChangedFirebase(auth, callback)
 }
 
 const getCurrentUser = () => auth.currentUser
 
-export { getIsSignedIn, signIn, signUp, signOut, onAuthStateChanged, getCurrentUser }
+export {
+  getIsSignedIn,
+  signIn,
+  signUp,
+  signOut,
+  onAuthStateChanged,
+  getCurrentUser,
+  deleteUserAccount,
+}

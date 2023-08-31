@@ -1,9 +1,11 @@
 import React, { useCallback } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components'
+import { useSplashShowing } from '../../../app/_layout'
 import { signInModalRef } from '../../components/refs/modal-refs'
 import Background from '../../components/ui/Background'
 import Button from '../../components/ui/Button'
+import { CustomSplash } from '../../components/ui/CustomSplash'
 import Spacer from '../../components/ui/Spacer'
 import Landing from '../../components/welcome/Landing'
 import SignInModal from '../../components/welcome/SignInModal'
@@ -21,6 +23,10 @@ function WelcomeScreen() {
   const openSignInModal = useCallback(() => {
     signInModalRef.current?.expand()
   }, [])
+
+  const splashShowing = useSplashShowing()
+
+  if (splashShowing) return <CustomSplash />
 
   return (
     <Background horizontalCenter>

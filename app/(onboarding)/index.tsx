@@ -1,1 +1,1 @@
-export { default } from '../../src/features/onboarding/OnboardingStart'
+export { default } from '../../src/features/onboarding/ChooseCoach'

@@ -11,15 +11,14 @@ const Container = styled(Flex)`
   width: 100%;
 `
 
-const LevelComponent = styled(Flex)`
+const LevelComponent = styled(Flex)<{ currentContainerHeight: number }>`
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: ${OUTER_BORDER_RADIUS}px;
   background: ${COLORS.PRIMARY};
-  border: 4px solid ${COLORS.BLACK};
   right: 40px;
-  top: 115px;
+  top: ${(p) => p.currentContainerHeight / 2.5}px;
   padding: ${SPACING}px;
 `
 
@@ -50,8 +49,8 @@ const Tree = ({
 }: Props) => {
   return (
     <Container style={{ height }} row justify={'center'} align={'center'}>
-      <Image source={levelAssets[level]} style={{ width: 300, height: 300 }} />
-      <LevelComponent>
+      <Image source={levelAssets[level]} style={{ width: height, height }} />
+      <LevelComponent column justify={'center'} align={'center'} currentContainerHeight={height}>
         <Regular color={COLORS.WHITE}>Level {clamp(level + 1, 0, 7)}</Regular>
         <ExperienceBar progress={(100 / experienceToNextLevel) * experience} max={max <= level} />
         {max > level ? (

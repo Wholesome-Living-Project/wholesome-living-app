@@ -68,9 +68,9 @@ type SettingsType = {
   icon?: IonIconType
 }
 const SETTINGS: SettingsType[] = [
-  { name: 'Personal Information', route: 'personal', icon: 'person-outline' },
-  { name: 'Privacy', route: 'privacy', icon: 'lock-closed-outline' },
-  { name: 'Security', route: 'security', icon: 'key-outline' },
+  { name: 'Account', route: 'personal', icon: 'person-outline' },
+  /*{ name: 'Privacy', route: 'privacy', icon: 'lock-closed-outline' },
+  { name: 'Security', route: 'security', icon: 'key-outline' },*/
   { name: 'Academy', route: 'academy', icon: 'school-outline' },
 ]
 export const SettingsScreen = () => {
@@ -94,8 +94,12 @@ export const SettingsScreen = () => {
             name={'Logout'}
             icon={'exit-outline'}
             onPress={async () => {
-              await signOutUser()
-              resetAppData()
+              try {
+                await signOutUser()
+                resetAppData()
+              } catch (e) {
+                console.log(e)
+              }
             }}
           />
         </>

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   ActivityIndicator,
   Image,
@@ -113,6 +113,19 @@ const Chat = () => {
     setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 50)
   }, [keyboardOpen])
 
+  const showContinue = useMemo(() => {
+    if (!messages[0]) return false
+    if (messages.length >= 11) return true
+    if (
+      messages[0].content.toLowerCase().includes('have a good day') ||
+      messages[0].content.toLowerCase().includes('good luck') ||
+      messages[0].content.toLowerCase().includes('best of luck') ||
+      messages[0].content.toLowerCase().includes('happy saving')
+    ) {
+      return true
+    }
+  }, [messages])
+
   if (!messages) return
 
   return (
@@ -166,8 +179,8 @@ const Chat = () => {
             console.log(e)
           }
         }}>
-        {messages.length <= 11 ? (
-          <>
+        <Flex column flex={1}>
+          <Flex row>
             <Input
               value={message}
               onChangeText={(value: string) => setMessage(value)}
@@ -180,12 +193,16 @@ const Chat = () => {
                 <Ionicons name="arrow-up" color={'white'} size={25} />
               </Button>
             </Flex>
-          </>
-        ) : (
-          <Button onPress={onContinue} disabled={loading} fullWidth>
-            {loading ? <ActivityIndicator></ActivityIndicator> : <Text>continue</Text>}
-          </Button>
-        )}
+          </Flex>
+          {showContinue && (
+            <>
+              <Spacer x={2} />
+              <Button onPress={onContinue} disabled={loading} fullWidth>
+                {loading ? <ActivityIndicator></ActivityIndicator> : <Text>continue</Text>}
+              </Button>
+            </>
+          )}
+        </Flex>
       </Footer>
     </Flex>
   )

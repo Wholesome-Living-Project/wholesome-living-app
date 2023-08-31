@@ -66,10 +66,11 @@ const useProvideChat = (): ChatType => {
         'If the user chooses to use the meditation plugin you need to ask him the following questions:\n' +
         '1. How many times does he want to meditate\n' +
         '\n' +
-        ' Guide them through identifying the tiny habit and conditions for nuding and notification. Consider various trackable data for conditions and determine which data the user is willing to share. Summarize and end the conversation by saying you will send a notification when conditions are met. Limit your response to 20 words or less',
+        ' Guide them through identifying the tiny habit and conditions for nudging and notification. Consider various trackable data for conditions and determine which data the user is willing to share. Summarize and end the conversation by saying you will send a notification when conditions are met. Limit your response to 20 words or less',
     },
     {
-      content: "Hi! I'm your Al Coach and I'm here to help you narrow down your goal.",
+      content:
+        "Hi! I'm your Al Coach and I'm here to help you narrow down your goal. What habits do you want to form?\n\nDo you want to keep better track of your finances and save money? Or do you want to improve your life by meditating more?",
       role: 'assistant',
     },
   ])
@@ -99,7 +100,8 @@ const useProvideChat = (): ChatType => {
           ' Guide them through identifying the tiny habit and conditions for nuding and notification. Consider various trackable data for conditions and determine which data the user is willing to share. Summarize and end the conversation by saying you will send a notification when conditions are met. Limit your response to 20 words or less',
       },
       {
-        content: "Hi! I'm your Al Coach and I'm here to help you narrow down your goal.",
+        content:
+          "Hi! I'm your Al Coach and I'm here to help you narrow down your goal.\nWhat habits do you want to form? Do you want to keep better track of your finances and save money? Or do you want to improve your life by meditating more?",
         role: 'assistant',
       },
     ])

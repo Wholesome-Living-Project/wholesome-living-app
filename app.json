@@ -1,9 +1,10 @@
 {
   "expo": {
-    "name": "wholesome-living",
+    "name": "Wholesome Living",
     "slug": "wholesome-living",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "sdkVersion": "47.0.0",
+    "icon": "./icon.png",
     "platforms": [
       "ios",
       "android",

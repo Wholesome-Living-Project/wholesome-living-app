@@ -1,34 +1,27 @@
 import { useCallback } from 'react'
+import { useElevator } from '../provider/ElevatorContentProvider'
+import { useFinance } from '../provider/FinanceContentProvider'
+import { useLevels } from '../provider/LevelProvider'
+import { useMeditate } from '../provider/MeditationContentProvider'
 import { useOnboarding } from '../provider/OnboardingProvider'
 
-const UseDataResetter = () => {
-  const {
-    setCoach,
-    setChosenPlugins,
-    setUserPlugins,
-    setChosenPluginSteps,
-    setFinishedPlugins,
-    setVisitedOnboardingSteps,
-    setRoundUpNumber,
-    setTakeElevatorNotification,
-    setFinanceSaveReminderNotification,
-    setMeditateReminderNotification,
-    setNotificationFrequency,
-    setNotificationPeriod,
-    setSelectedGoalPeriod,
-    setSelectedGoalNumber,
-    setSelectedGoalTime,
-    setSelectedStrategy,
-    setElevatorSettings,
-    setSavingGoal,
-  } = useOnboarding()
+const useDataResetter = () => {
+  const { setChosenPlugins } = useOnboarding()
+  const { resetFinanceData } = useFinance()
+  const { resetLevelData } = useLevels()
+  const { resetMeditationData } = useMeditate()
+  const { resetElevatorData } = useElevator()
 
   // Add data to reset on logout here
   const resetAppData = useCallback(() => {
     setChosenPlugins([])
-  }, [setChosenPlugins])
+    resetFinanceData()
+    resetLevelData()
+    resetMeditationData()
+    resetElevatorData()
+  }, [resetElevatorData, resetFinanceData, resetLevelData, resetMeditationData, setChosenPlugins])
 
   return { resetAppData }
 }
 
-export default UseDataResetter
+export default useDataResetter

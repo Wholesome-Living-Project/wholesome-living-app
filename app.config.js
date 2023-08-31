@@ -4,17 +4,21 @@ export default {
   expo: {
     name: 'Wholesome Living',
     slug: 'wholesome-living',
-    version: '1.0.0',
+    version: '1.0.3',
     scheme: 'wholesome-living',
     platforms: ['ios', 'android'],
     orientation: 'portrait',
-    icon: './assets/images/icon.png',
     splash: {
-      image: './assets/images/splash.png',
+      image: './assets/images/auto-splash.png',
     },
+    icon: './icon.png',
     ios: {
       bundleIdentifier: 'com.wholesome-living',
-      buildNumber: '1.0.0',
+      buildNumber: '1.0.3',
+      icon: './icon.png',
+    },
+    android: {
+      package: 'com.wholesomeliving.app',
     },
     extra: {
       FIREBASE_API_KEY: process.env['FIREBASE_API_KEY'],
