@@ -11,7 +11,7 @@
       "web"
     ],
     "android": {
-      "package": "com.anonymous.wholesomeliving"
+      "package": "com.anonymous.wholesomeliving",
     }
   }
 }
