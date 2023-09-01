@@ -12,6 +12,7 @@
     ],
     "android": {
       "package": "com.anonymous.wholesomeliving",
+      "versionCode": 4
     }
   }
 }

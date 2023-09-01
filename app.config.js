@@ -4,7 +4,7 @@ export default {
   expo: {
     name: 'Wholesome Living',
     slug: 'wholesome-living',
-    version: '1.0.2',
+    version: '1.0.3',
     scheme: 'wholesome-living',
     platforms: ['ios', 'android'],
     orientation: 'portrait',
@@ -19,6 +19,7 @@ export default {
     },
     android: {
       package: 'com.wholesomeliving.app',
+      versionCode: 3,
     },
     extra: {
       FIREBASE_API_KEY: process.env['FIREBASE_API_KEY'],
