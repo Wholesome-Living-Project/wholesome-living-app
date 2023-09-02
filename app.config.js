@@ -19,7 +19,7 @@ export default {
     },
     android: {
       package: 'com.wholesomeliving.app',
-      versionCode: 3,
+      versionCode: 5,
     },
     extra: {
       FIREBASE_API_KEY: process.env['FIREBASE_API_KEY'],

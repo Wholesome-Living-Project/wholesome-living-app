@@ -3,7 +3,7 @@
     "name": "Wholesome Living",
     "slug": "wholesome-living",
     "version": "1.0.2",
-    "sdkVersion": "47.0.0",
+    "sdkVersion": "49.0.0",
     "icon": "./icon.png",
     "platforms": [
       "ios",
@@ -12,7 +12,7 @@
     ],
     "android": {
       "package": "com.anonymous.wholesomeliving",
-      "versionCode": 4
+      "versionCode": 6
     }
   }
 }
