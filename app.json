@@ -10,6 +10,13 @@
       "android",
       "web"
     ],
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "enabled": false,
+      "url": "https://u.expo.dev/475aab41-a2c2-4c33-8ec9-608097d85ec1"
+    },
     "android": {
       "package": "com.anonymous.wholesomeliving",
       "versionCode": 6

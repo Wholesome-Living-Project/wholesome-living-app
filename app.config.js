@@ -12,6 +12,10 @@ export default {
       image: './assets/images/auto-splash.png',
     },
     icon: './icon.png',
+    updates: {
+      enabled: false,
+      url: "https://u.expo.dev/475aab41-a2c2-4c33-8ec9-608097d85ec1"
+    },
     ios: {
       bundleIdentifier: 'com.wholesome-living',
       buildNumber: '1.0.2',
@@ -20,6 +24,9 @@ export default {
     android: {
       package: 'com.wholesomeliving.app',
       versionCode: 5,
+      runtimeVersion: {
+        policy: 'appVersion',
+      },
     },
     extra: {
       FIREBASE_API_KEY: process.env['FIREBASE_API_KEY'],
