@@ -6,7 +6,6 @@
     "@react-native-community/datetimepicker": "7.2.0",
     "@react-native-community/slider": "4.4.2",
     "@react-native-picker/picker": "2.4.10",
-    "@react-navigation/native": "^6.1.6",
     "axelra-react-native-bottom-sheet": "^4.4.6",
     "axelra-react-native-flex": "^0.1.6",
     "axelra-react-native-utilities": "^0.1.3",

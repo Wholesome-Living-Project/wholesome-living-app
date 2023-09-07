@@ -3,12 +3,12 @@ import Constants from 'expo-constants'
 import { Platform } from 'react-native'
 import { getCurrentUser } from '../src/auth/auth'
 
-const { manifest } = Constants
+const { expoConfig } = Constants
 
 let baseURL =
-  Constants.manifest?.extra?.BACKEND_ENV === 'PROD'
+  Constants.expoConfig?.extra?.BACKEND_ENV === 'PROD'
     ? 'https://wholesome-living-backend-production.up.railway.app'
-    : `http://${manifest?.debuggerHost?.split(':').shift()}:8080`
+    : `http://${expoConfig?.hostUri?.split(':').shift()}:8080`
 
 export const axiosInstance = axios.create({
   baseURL,
