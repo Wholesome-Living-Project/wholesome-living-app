@@ -11,8 +11,6 @@
     <key>EXUpdatesSDKVersion</key>
     <string>49.0.0</string>
     <key>EXUpdatesURL</key>
-    <string>https://u.expo.dev/${projectID}</string>
-    <key>EXUpdatesRuntimeVersion</key>
-    <string>${runtimeVersion}</string>
+    <string>https://u.expo.dev/475aab41-a2c2-4c33-8ec9-608097d85ec1</string>
   </dict>
 </plist>
