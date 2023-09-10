@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router'
+import { Redirect, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import PluginBanner from '../../src/components/discover/PluginBanner'
@@ -6,10 +6,17 @@ import LevelModal from '../../src/components/modals/LevelModal'
 import LevelExplanationModal from '../../src/components/modals/LevelsExplanationModal'
 import BackButton from '../../src/components/ui/BackButton'
 import { PLUGINS } from '../../src/helpers/pluginList'
+import { useUser } from '../../src/hooks/useUser'
 import { COLORS } from '../../src/theme/theme'
 
 // layout for customizing mobile navigation
 export default function Layout() {
+  const { user } = useUser()
+
+  if (!user?.firebaseUID) {
+    return <Redirect href={'(auth)/welcome'} />
+  }
+
   return (
     <>
       <Stack

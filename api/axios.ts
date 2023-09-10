@@ -6,9 +6,9 @@ import { getCurrentUser } from '../src/auth/auth'
 const { expoConfig } = Constants
 
 let baseURL =
-  Constants.expoConfig?.extra?.BACKEND_ENV === 'PROD'
-    ? 'https://wholesome-living-backend-production.up.railway.app'
-    : `http://${expoConfig?.hostUri?.split(':').shift()}:8080`
+  expoConfig?.extra?.BACKEND_ENV === 'PROD'
+    ? expoConfig.extra?.BACKEND_URI
+    : `http://localhost:8080`
 
 export const axiosInstance = axios.create({
   baseURL,

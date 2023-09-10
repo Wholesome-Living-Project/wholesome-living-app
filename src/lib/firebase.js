@@ -31,4 +31,4 @@ const auth = getAuth(app)
 // local storage keys
 const UUID_LOCAL_STORAGE_KEY = 'WHOLESOME_LIVING_UUID'
 
-export { auth, UUID_LOCAL_STORAGE_KEY }
+export { UUID_LOCAL_STORAGE_KEY, auth }

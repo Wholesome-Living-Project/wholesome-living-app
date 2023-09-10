@@ -1,3 +1,4 @@
+import { Redirect } from 'expo-router'
 import React, { useCallback } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components'
@@ -10,6 +11,8 @@ import Spacer from '../../components/ui/Spacer'
 import Landing from '../../components/welcome/Landing'
 import SignInModal from '../../components/welcome/SignInModal'
 import SignUpModal from '../../components/welcome/SignUpModal'
+import { useUser } from '../../hooks/useUser'
+import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS } from '../../theme/theme'
 
 const Footer = styled(View)`
@@ -23,10 +26,21 @@ function WelcomeScreen() {
   const openSignInModal = useCallback(() => {
     signInModalRef.current?.expand()
   }, [])
+  const { chosenPlugins, loading } = useOnboarding()
+
+  const { user } = useUser()
 
   const splashShowing = useSplashShowing()
 
   if (splashShowing) return <CustomSplash />
+
+  if (user?.firebaseUID && !loading) {
+    return chosenPlugins.length > 0 ? (
+      <Redirect href={'root'} />
+    ) : (
+      <Redirect href={'(onboarding)'} />
+    )
+  }
 
   return (
     <Background horizontalCenter>

@@ -1,12 +1,23 @@
-import { Stack } from 'expo-router'
+import { Redirect, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import 'react-native-url-polyfill/auto'
 import CoachExplanationModal from '../../src/components/modals/CoachExplanationModal'
 import BackButton from '../../src/components/ui/BackButton'
+import { useUser } from '../../src/hooks/useUser'
+import { useOnboarding } from '../../src/provider/OnboardingProvider'
 import { COLORS } from '../../src/theme/theme'
 
 export default function Layout() {
+  const { user } = useUser()
+  const { chosenPlugins } = useOnboarding()
+
+  if (!user?.firebaseUID) {
+    return <Redirect href={'(auth)/welcome'} />
+  } else if (chosenPlugins.length > 0) {
+    return <Redirect href={'root'} />
+  }
+
   return (
     <>
       <Stack

@@ -14,7 +14,7 @@ export default {
     icon: './icon.png',
     updates: {
       enabled: false,
-      url: "https://u.expo.dev/475aab41-a2c2-4c33-8ec9-608097d85ec1"
+      url: 'https://u.expo.dev/475aab41-a2c2-4c33-8ec9-608097d85ec1',
     },
     ios: {
       bundleIdentifier: 'com.wholesome-living',
@@ -38,6 +38,7 @@ export default {
       GITHUB_ACCESS_TOKEN: process.env['GITHUB_ACCESS_TOKEN'],
       BACKEND_ENV: process.env['BACKEND_ENV'],
       CHATGPT_API_KEY: process.env['CHATGPT_API_KEY'],
+      BACKEND_URI: process.env['BACKEND_URI'],
       eas: {
         projectId: '475aab41-a2c2-4c33-8ec9-608097d85ec1',
       },

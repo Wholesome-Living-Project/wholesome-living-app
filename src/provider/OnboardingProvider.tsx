@@ -210,13 +210,11 @@ const useProvideOnboarding = (): OnboardingType => {
   ])
 
   const getSettings = useCallback(async () => {
-    console.log('gettings settings')
-    setLoading(true)
     if (!user?.id) return
+    setLoading(true)
     try {
       const { data } = await api.settingsApi.settingsGet(user.id)
       if (data) {
-        console.log('got settings', data)
         data.enabledPlugins && setChosenPlugins(data.enabledPlugins)
 
         data.meditation?.meditationTimeGoal &&

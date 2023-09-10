@@ -8,8 +8,6 @@ import {
 } from 'firebase/auth'
 import { auth } from '../lib/firebase'
 
-const getIsSignedIn = () => Boolean(auth.currentUser)
-
 const signOut = () => auth.signOut()
 
 const signIn = async (email: string, password: string) => {
@@ -48,14 +46,8 @@ const onAuthStateChanged = (callback: NextOrObserver<User>) => {
   return onAuthStateChangedFirebase(auth, callback)
 }
 
-const getCurrentUser = () => auth.currentUser
-
-export {
-  getIsSignedIn,
-  signIn,
-  signUp,
-  signOut,
-  onAuthStateChanged,
-  getCurrentUser,
-  deleteUserAccount,
+const getCurrentUser = () => {
+  return auth.currentUser
 }
+
+export { deleteUserAccount, getCurrentUser, onAuthStateChanged, signIn, signOut, signUp }

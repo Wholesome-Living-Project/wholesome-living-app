@@ -1,11 +1,10 @@
-import { Stack } from 'expo-router'
+import { Stack, useSegments } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import React, { createContext, useContext, useMemo, useState } from 'react'
 import 'react-native-url-polyfill/auto'
 import TimePickerModal from '../src/components/dashboard/plugins/TimePickerModal'
 import { CustomSplash } from '../src/components/ui/CustomSplash'
 import { useTimeout } from '../src/hooks/useTimeout'
-import { useUser } from '../src/hooks/useUser'
 import { useAuthentication } from '../src/provider/AuthenticationProvider'
 import { Providers } from '../src/provider/Providers'
 
@@ -20,8 +19,9 @@ const SplashContext = createContext(true)
 export const useSplashShowing = () => useContext(SplashContext)
 
 export default function Layout() {
-  const user = useUser()
   const { loading } = useAuthentication()
+  const segments = useSegments()
+  console.log(segments)
 
   const [minLoadingTime, setMinLoadingTime] = useState(true)
   const { loading: loadingUser } = useAuthentication()
@@ -36,12 +36,16 @@ export default function Layout() {
     <Providers>
       <SplashContext.Provider value={showSplash}>
         {showSplash && <CustomSplash />}
-        <Stack
-          initialRouteName={'(onboarding)'}
-          screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}>
-          <Stack.Screen name={'(auth)/welcome'} options={{ gestureEnabled: false }} />
-          <Stack.Screen name={'(onboarding)'} options={{ gestureEnabled: false }} />
-          <Stack.Screen name={'root'} options={{ gestureEnabled: false }} />
+        <Stack screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}>
+          <Stack.Screen
+            name={'(auth)/welcome'}
+            options={{ gestureEnabled: false, animation: 'fade' }}
+          />
+          <Stack.Screen
+            name={'(onboarding)'}
+            options={{ gestureEnabled: false, animation: 'fade' }}
+          />
+          <Stack.Screen name={'root'} options={{ gestureEnabled: false, animation: 'fade' }} />
         </Stack>
         <TimePickerModal title={'Until what time do you want to mediate?'} />
       </SplashContext.Provider>

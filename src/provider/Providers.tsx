@@ -6,7 +6,6 @@ import { FinanceProvider } from './FinanceContentProvider'
 import { LevelProvider } from './LevelProvider'
 import { MeditationProvider } from './MeditationContentProvider'
 import { OnboardingProvider } from './OnboardingProvider'
-import SafeScreenProvider from './SafeScreenProvider'
 
 export const Providers = ({ children }: PropsWithChildren) => {
   return (
@@ -16,9 +15,7 @@ export const Providers = ({ children }: PropsWithChildren) => {
           <FinanceProvider>
             <LevelProvider>
               <ElevatorProvider>
-                <MeditationProvider>
-                  <SafeScreenProvider>{children}</SafeScreenProvider>
-                </MeditationProvider>
+                <MeditationProvider>{children}</MeditationProvider>
               </ElevatorProvider>
             </LevelProvider>
           </FinanceProvider>
