@@ -8,6 +8,7 @@ import { SettingsPluginName } from '../../../api/openapi'
 import { PLUGINS } from '../../helpers/pluginList'
 import useKeyboard from '../../hooks/useKeyboard'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
+import { useAuthentication } from '../../provider/AuthenticationProvider'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS, SPACING } from '../../theme/theme'
 import Button from '../ui/Button'
@@ -61,6 +62,7 @@ const OnboardingStep = ({
 }: Props) => {
   const { windowHeight } = useWindowDimensions()
   const { chosenPluginSteps } = useOnboarding()
+  const { patchUser } = useAuthentication()
 
   const navigation = useNavigation()
   const segments = useSegments()
@@ -126,12 +128,13 @@ const OnboardingStep = ({
         {canSkip && (
           <NativeButton
             title={'Skip'}
-            onPress={() => {
-              nextStep
-                ? navigation?.navigate(nextStep)
-                : foundNextStep
-                ? navigation?.navigate(foundNextStep)
-                : navigation?.navigate('root')
+            onPress={async () => {
+              if (nextStep) navigation?.navigate(nextStep)
+              else if (foundNextStep) navigation?.navigate(foundNextStep)
+              else {
+                await patchUser({ onboardingDone: true })
+                navigation?.navigate('root')
+              }
             }}
             color={Platform.OS === 'ios' ? alpha(0.2, COLORS.BLACK) : 'grey'}
           />

@@ -1,4 +1,4 @@
-import { Stack, useSegments } from 'expo-router'
+import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import React, { createContext, useContext, useMemo, useState } from 'react'
 import 'react-native-url-polyfill/auto'
@@ -20,8 +20,6 @@ export const useSplashShowing = () => useContext(SplashContext)
 
 export default function Layout() {
   const { loading } = useAuthentication()
-  const segments = useSegments()
-  console.log(segments)
 
   const [minLoadingTime, setMinLoadingTime] = useState(true)
   const { loading: loadingUser } = useAuthentication()

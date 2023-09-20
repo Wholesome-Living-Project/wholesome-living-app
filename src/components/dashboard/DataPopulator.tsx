@@ -203,8 +203,6 @@ const DataPopulator = () => {
     []
   )
 
-  console.log(financeDataArray[0])
-
   const populateSettings = useCallback(async () => {
     if (!user?.id) return
     try {

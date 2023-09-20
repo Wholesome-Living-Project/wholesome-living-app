@@ -13,6 +13,7 @@ import { UserUpdateUserRequest, UserUserDB } from '../../api/openapi'
 import { api } from '../../api/requests'
 import { deleteUserAccount, signIn, signOut, signUp } from '../auth/auth'
 import { useAuth } from '../hooks/useAuth'
+import { useNotifications } from './NotificationProvider'
 
 export type UserType = { firebaseUID: string } & UserUserDB
 type AuthenticationType = {
@@ -52,6 +53,7 @@ const useProvideAuth = (): AuthenticationType => {
   const [loading, setLoading] = useState(false)
   const [user, setUser] = useState<UserType | null>(null)
   const currentFirebaseUser = useAuth()
+  const { expoPushToken } = useNotifications()
 
   const getUser = useCallback(
     async (uid?: string) => {
@@ -109,7 +111,6 @@ const useProvideAuth = (): AuthenticationType => {
     }) => {
       const creds = await signUp(email, password)
 
-      console.log(creds)
       try {
         if (creds.data) {
           await api.userApi.usersPost({
@@ -118,6 +119,7 @@ const useProvideAuth = (): AuthenticationType => {
             lastName,
             dateOfBirth,
             id: creds.data.user.uid,
+            expoPushToken,
           })
           if (creds.data?.user.uid) {
             await AsyncStorage.setItem('userData', creds.data.user.uid)
@@ -145,7 +147,7 @@ const useProvideAuth = (): AuthenticationType => {
 
       return getUser(creds.data?.user.uid)
     },
-    [getUser]
+    [expoPushToken, getUser]
   )
 
   const signOutUser = useCallback(async () => {

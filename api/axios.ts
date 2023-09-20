@@ -8,7 +8,7 @@ const { expoConfig } = Constants
 let baseURL =
   expoConfig?.extra?.BACKEND_ENV === 'PROD'
     ? expoConfig.extra?.BACKEND_URI
-    : `http://localhost:8080`
+    : `http://192.168.8.112:8080`
 
 export const axiosInstance = axios.create({
   baseURL,
@@ -41,7 +41,6 @@ axiosInstance.interceptors.request.use(
 
     const currentUser = getCurrentUser()
 
-    console.log(currentUser)
     if (currentUser?.uid) config.headers.userId = currentUser.uid
 
     return config

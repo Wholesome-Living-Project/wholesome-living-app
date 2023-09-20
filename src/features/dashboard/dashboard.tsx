@@ -10,12 +10,14 @@ import LoadingOverlayContainer from '../../components/dashboard/LoadingOverlayCo
 import PluginCards from '../../components/dashboard/PluginCards'
 import WelcomeHeader from '../../components/dashboard/WelcomeHeader'
 import { levelExplanationModalRef } from '../../components/refs/modal-refs'
+import Button from '../../components/ui/Button'
 import Spacer from '../../components/ui/Spacer'
 import { useWindowDimensions } from '../../hooks/useWindowDimensions'
 import { useAuthentication } from '../../provider/AuthenticationProvider'
 import { useFinance } from '../../provider/FinanceContentProvider'
 import { useLevels } from '../../provider/LevelProvider'
 import { useMeditate } from '../../provider/MeditationContentProvider'
+import { schedulePushNotification } from '../../provider/NotificationProvider'
 import { useOnboarding } from '../../provider/OnboardingProvider'
 import { COLORS } from '../../theme/theme'
 
@@ -76,6 +78,8 @@ export function DashboardScreen() {
           <Spacer x={3} />
           <AcademyBanner />
           <DataPopulator />
+          <Spacer x={2} />
+          <Button onPress={() => schedulePushNotification()}>Send notification</Button>
           <Spacer x={22} />
         </ScrollView>
       </View>

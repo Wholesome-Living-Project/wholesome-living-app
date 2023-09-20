@@ -6,14 +6,14 @@ const localOpenApiPath = `${openapiPath}/swagger.json`
 const localBackendPath = 'http://localhost:8080/swagger/doc.json'
 
 const getCommand = (apiSpecificationPath) => {
-  return `openapi-generator-cli generate -i ${apiSpecificationPath} -g typescript-axios -o ${openapiPath} --additional-properties=withoutPrefixEnums=true`
+  return `openapi-generator-cli generate -i ${apiSpecificationPath} -g typescript-axios -o ${openapiPath} --additional-properties=withoutPrefixEnums=true --skip-validate-spec`
 }
 
 const branchToPull = ''
 
 const mainCommand = getCommand(localOpenApiPath)
 
-const getMainOpenApiSpecificationCommand = `curl -H "Authorization: token ${process.env.GITHUB_ACCESS_TOKEN}" "https://raw.githubusercontent.com/Wholesome-Living-Project/wholesome-living-backend/${branchToPull}/docs/swagger.json" -o ${localOpenApiPath} --create-dirs `
+const getMainOpenApiSpecificationCommand = `curl -H "Authorization: token ${process.env.GITHUB_ACCESS_TOKEN}" "https://raw.githubusercontent.com/Wholesome-Living-Project/wholesome-living-backend/${branchToPull}/docs/swagger.json" -o ${localOpenApiPath} --create-dirs`
 const getLocalOpenApiSpecificationCommand = `curl ${localBackendPath} -o ${localOpenApiPath} --create-dirs`
 
 let errorCount = 0
