@@ -10,6 +10,7 @@ import React, {
 
 import { ElevatorCreateElevatorRequest, ElevatorElevatorDB } from '../../api/openapi'
 import { api } from '../../api/requests'
+import useAccelerometer from '../hooks/useAccelerometer'
 import { useUser } from '../hooks/useUser'
 
 type ElevatorContentType = {
@@ -29,9 +30,10 @@ export const useElevator = () => useContext(ElevatorContext)
 
 const useProvideElevator = (): ElevatorContentType => {
   const [elevatorSessions, setElevatorSessions] = useState<ElevatorElevatorDB[]>(
-    //@ts-ignore
-    []
+    [] as ElevatorElevatorDB[]
   )
+  useAccelerometer()
+
   const { user } = useUser()
 
   const saveElevatorSession = useCallback(

@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import Constants from 'expo-constants'
 import { Platform } from 'react-native'
@@ -39,9 +40,12 @@ axiosInstance.interceptors.request.use(
       config.headers = {}
     }
 
+    const userId = await AsyncStorage.getItem('userData')
+
     const currentUser = getCurrentUser()
 
     if (currentUser?.uid) config.headers.userId = currentUser.uid
+    if (userId && !config.headers.userId) config.headers.userId = userId
 
     return config
   },

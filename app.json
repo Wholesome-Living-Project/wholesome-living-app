@@ -20,6 +20,9 @@
     "android": {
       "package": "com.anonymous.wholesomeliving",
       "versionCode": 6
+    },
+    "ios": {
+      "buildNumber": "1.0.4"
     }
   }
 }
