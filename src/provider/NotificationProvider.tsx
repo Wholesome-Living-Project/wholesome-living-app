@@ -68,6 +68,7 @@ export const NotificationProvider = ({ children }: PropsWithChildren) => {
   )
 }
 
+// Example on how to schedule a notification directly from the frontend. This is not used in the app and is done in the backend instead.
 export async function schedulePushNotification() {
   await Notifications.scheduleNotificationAsync({
     content: {
