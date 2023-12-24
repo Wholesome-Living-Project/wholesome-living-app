@@ -33,7 +33,7 @@ const useAccelerometer = () => {
       subscription && subscription.remove()
       setSubscription(undefined)
     }
-  }, [])
+  }, [subscription])
 
   /*  useEffect(() => {
     /!*saveElevatorSession({heightGain: z})*!/
